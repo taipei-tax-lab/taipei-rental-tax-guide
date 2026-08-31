@@ -146,3 +146,83 @@ df-messenger:hover {
     display: none !important;
   }
 }
+
+/* =========================================================
+   Responsive Messenger and compact tenant services
+   ========================================================= */
+df-messenger {
+  bottom: max(14px, env(safe-area-inset-bottom));
+  right: max(14px, env(safe-area-inset-right));
+  --df-messenger-chat-window-width: min(430px, calc(100vw - 32px));
+  --df-messenger-chat-window-height: min(680px, calc(100dvh - 124px));
+}
+
+.contact-bar {
+  display: none !important;
+}
+
+.tenant-primary-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.tenant-more {
+  margin-top: 14px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: #fffefbf7;
+  overflow: hidden;
+}
+
+.tenant-more > summary {
+  color: var(--teal);
+  cursor: pointer;
+  list-style: none;
+  padding: 15px 18px;
+  font-size: 16px;
+  font-weight: 900;
+}
+
+.tenant-more > summary::-webkit-details-marker {
+  display: none;
+}
+
+.tenant-more > summary::after {
+  content: "＋";
+  float: right;
+  font-size: 20px;
+  line-height: 1.2;
+}
+
+.tenant-more[open] > summary {
+  border-bottom: 1px solid var(--line);
+}
+
+.tenant-more[open] > summary::after {
+  content: "−";
+}
+
+.tenant-secondary-grid {
+  padding: 14px;
+}
+
+@media (max-width: 1140px) {
+  .tenant-primary-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  df-messenger {
+    --df-messenger-chat-window-width: calc(100vw - 28px);
+    --df-messenger-chat-window-height: min(680px, calc(100dvh - 96px));
+  }
+
+  .tenant-primary-grid,
+  .tenant-secondary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tenant-secondary-grid {
+    padding: 12px;
+  }
+}
