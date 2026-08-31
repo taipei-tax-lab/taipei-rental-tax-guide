@@ -129,6 +129,18 @@ df-messenger:hover {
   }
 }
 
+@media (max-height: 800px) {
+  df-messenger {
+    --df-messenger-chat-window-height: 500px;
+  }
+}
+
+@media (max-height: 680px) {
+  df-messenger {
+    --df-messenger-chat-window-height: 440px;
+  }
+}
+
 @media print {
   df-messenger {
     display: none !important;
