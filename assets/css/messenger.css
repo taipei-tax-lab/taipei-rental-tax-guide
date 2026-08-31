@@ -1,0 +1,320 @@
+/* =========================================================
+   Dialogflow CX Messenger
+   視覺主題、響應式尺寸與空白狀態提示卡
+   ========================================================= */
+
+df-messenger {
+  z-index: 9999;
+  position: fixed;
+  bottom: max(14px, env(safe-area-inset-bottom));
+  right: max(14px, env(safe-area-inset-right));
+
+  /* 整體字體 */
+  --df-messenger-font-family: "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+  --df-messenger-font-size: 15px;
+  --df-messenger-font-color: var(--ink);
+
+  /* 主色 */
+  --df-messenger-primary-color: var(--teal);
+  --df-messenger-focus-color: var(--orange);
+  --df-messenger-focus-color-contrast: #ffffff;
+
+  /* 整個聊天視窗 */
+  --df-messenger-chat-background: #f8f5ee;
+  --df-messenger-chat-border: 1px solid rgba(17, 73, 79, 0.16);
+  --df-messenger-chat-border-radius: 22px;
+  --df-messenger-chat-window-width: min(430px, calc(100vw - 32px));
+  --df-messenger-chat-window-height: min(680px, calc(100dvh - 124px));
+  --df-messenger-chat-window-offset: 18px;
+  --df-messenger-chat-window-box-shadow: 0 18px 50px rgba(13, 57, 63, 0.24);
+  --df-messenger-chat-padding: 16px;
+
+  /* 訊息清單 */
+  --df-messenger-messagelist-border: none;
+  --df-messenger-message-border: none;
+  --df-messenger-message-font-family: "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+  --df-messenger-message-font-size: 15px;
+  --df-messenger-message-font-weight: 400;
+  --df-messenger-message-spacing: 12px;
+  --df-messenger-message-border-radius: 15px;
+
+  /* 機器人訊息 */
+  --df-messenger-message-bot-background: #fffefb;
+  --df-messenger-message-bot-font-color: var(--ink);
+  --df-messenger-message-bot-font-weight: 400;
+  --df-messenger-message-bot-border: 1px solid rgba(17, 73, 79, 0.1);
+
+  /* 使用者訊息 */
+  --df-messenger-message-user-background: var(--blue);
+  --df-messenger-message-user-font-color: var(--ink);
+  --df-messenger-message-user-font-weight: 500;
+  --df-messenger-message-user-border: 1px solid rgba(12, 104, 109, 0.1);
+
+  /* 標題列 */
+  --df-messenger-titlebar-background: var(--teal-dark);
+  --df-messenger-titlebar-font-color: #ffffff;
+  --df-messenger-titlebar-padding: 14px 16px;
+  --df-messenger-titlebar-border: none;
+  --df-messenger-titlebar-border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  --df-messenger-titlebar-title-align: start;
+  --df-messenger-titlebar-title-font-family: "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+  --df-messenger-titlebar-title-font-size: 18px;
+  --df-messenger-titlebar-title-font-weight: 900;
+  --df-messenger-titlebar-subtitle-font-size: 13px;
+  --df-messenger-titlebar-subtitle-font-weight: 500;
+  --df-messenger-titlebar-subtitle-font-color: rgba(255, 255, 255, 0.82);
+
+  /* 輸入區 */
+  --df-messenger-input-background: #ffffff;
+  --df-messenger-input-padding: 14px;
+  --df-messenger-input-inner-padding: 14px 56px 14px 16px;
+
+  /* 送出圖示 */
+  --df-messenger-send-icon-color: var(--teal);
+  --df-messenger-send-icon-color-hover: var(--teal-dark);
+  --df-messenger-send-icon-color-active: var(--teal-dark);
+  --df-messenger-send-icon-offset-x: 0;
+  --df-messenger-send-icon-offset-y: 0;
+
+  /* 右下角按鈕 */
+  --df-messenger-chat-bubble-background: var(--teal);
+  --df-messenger-chat-bubble-size: 62px;
+  --df-messenger-chat-bubble-icon-size: 30px;
+  --df-messenger-chat-bubble-icon-color: #ffffff;
+  --df-messenger-chat-bubble-border-radius: 50%;
+  --df-messenger-chat-bubble-border: 1px solid rgba(255, 255, 255, 0.55);
+
+  /* 滾到最底按鈕 */
+  --df-messenger-chat-scroll-button-enabled-display: flex;
+  --df-messenger-chat-scroll-button-align: center;
+  --df-messenger-chat-scroll-button-container-padding: 8px;
+  --df-messenger-chat-scroll-button-font-size: 13px;
+  --df-messenger-chat-scroll-button-font-color: #ffffff;
+  --df-messenger-chat-scroll-button-background: var(--teal);
+  --df-messenger-chat-scroll-button-border-radius: 999px;
+}
+
+df-messenger:hover {
+  --df-messenger-chat-bubble-background: var(--teal-dark);
+}
+
+/*
+   空白狀態提示卡
+   這是前端的視覺導覽，不是 Dialogflow CX 的第一則訊息。
+   由 messenger-ui.js 在聊天視窗開啟且尚未送出查詢時顯示。
+*/
+.messenger-empty-state {
+  position: fixed;
+  z-index: 10000;
+  right: calc(max(14px, env(safe-area-inset-right)) + 12px);
+  bottom: calc(max(14px, env(safe-area-inset-bottom)) + 62px + 18px + 106px);
+  width: min(366px, calc(100vw - 48px));
+  padding: 18px 18px 16px;
+  border: 1px solid rgba(12, 104, 109, 0.18);
+  border-radius: 20px;
+  background:
+    radial-gradient(circle at 92% 0%, rgba(223, 124, 70, 0.14), transparent 36%),
+    linear-gradient(145deg, rgba(255, 255, 251, 0.98), rgba(239, 247, 243, 0.97));
+  color: var(--ink);
+  box-shadow: 0 16px 34px rgba(13, 57, 63, 0.2);
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px) scale(0.98);
+  transform-origin: right bottom;
+  transition: opacity 180ms ease, transform 180ms ease, visibility 180ms ease;
+}
+
+.messenger-empty-state.is-visible {
+  pointer-events: auto;
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+.messenger-empty-state[hidden] {
+  display: none;
+}
+
+.messenger-empty-state__header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.messenger-empty-state__icon {
+  flex: 0 0 42px;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  background: var(--teal);
+  color: #ffffff;
+  box-shadow: 0 8px 18px rgba(12, 104, 109, 0.2);
+}
+
+.messenger-empty-state__icon svg {
+  width: 23px;
+  height: 23px;
+}
+
+.messenger-empty-state__eyebrow {
+  display: block;
+  color: var(--teal);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  line-height: 1.4;
+}
+
+.messenger-empty-state h2 {
+  margin: 2px 0 4px;
+  color: var(--ink);
+  font-size: 18px;
+  line-height: 1.35;
+}
+
+.messenger-empty-state__description {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.messenger-topic-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 16px 0 13px;
+}
+
+.messenger-topic {
+  min-width: 0;
+  padding: 9px 10px;
+  border: 1px solid rgba(12, 104, 109, 0.2);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.76);
+  color: var(--teal-dark);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.35;
+  text-align: left;
+  transition: border-color 160ms ease, background 160ms ease, transform 160ms ease;
+}
+
+.messenger-topic:hover {
+  border-color: var(--teal);
+  background: #ffffff;
+  transform: translateY(-1px);
+}
+
+.messenger-topic:focus-visible {
+  outline: 3px solid rgba(223, 124, 70, 0.42);
+  outline-offset: 2px;
+}
+
+.messenger-empty-state__notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  margin: 0;
+  padding-top: 11px;
+  border-top: 1px solid rgba(17, 73, 79, 0.12);
+  color: #557078;
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.messenger-empty-state__notice svg {
+  flex: none;
+  width: 15px;
+  height: 15px;
+  margin-top: 1px;
+  color: var(--orange);
+}
+
+@media (max-width: 840px) {
+  df-messenger {
+    --df-messenger-chat-window-width: 390px;
+    --df-messenger-chat-window-height: 620px;
+  }
+}
+
+@media (max-height: 800px) {
+  df-messenger {
+    --df-messenger-chat-window-height: 500px;
+  }
+}
+
+@media (max-height: 680px) {
+  df-messenger {
+    --df-messenger-chat-window-height: 440px;
+  }
+}
+
+@media (max-width: 560px) {
+  df-messenger {
+    --df-messenger-chat-bubble-size: 56px;
+    --df-messenger-chat-bubble-icon-size: 28px;
+    --df-messenger-chat-window-width: calc(100vw - 28px);
+    --df-messenger-chat-window-height: min(680px, calc(100dvh - 96px));
+  }
+
+  .messenger-empty-state {
+    right: 28px;
+    bottom: calc(max(14px, env(safe-area-inset-bottom)) + 56px + 18px + 92px);
+    width: calc(100vw - 56px);
+    padding: 16px;
+    border-radius: 18px;
+  }
+
+  .messenger-empty-state__icon {
+    flex-basis: 38px;
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+  }
+
+  .messenger-empty-state h2 {
+    font-size: 16px;
+  }
+
+  .messenger-topic-list {
+    gap: 7px;
+    margin-top: 13px;
+  }
+
+  .messenger-topic {
+    padding: 8px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 380px) {
+  .messenger-empty-state {
+    right: 22px;
+    width: calc(100vw - 44px);
+    padding: 14px;
+  }
+
+  .messenger-empty-state__header {
+    gap: 9px;
+  }
+
+  .messenger-empty-state__description {
+    font-size: 12px;
+  }
+
+  .messenger-topic-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media print {
+  df-messenger,
+  .messenger-empty-state {
+    display: none !important;
+  }
+}

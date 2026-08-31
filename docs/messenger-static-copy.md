@@ -1,8 +1,8 @@
-# Messenger 靜態提示文案
+# Messenger 開場文案參考
 
-這份文件集中管理聊天視窗第一次開啟時適合顯示的固定內容。實際訊息應在 Dialogflow CX 設定，不由前端直接插入 Messenger 內部訊息列表。
+這份文件保留作為日後若要設計 Dialogflow CX 開場訊息的參考，不是目前網站介面的必要設定。現在的聊天視窗以 `index.html` 的前端空白狀態提示卡提供視覺導覽，不會在視窗開啟時自動送出或顯示一則 CX 訊息。
 
-## 建議的第一則訊息
+## 可選的第一則訊息
 
 ```text
 您好，我是出租房屋租稅小幫手，可以協助您查詢臺北市出租房屋相關租稅優惠與房客服務。
@@ -19,7 +19,7 @@
 例如可以輸入：「我想查中央租金補貼的申請資格。」
 ```
 
-## 建議的快速問題
+## 可選的快速問題
 
 若要提供按鈕或建議問題，可規劃以下文字：
 
@@ -28,18 +28,18 @@
 - 我想查申請流程
 - 我是房客，想查租屋服務
 
-按鈕是否採用、以及對應哪個 intent 或 route，請在 Dialogflow CX 內依目前 Agent 設計決定。
+若未來要把快速問題做成 CX 訊息選項，按鈕是否採用、以及對應哪個 intent 或 route，請在 Dialogflow CX 內依目前 Agent 設計決定。目前網站空白狀態卡的四個主題，是由前端透過 Messenger 官方 `sendQuery` 方法送出查詢。
 
-## 前端現有提示
+## 目前前端介面提示
 
-前端 Messenger 已保留兩種元件層級提示：
+前端 Messenger 保留兩種元件層級提示：
 
 - 輸入框提示：`請輸入您的問題，例如：公益出租人有何租稅優惠？`
 - 回覆等待文字：`小幫手整理資訊中…`
 
-這兩項屬於 Messenger HTML 屬性；第一則歡迎訊息則應由 CX 的 Start Page／Entry fulfillment 提供。
+這兩項屬於 Messenger HTML 屬性；空白狀態提示卡則由 `assets/css/messenger.css`、`assets/js/messenger-ui.js` 與 `index.html` 負責。第一則歡迎訊息若要啟用，才需要另外由 CX 的 Start Page／Entry fulfillment 提供。
 
-## Dialogflow CX 設定步驟
+## 若日後要啟用 CX 開場訊息
 
 1. 開啟目前使用的「出租房屋租稅優惠測試」Agent。
 2. 進入目前對外使用的 Flow，開啟 Start Page。

@@ -5,14 +5,18 @@
 ## 維護結構
 
 - `index.html`：GitHub Pages 的網站入口；載入區與 Messenger 設定已整理，主要頁面內容仍保留為建置快照。
-- `assets/css/site.css`：網站主要樣式與 Dialogflow Messenger 的可讀 CSS 設定。
-- `assets/js/site-enhancements.js`：房客服務收合、聯絡列移除與 Messenger 響應式尺寸調整。
+- `assets/css/site.css`：網站主要樣式；房客服務收合樣式也集中於此。
+- `assets/css/messenger.css`：Dialogflow Messenger 的視覺主題、響應式設定與空白狀態提示卡樣式。
+- `assets/js/site-enhancements.js`：房客服務收合與聯絡列移除。
+- `assets/js/messenger-ui.js`：Messenger 尺寸調整、開關狀態、空白狀態提示卡及快捷查詢。
 - `docs/`：操作說明與文案規劃文件。
 - `_next/`：原始建置工具產出的執行檔與雜湊資產；除非重新建置，請不要直接修改或改名。
 
-### Dialogflow Messenger 靜態提示
+### Dialogflow Messenger 介面提示
 
-聊天視窗的歡迎詞、服務範圍、個資提醒及建議問題，請依 `docs/messenger-static-copy.md` 的內容，在 Dialogflow CX 的 Start Page／Entry fulfillment 中設定。前端只保留 Messenger 元件的版面、輸入提示及等待文字，不直接修改元件內部訊息 DOM。
+聊天視窗開啟且尚未開始對話時，前端會顯示 `index.html` 中的空白狀態提示卡，提供常見主題、服務邊界與個資提醒；這不是 Dialogflow CX 的第一則訊息。使用者自行輸入或點選主題後，提示卡會隱藏並把空間留給正式對話。
+
+Messenger 的版面及空白狀態規格請見 `docs/messenger-ui-spec.md`。若日後要規劃 CX 的開場訊息，`docs/messenger-static-copy.md` 僅作為可選文案參考，不是網站正常運作的必要設定。
 
 ## 部署方式
 

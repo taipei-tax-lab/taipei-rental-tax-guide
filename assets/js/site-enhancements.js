@@ -9,15 +9,6 @@
     "房屋租賃法律諮詢"
   ];
 
-  var MESSENGER_LIMITS = {
-    maxWidth: 430,
-    maxHeight: 680,
-    minWidth: 280,
-    minHeight: 320,
-    horizontalMargin: 32,
-    verticalMargin: 124
-  };
-
   function findTenantSection() {
     var section = document.querySelector("#tenant-services");
     return {
@@ -99,84 +90,19 @@
     tenant.section.dataset.tenantCompacted = "true";
   }
 
-  function getViewportSize() {
-    var viewport = window.visualViewport;
-
-    return {
-      width: viewport ? viewport.width : window.innerWidth,
-      height: viewport ? viewport.height : window.innerHeight
-    };
-  }
-
-  function resizeMessenger() {
-    var messenger = document.querySelector("df-messenger");
-    var bubble =
-      messenger && messenger.querySelector("df-messenger-chat-bubble");
-
-    if (!messenger || !bubble) {
-      return;
-    }
-
-    var viewport = getViewportSize();
-    var chatWidth = Math.min(
-      MESSENGER_LIMITS.maxWidth,
-      Math.max(
-        MESSENGER_LIMITS.minWidth,
-        viewport.width - MESSENGER_LIMITS.horizontalMargin
-      )
-    );
-    var chatHeight = Math.min(
-      MESSENGER_LIMITS.maxHeight,
-      Math.max(
-        MESSENGER_LIMITS.minHeight,
-        viewport.height - MESSENGER_LIMITS.verticalMargin
-      )
-    );
-    var widthValue = String(Math.round(chatWidth));
-    var heightValue = String(Math.round(chatHeight));
-
-    messenger.style.setProperty(
-      "--df-messenger-chat-window-width",
-      widthValue + "px"
-    );
-    messenger.style.setProperty(
-      "--df-messenger-chat-window-height",
-      heightValue + "px"
-    );
-
-    if (bubble.getAttribute("chat-width") !== widthValue) {
-      bubble.setAttribute("chat-width", widthValue);
-    }
-    if (bubble.getAttribute("chat-height") !== heightValue) {
-      bubble.setAttribute("chat-height", heightValue);
-    }
-  }
-
   function removeContactBars() {
     document.querySelectorAll(".contact-bar").forEach(function (contactBar) {
       contactBar.remove();
     });
   }
 
-  function bindMessengerResize() {
-    window.addEventListener("resize", resizeMessenger, { passive: true });
-
-    if (window.visualViewport) {
-      window.visualViewport.addEventListener("resize", resizeMessenger, {
-        passive: true
-      });
-    }
-  }
-
   function initialize() {
     compactTenantServices();
     removeContactBars();
-    resizeMessenger();
-    bindMessengerResize();
   }
 
   // The generated page hydrates after this script tag; wait briefly so the
-  // original tenant cards and Messenger child element are both available.
+  // original tenant cards are available.
   function initializeAfterHydration() {
     window.setTimeout(initialize, 100);
   }
