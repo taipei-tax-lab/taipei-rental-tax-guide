@@ -23,6 +23,45 @@
     error: "assistant-error"
   };
 
+  var ASSISTANT_COPY = {
+    idle: {
+      eyebrow: "臺北市稅捐稽徵處",
+      title: "出租房屋租稅小幫手",
+      description: "有出租房屋租稅、出租方案或申請流程問題，都可以直接問我。",
+      status: "等待您的問題"
+    },
+    welcome: {
+      eyebrow: "歡迎使用",
+      title: "您好，我來協助您",
+      description: "可以直接輸入問題，也可以從右側常見主題開始查詢。",
+      status: "準備為您服務"
+    },
+    thinking: {
+      eyebrow: "資訊整理中",
+      title: "正在整理相關資訊",
+      description: "我正在依您的問題查找並整理相關租稅與申請資訊。",
+      status: "查詢與整理中…"
+    },
+    responding: {
+      eyebrow: "回答已準備完成",
+      title: "已為您整理好回答",
+      description: "請查看右側回覆；如果還有不清楚的地方，可以繼續追問。",
+      status: "回答已送達"
+    },
+    guiding: {
+      eyebrow: "快速引導",
+      title: "已收到您選擇的主題",
+      description: "我會以這個主題為起點，整理相關資訊給您。",
+      status: "正在帶入主題…"
+    },
+    error: {
+      eyebrow: "暫時無法完成",
+      title: "這次查詢沒有順利完成",
+      description: "請稍後再試一次，或重新輸入您的問題。",
+      status: "請重新嘗試"
+    }
+  };
+
   var ASSISTANT_TIMING = {
     welcome: 1500,
     responding: 1250,
@@ -55,9 +94,13 @@
       '  </picture>',
       '</div>',
       '<div class="assistant-panel__content">',
-      '  <span class="assistant-panel__eyebrow">臺北市稅捐稽徵處</span>',
-      '  <h2>出租房屋租稅小幫手</h2>',
-      '  <p>有出租房屋租稅、出租方案或申請流程問題，都可以直接問我。</p>',
+      '  <span class="assistant-panel__eyebrow" data-assistant-eyebrow>臺北市稅捐稽徵處</span>',
+      '  <h2 data-assistant-title>出租房屋租稅小幫手</h2>',
+      '  <p data-assistant-description>有出租房屋租稅、出租方案或申請流程問題，都可以直接問我。</p>',
+      '  <div class="assistant-panel__status" role="status" aria-live="polite" aria-atomic="true">',
+      '    <span class="assistant-panel__status-dot" aria-hidden="true"></span>',
+      '    <span data-assistant-status>等待您的問題</span>',
+      '  </div>',
       '  <p class="assistant-panel__notice">',
       '    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">',
       '      <path d="M12 3 2.8 20h18.4z"></path>',
@@ -85,10 +128,17 @@
         ".assistant-panel__eyebrow{display:block;color:var(--teal);font-size:12px;font-weight:900;letter-spacing:.06em;line-height:1.4}",
         ".assistant-panel__content h2{margin:3px 0 8px;color:var(--teal-dark);font-size:19px;line-height:1.35}",
         ".assistant-panel__content>p:not(.assistant-panel__notice){margin:0;color:var(--ink-soft);font-size:14px;line-height:1.65}",
-        ".assistant-panel__notice{display:flex;align-items:flex-start;gap:8px;margin:14px 0 0;padding:11px 12px;border-radius:12px;background:rgba(223,124,70,.1);color:#557078;font-size:11px;line-height:1.55}",
+        ".assistant-panel__status{display:flex;align-items:center;gap:8px;margin:13px 0 0;padding:9px 11px;border:1px solid rgba(12,104,109,.12);border-radius:11px;background:rgba(239,247,243,.82);color:var(--teal-dark);font-size:12px;font-weight:800;line-height:1.4}",
+        ".assistant-panel__status-dot{flex:none;width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px rgba(12,104,109,.1)}",
+        ".assistant-panel[data-state=thinking] .assistant-panel__status-dot,.assistant-panel[data-state=guiding] .assistant-panel__status-dot{animation:assistant-status-pulse 1.15s ease-in-out infinite}",
+        ".assistant-panel[data-state=responding] .assistant-panel__status-dot{background:#36845f;box-shadow:0 0 0 4px rgba(54,132,95,.1)}",
+        ".assistant-panel[data-state=error] .assistant-panel__status{border-color:rgba(223,124,70,.18);background:rgba(223,124,70,.08);color:#8a4e2c}",
+        ".assistant-panel[data-state=error] .assistant-panel__status-dot{background:var(--orange);box-shadow:0 0 0 4px rgba(223,124,70,.12)}",
+        ".assistant-panel__notice{display:flex;align-items:flex-start;gap:8px;margin:12px 0 0;padding:11px 12px;border-radius:12px;background:rgba(223,124,70,.1);color:#557078;font-size:11px;line-height:1.55}",
         ".assistant-panel__notice svg{flex:none;width:16px;height:16px;margin-top:1px;color:var(--orange)}",
         "df-messenger.assistant-panel-attached{--df-messenger-chat-border-radius:0 22px 22px 0;--df-messenger-chat-window-box-shadow:14px 18px 50px rgba(13,57,63,.18)}",
-        "@media (prefers-reduced-motion:reduce){.assistant-panel__character img{transition:none}}",
+        "@keyframes assistant-status-pulse{0%,100%{opacity:.55;transform:scale(.9)}50%{opacity:1;transform:scale(1.12)}}",
+        "@media (prefers-reduced-motion:reduce){.assistant-panel__character img{transition:none}.assistant-panel__status-dot{animation:none!important}}",
         "@media print{.assistant-panel{display:none!important}}"
       ].join("");
       document.head.appendChild(style);
@@ -139,6 +189,32 @@
     });
   }
 
+  function updateAssistantCopy(panel, state) {
+    var copy = ASSISTANT_COPY[state];
+
+    if (!panel || !copy) {
+      return;
+    }
+
+    var eyebrow = panel.querySelector("[data-assistant-eyebrow]");
+    var title = panel.querySelector("[data-assistant-title]");
+    var description = panel.querySelector("[data-assistant-description]");
+    var status = panel.querySelector("[data-assistant-status]");
+
+    if (eyebrow) {
+      eyebrow.textContent = copy.eyebrow;
+    }
+    if (title) {
+      title.textContent = copy.title;
+    }
+    if (description) {
+      description.textContent = copy.description;
+    }
+    if (status) {
+      status.textContent = copy.status;
+    }
+  }
+
   function setAssistantState(state) {
     if (!Object.prototype.hasOwnProperty.call(ASSISTANT_STATES, state)) {
       return;
@@ -146,7 +222,13 @@
 
     var panel = document.querySelector(".assistant-panel");
 
-    if (!panel || panel.dataset.state === state) {
+    if (!panel) {
+      return;
+    }
+
+    updateAssistantCopy(panel, state);
+
+    if (panel.dataset.state === state) {
       return;
     }
 
@@ -176,9 +258,36 @@
     }, ASSISTANT_TIMING.imageSwap);
   }
 
+  function resetAssistantState() {
+    clearAssistantStateTimer();
+    guidingUntil = 0;
+    assistantSwapToken += 1;
+
+    var panel = document.querySelector(".assistant-panel");
+
+    if (!panel) {
+      return;
+    }
+
+    var source = panel.querySelector("[data-assistant-source]");
+    var image = panel.querySelector("[data-assistant-image]");
+
+    panel.dataset.state = "idle";
+    panel.classList.remove("is-changing");
+    updateAssistantCopy(panel, "idle");
+
+    if (source) {
+      source.srcset = assistantAssetPath("idle", "webp");
+    }
+    if (image) {
+      image.src = assistantAssetPath("idle", "png");
+    }
+  }
+
   function scheduleAssistantIdle(delay) {
     clearAssistantStateTimer();
     assistantStateTimer = window.setTimeout(function () {
+      assistantStateTimer = null;
       setAssistantState("idle");
     }, delay);
   }
@@ -199,6 +308,7 @@
     if (remainingGuidingTime > 0) {
       clearAssistantStateTimer();
       assistantStateTimer = window.setTimeout(function () {
+        assistantStateTimer = null;
         guidingUntil = 0;
         setAssistantState("thinking");
       }, remainingGuidingTime);
@@ -367,8 +477,7 @@
       if (chatIsOpen) {
         showTemporaryAssistantState("welcome", ASSISTANT_TIMING.welcome);
       } else {
-        guidingUntil = 0;
-        setAssistantState("idle");
+        resetAssistantState();
       }
     });
 
@@ -473,6 +582,7 @@
     }
 
     preloadAssistantStates();
+    resetAssistantState();
     resizeMessenger();
     positionEmptyState();
     updateAssistantPanel();
