@@ -64,6 +64,7 @@
 
   var ASSISTANT_TIMING = {
     welcome: 1500,
+    thinkingMinimum: 1100,
     responding: 1250,
     error: 1900,
     guidingMinimum: 650,
@@ -74,6 +75,7 @@
   var assistantStateTimer = null;
   var assistantSwapToken = 0;
   var guidingUntil = 0;
+  var thinkingUntil = 0;
 
   function ensureAssistantPanel() {
     if (document.querySelector(".assistant-panel")) {
@@ -124,6 +126,10 @@
         ".assistant-panel__character picture,.assistant-panel__character img{display:block;width:100%;height:100%}",
         ".assistant-panel__character img{object-fit:contain;object-position:center bottom;opacity:1;transform:translateY(0) scale(1);transition:opacity 140ms ease,transform 180ms ease}",
         ".assistant-panel.is-changing .assistant-panel__character img{opacity:.2;transform:translateY(2px) scale(.995)}",
+        ".assistant-panel[data-state=thinking] .assistant-panel__character img{animation:assistant-thinking-motion 900ms ease-in-out infinite}",
+        ".assistant-panel[data-state=guiding] .assistant-panel__character img{animation:assistant-guiding-motion 720ms ease-in-out infinite}",
+        ".assistant-panel[data-state=responding] .assistant-panel__character img{animation:assistant-responding-motion 760ms ease-in-out infinite}",
+        ".assistant-panel[data-state=error] .assistant-panel__character img{animation:assistant-error-motion 1000ms ease-in-out infinite}",
         ".assistant-panel__content{flex:none;padding:18px 20px 20px;border-top:1px solid rgba(17,73,79,.12);background:rgba(255,254,251,.96)}",
         ".assistant-panel__eyebrow{display:block;color:var(--teal);font-size:12px;font-weight:900;letter-spacing:.06em;line-height:1.4}",
         ".assistant-panel__content h2{margin:3px 0 8px;color:var(--teal-dark);font-size:19px;line-height:1.35}",
@@ -138,7 +144,11 @@
         ".assistant-panel__notice svg{flex:none;width:16px;height:16px;margin-top:1px;color:var(--orange)}",
         "df-messenger.assistant-panel-attached{--df-messenger-chat-border-radius:0 22px 22px 0;--df-messenger-chat-window-box-shadow:14px 18px 50px rgba(13,57,63,.18)}",
         "@keyframes assistant-status-pulse{0%,100%{opacity:.55;transform:scale(.9)}50%{opacity:1;transform:scale(1.12)}}",
-        "@media (prefers-reduced-motion:reduce){.assistant-panel__character img{transition:none}.assistant-panel__status-dot{animation:none!important}}",
+        "@keyframes assistant-thinking-motion{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-5px) rotate(-.4deg)}}",
+        "@keyframes assistant-guiding-motion{0%,100%{transform:translate(0,0) rotate(0deg)}50%{transform:translate(2px,-4px) rotate(.35deg)}}",
+        "@keyframes assistant-responding-motion{0%,100%{transform:translateY(1px) rotate(-.2deg)}50%{transform:translateY(-5px) rotate(.35deg)}}",
+        "@keyframes assistant-error-motion{0%,100%{transform:translateY(-2px) rotate(-.6deg)}50%{transform:translateY(4px) rotate(.6deg)}}",
+        "@media (prefers-reduced-motion:reduce){.assistant-panel__character img{animation:none!important;transition:none}.assistant-panel__status-dot{animation:none!important}}",
         "@media print{.assistant-panel{display:none!important}}"
       ].join("");
       document.head.appendChild(style);
@@ -236,6 +246,7 @@
   function resetAssistantState() {
     clearAssistantStateTimer();
     guidingUntil = 0;
+    thinkingUntil = 0;
     assistantSwapToken += 1;
 
     var panel = document.querySelector(".assistant-panel");
@@ -270,17 +281,39 @@
 
   function beginThinking() {
     var remainingGuidingTime = guidingUntil - Date.now();
+
+    function startThinking() {
+      guidingUntil = 0;
+      thinkingUntil = Date.now() + ASSISTANT_TIMING.thinkingMinimum;
+      setAssistantState("thinking");
+    }
+
     if (remainingGuidingTime > 0) {
       clearAssistantStateTimer();
       assistantStateTimer = window.setTimeout(function () {
         assistantStateTimer = null;
-        guidingUntil = 0;
-        setAssistantState("thinking");
+        startThinking();
       }, remainingGuidingTime);
       return;
     }
-    guidingUntil = 0;
-    setAssistantState("thinking");
+    startThinking();
+  }
+
+  function showStateAfterThinking(state, duration) {
+    var remainingThinkingTime = thinkingUntil - Date.now();
+
+    function showNextState() {
+      assistantStateTimer = null;
+      thinkingUntil = 0;
+      showTemporaryAssistantState(state, duration);
+    }
+
+    if (remainingThinkingTime > 0) {
+      clearAssistantStateTimer();
+      assistantStateTimer = window.setTimeout(showNextState, remainingThinkingTime);
+      return;
+    }
+    showNextState();
   }
 
   function resizeMessenger() {
@@ -361,11 +394,11 @@
     document.addEventListener("df-request-sent", beginThinking);
     document.addEventListener("df-response-received", function () {
       guidingUntil = 0;
-      showTemporaryAssistantState("responding", ASSISTANT_TIMING.responding);
+      showStateAfterThinking("responding", ASSISTANT_TIMING.responding);
     });
     document.addEventListener("df-messenger-error", function () {
       guidingUntil = 0;
-      showTemporaryAssistantState("error", ASSISTANT_TIMING.error);
+      showStateAfterThinking("error", ASSISTANT_TIMING.error);
     });
     elements.assistantPanel.dataset.eventsBound = "true";
   }
