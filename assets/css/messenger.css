@@ -77,12 +77,12 @@ df-messenger {
   --df-messenger-send-icon-offset-y: 0;
 
   /* 右下角按鈕 */
-  --df-messenger-chat-bubble-background: var(--teal);
-  --df-messenger-chat-bubble-size: 62px;
-  --df-messenger-chat-bubble-icon-size: 30px;
-  --df-messenger-chat-bubble-icon-color: #ffffff;
+  --df-messenger-chat-bubble-background: transparent;
+  --df-messenger-chat-bubble-size: 84px;
+  --df-messenger-chat-bubble-icon-size: 150px;
+  --df-messenger-chat-bubble-icon-color: transparent;
   --df-messenger-chat-bubble-border-radius: 50%;
-  --df-messenger-chat-bubble-border: 1px solid rgba(255, 255, 255, 0.55);
+  --df-messenger-chat-bubble-border: none;
 
   /* 滾到最底按鈕 */
   --df-messenger-chat-scroll-button-enabled-display: flex;
@@ -95,7 +95,7 @@ df-messenger {
 }
 
 df-messenger:hover {
-  --df-messenger-chat-bubble-background: var(--teal-dark);
+  --df-messenger-chat-bubble-background: transparent;
 }
 
 /*
@@ -256,8 +256,8 @@ df-messenger:hover {
 
 @media (max-width: 560px) {
   df-messenger {
-    --df-messenger-chat-bubble-size: 56px;
-    --df-messenger-chat-bubble-icon-size: 28px;
+    --df-messenger-chat-bubble-size: 72px;
+    --df-messenger-chat-bubble-icon-size: 132px;
     --df-messenger-chat-window-width: calc(100vw - 28px);
     --df-messenger-chat-window-height: min(680px, calc(100dvh - 96px));
   }

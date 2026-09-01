@@ -4,6 +4,7 @@
     "width": 400,
     "height": 656
   },
+  "chatBubble": "assistant-chat-bubble.png",
   "states": {
     "idle": {
       "png": "assistant-idle.png",

@@ -24,6 +24,7 @@
   };
 
   var ASSISTANT_ASSET_VERSION = "assistant-motion-20260901-r2";
+  var ASSISTANT_CHAT_BUBBLE_ICON = "./assets/images/assistant/assistant-chat-bubble.png?v=assistant-chat-button-20260901";
 
   var ASSISTANT_COPY = {
     idle: {
@@ -180,6 +181,38 @@
       window.clearTimeout(assistantStateTimer);
       assistantStateTimer = null;
     }
+  }
+
+  function customizeChatBubbleIcon(bubble) {
+    if (!bubble || !bubble.shadowRoot) return;
+
+    var icon = bubble.shadowRoot.querySelector(".bubble .icon");
+    if (!icon) return;
+
+    var image = icon.querySelector("[data-assistant-chat-bubble-icon]");
+    if (!image) {
+      icon.textContent = "";
+      image = document.createElement("img");
+      image.setAttribute("data-assistant-chat-bubble-icon", "true");
+      image.setAttribute("alt", "");
+      image.setAttribute("aria-hidden", "true");
+      icon.appendChild(image);
+    }
+
+    if (image.getAttribute("src") !== ASSISTANT_CHAT_BUBBLE_ICON) {
+      image.setAttribute("src", ASSISTANT_CHAT_BUBBLE_ICON);
+    }
+  }
+
+  function bindChatBubbleIcon(bubble) {
+    if (!bubble || !bubble.shadowRoot || bubble.dataset.assistantIconBound === "true") return;
+
+    customizeChatBubbleIcon(bubble);
+    var observer = new MutationObserver(function () {
+      customizeChatBubbleIcon(bubble);
+    });
+    observer.observe(bubble.shadowRoot, { childList: true, subtree: true });
+    bubble.dataset.assistantIconBound = "true";
   }
 
   function assistantAssetPath(state, extension) {
@@ -446,6 +479,7 @@
     var elements = getMessengerElements();
     if (!elements.messenger || !elements.bubble) return;
     preloadAssistantStates();
+    bindChatBubbleIcon(elements.bubble);
     resetAssistantState();
     resizeMessenger();
     positionEmptyState();
