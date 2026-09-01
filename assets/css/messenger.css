@@ -25,7 +25,8 @@ df-messenger {
   --df-messenger-chat-border-radius: 22px;
   --df-messenger-chat-window-width: min(430px, calc(100vw - 32px));
   --df-messenger-chat-window-height: min(680px, calc(100dvh - 124px));
-  --df-messenger-chat-window-offset: 18px;
+  /* Move the native chat window down to align its input bar with the assistant panel. */
+  --df-messenger-chat-window-offset: -21px;
   --df-messenger-chat-window-box-shadow: 0 18px 50px rgba(13, 57, 63, 0.24);
   --df-messenger-chat-padding: 16px;
 
@@ -80,7 +81,8 @@ df-messenger {
   --df-messenger-chat-bubble-background: transparent;
   --df-messenger-chat-bubble-size: 84px;
   --df-messenger-chat-bubble-icon-size: 150px;
-  --df-messenger-chat-bubble-icon-color: transparent;
+  --df-messenger-chat-bubble-icon-color: #ffffff;
+  --df-messenger-chat-bubble-close-icon-transform-rotate: 0deg;
   --df-messenger-chat-bubble-border-radius: 50%;
   --df-messenger-chat-bubble-border: none;
 

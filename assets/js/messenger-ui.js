@@ -24,7 +24,8 @@
   };
 
   var ASSISTANT_ASSET_VERSION = "assistant-motion-20260901-r2";
-  var ASSISTANT_CHAT_BUBBLE_ICON = "./assets/images/assistant/assistant-chat-bubble.png?v=assistant-chat-button-20260901";
+  var ASSISTANT_CHAT_BUBBLE_ICON = "./assets/images/assistant/assistant-chat-bubble.png?v=assistant-chat-button-20260902-r1";
+  var ASSISTANT_PANEL_WINDOW_OFFSET = 18;
 
   var ASSISTANT_COPY = {
     idle: {
@@ -185,6 +186,18 @@
 
   function customizeChatBubbleIcon(bubble) {
     if (!bubble || !bubble.shadowRoot) return;
+
+    if (!bubble.shadowRoot.querySelector("[data-assistant-chat-bubble-styles]")) {
+      var style = document.createElement("style");
+      style.setAttribute("data-assistant-chat-bubble-styles", "true");
+      style.textContent = [
+        ".bubble .close-icon{z-index:2}",
+        ".bubble .close-icon svg{fill:#ffffff!important}",
+        ".bubble[aria-expanded=\"true\"]{background:var(--df-messenger-primary-color,#0c686d)!important}",
+        ".bubble[aria-expanded=\"false\"]{background:transparent!important}"
+      ].join("");
+      bubble.shadowRoot.appendChild(style);
+    }
 
     var icon = bubble.shadowRoot.querySelector(".bubble .icon");
     if (!icon) return;
@@ -364,7 +377,7 @@
     var right = parseFloat(messengerStyle.right) || 14;
     var bottom = parseFloat(messengerStyle.bottom) || 14;
     var bubbleSize = getCssPixels(elements.messenger, "--df-messenger-chat-bubble-size", 62);
-    var windowOffset = getCssPixels(elements.messenger, "--df-messenger-chat-window-offset", 18);
+    var windowOffset = ASSISTANT_PANEL_WINDOW_OFFSET;
     elements.emptyState.style.right = Math.max(22, right + 12) + "px";
     elements.emptyState.style.bottom = Math.max(14, bottom) + bubbleSize + windowOffset + 106 + "px";
   }
@@ -393,7 +406,7 @@
     var chatWidth = getCssPixels(elements.messenger, "--df-messenger-chat-window-width", MESSENGER_LIMITS.maxWidth);
     var chatHeight = getCssPixels(elements.messenger, "--df-messenger-chat-window-height", MESSENGER_LIMITS.maxHeight);
     var bubbleSize = getCssPixels(elements.messenger, "--df-messenger-chat-bubble-size", 62);
-    var windowOffset = getCssPixels(elements.messenger, "--df-messenger-chat-window-offset", 18);
+    var windowOffset = ASSISTANT_PANEL_WINDOW_OFFSET;
     var isVisible = chatIsOpen && canShowAssistantPanel(viewport, chatWidth, right);
     elements.assistantPanel.style.right = right + chatWidth - MESSENGER_LIMITS.assistantPanelOverlap + "px";
     elements.assistantPanel.style.bottom = Math.max(14, bottom) + bubbleSize + windowOffset + "px";
