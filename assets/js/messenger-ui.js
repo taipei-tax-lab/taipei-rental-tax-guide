@@ -24,7 +24,7 @@
   };
 
   var ASSISTANT_ASSET_VERSION = "assistant-motion-20260901-r2";
-  var ASSISTANT_CHAT_BUBBLE_ICON = "./assets/images/assistant/assistant-chat-bubble.png?v=assistant-chat-button-20260902-r1";
+  var ASSISTANT_CHAT_BUBBLE_ICON = "./assets/images/assistant/assistant-chat-bubble.png?v=assistant-chat-button-20260902-r3";
   var ASSISTANT_PANEL_WINDOW_OFFSET = 18;
 
   var ASSISTANT_COPY = {
@@ -191,10 +191,11 @@
       var style = document.createElement("style");
       style.setAttribute("data-assistant-chat-bubble-styles", "true");
       style.textContent = [
-        ".bubble .close-icon{z-index:2}",
         ".bubble .close-icon svg{fill:#ffffff!important}",
         ".bubble[aria-expanded=\"true\"]{background:var(--df-messenger-primary-color,#0c686d)!important}",
-        ".bubble[aria-expanded=\"false\"]{background:transparent!important}"
+        ".bubble[aria-expanded=\"true\"]{bottom:-39px}",
+        ".bubble[aria-expanded=\"false\"]{background:transparent!important}",
+        ".bubble[aria-expanded=\"false\"]{bottom:0}"
       ].join("");
       bubble.shadowRoot.appendChild(style);
     }
