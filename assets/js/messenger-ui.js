@@ -88,10 +88,7 @@
     panel.hidden = true;
     panel.innerHTML = [
       '<div class="assistant-panel__character">',
-      '  <picture>',
-      '    <source data-assistant-source srcset="./assets/images/assistant/assistant-idle.webp" type="image/webp">',
-      '    <img data-assistant-image src="./assets/images/assistant/assistant-idle.png" alt="出租房屋租稅小幫手角色" width="400" height="656">',
-      '  </picture>',
+      '  <img data-assistant-image src="./assets/images/assistant/assistant-idle.png" alt="出租房屋租稅小幫手角色" width="400" height="656">',
       '</div>',
       '<div class="assistant-panel__content">',
       '  <span class="assistant-panel__eyebrow" data-assistant-eyebrow>臺北市稅捐稽徵處</span>',
@@ -121,8 +118,7 @@
         ".assistant-panel.is-visible{visibility:visible}",
         ".assistant-panel[hidden]{display:none}",
         ".assistant-panel__character{flex:1 1 auto;min-height:0;padding:18px 24px 0;overflow:hidden;background:radial-gradient(circle at 50% 42%,rgba(255,255,255,.92),transparent 54%),linear-gradient(160deg,rgba(239,247,243,.94),rgba(238,226,202,.75))}",
-        ".assistant-panel__character picture,.assistant-panel__character img{display:block;width:100%;height:100%}",
-        ".assistant-panel__character img{object-fit:contain;object-position:center bottom;opacity:1;transform:translateY(0) scale(1);transition:opacity 140ms ease,transform 180ms ease}",
+        ".assistant-panel__character img{display:block;width:100%;height:100%;object-fit:contain;object-position:center bottom;opacity:1;transform:translateY(0) scale(1);transition:opacity 140ms ease,transform 180ms ease}",
         ".assistant-panel.is-changing .assistant-panel__character img{opacity:.2;transform:translateY(2px) scale(.995)}",
         ".assistant-panel__content{flex:none;padding:18px 20px 20px;border-top:1px solid rgba(17,73,79,.12);background:rgba(255,254,251,.96)}",
         ".assistant-panel__eyebrow{display:block;color:var(--teal);font-size:12px;font-weight:900;letter-spacing:.06em;line-height:1.4}",
@@ -178,14 +174,14 @@
     }
   }
 
-  function assistantAssetPath(state, extension) {
-    return "./assets/images/assistant/" + ASSISTANT_STATES[state] + "." + extension;
+  function assistantAssetPath(state) {
+    return "./assets/images/assistant/" + ASSISTANT_STATES[state] + ".png";
   }
 
   function preloadAssistantStates() {
     Object.keys(ASSISTANT_STATES).forEach(function (state) {
       var image = new Image();
-      image.src = assistantAssetPath(state, "webp");
+      image.src = assistantAssetPath(state);
     });
   }
 
@@ -201,59 +197,32 @@
     var description = panel.querySelector("[data-assistant-description]");
     var status = panel.querySelector("[data-assistant-status]");
 
-    if (eyebrow) {
-      eyebrow.textContent = copy.eyebrow;
-    }
-    if (title) {
-      title.textContent = copy.title;
-    }
-    if (description) {
-      description.textContent = copy.description;
-    }
-    if (status) {
-      status.textContent = copy.status;
-    }
+    if (eyebrow) eyebrow.textContent = copy.eyebrow;
+    if (title) title.textContent = copy.title;
+    if (description) description.textContent = copy.description;
+    if (status) status.textContent = copy.status;
   }
 
   function setAssistantState(state) {
-    if (!Object.prototype.hasOwnProperty.call(ASSISTANT_STATES, state)) {
-      return;
-    }
+    if (!Object.prototype.hasOwnProperty.call(ASSISTANT_STATES, state)) return;
 
     var panel = document.querySelector(".assistant-panel");
-
-    if (!panel) {
-      return;
-    }
+    if (!panel) return;
 
     updateAssistantCopy(panel, state);
-
-    if (panel.dataset.state === state) {
-      return;
-    }
+    if (panel.dataset.state === state) return;
 
     clearAssistantStateTimer();
     assistantSwapToken += 1;
-
     var token = assistantSwapToken;
-    var source = panel.querySelector("[data-assistant-source]");
     var image = panel.querySelector("[data-assistant-image]");
 
     panel.dataset.state = state;
     panel.classList.add("is-changing");
 
     window.setTimeout(function () {
-      if (token !== assistantSwapToken) {
-        return;
-      }
-
-      if (source) {
-        source.srcset = assistantAssetPath(state, "webp");
-      }
-      if (image) {
-        image.src = assistantAssetPath(state, "png");
-      }
-
+      if (token !== assistantSwapToken) return;
+      if (image) image.src = assistantAssetPath(state);
       panel.classList.remove("is-changing");
     }, ASSISTANT_TIMING.imageSwap);
   }
@@ -264,24 +233,13 @@
     assistantSwapToken += 1;
 
     var panel = document.querySelector(".assistant-panel");
+    if (!panel) return;
 
-    if (!panel) {
-      return;
-    }
-
-    var source = panel.querySelector("[data-assistant-source]");
     var image = panel.querySelector("[data-assistant-image]");
-
     panel.dataset.state = "idle";
     panel.classList.remove("is-changing");
     updateAssistantCopy(panel, "idle");
-
-    if (source) {
-      source.srcset = assistantAssetPath("idle", "webp");
-    }
-    if (image) {
-      image.src = assistantAssetPath("idle", "png");
-    }
+    if (image) image.src = assistantAssetPath("idle");
   }
 
   function scheduleAssistantIdle(delay) {
@@ -304,7 +262,6 @@
 
   function beginThinking() {
     var remainingGuidingTime = guidingUntil - Date.now();
-
     if (remainingGuidingTime > 0) {
       clearAssistantStateTimer();
       assistantStateTimer = window.setTimeout(function () {
@@ -314,221 +271,113 @@
       }, remainingGuidingTime);
       return;
     }
-
     guidingUntil = 0;
     setAssistantState("thinking");
   }
 
   function resizeMessenger() {
     var elements = getMessengerElements();
-
-    if (!elements.messenger || !elements.bubble) {
-      return;
-    }
-
+    if (!elements.messenger || !elements.bubble) return;
     var viewport = getViewportSize();
-    var chatWidth = Math.min(
-      MESSENGER_LIMITS.maxWidth,
-      Math.max(
-        MESSENGER_LIMITS.minWidth,
-        viewport.width - MESSENGER_LIMITS.horizontalMargin
-      )
-    );
-    var chatHeight = Math.min(
-      MESSENGER_LIMITS.maxHeight,
-      Math.max(
-        MESSENGER_LIMITS.minHeight,
-        viewport.height - MESSENGER_LIMITS.verticalMargin
-      )
-    );
+    var chatWidth = Math.min(MESSENGER_LIMITS.maxWidth, Math.max(MESSENGER_LIMITS.minWidth, viewport.width - MESSENGER_LIMITS.horizontalMargin));
+    var chatHeight = Math.min(MESSENGER_LIMITS.maxHeight, Math.max(MESSENGER_LIMITS.minHeight, viewport.height - MESSENGER_LIMITS.verticalMargin));
     var widthValue = String(Math.round(chatWidth));
     var heightValue = String(Math.round(chatHeight));
-
-    elements.messenger.style.setProperty(
-      "--df-messenger-chat-window-width",
-      widthValue + "px"
-    );
-    elements.messenger.style.setProperty(
-      "--df-messenger-chat-window-height",
-      heightValue + "px"
-    );
-
-    if (elements.bubble.getAttribute("chat-width") !== widthValue) {
-      elements.bubble.setAttribute("chat-width", widthValue);
-    }
-    if (elements.bubble.getAttribute("chat-height") !== heightValue) {
-      elements.bubble.setAttribute("chat-height", heightValue);
-    }
+    elements.messenger.style.setProperty("--df-messenger-chat-window-width", widthValue + "px");
+    elements.messenger.style.setProperty("--df-messenger-chat-window-height", heightValue + "px");
+    if (elements.bubble.getAttribute("chat-width") !== widthValue) elements.bubble.setAttribute("chat-width", widthValue);
+    if (elements.bubble.getAttribute("chat-height") !== heightValue) elements.bubble.setAttribute("chat-height", heightValue);
   }
 
   function positionEmptyState() {
     var elements = getMessengerElements();
-
-    if (!elements.messenger || !elements.emptyState) {
-      return;
-    }
-
+    if (!elements.messenger || !elements.emptyState) return;
     var messengerStyle = getComputedStyle(elements.messenger);
     var right = parseFloat(messengerStyle.right) || 14;
     var bottom = parseFloat(messengerStyle.bottom) || 14;
-    var bubbleSize = getCssPixels(
-      elements.messenger,
-      "--df-messenger-chat-bubble-size",
-      62
-    );
-    var windowOffset = getCssPixels(
-      elements.messenger,
-      "--df-messenger-chat-window-offset",
-      18
-    );
-
+    var bubbleSize = getCssPixels(elements.messenger, "--df-messenger-chat-bubble-size", 62);
+    var windowOffset = getCssPixels(elements.messenger, "--df-messenger-chat-window-offset", 18);
     elements.emptyState.style.right = Math.max(22, right + 12) + "px";
-    elements.emptyState.style.bottom =
-      Math.max(14, bottom) + bubbleSize + windowOffset + 106 + "px";
+    elements.emptyState.style.bottom = Math.max(14, bottom) + bubbleSize + windowOffset + 106 + "px";
   }
 
   function canShowAssistantPanel(viewport, chatWidth, right) {
-    var requiredWidth = right + chatWidth +
-      MESSENGER_LIMITS.assistantPanelWidth -
-      MESSENGER_LIMITS.assistantPanelOverlap +
-      MESSENGER_LIMITS.assistantPanelLeftMargin;
-
-    return viewport.width >= MESSENGER_LIMITS.assistantPanelMinViewport &&
-      viewport.width >= requiredWidth;
+    var requiredWidth = right + chatWidth + MESSENGER_LIMITS.assistantPanelWidth - MESSENGER_LIMITS.assistantPanelOverlap + MESSENGER_LIMITS.assistantPanelLeftMargin;
+    return viewport.width >= MESSENGER_LIMITS.assistantPanelMinViewport && viewport.width >= requiredWidth;
   }
 
   function setAssistantPanelVisible(elements, isVisible) {
     var panel = elements.assistantPanel;
-
-    if (!panel) {
-      return;
-    }
-
+    if (!panel) return;
     panel.hidden = !isVisible;
     panel.classList.toggle("is-visible", isVisible);
     panel.setAttribute("aria-hidden", String(!isVisible));
-
-    if (elements.messenger) {
-      elements.messenger.classList.toggle("assistant-panel-attached", isVisible);
-    }
+    if (elements.messenger) elements.messenger.classList.toggle("assistant-panel-attached", isVisible);
   }
 
   function updateAssistantPanel() {
     var elements = getMessengerElements();
-
-    if (!elements.messenger || !elements.assistantPanel) {
-      return;
-    }
-
+    if (!elements.messenger || !elements.assistantPanel) return;
     var viewport = getViewportSize();
     var messengerStyle = getComputedStyle(elements.messenger);
     var right = parseFloat(messengerStyle.right) || 14;
     var bottom = parseFloat(messengerStyle.bottom) || 14;
-    var chatWidth = getCssPixels(
-      elements.messenger,
-      "--df-messenger-chat-window-width",
-      MESSENGER_LIMITS.maxWidth
-    );
-    var chatHeight = getCssPixels(
-      elements.messenger,
-      "--df-messenger-chat-window-height",
-      MESSENGER_LIMITS.maxHeight
-    );
-    var bubbleSize = getCssPixels(
-      elements.messenger,
-      "--df-messenger-chat-bubble-size",
-      62
-    );
-    var windowOffset = getCssPixels(
-      elements.messenger,
-      "--df-messenger-chat-window-offset",
-      18
-    );
+    var chatWidth = getCssPixels(elements.messenger, "--df-messenger-chat-window-width", MESSENGER_LIMITS.maxWidth);
+    var chatHeight = getCssPixels(elements.messenger, "--df-messenger-chat-window-height", MESSENGER_LIMITS.maxHeight);
+    var bubbleSize = getCssPixels(elements.messenger, "--df-messenger-chat-bubble-size", 62);
+    var windowOffset = getCssPixels(elements.messenger, "--df-messenger-chat-window-offset", 18);
     var isVisible = chatIsOpen && canShowAssistantPanel(viewport, chatWidth, right);
-
-    elements.assistantPanel.style.right =
-      right + chatWidth - MESSENGER_LIMITS.assistantPanelOverlap + "px";
-    elements.assistantPanel.style.bottom =
-      Math.max(14, bottom) + bubbleSize + windowOffset + "px";
+    elements.assistantPanel.style.right = right + chatWidth - MESSENGER_LIMITS.assistantPanelOverlap + "px";
+    elements.assistantPanel.style.bottom = Math.max(14, bottom) + bubbleSize + windowOffset + "px";
     elements.assistantPanel.style.height = Math.round(chatHeight) + "px";
     setAssistantPanelVisible(elements, isVisible);
   }
 
   function setEmptyStateVisible(emptyState, isVisible) {
-    if (!emptyState) {
-      return;
-    }
-
+    if (!emptyState) return;
     emptyState.hidden = !isVisible;
     emptyState.classList.toggle("is-visible", isVisible);
     emptyState.setAttribute("aria-hidden", String(!isVisible));
   }
 
   function bindAssistantEvents(elements) {
-    if (!elements.assistantPanel || elements.assistantPanel.dataset.eventsBound === "true") {
-      return;
-    }
-
+    if (!elements.assistantPanel || elements.assistantPanel.dataset.eventsBound === "true") return;
     document.addEventListener("df-chat-open-changed", function (event) {
       var detail = event.detail || {};
       chatIsOpen = detail.isOpen === true;
       updateAssistantPanel();
-
-      if (chatIsOpen) {
-        showTemporaryAssistantState("welcome", ASSISTANT_TIMING.welcome);
-      } else {
-        resetAssistantState();
-      }
+      if (chatIsOpen) showTemporaryAssistantState("welcome", ASSISTANT_TIMING.welcome);
+      else resetAssistantState();
     });
-
     document.addEventListener("df-user-input-entered", beginThinking);
     document.addEventListener("df-request-sent", beginThinking);
-
     document.addEventListener("df-response-received", function () {
       guidingUntil = 0;
       showTemporaryAssistantState("responding", ASSISTANT_TIMING.responding);
     });
-
     document.addEventListener("df-messenger-error", function () {
       guidingUntil = 0;
       showTemporaryAssistantState("error", ASSISTANT_TIMING.error);
     });
-
     elements.assistantPanel.dataset.eventsBound = "true";
   }
 
   function bindEmptyState(elements) {
-    if (!elements.emptyState || elements.emptyState.dataset.bound === "true") {
-      return;
-    }
-
+    if (!elements.emptyState || elements.emptyState.dataset.bound === "true") return;
     var conversationStarted = false;
-
     function hideEmptyState() {
       conversationStarted = true;
       setEmptyStateVisible(elements.emptyState, false);
     }
-
     function handleChatOpenChanged(event) {
       var detail = event.detail || {};
-      var isOpen = detail.isOpen === true;
-
-      setEmptyStateVisible(
-        elements.emptyState,
-        isOpen && !conversationStarted
-      );
+      setEmptyStateVisible(elements.emptyState, detail.isOpen === true && !conversationStarted);
     }
-
     function handleTopicClick(event) {
       var query = event.currentTarget.getAttribute("data-messenger-query");
-
-      if (!query) {
-        return;
-      }
-
+      if (!query) return;
       hideEmptyState();
       beginGuiding();
-
       if (typeof elements.messenger.sendQuery === "function") {
         Promise.resolve(elements.messenger.sendQuery(query)).catch(function () {
           guidingUntil = 0;
@@ -536,51 +385,31 @@
         });
       }
     }
-
-    [
-      "df-user-input-entered",
-      "df-request-sent",
-      "df-response-received"
-    ].forEach(function (eventName) {
+    ["df-user-input-entered", "df-request-sent", "df-response-received"].forEach(function (eventName) {
       document.addEventListener(eventName, hideEmptyState);
     });
-
     document.addEventListener("df-chat-open-changed", handleChatOpenChanged);
-
-    elements.emptyState
-      .querySelectorAll("[data-messenger-query]")
-      .forEach(function (topic) {
-        topic.addEventListener("click", handleTopicClick);
-      });
-
+    elements.emptyState.querySelectorAll("[data-messenger-query]").forEach(function (topic) {
+      topic.addEventListener("click", handleTopicClick);
+    });
     elements.emptyState.dataset.bound = "true";
   }
 
   function bindMessengerResize() {
     window.addEventListener("resize", function () {
-      resizeMessenger();
-      positionEmptyState();
-      updateAssistantPanel();
+      resizeMessenger(); positionEmptyState(); updateAssistantPanel();
     }, { passive: true });
-
     if (window.visualViewport) {
       window.visualViewport.addEventListener("resize", function () {
-        resizeMessenger();
-        positionEmptyState();
-        updateAssistantPanel();
+        resizeMessenger(); positionEmptyState(); updateAssistantPanel();
       }, { passive: true });
     }
   }
 
   function initialize() {
     ensureAssistantPanel();
-
     var elements = getMessengerElements();
-
-    if (!elements.messenger || !elements.bubble) {
-      return;
-    }
-
+    if (!elements.messenger || !elements.bubble) return;
     preloadAssistantStates();
     resetAssistantState();
     resizeMessenger();
@@ -591,13 +420,7 @@
     bindMessengerResize();
   }
 
-  function initializeAfterHydration() {
-    window.setTimeout(initialize, 100);
-  }
-
-  if (document.readyState === "complete") {
-    initializeAfterHydration();
-  } else {
-    window.addEventListener("load", initializeAfterHydration, { once: true });
-  }
+  function initializeAfterHydration() { window.setTimeout(initialize, 100); }
+  if (document.readyState === "complete") initializeAfterHydration();
+  else window.addEventListener("load", initializeAfterHydration, { once: true });
 })();
