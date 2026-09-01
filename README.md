@@ -8,15 +8,24 @@
 - `assets/css/site.css`：網站主要樣式；房客服務收合樣式也集中於此。
 - `assets/css/messenger.css`：Dialogflow Messenger 的視覺主題、響應式設定與空白狀態提示卡樣式。
 - `assets/js/site-enhancements.js`：房客服務收合與聯絡列移除。
-- `assets/js/messenger-ui.js`：Messenger 尺寸調整、開關狀態、空白狀態提示卡及快捷查詢。
-- `docs/`：操作說明與文案規劃文件。
+- `assets/js/messenger-ui.js`：Messenger 尺寸調整、空白狀態、快捷查詢，以及 Assistant Panel 的顯示、六狀態與角色動畫控制。
+- `docs/`：Dialogflow CX 操作、對話體驗規劃與其他專案說明文件。
 - `_next/`：原始建置工具產出的執行檔與雜湊資產；除非重新建置，請不要直接修改或改名。
+
+## 專案文件
+
+目前主要 Dialogflow CX 文件如下：
+
+- [`docs/dialogflow-cx-chat-experience-plan.md`](docs/dialogflow-cx-chat-experience-plan.md)：對話框體驗提升、前端與 Google Cloud 分工、後續改善方向與開發優先順序。
+- [`docs/dialogflow-cx-operation-guide.md`](docs/dialogflow-cx-operation-guide.md)：Dialogflow CX 的操作、維護、安全邊界與修改後驗證原則。
+
+進行新的 Dialogflow CX、Messenger 或 RAG 調整前，建議先閱讀上述文件，再確認目前 `main` 與實際 GitHub Pages 狀態，避免重複修改或破壞既有可運作版本。
 
 ### Dialogflow Messenger 介面提示
 
-聊天視窗開啟且尚未開始對話時，前端會顯示 `index.html` 中的空白狀態提示卡，提供常見主題、服務邊界與個資提醒；這不是 Dialogflow CX 的第一則訊息。使用者自行輸入或點選主題後，提示卡會隱藏並把空間留給正式對話。
+聊天視窗開啟且尚未開始對話時，前端會顯示空白狀態提示卡與 Assistant Panel；使用者自行輸入或點選主題後，介面會依對話狀態更新並把主要空間留給正式對話。
 
-Messenger 的版面及空白狀態規格請見 `docs/messenger-ui-spec.md`。若日後要規劃 CX 的開場訊息，`docs/messenger-static-copy.md` 僅作為可選文案參考，不是網站正常運作的必要設定。
+Messenger 的主要前端行為由 `assets/css/messenger.css` 與 `assets/js/messenger-ui.js` 維護；Dialogflow CX 的回答內容、Playbook、Tool、Data Store 與流程設定則由 Google Cloud 管理。
 
 ## 部署方式
 
