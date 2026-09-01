@@ -23,6 +23,8 @@
     error: "assistant-error"
   };
 
+  var ASSISTANT_ASSET_VERSION = "assistant-motion-20260901-r2";
+
   var ASSISTANT_COPY = {
     idle: {
       eyebrow: "臺北市稅捐稽徵處",
@@ -181,7 +183,7 @@
   }
 
   function assistantAssetPath(state, extension) {
-    return "./assets/images/assistant/" + ASSISTANT_STATES[state] + "." + extension;
+    return "./assets/images/assistant/" + ASSISTANT_STATES[state] + "." + extension + "?v=" + ASSISTANT_ASSET_VERSION;
   }
 
   function preloadAssistantStates() {
