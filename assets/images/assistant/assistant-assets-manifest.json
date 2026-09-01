@@ -1,0 +1,33 @@
+{
+  "source": "a_clean_high_resolution_3d_cartoon_anime_style.png",
+  "canvas": {
+    "width": 400,
+    "height": 656
+  },
+  "states": {
+    "idle": {
+      "png": "assistant-idle.png",
+      "webp": "assistant-idle.webp"
+    },
+    "welcome": {
+      "png": "assistant-welcome.png",
+      "webp": "assistant-welcome.webp"
+    },
+    "thinking": {
+      "png": "assistant-thinking.png",
+      "webp": "assistant-thinking.webp"
+    },
+    "responding": {
+      "png": "assistant-responding.png",
+      "webp": "assistant-responding.webp"
+    },
+    "guiding": {
+      "png": "assistant-guiding.png",
+      "webp": "assistant-guiding.webp"
+    },
+    "error": {
+      "png": "assistant-error.png",
+      "webp": "assistant-error.webp"
+    }
+  }
+}
