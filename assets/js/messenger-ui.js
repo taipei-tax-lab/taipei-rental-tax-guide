@@ -88,7 +88,10 @@
     panel.hidden = true;
     panel.innerHTML = [
       '<div class="assistant-panel__character">',
-      '  <img data-assistant-image src="./assets/images/assistant/assistant-idle.png" alt="出租房屋租稅小幫手角色" width="400" height="656">',
+      '  <picture>',
+      '    <source data-assistant-source srcset="./assets/images/assistant/assistant-idle.webp" type="image/webp">',
+      '    <img data-assistant-image src="./assets/images/assistant/assistant-idle.png" alt="出租房屋租稅小幫手角色" width="400" height="656">',
+      '  </picture>',
       '</div>',
       '<div class="assistant-panel__content">',
       '  <span class="assistant-panel__eyebrow" data-assistant-eyebrow>臺北市稅捐稽徵處</span>',
@@ -118,7 +121,8 @@
         ".assistant-panel.is-visible{visibility:visible}",
         ".assistant-panel[hidden]{display:none}",
         ".assistant-panel__character{flex:1 1 auto;min-height:0;padding:18px 24px 0;overflow:hidden;background:radial-gradient(circle at 50% 42%,rgba(255,255,255,.92),transparent 54%),linear-gradient(160deg,rgba(239,247,243,.94),rgba(238,226,202,.75))}",
-        ".assistant-panel__character img{display:block;width:100%;height:100%;object-fit:contain;object-position:center bottom;opacity:1;transform:translateY(0) scale(1);transition:opacity 140ms ease,transform 180ms ease}",
+        ".assistant-panel__character picture,.assistant-panel__character img{display:block;width:100%;height:100%}",
+        ".assistant-panel__character img{object-fit:contain;object-position:center bottom;opacity:1;transform:translateY(0) scale(1);transition:opacity 140ms ease,transform 180ms ease}",
         ".assistant-panel.is-changing .assistant-panel__character img{opacity:.2;transform:translateY(2px) scale(.995)}",
         ".assistant-panel__content{flex:none;padding:18px 20px 20px;border-top:1px solid rgba(17,73,79,.12);background:rgba(255,254,251,.96)}",
         ".assistant-panel__eyebrow{display:block;color:var(--teal);font-size:12px;font-weight:900;letter-spacing:.06em;line-height:1.4}",
@@ -174,14 +178,14 @@
     }
   }
 
-  function assistantAssetPath(state) {
-    return "./assets/images/assistant/" + ASSISTANT_STATES[state] + ".png";
+  function assistantAssetPath(state, extension) {
+    return "./assets/images/assistant/" + ASSISTANT_STATES[state] + "." + extension;
   }
 
   function preloadAssistantStates() {
     Object.keys(ASSISTANT_STATES).forEach(function (state) {
       var image = new Image();
-      image.src = assistantAssetPath(state);
+      image.src = assistantAssetPath(state, "webp");
     });
   }
 
@@ -215,6 +219,7 @@
     clearAssistantStateTimer();
     assistantSwapToken += 1;
     var token = assistantSwapToken;
+    var source = panel.querySelector("[data-assistant-source]");
     var image = panel.querySelector("[data-assistant-image]");
 
     panel.dataset.state = state;
@@ -222,7 +227,8 @@
 
     window.setTimeout(function () {
       if (token !== assistantSwapToken) return;
-      if (image) image.src = assistantAssetPath(state);
+      if (source) source.srcset = assistantAssetPath(state, "webp");
+      if (image) image.src = assistantAssetPath(state, "png");
       panel.classList.remove("is-changing");
     }, ASSISTANT_TIMING.imageSwap);
   }
@@ -235,11 +241,13 @@
     var panel = document.querySelector(".assistant-panel");
     if (!panel) return;
 
+    var source = panel.querySelector("[data-assistant-source]");
     var image = panel.querySelector("[data-assistant-image]");
     panel.dataset.state = "idle";
     panel.classList.remove("is-changing");
     updateAssistantCopy(panel, "idle");
-    if (image) image.src = assistantAssetPath("idle");
+    if (source) source.srcset = assistantAssetPath("idle", "webp");
+    if (image) image.src = assistantAssetPath("idle", "png");
   }
 
   function scheduleAssistantIdle(delay) {
