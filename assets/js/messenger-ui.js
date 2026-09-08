@@ -33,7 +33,7 @@
     welcome: {
       eyebrow: "歡迎使用",
       title: "您好，我來協助您",
-      description: "可以直接輸入問題，也可以從右側常見主題開始查詢。",
+      description: "可以直接輸入問題，也可以從熱門問題開始查詢。",
       status: "準備為您服務"
     },
     thinking: {
@@ -70,6 +70,7 @@
     imageSwap: 90
   };
 
+  var ASSISTANT_CHAT_BUBBLE_ICON = "./assets/images/assistant/assistant-chat-bubble.png?v=assistant-chat-button-20260902-r3";
   var chatIsOpen = false;
   var assistantStateTimer = null;
   var assistantSwapToken = 0;
@@ -97,20 +98,11 @@
       '  <span class="assistant-panel__eyebrow" data-assistant-eyebrow>臺北市稅捐稽徵處</span>',
       '  <h2 data-assistant-title>出租房屋租稅小幫手</h2>',
       '  <p data-assistant-description>有出租房屋租稅、出租方案或申請流程問題，都可以直接問我。</p>',
-      '  <div class="assistant-panel__status" role="status" aria-live="polite" aria-atomic="true">',
-      '    <span class="assistant-panel__status-dot" aria-hidden="true"></span>',
-      '    <span data-assistant-status>等待您的問題</span>',
-      '  </div>',
-      '  <p class="assistant-panel__notice">',
-      '    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">',
-      '      <path d="M12 3 2.8 20h18.4z"></path>',
-      '      <path d="M12 9v5M12 17.5v.01"></path>',
-      '    </svg>',
-      '    <span>本服務提供一般性資訊，請勿輸入身分證字號、完整地址或電話。</span>',
-      '  </p>',
+      '  <div class="assistant-panel__topics"><h3>熱門問題</h3></div>',
       '</div>'
     ].join("");
 
+    panel.querySelector('.assistant-panel__topics').appendChild(document.getElementById('messenger-topics').content.cloneNode(true));
     document.body.appendChild(panel);
 
     if (!document.getElementById("assistant-panel-styles")) {
@@ -125,16 +117,16 @@
         ".assistant-panel__character img{object-fit:contain;object-position:center bottom;opacity:1;transform:translateY(0) scale(1);transition:opacity 140ms ease,transform 180ms ease}",
         ".assistant-panel.is-changing .assistant-panel__character img{opacity:.2;transform:translateY(2px) scale(.995)}",
         ".assistant-panel__content{flex:none;padding:18px 20px 20px;border-top:1px solid rgba(17,73,79,.12);background:rgba(255,254,251,.96)}",
-        ".assistant-panel__eyebrow{display:block;color:var(--teal);font-size:12px;font-weight:900;letter-spacing:.06em;line-height:1.4}",
+        ".assistant-panel__eyebrow{display:block;color:var(--teal);font-size:16px;font-weight:900;letter-spacing:.06em;line-height:1.4}",
         ".assistant-panel__content h2{margin:3px 0 8px;color:var(--teal-dark);font-size:19px;line-height:1.35}",
-        ".assistant-panel__content>p:not(.assistant-panel__notice){margin:0;color:var(--ink-soft);font-size:14px;line-height:1.65}",
-        ".assistant-panel__status{display:flex;align-items:center;gap:8px;margin:13px 0 0;padding:9px 11px;border:1px solid rgba(12,104,109,.12);border-radius:11px;background:rgba(239,247,243,.82);color:var(--teal-dark);font-size:12px;font-weight:800;line-height:1.4}",
+        ".assistant-panel__content>p:not(.assistant-panel__notice){margin:0;color:var(--ink-soft);font-size:16px;line-height:1.65}",
+        ".assistant-panel__status{display:flex;align-items:center;gap:8px;margin:13px 0 0;padding:9px 11px;border:1px solid rgba(12,104,109,.12);border-radius:11px;background:rgba(239,247,243,.82);color:var(--teal-dark);font-size:16px;font-weight:800;line-height:1.4}",
         ".assistant-panel__status-dot{flex:none;width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 4px rgba(12,104,109,.1)}",
         ".assistant-panel[data-state=thinking] .assistant-panel__status-dot,.assistant-panel[data-state=guiding] .assistant-panel__status-dot{animation:assistant-status-pulse 1.15s ease-in-out infinite}",
         ".assistant-panel[data-state=responding] .assistant-panel__status-dot{background:#36845f;box-shadow:0 0 0 4px rgba(54,132,95,.1)}",
         ".assistant-panel[data-state=error] .assistant-panel__status{border-color:rgba(223,124,70,.18);background:rgba(223,124,70,.08);color:#8a4e2c}",
         ".assistant-panel[data-state=error] .assistant-panel__status-dot{background:var(--orange);box-shadow:0 0 0 4px rgba(223,124,70,.12)}",
-        ".assistant-panel__notice{display:flex;align-items:flex-start;gap:8px;margin:12px 0 0;padding:11px 12px;border-radius:12px;background:rgba(223,124,70,.1);color:#557078;font-size:11px;line-height:1.55}",
+        ".assistant-panel__notice{display:flex;align-items:flex-start;gap:8px;margin:12px 0 0;padding:11px 12px;border-radius:12px;background:rgba(223,124,70,.1);color:#557078;font-size:16px;line-height:1.55}",
         ".assistant-panel__notice svg{flex:none;width:16px;height:16px;margin-top:1px;color:var(--orange)}",
         "df-messenger.assistant-panel-attached{--df-messenger-chat-border-radius:0 22px 22px 0;--df-messenger-chat-window-box-shadow:14px 18px 50px rgba(13,57,63,.18)}",
         "@keyframes assistant-status-pulse{0%,100%{opacity:.55;transform:scale(.9)}50%{opacity:1;transform:scale(1.12)}}",
@@ -176,6 +168,51 @@
       window.clearTimeout(assistantStateTimer);
       assistantStateTimer = null;
     }
+  }
+
+  function customizeChatBubbleIcon(bubble) {
+    if (!bubble || !bubble.shadowRoot) return;
+
+    if (!bubble.shadowRoot.querySelector("[data-assistant-chat-bubble-styles]")) {
+      var style = document.createElement("style");
+      style.setAttribute("data-assistant-chat-bubble-styles", "true");
+      style.textContent = [
+        ".bubble .close-icon svg{fill:#ffffff!important}",
+        ".bubble[aria-expanded=\"true\"]{background:var(--df-messenger-primary-color,#0c686d)!important}",
+        ".bubble[aria-expanded=\"true\"]{bottom:-39px}",
+        ".bubble[aria-expanded=\"false\"]{background:transparent!important}",
+        ".bubble[aria-expanded=\"false\"]{bottom:0}"
+      ].join("");
+      bubble.shadowRoot.appendChild(style);
+    }
+
+    var icon = bubble.shadowRoot.querySelector(".bubble .icon");
+    if (!icon) return;
+
+    var image = icon.querySelector("[data-assistant-chat-bubble-icon]");
+    if (!image) {
+      icon.textContent = "";
+      image = document.createElement("img");
+      image.setAttribute("data-assistant-chat-bubble-icon", "true");
+      image.setAttribute("alt", "");
+      image.setAttribute("aria-hidden", "true");
+      icon.appendChild(image);
+    }
+
+    if (image.getAttribute("src") !== ASSISTANT_CHAT_BUBBLE_ICON) {
+      image.setAttribute("src", ASSISTANT_CHAT_BUBBLE_ICON);
+    }
+  }
+
+  function bindChatBubbleIcon(bubble) {
+    if (!bubble || !bubble.shadowRoot || bubble.dataset.assistantIconBound === "true") return;
+
+    customizeChatBubbleIcon(bubble);
+    var observer = new MutationObserver(function () {
+      customizeChatBubbleIcon(bubble);
+    });
+    observer.observe(bubble.shadowRoot, { childList: true, subtree: true });
+    bubble.dataset.assistantIconBound = "true";
   }
 
   function assistantAssetPath(state, extension) {
@@ -297,18 +334,6 @@
     if (elements.bubble.getAttribute("chat-height") !== heightValue) elements.bubble.setAttribute("chat-height", heightValue);
   }
 
-  function positionEmptyState() {
-    var elements = getMessengerElements();
-    if (!elements.messenger || !elements.emptyState) return;
-    var messengerStyle = getComputedStyle(elements.messenger);
-    var right = parseFloat(messengerStyle.right) || 14;
-    var bottom = parseFloat(messengerStyle.bottom) || 14;
-    var bubbleSize = getCssPixels(elements.messenger, "--df-messenger-chat-bubble-size", 62);
-    var windowOffset = getCssPixels(elements.messenger, "--df-messenger-chat-window-offset", 18);
-    elements.emptyState.style.right = Math.max(22, right + 12) + "px";
-    elements.emptyState.style.bottom = Math.max(14, bottom) + bubbleSize + windowOffset + 106 + "px";
-  }
-
   function canShowAssistantPanel(viewport, chatWidth, right) {
     var requiredWidth = right + chatWidth + MESSENGER_LIMITS.assistantPanelWidth - MESSENGER_LIMITS.assistantPanelOverlap + MESSENGER_LIMITS.assistantPanelLeftMargin;
     return viewport.width >= MESSENGER_LIMITS.assistantPanelMinViewport && viewport.width >= requiredWidth;
@@ -338,14 +363,16 @@
     elements.assistantPanel.style.right = right + chatWidth - MESSENGER_LIMITS.assistantPanelOverlap + "px";
     elements.assistantPanel.style.bottom = Math.max(14, bottom) + bubbleSize + windowOffset + "px";
     elements.assistantPanel.style.height = Math.round(chatHeight) + "px";
+    // Use the actual chat rectangle; the vendor applies its own window offset.
+    var chat = elements.bubble && elements.bubble.shadowRoot && elements.bubble.shadowRoot.querySelector('.chat-wrapper');
+    if (isVisible && chat) {
+      var rect = chat.getBoundingClientRect();
+      elements.assistantPanel.style.top = rect.top + 'px';
+      elements.assistantPanel.style.bottom = 'auto';
+      elements.assistantPanel.style.right = (window.innerWidth - rect.left - MESSENGER_LIMITS.assistantPanelOverlap) + 'px';
+      elements.assistantPanel.style.height = rect.height + 'px';
+    }
     setAssistantPanelVisible(elements, isVisible);
-  }
-
-  function setEmptyStateVisible(emptyState, isVisible) {
-    if (!emptyState) return;
-    emptyState.hidden = !isVisible;
-    emptyState.classList.toggle("is-visible", isVisible);
-    emptyState.setAttribute("aria-hidden", String(!isVisible));
   }
 
   function bindAssistantEvents(elements) {
@@ -354,6 +381,8 @@
       var detail = event.detail || {};
       chatIsOpen = detail.isOpen === true;
       updateAssistantPanel();
+      installInputExtras();
+      window.requestAnimationFrame(updateAssistantPanel);
       if (chatIsOpen) showTemporaryAssistantState("welcome", ASSISTANT_TIMING.welcome);
       else resetAssistantState();
     });
@@ -370,46 +399,53 @@
     elements.assistantPanel.dataset.eventsBound = "true";
   }
 
-  function bindEmptyState(elements) {
-    if (!elements.emptyState || elements.emptyState.dataset.bound === "true") return;
-    var conversationStarted = false;
-    function hideEmptyState() {
-      conversationStarted = true;
-      setEmptyStateVisible(elements.emptyState, false);
-    }
-    function handleChatOpenChanged(event) {
-      var detail = event.detail || {};
-      setEmptyStateVisible(elements.emptyState, detail.isOpen === true && !conversationStarted);
-    }
-    function handleTopicClick(event) {
-      var query = event.currentTarget.getAttribute("data-messenger-query");
-      if (!query) return;
-      hideEmptyState();
-      beginGuiding();
-      if (typeof elements.messenger.sendQuery === "function") {
-        Promise.resolve(elements.messenger.sendQuery(query)).catch(function () {
-          guidingUntil = 0;
-          showTemporaryAssistantState("error", ASSISTANT_TIMING.error);
+  function bindTopics(root) {
+    root.querySelectorAll('[data-messenger-query]').forEach(function (button) {
+      button.addEventListener('click', function () {
+        var messenger = getMessengerElements().messenger;
+        if (!messenger || typeof messenger.sendQuery !== 'function') return;
+        beginGuiding();
+        var details = button.closest('details');
+        if (details) details.open = false;
+        Promise.resolve(messenger.sendQuery(button.dataset.messengerQuery)).catch(function () {
+          showTemporaryAssistantState('error', ASSISTANT_TIMING.error);
         });
-      }
-    }
-    ["df-user-input-entered", "df-request-sent", "df-response-received"].forEach(function (eventName) {
-      document.addEventListener(eventName, hideEmptyState);
+      });
     });
-    document.addEventListener("df-chat-open-changed", handleChatOpenChanged);
-    elements.emptyState.querySelectorAll("[data-messenger-query]").forEach(function (topic) {
-      topic.addEventListener("click", handleTopicClick);
-    });
-    elements.emptyState.dataset.bound = "true";
+  }
+
+  // Keep the notice in the input layout so it never covers a message.
+  function installInputExtras() {
+    var bubble = getMessengerElements().bubble;
+    var chat = bubble && bubble.shadowRoot && bubble.shadowRoot.querySelector('df-messenger-chat');
+    var root = chat && chat.shadowRoot;
+    var input = root && root.querySelector('df-messenger-user-input');
+    if (!input || root.querySelector('.rental-input-extras')) return;
+    var extras = document.createElement('div');
+    extras.className = 'rental-input-extras';
+    extras.innerHTML = '<style>' +
+      '.rental-input-extras{flex:none;padding:8px 16px;background:#fffefb;color:#3d5961;font-family:Arial,sans-serif}' +
+      '.rental-input-extras p{margin:0;padding:10px 12px;border-left:3px solid #a33c19;border-radius:8px;background:#fff0e5;color:#923616;font-size:16px;line-height:1.6}.rental-input-extras strong{font-weight:700}' +
+      '.rental-input-extras details{display:none;margin-bottom:8px}' +
+      '.rental-input-extras summary{cursor:pointer;font-size:16px;font-weight:700;color:#0c686d;padding:4px 0}' +
+      '.messenger-topic-list{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}' +
+      '.messenger-topic{padding:8px;border:1px solid #a5c7c9;border-radius:8px;background:#f3f8f6;color:#103844;font-size:16px;cursor:pointer;text-align:left}' +
+      '.messenger-topic:focus-visible{outline:2px solid #0c686d;outline-offset:2px}' +
+      '@media(max-width:899px){.rental-input-extras details{display:block}}' +
+      '</style><details><summary>熱門問題</summary></details>' +
+      '<p><span aria-hidden="true">⚠ </span>本服務提供一般性資訊。<br><strong>請勿輸入身分證字號、完整地址或電話。</strong></p>';
+    extras.querySelector('details').appendChild(document.getElementById('messenger-topics').content.cloneNode(true));
+    input.before(extras);
+    bindTopics(extras);
   }
 
   function bindMessengerResize() {
     window.addEventListener("resize", function () {
-      resizeMessenger(); positionEmptyState(); updateAssistantPanel();
+      resizeMessenger(); updateAssistantPanel(); installInputExtras();
     }, { passive: true });
     if (window.visualViewport) {
       window.visualViewport.addEventListener("resize", function () {
-        resizeMessenger(); positionEmptyState(); updateAssistantPanel();
+        resizeMessenger(); updateAssistantPanel(); installInputExtras();
       }, { passive: true });
     }
   }
@@ -419,14 +455,26 @@
     var elements = getMessengerElements();
     if (!elements.messenger || !elements.bubble) return;
     preloadAssistantStates();
+    bindChatBubbleIcon(elements.bubble);
     resetAssistantState();
     resizeMessenger();
-    positionEmptyState();
+    installInputExtras();
     updateAssistantPanel();
     bindAssistantEvents(elements);
-    bindEmptyState(elements);
+    if (elements.assistantPanel.dataset.topicsBound !== 'true') {
+      bindTopics(elements.assistantPanel);
+      elements.assistantPanel.dataset.topicsBound = 'true';
+    }
     bindMessengerResize();
+    var chatWindow = elements.bubble.shadowRoot && elements.bubble.shadowRoot.querySelector('.chat-wrapper');
+    if (chatWindow && !elements.bubble.dataset.geometryBound) {
+      new ResizeObserver(updateAssistantPanel).observe(chatWindow);
+      chatWindow.addEventListener('transitionend', updateAssistantPanel);
+      elements.bubble.dataset.geometryBound = 'true';
+    }
   }
+
+  window.addEventListener('df-messenger-loaded', function () { window.setTimeout(installInputExtras, 0); });
 
   function initializeAfterHydration() { window.setTimeout(initialize, 100); }
   if (document.readyState === "complete") initializeAfterHydration();

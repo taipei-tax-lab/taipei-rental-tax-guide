@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>出租房屋租稅優惠專區｜臺北市稅捐稽徵處</title>
+  <meta name="description" content="依出租情況查看臺北市四種出租方案的房屋稅、地價稅與所得稅優惠，了解適用條件及下一步。另提供租金補貼、房源與租屋權益入口。">
+  <meta property="og:title" content="出租房屋租稅優惠專區｜臺北市稅捐稽徵處">
+  <meta property="og:description" content="從您的情況出發，找出租稅優惠與辦理方式。">
+  <meta property="og:image" content="https://taipei-tax-lab.github.io/taipei-rental-tax-guide/hero-v2.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./assets/css/site.css?v={{BASE_VERSION}}">
+  <link rel="stylesheet" href="./assets/css/guide-v2.css?v={{STYLE_VERSION}}">
+  <!-- The existing Messenger theme, markup and runtime remain unchanged. -->
+  <link rel="stylesheet" href="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/themes/df-messenger-default.css">
+  <link rel="stylesheet" href="./assets/css/messenger.css">
+</head>
+<body class="v2-body">
+  <a class="v2-skip" href="#content">跳到主要內容</a>
+  <div class="v2-site">
+    <header class="v2-header">
+      <a class="v2-brand" href="#top" aria-label="出租房屋租稅優惠專區首頁">
+        <img class="v2-brand-logo" src="./assets/images/tpctax-logo.png" width="904" height="183" alt="臺北市稅捐稽徵處">
+        <strong class="v2-brand-title">出租房屋租稅優惠專區</strong>
+      </a>
+    </header>
+    <main id="content" tabindex="-1">
+      <div data-page="home" id="top">
+        <section class="v2-hero" aria-labelledby="home-title">
+          <div class="v2-hero-copy">
+            <p class="v2-kicker">臺北市出租房屋租稅優惠</p>
+            <h1 id="home-title" tabindex="-1">了解租稅優惠，<br><em>查詢適用方案</em></h1>
+            <p>依您的出租情況，查詢適用條件、<br class="v2-mobile-break">各項租稅優惠及申辦方式。</p>
+            <p class="v2-entry-label">您想查什麼？請從這裡開始</p>
+            <div class="v2-audience" aria-label="選擇查詢方式">
+              <a href="#owners" data-audience="owner" class="v2-audience-button" aria-current="true">{{HOUSE_ICON}}<span><strong>我是屋主</strong><small>查出租方案與租稅優惠</small></span></a>
+              <a href="#tenants" data-audience="tenant" class="v2-audience-button">{{PERSON_ICON}}<span><strong>我是房客</strong><small>查補貼、房源與租屋權益</small></span></a>
+              <button type="button" class="v2-audience-button v2-chat-entry" id="open-helper"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a7 7 0 0 1-7 7H8l-5 4V6a3 3 0 0 1 3-3h11a3 3 0 0 1 3 3z"/><path d="M7 8h9M7 12h6"/></svg><span><strong>直接問小幫手</strong><small>直接描述您的問題</small></span></button>
+            </div>
+            <p id="helper-status" class="v2-caption" role="status" hidden></p>
+          </div>
+        </section>
+        <div class="v2-container">
+          <section id="owners" class="v2-owner-section" data-audience-panel="owner" aria-labelledby="owner-title">
+            <div class="v2-section-heading" id="plans">
+              <div><p class="v2-kicker">屋主租稅優惠</p><h2 id="owner-title" tabindex="-1">哪一種情況最接近您？</h2></div>
+
+            </div>
+            <details class="v2-guide" id="guide">
+              <summary><span><strong>不知道適用哪個方案？</strong><small>依您的出租情況，逐步查找可能適用的方案。</small></span><span class="v2-guide-cta">開始判斷 <span class="v2-expand" aria-hidden="true">＋</span></span></summary>
+              <div class="v2-guide-body">
+                <p class="v2-caption">僅協助選擇閱讀方向，不是資格審查；不需要填寫個人資料。</p>
+                <div id="guide-stage" aria-live="polite"><p>請依出租情境查看方案，或使用<a href="#comparison">四方案完整比較</a>。啟用 JavaScript 後可使用快速判斷。</p></div>
+              </div>
+            </details>
+            <div class="v2-plan-grid">{{PLAN_CARDS}}</div>
+            <p class="v2-caption">優惠須符合各方案條件；「相當稅率」已計入該年期稅基折減，並非另一項法定稅率。</p>
+            <div class="v2-comparison-entry"><p>想了解各方案的差異？</p><a class="v2-button" href="#comparison">比較四種出租方案 →</a></div>
+            <div id="inline-plan-slot"></div>
+          </section>
+          <section id="tenants" class="v2-tenant-section" data-audience-panel="tenant" aria-labelledby="tenant-title">
+            <div class="v2-section-heading"><div><p class="v2-kicker">房客常見需求</p><h2 id="tenant-title" tabindex="-1">補貼、房源與租屋權益</h2></div><span class="v2-caption">選擇需求，前往主管機關辦理</span></div>
+            <div class="v2-tenant-grid">{{TENANT_GROUPS}}</div>
+          </section>
+          <section id="faq" class="v2-faq" aria-labelledby="faq-title">
+            <div class="v2-section-heading"><div><p class="v2-kicker">常見問題</p><h2 id="faq-title" tabindex="-1">先釐清您在意的事</h2></div></div>
+            <div class="v2-faq-list">{{FAQ}}</div>
+          </section>
+          <details id="resources" class="v2-resources">
+            <summary><span><strong>官方申辦與聯絡方式</strong><small>申請書表、案件進度與服務窗口</small></span><span class="v2-expand" aria-hidden="true">＋</span></summary>
+            <div class="v2-resource-body">{{RESOURCES}}<p class="v2-caption">房屋稅、地價稅：臺北市稅捐稽徵處；綜合所得稅：國稅局。</p></div>
+          </details>
+        </div>
+      </div>
+      {{PLAN_DETAILS}}
+      <section data-page="comparison" id="comparison" class="v2-container v2-inner-page" aria-labelledby="comparison-title">
+        <a href="#plans" class="v2-back">← 返回出租方案</a>
+        <p class="v2-kicker">四方案完整比較</p>
+        <h1 id="comparison-title" tabindex="-1">管理方式、適用條件與租稅優惠</h1>
+        <p>先比較出租方式與條件，再看三大稅目及第一個辦理動作。各項優惠有不同要件，不能逕自相加。</p>
+        <div class="v2-comparison-grid">{{COMPARISON}}</div>
+        <p class="v2-notice">{{NOTE}}</p>
+      </section>
+    </main>
+    <footer class="v2-footer">
+      <div><strong>臺北市稅捐稽徵處</strong><span>出租房屋租稅優惠專區</span></div>
+      <nav aria-label="頁尾導覽"><a href="#plans">出租方案</a><a href="#tenants">房客服務</a><a href="#resources">官方窗口</a><a href="#top">回到頁首 ↑</a></nav>
+      <p>{{NOTE}}</p>
+      <small>租稅來源核對：{{CHECKED}}　｜　適用範圍：臺北市　｜　房屋稅年期請見各項標示</small>
+    </footer>
+  </div>
+  <script src="./assets/js/guide-rules.js?v={{RULES_VERSION}}"></script>
+  <script src="./assets/js/guide-ui.js?v={{UI_VERSION}}"></script>
+  {{MESSENGER}}
+</body>
+</html>
