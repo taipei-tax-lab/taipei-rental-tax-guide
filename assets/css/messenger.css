@@ -11,7 +11,7 @@ df-messenger {
 
   /* 整體字體 */
   --df-messenger-font-family: "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
-  --df-messenger-font-size: 15px;
+  --df-messenger-font-size: 16px;
   --df-messenger-font-color: var(--ink);
 
   /* 主色 */
@@ -33,7 +33,7 @@ df-messenger {
   --df-messenger-messagelist-border: none;
   --df-messenger-message-border: none;
   --df-messenger-message-font-family: "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
-  --df-messenger-message-font-size: 15px;
+  --df-messenger-message-font-size: 18px;
   --df-messenger-message-font-weight: 400;
   --df-messenger-message-spacing: 12px;
   --df-messenger-message-border-radius: 15px;
@@ -60,7 +60,7 @@ df-messenger {
   --df-messenger-titlebar-title-font-family: "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
   --df-messenger-titlebar-title-font-size: 18px;
   --df-messenger-titlebar-title-font-weight: 900;
-  --df-messenger-titlebar-subtitle-font-size: 13px;
+  --df-messenger-titlebar-subtitle-font-size: 16px;
   --df-messenger-titlebar-subtitle-font-weight: 500;
   --df-messenger-titlebar-subtitle-font-color: rgba(255, 255, 255, 0.82);
 
@@ -88,7 +88,7 @@ df-messenger {
   --df-messenger-chat-scroll-button-enabled-display: flex;
   --df-messenger-chat-scroll-button-align: center;
   --df-messenger-chat-scroll-button-container-padding: 8px;
-  --df-messenger-chat-scroll-button-font-size: 13px;
+  --df-messenger-chat-scroll-button-font-size: 16px;
   --df-messenger-chat-scroll-button-font-color: #ffffff;
   --df-messenger-chat-scroll-button-background: var(--teal);
   --df-messenger-chat-scroll-button-border-radius: 999px;
@@ -162,7 +162,7 @@ df-messenger:hover {
 .messenger-empty-state__eyebrow {
   display: block;
   color: var(--teal);
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 900;
   letter-spacing: 0.08em;
   line-height: 1.4;
@@ -178,7 +178,7 @@ df-messenger:hover {
 .messenger-empty-state__description {
   margin: 0;
   color: var(--ink-soft);
-  font-size: 13px;
+  font-size: 16px;
   line-height: 1.55;
 }
 
@@ -197,7 +197,7 @@ df-messenger:hover {
   background: rgba(255, 255, 255, 0.76);
   color: var(--teal-dark);
   cursor: pointer;
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 800;
   line-height: 1.35;
   text-align: left;
@@ -223,7 +223,7 @@ df-messenger:hover {
   padding-top: 11px;
   border-top: 1px solid rgba(17, 73, 79, 0.12);
   color: #557078;
-  font-size: 11px;
+  font-size: 16px;
   line-height: 1.55;
 }
 
@@ -288,7 +288,7 @@ df-messenger:hover {
 
   .messenger-topic {
     padding: 8px;
-    font-size: 12px;
+    font-size: 16px;
   }
 }
 
@@ -304,7 +304,7 @@ df-messenger:hover {
   }
 
   .messenger-empty-state__description {
-    font-size: 12px;
+    font-size: 16px;
   }
 
   .messenger-topic-list {
@@ -318,3 +318,10 @@ df-messenger:hover {
     display: none !important;
   }
 }
+
+.assistant-panel__topics h3{margin:14px 0 0;font-size: 16px;color:#103844;line-height:1.5}
+.assistant-panel__topics .messenger-topic-list{margin:8px 0 0}
+.assistant-panel__topics .messenger-topic{font-size: 16px;min-height:44px}
+.assistant-panel__content{max-height:100%;overflow-y:auto}
+
+df-messenger { --df-messenger-input-font-size: 18px; --df-messenger-message-line-height: 1.75; }

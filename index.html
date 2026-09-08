@@ -11,7 +11,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./assets/css/site.css?v=4f7fe5e086">
-  <link rel="stylesheet" href="./assets/css/guide-v2.css?v=21d257ece9">
+  <link rel="stylesheet" href="./assets/css/guide-v2.css?v=70cf96132f">
   <!-- The existing Messenger theme, markup and runtime remain unchanged. -->
   <link rel="stylesheet" href="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/themes/df-messenger-default.css">
   <link rel="stylesheet" href="./assets/css/messenger.css">
@@ -29,9 +29,9 @@
       <div data-page="home" id="top">
         <section class="v2-hero" aria-labelledby="home-title">
           <div class="v2-hero-copy">
-            <p class="v2-kicker">從您的出租情況出發</p>
-            <h1 id="home-title" tabindex="-1">出租房屋，<br><em>有哪些租稅優惠？</em></h1>
-            <p>看懂適用條件、三大稅目優惠，<br class="v2-mobile-break">找到接下來的辦理方式。</p>
+            <p class="v2-kicker">臺北市出租房屋租稅優惠</p>
+            <h1 id="home-title" tabindex="-1">了解租稅優惠，<br><em>查詢適用方案</em></h1>
+            <p>依您的出租情況，查詢適用條件、<br class="v2-mobile-break">各項租稅優惠及申辦方式。</p>
             <p class="v2-entry-label">您想查什麼？請從這裡開始</p>
             <div class="v2-audience" aria-label="選擇查詢方式">
               <a href="#owners" data-audience="owner" class="v2-audience-button" aria-current="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m3 10 9-7 9 7M5 9v12h14V9M9 21v-7h6v7"/></svg><span><strong>我是屋主</strong><small>查出租方案與租稅優惠</small></span></a>
@@ -221,21 +221,7 @@
   </df-messenger-chat-bubble>
 </df-messenger>
 
-<aside class="messenger-empty-state" aria-label="聊天使用提示" aria-hidden="true" hidden>
-  <div class="messenger-empty-state__header">
-    <span class="messenger-empty-state__icon" aria-hidden="true">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false">
-        <path d="M5 5.5A2.5 2.5 0 0 1 7.5 3h9A2.5 2.5 0 0 1 19 5.5v6a2.5 2.5 0 0 1-2.5 2.5H12l-4.5 4v-4.1A2.5 2.5 0 0 1 5 11.5z"></path>
-        <path d="M9 8h6M9 11h3"></path>
-      </svg>
-    </span>
-    <div>
-      <span class="messenger-empty-state__eyebrow">出租房屋租稅小幫手</span>
-      <h2>想先了解哪一項租屋資訊？</h2>
-      <p class="messenger-empty-state__description">可直接輸入問題，也可以從常見主題開始查詢。</p>
-    </div>
-  </div>
-
+<template id="messenger-topics">
   <div class="messenger-topic-list" aria-label="常見查詢主題">
     <button class="messenger-topic" type="button" data-messenger-query="我想查租金補貼的申請資格">租金補貼</button>
     <button class="messenger-topic" type="button" data-messenger-query="我想了解出租房屋租稅優惠">出租房屋租稅優惠</button>
@@ -243,14 +229,7 @@
     <button class="messenger-topic" type="button" data-messenger-query="我是房客，想了解租屋服務與權益">房客權益</button>
   </div>
 
-  <p class="messenger-empty-state__notice">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
-      <circle cx="12" cy="12" r="9"></circle>
-      <path d="M12 10v5M12 7.5v.01"></path>
-    </svg>
-    <span>本服務提供一般性資訊，請勿輸入身分證字號、完整地址或電話。</span>
-  </p>
-</aside>
+</template>
 
 <script src="./assets/js/messenger-ui.js"></script>
 
