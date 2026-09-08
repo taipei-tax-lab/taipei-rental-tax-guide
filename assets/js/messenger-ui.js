@@ -70,6 +70,7 @@
     imageSwap: 90
   };
 
+  var ASSISTANT_CHAT_BUBBLE_ICON = "./assets/images/assistant/assistant-chat-bubble.png?v=assistant-chat-button-20260902-r3";
   var chatIsOpen = false;
   var assistantStateTimer = null;
   var assistantSwapToken = 0;
@@ -167,6 +168,51 @@
       window.clearTimeout(assistantStateTimer);
       assistantStateTimer = null;
     }
+  }
+
+  function customizeChatBubbleIcon(bubble) {
+    if (!bubble || !bubble.shadowRoot) return;
+
+    if (!bubble.shadowRoot.querySelector("[data-assistant-chat-bubble-styles]")) {
+      var style = document.createElement("style");
+      style.setAttribute("data-assistant-chat-bubble-styles", "true");
+      style.textContent = [
+        ".bubble .close-icon svg{fill:#ffffff!important}",
+        ".bubble[aria-expanded=\"true\"]{background:var(--df-messenger-primary-color,#0c686d)!important}",
+        ".bubble[aria-expanded=\"true\"]{bottom:-39px}",
+        ".bubble[aria-expanded=\"false\"]{background:transparent!important}",
+        ".bubble[aria-expanded=\"false\"]{bottom:0}"
+      ].join("");
+      bubble.shadowRoot.appendChild(style);
+    }
+
+    var icon = bubble.shadowRoot.querySelector(".bubble .icon");
+    if (!icon) return;
+
+    var image = icon.querySelector("[data-assistant-chat-bubble-icon]");
+    if (!image) {
+      icon.textContent = "";
+      image = document.createElement("img");
+      image.setAttribute("data-assistant-chat-bubble-icon", "true");
+      image.setAttribute("alt", "");
+      image.setAttribute("aria-hidden", "true");
+      icon.appendChild(image);
+    }
+
+    if (image.getAttribute("src") !== ASSISTANT_CHAT_BUBBLE_ICON) {
+      image.setAttribute("src", ASSISTANT_CHAT_BUBBLE_ICON);
+    }
+  }
+
+  function bindChatBubbleIcon(bubble) {
+    if (!bubble || !bubble.shadowRoot || bubble.dataset.assistantIconBound === "true") return;
+
+    customizeChatBubbleIcon(bubble);
+    var observer = new MutationObserver(function () {
+      customizeChatBubbleIcon(bubble);
+    });
+    observer.observe(bubble.shadowRoot, { childList: true, subtree: true });
+    bubble.dataset.assistantIconBound = "true";
   }
 
   function assistantAssetPath(state, extension) {
@@ -317,6 +363,15 @@
     elements.assistantPanel.style.right = right + chatWidth - MESSENGER_LIMITS.assistantPanelOverlap + "px";
     elements.assistantPanel.style.bottom = Math.max(14, bottom) + bubbleSize + windowOffset + "px";
     elements.assistantPanel.style.height = Math.round(chatHeight) + "px";
+    // Use the actual chat rectangle; the vendor applies its own window offset.
+    var chat = elements.bubble && elements.bubble.shadowRoot && elements.bubble.shadowRoot.querySelector('.chat-wrapper');
+    if (isVisible && chat) {
+      var rect = chat.getBoundingClientRect();
+      elements.assistantPanel.style.top = rect.top + 'px';
+      elements.assistantPanel.style.bottom = 'auto';
+      elements.assistantPanel.style.right = (window.innerWidth - rect.left - MESSENGER_LIMITS.assistantPanelOverlap) + 'px';
+      elements.assistantPanel.style.height = rect.height + 'px';
+    }
     setAssistantPanelVisible(elements, isVisible);
   }
 
@@ -327,6 +382,7 @@
       chatIsOpen = detail.isOpen === true;
       updateAssistantPanel();
       installInputExtras();
+      window.requestAnimationFrame(updateAssistantPanel);
       if (chatIsOpen) showTemporaryAssistantState("welcome", ASSISTANT_TIMING.welcome);
       else resetAssistantState();
     });
@@ -399,6 +455,7 @@
     var elements = getMessengerElements();
     if (!elements.messenger || !elements.bubble) return;
     preloadAssistantStates();
+    bindChatBubbleIcon(elements.bubble);
     resetAssistantState();
     resizeMessenger();
     installInputExtras();
@@ -409,6 +466,12 @@
       elements.assistantPanel.dataset.topicsBound = 'true';
     }
     bindMessengerResize();
+    var chatWindow = elements.bubble.shadowRoot && elements.bubble.shadowRoot.querySelector('.chat-wrapper');
+    if (chatWindow && !elements.bubble.dataset.geometryBound) {
+      new ResizeObserver(updateAssistantPanel).observe(chatWindow);
+      chatWindow.addEventListener('transitionend', updateAssistantPanel);
+      elements.bubble.dataset.geometryBound = 'true';
+    }
   }
 
   window.addEventListener('df-messenger-loaded', function () { window.setTimeout(installInputExtras, 0); });

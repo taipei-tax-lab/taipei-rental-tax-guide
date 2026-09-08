@@ -336,3 +336,27 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
   .v2-tax-grid > .v2-tax { display: block; }
   .v2-tax, .v2-next-step, .v2-detail-more > details { break-inside: avoid; }
 }
+
+/* Keep comparison after the summaries and make guidance a clear sequence. */
+.v2-comparison-entry { text-align:center; padding:24px; margin:20px 0; border:1px solid #b6ceca; border-radius:12px; background:#f3f8f5; }
+.v2-comparison-entry p { margin:0 0 12px; }
+.v2-plan-card .v2-plan-icon { width:54px; height:54px; }
+.v2-plan-card .v2-plan-icon svg { width:36px; height:36px; }
+.v2-guide-progress { display:flex; list-style:none; padding:0; gap:10px; margin:0 0 24px; }
+.v2-guide-progress li { flex:1; border-bottom:4px solid #cbd9d6; padding:10px 0; color:#49646a; font-size:16px; }
+.v2-guide-progress .is-complete { border-color:#0c686d; color:#103844; font-weight:700; }
+.v2-guide-progress [aria-current] { background:#e7f2ed; }
+.v2-guide-body { background:#fffefb; border-radius:0 0 12px 12px; }
+.v2-question { max-width:780px; margin-inline:auto; }
+.v2-options { display:grid; grid-template-columns:1fr; gap:12px; }
+.v2-option { text-align:left; min-height:60px; border:2px solid #a1c1bb; padding:16px 20px; font-size:18px; }
+.v2-option::after { content:'→'; float:right; margin-left:12px; }
+.v2-option:hover { border-color:#0c686d; background:#e7f2ed; }
+.v2-guide-result-list .v2-card-tax .v2-tax { min-height:0; }
+@media(max-width:700px) { .v2-guide-progress { gap:6px; } .v2-guide-progress li { font-size:16px; } }
+
+/* Balance headings and short controls; keep paragraphs readable at all widths. */
+.v2-site :is(h1,h2,h3,button,summary,.v2-button,.v2-audience-button strong,.v2-plan-name) { text-wrap:balance; word-break:normal; overflow-wrap:break-word; }
+.v2-site :is(p,li,dd) { text-wrap:pretty; overflow-wrap:break-word; }
+.v2-audience-button > span { min-width:0; }
+@media(min-width:701px) { .v2-plan-grid, .v2-compare-grid { column-gap:20px; } }

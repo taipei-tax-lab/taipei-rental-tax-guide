@@ -33,21 +33,31 @@
   function renderGuide(moveFocus) {
     const state = window.RentalGuideRules.next(answers);
     stage.replaceChildren();
+    const progress = el('ol', 'v2-guide-progress');
+    const labels = ['出租方式', '確認情況', '查看建議'];
+    const active = state.type === 'result' ? 2 : (answers.length ? 1 : 0);
+    labels.forEach((label, index) => {
+      const step = el('li', index <= active ? 'is-complete' : '', `${index + 1}　${label}`);
+      if (index === active) step.setAttribute('aria-current', 'step');
+      progress.append(step);
+    });
+    stage.append(progress);
     if (state.type === 'question') {
       const fieldset = el('fieldset', 'v2-question');
       const legend = el('legend');
       legend.tabIndex = -1;
-      legend.append(el('span', 'v2-question-step', `第 ${state.step} 題・最多 3 題`), document.createTextNode(state.title));
+      legend.append(el('span', 'v2-question-step', `第 ${state.step} 題｜${state.step === 1 ? "出租方式" : "確認情況"}・最多 3 題`), document.createTextNode(state.title));
       const options = el('div', 'v2-options');
       for (const item of state.choices) {
         const button = el('button', 'v2-option', item.label);
         button.type = 'button';
+        button.setAttribute('aria-label', item.label);
         button.addEventListener('click', () => { answers.push(item.value); renderGuide(true); });
         options.append(button);
       }
-      fieldset.append(legend, options);
+      fieldset.append(legend, el('p', 'v2-caption', '請選擇最接近您的情況，點選後會直接繼續。'), options);
       stage.append(fieldset);
-      if (moveFocus) focus(legend);
+      if (moveFocus) { focus(legend); stage.scrollIntoView({block: "nearest"}); }
     } else {
       const result = el('div', 'v2-guide-result');
       const heading = el('h3', '', state.title);
@@ -57,21 +67,22 @@
         const name = document.querySelector(`#card-${recommendation.id} .v2-plan-name`).textContent;
         const anchor = el('a');
         anchor.href = `#plan-${recommendation.id}`;
-        anchor.append(el('strong', '', name), el('p', '', recommendation.reason), el('span', '', '查看優惠與下一步 →'));
+        const summary = document.querySelector(`#card-${recommendation.id} .v2-card-tax`).cloneNode(true);
+        anchor.append(el('strong', '', name), el('p', '', `建議原因：${recommendation.reason}`), summary, el('span', '', '查看優惠與辦理方式 →'));
         suggestions.append(anchor);
       }
       const compare = el('a', 'v2-text-link', '查看四方案完整比較 →');
       compare.href = '#comparison';
       result.append(heading, suggestions, el('p', 'v2-caption', '以上是閱讀建議，不代表已符合優惠資格；請繼續核對方案條件。'), compare);
       stage.append(result);
-      if (moveFocus) focus(heading);
+      if (moveFocus) { focus(heading); stage.scrollIntoView({block: "start"}); }
     }
     if (answers.length) {
       const nav = el('div', 'v2-guide-nav');
       const previous = el('button', 'v2-text-link', '← 上一題');
       previous.type = 'button';
       previous.addEventListener('click', () => { answers.pop(); renderGuide(true); });
-      const reset = el('button', 'v2-text-link', '重新選擇');
+      const reset = el('button', 'v2-text-link', '重新開始');
       reset.type = 'button';
       reset.addEventListener('click', () => { answers = []; renderGuide(true); });
       nav.append(previous, reset);

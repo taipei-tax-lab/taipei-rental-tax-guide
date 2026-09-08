@@ -10,6 +10,16 @@ const esc = value => String(value).replace(/[&<>"']/g, char => ({'&':'&amp;', '<
 const link = (item, cls = '') => `<a class="${cls}" href="${esc(item.href)}" target="_blank" rel="noopener noreferrer">${esc(item.label)} <span aria-hidden="true">↗</span><span class="sr-only">（另開新視窗）</span></a>`;
 const list = items => `<ul>${items.map(item => `<li>${esc(item)}</li>`).join('')}</ul>`;
 const icon = name => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${name === 'person' ? '<circle cx="12" cy="7" r="3"/><path d="M5 21v-3a7 7 0 0 1 14 0v3"/>' : name === 'building' ? '<path d="M4 21V3h10v18M14 9h6v12M7 7h3M7 11h3M7 15h3M17 13h1M17 17h1M9 21v-3h2v3"/>' : name === 'operator' ? '<path d="M3 21V7l9-4 9 4v17M7 10h3M14 10h3M7 14h3M14 14h3M10 21v-4h4v4"/>' : name === 'subsidy' ? '<path d="m3 10 9-7 9 7M5 9v12h14V9"/><path d="m8 15 3 3 5-6"/>' : '<path d="m3 10 9-7 9 7M5 9v12h14V9M9 21v-7h6v7"/>'}</svg>`;
+const planIcon = id => {
+  const house = '<path d="m2 9 6-6 6 5M4 10v11h4"/><path d="M7 13h2"/>';
+  const symbols = {
+    ordinary: '<circle cx="18" cy="13" r="3"/><path d="m15.9 15.1-5 5m2-2 1.5 1.5"/>',
+    public: '<path d="M16.5 21s-5.5-3.5-5.5-6.5a2.75 2.75 0 0 1 5.5-1 2.75 2.75 0 0 1 5.5 1c0 3-5.5 6.5-5.5 6.5Z"/>',
+    social: '<path d="m16.5 11 5.5 2v3c0 2.5-2.5 4.5-5.5 6-3-1.5-5.5-3.5-5.5-6v-3z"/><path d="m14 16 2 2 3-3"/>',
+    personal: '<rect x="12" y="11" width="10" height="11" rx="1"/><path d="M15 14h4m-4 3h4m-4 3h2"/>'
+  };
+  return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${house}${symbols[id]}</svg>`;
+};
 const tax = (item, type = 'detail') => `<div class="v2-tax"><dt>${esc(item.label)}</dt><dd><strong>${esc(item.value)}</strong><p>${esc(type === 'card' ? item.summary || item.note : item.note)}</p></dd></div>`;
 const plans = data.plans;
 if (plans.length !== 4 || new Set(plans.map(p => p.id)).size !== 4) throw new Error('Four unique plans required');
@@ -19,7 +29,7 @@ for (const plan of plans) {
 }
 
 const cards = plans.map((plan, i) => `<a class="v2-plan-card v2-${esc(plan.accent)}" href="#plan-${plan.id}" id="card-${plan.id}">
-  <div class="v2-card-top"><span class="v2-plan-icon">${icon(plan.icon)}</span><span class="v2-card-number">0${i + 1}</span></div>
+  <div class="v2-card-top"><span class="v2-plan-icon">${planIcon(plan.id)}</span><span class="v2-card-number">0${i + 1}</span></div>
   <h3>${esc(plan.situation)}</h3><p class="v2-plan-name">${esc(plan.eyebrow)}</p>
   <p class="v2-card-description">${esc(plan.summary)}</p>
   <dl class="v2-card-tax">${tax(plan.taxes[plan.highlightTax], 'card')}</dl>
@@ -43,7 +53,7 @@ const planDetails = plans.map(plan => `<section data-page="plan-${plan.id}" id="
   </div>
   <section class="v2-source"><h2>官方資訊與申辦入口</h2><div class="v2-source-links">${link({label: plan.source.title, href: plan.source.url})}${plan.links.slice(1).map(l => link(l)).join('')}</div><p class="v2-caption">租稅來源核對：${plan.source.checked}；官方方案頁更新：${plan.source.updated}。房屋稅相當稅率依年期標示。</p></section>
   <p class="v2-notice">${esc(data.meta.note)}</p>
-  <div class="v2-bottom-actions"><a href="#plans" class="v2-button" data-return-plan="${plan.id}">返回方案總覽</a><a href="#comparison" class="v2-text-link">比較其他出租方式 →</a><button class="v2-print v2-text-link" type="button" data-print>列印本方案</button></div>
+  <div class="v2-bottom-actions"><a href="#plans" class="v2-button" data-return-plan="${plan.id}">返回方案總覽</a><a href="#comparison" class="v2-text-link">比較其他出租方式 →</a></div>
 </section>`).join('\n');
 
 const groups = [

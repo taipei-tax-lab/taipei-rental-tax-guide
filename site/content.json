@@ -60,10 +60,6 @@
         {
           "label": "開啟官方租金標準試算",
           "href": "https://services.arpa.tpctax.dof.gov.taipei/rentStandard/index.php?content=calculator"
-        },
-        {
-          "label": "查看出租房屋官方專區",
-          "href": "https://tpctax.gov.taipei/cp.aspx?n=3A978B4E3ADD88F2"
         }
       ],
       "situation": "我自己出租、自己管理",
@@ -92,7 +88,7 @@
         {
           "label": "房屋稅",
           "value": "稅率 1.2%",
-          "note": "115年期稅基折減25%，相當稅率0.9%。"
+          "note": "116年期稅基折減12.5%，相當稅率1.05%。"
         },
         {
           "label": "地價稅",
@@ -163,7 +159,7 @@
         {
           "label": "房屋稅",
           "value": "減徵為稅率 1%",
-          "note": "115年期稅基折減25%，相當稅率0.75%。"
+          "note": "116年期稅基折減12.5%，相當稅率0.875%。"
         },
         {
           "label": "地價稅",

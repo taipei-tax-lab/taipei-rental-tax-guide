@@ -325,3 +325,10 @@ df-messenger:hover {
 .assistant-panel__content{max-height:100%;overflow-y:auto}
 
 df-messenger { --df-messenger-input-font-size: 18px; --df-messenger-message-line-height: 1.75; }
+
+/* Original illustrated launcher; keep the close control visible when expanded. */
+df-messenger { --df-messenger-chat-bubble-size:84px; --df-messenger-chat-bubble-icon-size:150px; --df-messenger-chat-bubble-background:transparent; --df-messenger-chat-bubble-border:none; }
+df-messenger:hover { --df-messenger-chat-bubble-background:transparent; }
+@media(max-width:560px) { df-messenger { --df-messenger-chat-bubble-size:72px; --df-messenger-chat-bubble-icon-size:132px; } }
+
+df-messenger { --df-messenger-chat-bubble-icon-color:#ffffff; --df-messenger-chat-bubble-close-icon-transform-rotate:0deg; }
