@@ -1,5 +1,7 @@
 /* V2 is scoped to the information site. Legacy tokens and Messenger styles stay intact. */
-body.v2-body { background: #f7f8f5; }
+body.v2-body { background: #f7f8f5; isolation: isolate; }
+/* A viewport-fixed background layer also works on mobile without background-attachment quirks. */
+body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none; background-image: linear-gradient(90deg, #f7f8f5f2 0%, #f7f8f5db 42%, #f7f8f5ad 100%), url('../../hero-v2.png'); background-position: center, right 80px; background-size: cover, min(1100px, 90vw) auto; background-repeat: no-repeat; }
 .v2-site { --v2-border: #cddbd9; --v2-muted: #49646a; --v2-accent: #0c686d; font-size: 1rem; line-height: 1.7; }
 .v2-site *, .v2-site *::before, .v2-site *::after { box-sizing: border-box; }
 .v2-site [hidden] { display: none !important; }
@@ -246,7 +248,77 @@ body.v2-body { background: #f7f8f5; }
   .v2-site *, .v2-site *::before, .v2-site *::after { transition: none !important; animation: none !important; }
   .v2-plan-card:hover { transform: none; }
 }
+/* Prominent starting points and desktop contextual expansion. */
+.v2-hero-copy { width: 100%; }
+.v2-hero-art { opacity: .45; }
+.v2-hero-copy > .v2-entry-label { font-weight: 750; color: var(--teal-dark); margin: 22px 0 10px; }
+.v2-audience { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; width: min(100%, 940px); max-width: none; background: none; border: 0; padding: 0; }
+.v2-audience-button { justify-content: flex-start; text-align: left; padding: 19px 20px; min-height: 96px; border: 2px solid #92b2ae; background: #fff; box-shadow: 0 3px 10px #1038440b; cursor: pointer; }
+.v2-audience-button svg { width: 28px; height: 28px; }
+.v2-audience-button strong { display: block; font-size: 1.25rem; }
+.v2-audience-button small { display: block; font-size: .875rem; font-weight: 400; margin-top: 4px; }
+.v2-audience-button[aria-current="true"] { border-color: var(--teal-dark); box-shadow: 0 3px 10px #10384420; }
+.v2-chat-entry { color: var(--teal-dark); background: #eaf4f0; }
+.v2-guide { margin: 0 0 24px; border: 2px solid #6faaa0; background: #e9f4ef; }
+.v2-guide > summary strong { display: block; font-size: 1.125rem; }
+.v2-guide > summary small { display: block; font-size: .9375rem; margin-top: 4px; }
+.v2-guide-cta { display: inline-flex; align-items: center; gap: 10px; background: var(--teal); color: white; border-radius: 8px; padding: 10px 18px; font-weight: 750; white-space: nowrap; }
+.v2-guide-cta .v2-expand { color: white; }
+.v2-guide[open] .v2-guide-cta .v2-expand { transform: rotate(45deg); }
+.v2-selected { outline: 3px solid var(--v2-accent); outline-offset: 2px; background: var(--v2-tint); }
+.v2-selected .v2-card-number { font-size: 0; letter-spacing: 0; }
+.v2-selected .v2-card-number::after { content: '目前查看'; font-size: .875rem; font-weight: 750; color: var(--v2-accent); }
+.v2-inline-plan { width: 100%; padding: 22px 26px 28px; margin: 26px 0 0; border: 2px solid var(--v2-accent); border-radius: 12px; background: #fff; }
+.v2-inline-plan .v2-back { display: block; width: fit-content; margin: 0 0 14px auto; padding: 7px 14px; border: 1px solid #9bb9b3; border-radius: 6px; }
+.v2-inline-plan .v2-answer-layout { grid-template-columns: minmax(0,1fr) 280px; gap: 22px; }
+@media (max-width: 700px) {
+  .v2-audience { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
+  .v2-audience-button { padding: 14px 12px; gap: 8px; min-height: 102px; align-items: flex-start; }
+  .v2-audience-button svg { width: 22px; height: 22px; margin-top: 4px; }
+  .v2-audience-button strong { font-size: 1.125rem; }
+  .v2-audience-button small { line-height: 1.5; }
+  .v2-chat-entry { grid-column: 1 / -1; min-height: 72px; align-items: center; justify-content: center; }
+  .v2-chat-entry svg { margin-top: 0; }
+  .v2-chat-entry small { margin-top: 0; }
+  .v2-guide > summary { flex-wrap: wrap; gap: 12px; }
+  .v2-guide-cta { justify-content: center; width: 100%; padding: 9px 14px; }
+}
+/* Reading hierarchy: body 16px, supporting labels 15px, metadata 14px. */
+.v2-site { --v2-muted: #3d5961; line-height: 1.75; letter-spacing: .015em; }
+.v2-site :is(h1,h2,h3) { line-height: 1.45; }
+.v2-site h2 { font-size: 1.5rem; }
+.v2-site h3, .v2-plan-card h3 { font-size: 1.1875rem; }
+.v2-site :is(.v2-card-description, .v2-hero-copy > p:not(.v2-kicker), .v2-compare-card dd, .v2-tenant-card summary > p) { font-size: 1rem; line-height: 1.75; }
+.v2-site :is(.v2-plan-name, .v2-tax dt, .v2-tax dd p, .v2-card-action, .v2-audience-button small, .v2-button, .v2-text-link, .v2-source-links, .v2-tenant-links p, .v2-resource-body p) { font-size: .9375rem; line-height: 1.65; }
+.v2-site .v2-tax dd strong { line-height: 1.6; }
+.v2-site .v2-card-description { margin-bottom: 18px; }
+.v2-card-tax .v2-tax { min-height: 132px; }
+.v2-site .v2-caption { color: #3d5961; line-height: 1.75; }
+.v2-site .v2-next-step .v2-caption { color: #d2e6e1; }
+.v2-faq-list > details > summary { line-height: 1.7; padding-top: 20px; padding-bottom: 20px; }
+.v2-faq-list, .v2-source { background: #f7f8f5e8; }
+.v2-details-body > p, .v2-fit > p { max-width: 48em; }
+.v2-brand { gap: 20px; min-width: 0; }
+.v2-brand-logo { display: block; width: 244px; max-width: 100%; height: auto; object-fit: contain; }
+.v2-brand-title { border-left: 1px solid #a7bebb; padding-left: 20px; color: #103844; }
+.v2-header { background: #f7f8f5e8; }
+.v2-footer { background: #f7f8f5e8; }
+@media (max-width: 1100px) {
+  .v2-card-tax .v2-tax { min-height: 96px; }
+}
+@media (max-width: 700px) {
+  body.v2-body::before { background-position: center, right 90px; background-size: cover, 700px auto; background-image: linear-gradient(90deg, #f7f8f5f5, #f7f8f5d9), url('../../hero-v2.png'); }
+  .v2-brand { flex-direction: column; align-items: flex-start; gap: 7px; }
+  .v2-brand-logo { width: 210px; }
+  .v2-brand-title { border: 0; padding: 0; }
+  .v2-card-tax .v2-tax { min-height: 0; }
+  .v2-site .v2-audience-button small { font-size: .9375rem; }
+}
 @media print {
+  body.v2-body::before { display: none; }
+  .v2-has-inline .v2-hero, .v2-has-inline .v2-section-heading, .v2-has-inline .v2-plan-grid, .v2-has-inline #guide, .v2-has-inline .v2-owner-section > .v2-caption, .v2-has-inline #faq, .v2-has-inline #resources { display: none !important; }
+  .v2-has-inline .v2-owner-section { border: 0; padding: 0; }
+  .v2-inline-plan { border: 0; margin: 0; padding: 0; }
   body.v2-body { background: #fff; }
   .v2-site { font-size: 11pt; }
   .v2-header, .v2-footer, .v2-back, .v2-bottom-actions, .v2-skip, .v2-hero-art { display: none !important; }
@@ -255,6 +327,7 @@ body.v2-body { background: #f7f8f5; }
   .v2-answer-layout, .v2-two-columns { display: block; }
   .v2-next-step { background: #fff; color: #103844; border: 1px solid #a0b6b1; margin: 20px 0; }
   .v2-next-step .v2-kicker, .v2-next-step .v2-caption { color: #103844; }
+  .v2-site .v2-next-step .v2-caption { color: #103844; }
   .v2-tax-grid { grid-template-columns: repeat(3, minmax(0,1fr)); }
   .v2-tax-grid > .v2-tax { display: block; }
   .v2-tax, .v2-next-step, .v2-detail-more > details { break-inside: avoid; }

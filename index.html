@@ -11,7 +11,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./assets/css/site.css?v=4f7fe5e086">
-  <link rel="stylesheet" href="./assets/css/guide-v2.css?v=7355373c43">
+  <link rel="stylesheet" href="./assets/css/guide-v2.css?v=21d257ece9">
   <!-- The existing Messenger theme, markup and runtime remain unchanged. -->
   <link rel="stylesheet" href="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/themes/df-messenger-default.css">
   <link rel="stylesheet" href="./assets/css/messenger.css">
@@ -21,10 +21,9 @@
   <div class="v2-site">
     <header class="v2-header">
       <a class="v2-brand" href="#top" aria-label="出租房屋租稅優惠專區首頁">
-        <span class="v2-brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m3 10 9-7 9 7M5 9v12h14V9M9 21v-7h6v7"/></svg></span>
-        <span><small>臺北市稅捐稽徵處</small><strong>出租房屋租稅優惠專區</strong></span>
+        <img class="v2-brand-logo" src="./assets/images/tpctax-logo.png" width="904" height="183" alt="臺北市稅捐稽徵處">
+        <strong class="v2-brand-title">出租房屋租稅優惠專區</strong>
       </a>
-      <a class="v2-official" href="https://tpctax.gov.taipei/cp.aspx?n=3A978B4E3ADD88F2" target="_blank" rel="noopener noreferrer">官方專區 <span aria-hidden="true">↗</span><span class="sr-only">（另開新視窗）</span></a>
     </header>
     <main id="content" tabindex="-1">
       <div data-page="home" id="top">
@@ -33,12 +32,14 @@
             <p class="v2-kicker">從您的出租情況出發</p>
             <h1 id="home-title" tabindex="-1">出租房屋，<br><em>有哪些租稅優惠？</em></h1>
             <p>看懂適用條件、三大稅目優惠，<br class="v2-mobile-break">找到接下來的辦理方式。</p>
-            <div class="v2-audience" aria-label="選擇查詢身分">
-              <a href="#owners" data-audience="owner" class="v2-audience-button" aria-current="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m3 10 9-7 9 7M5 9v12h14V9M9 21v-7h6v7"/></svg> 我是屋主</a>
-              <a href="#tenants" data-audience="tenant" class="v2-audience-button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="7" r="3"/><path d="M5 21v-3a7 7 0 0 1 14 0v3"/></svg> 我是房客</a>
+            <p class="v2-entry-label">您想查什麼？請從這裡開始</p>
+            <div class="v2-audience" aria-label="選擇查詢方式">
+              <a href="#owners" data-audience="owner" class="v2-audience-button" aria-current="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m3 10 9-7 9 7M5 9v12h14V9M9 21v-7h6v7"/></svg><span><strong>我是屋主</strong><small>查出租方案與租稅優惠</small></span></a>
+              <a href="#tenants" data-audience="tenant" class="v2-audience-button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="7" r="3"/><path d="M5 21v-3a7 7 0 0 1 14 0v3"/></svg><span><strong>我是房客</strong><small>查補貼、房源與租屋權益</small></span></a>
+              <button type="button" class="v2-audience-button v2-chat-entry" id="open-helper"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a7 7 0 0 1-7 7H8l-5 4V6a3 3 0 0 1 3-3h11a3 3 0 0 1 3 3z"/><path d="M7 8h9M7 12h6"/></svg><span><strong>直接問小幫手</strong><small>直接描述您的問題</small></span></button>
             </div>
+            <p id="helper-status" class="v2-caption" role="status" hidden></p>
           </div>
-          <img class="v2-hero-art" src="./hero-v2.png" width="1536" height="1024" alt="" fetchpriority="high">
         </section>
         <div class="v2-container">
           <section id="owners" class="v2-owner-section" data-audience-panel="owner" aria-labelledby="owner-title">
@@ -46,6 +47,13 @@
               <div><p class="v2-kicker">屋主租稅優惠</p><h2 id="owner-title" tabindex="-1">哪一種情況最接近您？</h2></div>
               <a class="v2-text-link" href="#comparison">四方案完整比較 <span aria-hidden="true">→</span></a>
             </div>
+            <details class="v2-guide" id="guide">
+              <summary><span><strong>還不確定適合哪一種？</strong><small>回答最多 3 題，找到可能適合的出租方向。</small></span><span class="v2-guide-cta">幫我找方向 <span class="v2-expand" aria-hidden="true">＋</span></span></summary>
+              <div class="v2-guide-body">
+                <p class="v2-caption">僅協助選擇閱讀方向，不是資格審查；不需要填寫個人資料。</p>
+                <div id="guide-stage" aria-live="polite"><p>請依出租情境查看方案，或使用<a href="#comparison">四方案完整比較</a>。啟用 JavaScript 後可使用快速判斷。</p></div>
+              </div>
+            </details>
             <div class="v2-plan-grid"><a class="v2-plan-card v2-blue" href="#plan-ordinary" id="card-ordinary">
   <div class="v2-card-top"><span class="v2-plan-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m3 10 9-7 9 7M5 9v12h14V9M9 21v-7h6v7"/></svg></span><span class="v2-card-number">01</span></div>
   <h3>我自己出租、自己管理</h3><p class="v2-plan-name">一般出租</p>
@@ -75,13 +83,7 @@
   <span class="v2-card-action">查看優惠與辦理方式 <span aria-hidden="true">→</span></span>
 </a></div>
             <p class="v2-caption">優惠須符合各方案條件；「相當稅率」已計入該年期稅基折減，並非另一項法定稅率。</p>
-            <details class="v2-guide" id="guide">
-              <summary><span><strong>不確定怎麼選？</strong> 回答最多 3 題，幫您找方向</span><span class="v2-expand" aria-hidden="true">＋</span></summary>
-              <div class="v2-guide-body">
-                <p class="v2-caption">僅協助選擇閱讀方向，不是資格審查；不需要填寫個人資料。</p>
-                <div id="guide-stage" aria-live="polite"><p>請依上方情境查看方案，或使用<a href="#comparison">四方案完整比較</a>。啟用 JavaScript 後可使用快速判斷。</p></div>
-              </div>
-            </details>
+            <div id="inline-plan-slot"></div>
           </section>
           <section id="tenants" class="v2-tenant-section" data-audience-panel="tenant" aria-labelledby="tenant-title">
             <div class="v2-section-heading"><div><p class="v2-kicker">房客常見需求</p><h2 id="tenant-title" tabindex="-1">補貼、房源與租屋權益</h2></div><span class="v2-caption">選擇需求，前往主管機關辦理</span></div>
@@ -198,7 +200,7 @@
     </footer>
   </div>
   <script src="./assets/js/guide-rules.js?v=41c1a336de"></script>
-  <script src="./assets/js/guide-ui.js?v=9fdf74a086"></script>
+  <script src="./assets/js/guide-ui.js?v=731345725a"></script>
   <!-- Dialogflow CX Conversational Messenger -->
 <script src="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js"></script>
 

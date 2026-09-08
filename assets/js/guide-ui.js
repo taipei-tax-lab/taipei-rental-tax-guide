@@ -12,6 +12,13 @@
   let currentPage = 'home';
   let homePosition = 0;
   let returningPlan = null;
+  const desktop = window.matchMedia('(min-width: 1101px)');
+  const planPages = pages.filter(page => page.dataset.page.startsWith('plan-'));
+  const slots = new Map(planPages.map(page => {
+    const marker = document.createComment(page.id);
+    page.before(marker);
+    return [page, marker];
+  }));
 
   function el(tag, className, text) {
     const node = document.createElement(tag);
@@ -87,10 +94,28 @@
     hash = aliases[hash] || hash;
     const destination = pages.find(page => page.dataset.page === hash);
     const pageName = destination ? destination.dataset.page : 'home';
+    const inline = desktop.matches && pageName.startsWith('plan-');
+    for (const plan of planPages) {
+      const isInline = inline && plan === destination;
+      if (isInline) document.getElementById('inline-plan-slot').append(plan);
+      else slots.get(plan).after(plan);
+      plan.classList.toggle('v2-inline-plan', isInline);
+      const back = plan.querySelector('.v2-back');
+      back.textContent = isInline ? '收合內容 ↑' : '← 返回出租方案';
+    }
+    site.classList.toggle('v2-has-inline', inline);
+    for (const card of site.querySelectorAll('.v2-plan-card')) {
+      const selected = inline && card.hash === '#' + pageName;
+      card.classList.toggle('v2-selected', selected);
+      if (desktop.matches) {
+        card.setAttribute('aria-expanded', String(selected));
+        card.setAttribute('aria-controls', card.hash.slice(1));
+      } else { card.removeAttribute('aria-expanded'); card.removeAttribute('aria-controls'); }
+    }
     if (currentPage === 'home' && pageName !== 'home') homePosition = window.scrollY;
     if (hash === 'tenants' || hash.startsWith('tenant-group-')) setAudience('tenant');
-    else if (['owners', 'plans', 'guide'].includes(hash)) setAudience('owner');
-    for (const page of pages) page.hidden = page.dataset.page !== pageName;
+    else if (inline || ['owners', 'plans', 'guide'].includes(hash)) setAudience('owner');
+    for (const page of pages) page.hidden = page.dataset.page !== pageName && !(inline && page.dataset.page === 'home');
     const previousPage = currentPage;
     currentPage = pageName;
     const visiblePage = pages.find(page => page.dataset.page === pageName);
@@ -102,7 +127,12 @@
       setAudience(target.closest('[data-audience-panel]').dataset.audiencePanel);
     }
     requestAnimationFrame(() => {
-      if (pageName !== 'home') {
+      if (inline) {
+        const grid = site.querySelector('.v2-plan-grid');
+        const gridBottom = grid.getBoundingClientRect().bottom + window.scrollY;
+        window.scrollTo({top: Math.max(0, gridBottom - Math.min(240, innerHeight * .3)), behavior: 'instant'});
+        if (!initial) focus(title);
+      } else if (pageName !== 'home') {
         window.scrollTo({top: 0, behavior: 'instant'});
         if (!initial) focus(title);
       } else if (previousPage !== 'home' && ['plans','owners'].includes(hash)) {
@@ -127,9 +157,51 @@
     if (link.hash === location.hash) { event.preventDefault(); route(); }
   });
   window.addEventListener('hashchange', () => route());
+  desktop.addEventListener('change', () => route());
+
+  // The existing component owns the conversation. This shortcut only opens it.
+  let messengerReady = false;
+  let pendingOpen = false;
+  let loadTimer;
+  const helperButton = document.getElementById('open-helper');
+  const helperStatus = document.getElementById('helper-status');
+  function focusChatInput() {
+    function findInput(root) {
+      const input = root.querySelector('textarea, input:not([type="hidden"])');
+      if (input) return input;
+      for (const node of root.querySelectorAll('*')) {
+        if (node.shadowRoot) { const found = findInput(node.shadowRoot); if (found) return found; }
+      }
+    }
+    const messenger = document.querySelector('df-messenger');
+    if (messenger) focus(findInput(messenger));
+  }
+  function openHelper() {
+    const bubble = document.querySelector('df-messenger-chat-bubble');
+    if (!messengerReady || typeof bubble?.openChat !== 'function') return false;
+    bubble.openChat();
+    requestAnimationFrame(focusChatInput);
+    return true;
+  }
+  document.addEventListener('df-messenger-loaded', () => {
+    messengerReady = true;
+    if (pendingOpen) { pendingOpen = false; clearTimeout(loadTimer); helperStatus.hidden = true; openHelper(); }
+  });
+  helperButton.addEventListener('click', () => {
+    if (openHelper()) { helperStatus.hidden = true; return; }
+    pendingOpen = true;
+    helperStatus.hidden = false;
+    helperStatus.textContent = '小幫手載入中，完成後會開啟。您也可以先查看下方方案。';
+    clearTimeout(loadTimer);
+    loadTimer = setTimeout(() => {
+      pendingOpen = false;
+      helperStatus.textContent = '小幫手暫時無法載入，請稍後重試；下方方案與官方窗口仍可使用。';
+    }, 10000);
+  });
   let printDetails = [];
   function preparePrint() {
-    printDetails = Array.from(site.querySelectorAll('[data-page]:not([hidden]) details')).map(node => ({node, open: node.open}));
+    const printPage = pages.find(page => page.dataset.page === currentPage);
+    printDetails = Array.from(printPage.querySelectorAll('details')).map(node => ({node, open: node.open}));
     printDetails.forEach(({node}) => { node.open = true; });
   }
   window.addEventListener('beforeprint', preparePrint);
