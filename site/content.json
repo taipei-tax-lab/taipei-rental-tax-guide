@@ -1,0 +1,427 @@
+{
+  "meta": {
+    "version": "2026-09-08-v2",
+    "checked": "2026-09-08",
+    "official": "https://tpctax.gov.taipei/cp.aspx?n=3A978B4E3ADD88F2",
+    "calculator": "https://services.arpa.tpctax.dof.gov.taipei/rentStandard/index.php?content=calculator",
+    "scope": "臺北市出租住宅；房屋稅年期請見各項標示。",
+    "note": "以下為公開資訊整理；實際資格、適用期間與稅額，以主管機關公告及個案核定為準。"
+  },
+  "plans": [
+    {
+      "id": "ordinary",
+      "eyebrow": "一般出租",
+      "title": "自行出租並申報租賃所得",
+      "summary": "由屋主自行找房客、簽約及管理，並依規定辦理房屋稅與租賃所得申報。",
+      "accent": "blue",
+      "icon": "self",
+      "tags": [
+        "自主管理",
+        "先試算租金標準"
+      ],
+      "suitable": "希望保有出租彈性，願意自行處理招租、契約、收租及日常管理的屋主。",
+      "condition": "房屋供住宅出租使用；申報租賃所得達本市一般租金標準者，房屋稅可依全國總持有戶數適用差別稅率。",
+      "taxes": [
+        {
+          "label": "房屋稅",
+          "value": "1.5%／2%／2.4%",
+          "note": "申報租賃所得須達本市一般租金標準；依全國總持有應稅房屋戶數，4戶以內1.5%、5至6戶2%、7戶以上2.4%。",
+          "summary": "須達租金標準，依全國持有應稅房屋戶數適用。"
+        },
+        {
+          "label": "地價稅",
+          "value": "依一般規定辦理",
+          "note": "本方案未另列專屬減免。"
+        },
+        {
+          "label": "綜合所得稅",
+          "value": "依租賃所得規定申報",
+          "note": "請保存租約、租金及相關費用資料。"
+        }
+      ],
+      "process": [
+        "整理房屋、土地現值與全年租金資料",
+        "使用官方工具確認是否達租金標準",
+        "簽訂並保存租賃契約與收付紀錄",
+        "依當年度規定申報房屋稅及租賃所得"
+      ],
+      "documents": [
+        "房屋評定現值",
+        "公告土地現值總額",
+        "全年租金與租賃契約",
+        "租金收付及修繕相關紀錄"
+      ],
+      "cautions": [
+        "租金標準試算為初步確認，實際稅額仍依申報資料核定。",
+        "房屋稅屬地方稅；綜合所得稅由國稅局受理。"
+      ],
+      "firstStep": "先使用官方租金標準試算，再確認當年度申報方式。",
+      "links": [
+        {
+          "label": "開啟官方租金標準試算",
+          "href": "https://services.arpa.tpctax.dof.gov.taipei/rentStandard/index.php?content=calculator"
+        },
+        {
+          "label": "查看出租房屋官方專區",
+          "href": "https://tpctax.gov.taipei/cp.aspx?n=3A978B4E3ADD88F2"
+        }
+      ],
+      "situation": "我自己出租、自己管理",
+      "source": {
+        "url": "https://tpctax.gov.taipei/cp.aspx?n=3A978B4E3ADD88F2",
+        "title": "稅捐處｜出租房屋租稅優惠專區",
+        "updated": "2026-09-04",
+        "checked": "2026-09-08"
+      },
+      "highlightTax": 0
+    },
+    {
+      "id": "public",
+      "eyebrow": "公益出租人",
+      "title": "出租予符合租金補貼資格的房客",
+      "summary": "將合法住宅出租給符合租金補貼資格的房客，經認定後可適用相關租稅優惠。",
+      "accent": "orange",
+      "icon": "subsidy",
+      "tags": [
+        "租金補貼戶",
+        "租稅優惠"
+      ],
+      "suitable": "願意將住宅出租給符合租金補貼資格的房客，並配合資格認定的住宅所有權人。",
+      "condition": "出租人須為住宅所有權人，住宅須為合法建築物。地方稅優惠的房客條件為符合租金補貼申請資格；所得稅優惠另要求房客領有租金補貼，出租人限自然人。",
+      "taxes": [
+        {
+          "label": "房屋稅",
+          "value": "稅率 1.2%",
+          "note": "115年期稅基折減25%，相當稅率0.9%。"
+        },
+        {
+          "label": "地價稅",
+          "value": "自用住宅用地稅率 2‰",
+          "note": "由稅捐處依認定資料辦理。"
+        },
+        {
+          "label": "綜合所得稅",
+          "value": "每屋每月1萬5,000元免稅；必要費用率43%",
+          "note": "限自然人住宅所有權人，且房客領有租金補貼；向國稅局申報。必要費用的計算請依所得稅規定辦理。"
+        }
+      ],
+      "process": [
+        "確認自己為住宅所有權人及房屋為合法建築物",
+        "確認房客符合或已取得租金補貼資格",
+        "由機關主動認定，或依規定自行申請",
+        "地方稅由稅捐處辦理；所得稅向國稅局申報"
+      ],
+      "documents": [
+        "租賃契約",
+        "房客租金補貼資格相關資料",
+        "房屋及土地資料",
+        "其他官方申請頁面所列文件"
+      ],
+      "cautions": [
+        "房屋稅、地價稅與綜合所得稅的出租人資格不完全相同。",
+        "補貼資格、認定期間與年度稅基折減，以最新公告為準。",
+        "房屋稅相當稅率依年期變動：115年期0.9%、116年期1.05%；117年期起稅基不再折減，稅率1.2%。"
+      ],
+      "firstStep": "先確認房客的租金補貼資格，再查詢公益出租人認定。",
+      "links": [
+        {
+          "label": "查詢公益出租人認定",
+          "href": "https://nprent.nlma.gov.tw/nprent/"
+        },
+        {
+          "label": "查看認定方式與常見問題",
+          "href": "https://pip.moi.gov.tw/Publicize/Info/B4050"
+        },
+        {
+          "label": "查看中央租金補貼",
+          "href": "https://pip.moi.gov.tw/Publicize/Info/B1020"
+        }
+      ],
+      "situation": "我的房客有租金補貼",
+      "source": {
+        "url": "https://tpctax.gov.taipei/cp.aspx?n=3A978B4E3ADD88F2&s=0F6CC22A30839EA4",
+        "title": "稅捐處｜公益出租人優惠與申辦說明",
+        "updated": "2026-08-31",
+        "checked": "2026-09-08"
+      },
+      "highlightTax": 0
+    },
+    {
+      "id": "social",
+      "eyebrow": "社會住宅包租代管",
+      "title": "加入政府包租代管計畫",
+      "summary": "透過政府計畫與合作業者協助招租、媒合及管理，可選擇包租或代管模式。",
+      "accent": "green",
+      "icon": "building",
+      "tags": [
+        "政府計畫",
+        "包租或代管"
+      ],
+      "suitable": "希望降低空置與管理負擔，願意依政府計畫條件出租合法住宅的屋主。",
+      "condition": "出租人須為住宅所有權人，住宅須為合法建築物，並加入社會住宅包租代管計畫。房屋、承租人及契約依計畫規定；地方稅優惠的出租人可為自然人或法人，綜合所得稅優惠限自然人。",
+      "taxes": [
+        {
+          "label": "房屋稅",
+          "value": "減徵為稅率 1%",
+          "note": "115年期稅基折減25%，相當稅率0.75%。"
+        },
+        {
+          "label": "地價稅",
+          "value": "減徵 80%",
+          "note": "相當稅率約2‰至11‰。"
+        },
+        {
+          "label": "綜合所得稅",
+          "value": "每屋每月1萬5,000元免稅；必要費用率60%",
+          "note": "向國稅局申報，優惠限自然人。"
+        }
+      ],
+      "process": [
+        "備妥房屋權利證明與基本資料",
+        "洽詢臺北市或國家住都中心列示的合作業者",
+        "比較包租與代管模式及管理責任",
+        "完成媒合與簽約，由合作業者協助後續管理",
+        "依規定辦理地方稅及綜合所得稅"
+      ],
+      "documents": [
+        "房屋權利證明",
+        "房屋基本資料與現況資料",
+        "合作業者要求的申請文件",
+        "包租或代管契約"
+      ],
+      "cautions": [
+        "包租是由業者承租後轉租；代管則由屋主與房客簽約。",
+        "實際優惠仍須符合計畫、契約內容及核定資格。",
+        "房屋稅相當稅率依年期變動：115年期0.75%、116年期0.875%；117年期起稅基不再折減，稅率1%。"
+      ],
+      "firstStep": "先了解包租與代管差異，再洽詢計畫合作業者。",
+      "links": [
+        {
+          "label": "屋主洽詢第5期合作業者",
+          "href": "https://leasing-and-management.udd.gov.taipei/news/70"
+        },
+        {
+          "label": "下載屋主／房客申請文件",
+          "href": "https://leasing-and-management.udd.gov.taipei/attachment"
+        },
+        {
+          "label": "查看房客資格與合作業者",
+          "href": "https://leasing-and-management.udd.gov.taipei/house-plan"
+        }
+      ],
+      "situation": "我想加入政府包租代管",
+      "source": {
+        "url": "https://tpctax.gov.taipei/cp.aspx?n=3A978B4E3ADD88F2&s=3DCFAFD9FCA0195F",
+        "title": "稅捐處｜社會住宅包租代管優惠與申辦說明",
+        "updated": "2026-02-13",
+        "checked": "2026-09-08"
+      },
+      "highlightTax": 0
+    },
+    {
+      "id": "personal",
+      "eyebrow": "個人租賃住宅包租代管",
+      "title": "委託合法租賃住宅服務業",
+      "summary": "自然人屋主將住宅委託合法業者包租或代管，契約約定供居住使用一年以上。",
+      "accent": "purple",
+      "icon": "operator",
+      "tags": [
+        "合法業者",
+        "契約一年以上"
+      ],
+      "suitable": "希望委託專業業者處理招租與管理，並能簽訂一年以上住宅使用契約的自然人屋主。",
+      "condition": "住宅所有權人限自然人，須委託合法租賃住宅服務業，住宅供居住使用且契約一年以上。出租住宅須為經編釘門牌或已設立房屋稅籍的建物。",
+      "taxes": [
+        {
+          "label": "房屋稅",
+          "value": "減徵 40%",
+          "note": "每屋減徵稅額以1萬元為上限。"
+        },
+        {
+          "label": "地價稅",
+          "value": "減徵 40%",
+          "note": "每屋減徵稅額以1萬元為上限。"
+        },
+        {
+          "label": "綜合所得稅",
+          "value": "6,000元免稅；6,001元至2萬元費用率53%；逾2萬元43%",
+          "note": "以每屋每月租金收入計算。"
+        }
+      ],
+      "process": [
+        "查詢合法租賃住宅服務業",
+        "比較包租與代管服務、費用及責任",
+        "簽訂供居住使用一年以上的契約",
+        "房屋稅原則於3月22日前、地價稅原則於9月22日前申請",
+        "年度綜合所得稅申報時依規定辦理"
+      ],
+      "documents": [
+        "減徵地價稅及房屋稅申請書",
+        "本人身分證明；代辦時依規定備妥委託書與受託人身分證明",
+        "包租：與包租業者簽訂的租賃契約影本",
+        "代管：委託管理契約與租賃契約影本"
+      ],
+      "cautions": [
+        "申請期限遇假日可能順延，請以當年度公告為準。",
+        "地方稅須向稅捐處提出申請，所得稅則向國稅局申報。"
+      ],
+      "firstStep": "先查詢合法業者，再確認服務內容、契約及申請期限。",
+      "links": [
+        {
+          "label": "查詢合法租賃住宅服務業",
+          "href": "https://resim.moi.gov.tw/Home/RentIndex"
+        },
+        {
+          "label": "申請地方稅減徵與下載書表",
+          "href": "https://service.taipei/case-detail/BX004"
+        },
+        {
+          "label": "查看申請書範例與應備文件（PDF）",
+          "href": "https://www-ws.gov.taipei/001/Upload/336/relfile/16016/124219/9bf4c7a3-948a-42a2-9af7-a2a7293235cb.pdf"
+        }
+      ],
+      "situation": "我想委託合法業者管理",
+      "source": {
+        "url": "https://tpctax.gov.taipei/cp.aspx?n=3A978B4E3ADD88F2&s=1234F3FBDDD69D1B",
+        "title": "稅捐處｜個人租賃住宅包租代管優惠與申辦說明",
+        "updated": "2026-01-15",
+        "checked": "2026-09-08"
+      },
+      "highlightTax": 0,
+      "documentSource": {
+        "label": "查看申請書範例與應備文件（PDF）",
+        "href": "https://www-ws.gov.taipei/001/Upload/336/relfile/16016/124219/9bf4c7a3-948a-42a2-9af7-a2a7293235cb.pdf"
+      }
+    }
+  ],
+  "tenants": [
+    {
+      "title": "中央擴大租金補貼",
+      "source": "內政部國土管理署",
+      "description": "115年1月1日上午9時至12月31日下午5時受理，採隨到隨辦。",
+      "action": "前往官方線上申請",
+      "href": "https://has.nlma.gov.tw/subsidyOnline/house300e/",
+      "icon": "subsidy",
+      "accent": "blue"
+    },
+    {
+      "title": "臺北幸福租及租金加碼補貼",
+      "source": "臺北市租金補貼網",
+      "description": "依家庭與身分類別查詢臺北市租金加碼補貼及申請方式。",
+      "action": "查看補貼分類",
+      "href": "https://rent-allowance.udd.gov.taipei/",
+      "icon": "subsidy",
+      "accent": "green"
+    },
+    {
+      "title": "低收入戶租金補貼",
+      "source": "臺北市租金補貼網",
+      "description": "低收入戶租屋家庭可依資格申請，受理方式以年度公告為準。",
+      "action": "查看資格與線上申請",
+      "href": "https://rent-allowance.udd.gov.taipei/RentAllowance/LowIncomes",
+      "icon": "document",
+      "accent": "orange"
+    },
+    {
+      "title": "身心障礙者房屋租金補貼",
+      "source": "臺北市政府社會局",
+      "description": "每年1月至12月受理，資格與文件以官方頁面為準。",
+      "action": "查看申請說明",
+      "href": "https://dosw.gov.taipei/cp.aspx?n=A119F2D98118E1D5&s=C82846AD24E9F281",
+      "icon": "rights",
+      "accent": "purple"
+    },
+    {
+      "title": "都市原住民家庭租屋補貼",
+      "source": "臺北市政府原住民族事務委員會",
+      "description": "依年度公告分期受理，請先確認身分、設籍及租屋條件。",
+      "action": "查看申請資格與期間",
+      "href": "https://www.ipc.gov.taipei/News_Content.aspx?n=4FDBC97163E1A185&s=0714FC733E0478C9&sms=87415A8B9CE81B16",
+      "icon": "house",
+      "accent": "orange"
+    },
+    {
+      "title": "包租代管承租資格與洽詢",
+      "source": "臺北市政府包租代管",
+      "description": "查看房客資格、房屋條件及第5期合作業者聯絡方式。",
+      "action": "查看承租資訊",
+      "href": "https://leasing-and-management.udd.gov.taipei/house-plan",
+      "icon": "building",
+      "accent": "green"
+    },
+    {
+      "title": "五大歡迎屋源標示",
+      "source": "臺北市政府地政局",
+      "description": "辨識歡迎長者、學生、青年、設籍及租金補貼的屋源。",
+      "action": "查看友善屋源",
+      "href": "https://land.gov.taipei/cp.aspx?n=7C1E1C242171C23B",
+      "icon": "house",
+      "accent": "blue"
+    },
+    {
+      "title": "租屋設籍與居住查實",
+      "source": "臺北市政府民政局",
+      "description": "查詢租屋設籍文件；無法提出證明文件時，了解居住查實程序。",
+      "action": "查看設籍辦理方式",
+      "href": "https://ca.gov.taipei/cp.aspx?n=79C8987DAB54485A",
+      "icon": "tenant",
+      "accent": "blue"
+    },
+    {
+      "title": "房屋租賃法律諮詢",
+      "source": "臺北市政府法務局",
+      "description": "租約、押金、修繕或終止租約等問題，可查詢預約諮詢方式。",
+      "action": "查看法律諮詢服務",
+      "href": "https://legalaffairs.gov.taipei/cp.aspx?n=C2C4B29685ACA1A5",
+      "icon": "document",
+      "accent": "purple"
+    },
+    {
+      "title": "租賃消費爭議申訴",
+      "source": "臺北市政府法務局",
+      "description": "與租賃住宅服務業或業者發生消費爭議時，依程序提出申訴。",
+      "action": "前往消費爭議申訴",
+      "href": "https://dlacp.gov.taipei/",
+      "icon": "rights",
+      "accent": "orange"
+    }
+  ],
+  "resources": [
+    {
+      "title": "公益出租人認定查詢",
+      "description": "輸入資料確認是否已取得公益出租人資格認定。",
+      "href": "https://nprent.nlma.gov.tw/nprent/",
+      "icon": "search"
+    },
+    {
+      "title": "包租代管加入與合作業者",
+      "description": "屋主可查詢第5期合作業者及聯絡方式，房客可下載申請文件。",
+      "href": "https://leasing-and-management.udd.gov.taipei/news/70",
+      "icon": "building"
+    },
+    {
+      "title": "合法租賃住宅服務業查詢",
+      "description": "委託包租或代管前，先確認業者是否合法登記。",
+      "href": "https://resim.moi.gov.tw/Home/RentIndex",
+      "icon": "operator"
+    },
+    {
+      "title": "申辦與書表下載",
+      "description": "查詢房屋稅、地價稅等申辦管道與表單。",
+      "href": "https://tpctax.gov.taipei/cp.aspx?n=F1C8047E644BDA72",
+      "icon": "checklist"
+    },
+    {
+      "title": "案件進度查詢",
+      "description": "查詢已申辦地方稅案件的辦理進度。",
+      "href": "https://tpctax.gov.taipei/cp.aspx?n=740DDA9D6694C033",
+      "icon": "search"
+    },
+    {
+      "title": "聯絡資訊與服務據點",
+      "description": "查詢總處、分處電話、地址及聯絡信箱。",
+      "href": "https://tpctax.gov.taipei/Content_List.aspx?n=0F7D61EAEF55788B",
+      "icon": "phone"
+    }
+  ]
+}

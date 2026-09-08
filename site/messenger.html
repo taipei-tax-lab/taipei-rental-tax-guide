@@ -1,0 +1,52 @@
+<!-- Dialogflow CX Conversational Messenger -->
+<script src="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js"></script>
+
+<df-messenger
+  location="asia-northeast1"
+  project-id="aerial-day-496714-v6"
+  agent-id="9fb1cac6-62cd-40e6-8b13-eecf651f1f72"
+  language-code="zh-tw"
+  max-query-length="-1">
+  <df-messenger-chat-bubble
+  chat-title="出租房屋租稅小幫手"
+  chat-subtitle="臺北市稅捐稽徵處"
+  placeholder-text="請輸入您的問題，例如：公益出租人有何租稅優惠？"
+  bot-writing-text="小幫手整理資訊中…"
+  chat-width="430"
+  chat-height="680"
+  allow-fullscreen="small">
+  </df-messenger-chat-bubble>
+</df-messenger>
+
+<aside class="messenger-empty-state" aria-label="聊天使用提示" aria-hidden="true" hidden>
+  <div class="messenger-empty-state__header">
+    <span class="messenger-empty-state__icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" focusable="false">
+        <path d="M5 5.5A2.5 2.5 0 0 1 7.5 3h9A2.5 2.5 0 0 1 19 5.5v6a2.5 2.5 0 0 1-2.5 2.5H12l-4.5 4v-4.1A2.5 2.5 0 0 1 5 11.5z"></path>
+        <path d="M9 8h6M9 11h3"></path>
+      </svg>
+    </span>
+    <div>
+      <span class="messenger-empty-state__eyebrow">出租房屋租稅小幫手</span>
+      <h2>想先了解哪一項租屋資訊？</h2>
+      <p class="messenger-empty-state__description">可直接輸入問題，也可以從常見主題開始查詢。</p>
+    </div>
+  </div>
+
+  <div class="messenger-topic-list" aria-label="常見查詢主題">
+    <button class="messenger-topic" type="button" data-messenger-query="我想查租金補貼的申請資格">租金補貼</button>
+    <button class="messenger-topic" type="button" data-messenger-query="我想了解出租房屋租稅優惠">出租房屋租稅優惠</button>
+    <button class="messenger-topic" type="button" data-messenger-query="我想查出租房屋的申請流程">申請流程</button>
+    <button class="messenger-topic" type="button" data-messenger-query="我是房客，想了解租屋服務與權益">房客權益</button>
+  </div>
+
+  <p class="messenger-empty-state__notice">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+      <circle cx="12" cy="12" r="9"></circle>
+      <path d="M12 10v5M12 7.5v.01"></path>
+    </svg>
+    <span>本服務提供一般性資訊，請勿輸入身分證字號、完整地址或電話。</span>
+  </p>
+</aside>
+
+<script src="./assets/js/messenger-ui.js"></script>
