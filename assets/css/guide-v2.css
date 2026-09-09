@@ -360,3 +360,80 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
 .v2-site :is(p,li,dd) { text-wrap:pretty; overflow-wrap:break-word; }
 .v2-audience-button > span { min-width:0; }
 @media(min-width:701px) { .v2-plan-grid, .v2-compare-grid { column-gap:20px; } }
+/* Refined reading flow: summaries first, guidance second. */
+.v2-hero { min-height:0; padding-top:22px; padding-bottom:22px; }
+.v2-hero h1 { font-size:28px; margin-bottom:10px; }
+.v2-hero h1 em { display:inline-block; }
+.v2-hero-copy > p:not(.v2-kicker) { max-width:42em; margin-bottom:12px; }
+.v2-hero-copy > .v2-entry-label { margin:12px 0 8px; }
+.v2-header { min-height:76px; padding-top:12px; padding-bottom:12px; }
+.v2-audience { grid-template-columns:1fr 1fr .85fr; gap:12px; }
+.v2-audience-button { position:relative; min-height:84px; padding:12px 16px; }
+.v2-audience-button[aria-current] { padding-bottom:32px; }
+.v2-audience-selected { position:absolute; bottom:5px; right:12px; font-size:16px; font-weight:700; }
+.v2-chat-entry { background:#f7faf8; border:1px solid #b3c9c3; box-shadow:none; }
+.v2-chat-entry strong { font-size:18px; }
+.v2-owner-section { padding-top:18px; }
+.v2-plan-card { background:#fff; }
+.v2-plan-card .v2-card-top { margin-bottom:6px; }
+.v2-site .v2-card-description { flex:none; margin-bottom:12px; font-size:18px; }
+.v2-card-tax { margin:0; background:#f7faf8; padding:12px; }
+.v2-card-tax .v2-tax { min-height:0; }
+.v2-other-taxes { font-size:16px; line-height:1.75; margin:10px 0; color:var(--v2-muted); }
+.v2-other-taxes span { display:block; }
+.v2-card-action { margin-top:auto; border-top:1px solid var(--v2-border); min-height:56px; }
+.v2-guide { margin:24px 0 0; border:1px solid #91b7aa; }
+.v2-comparison-entry { display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:16px; padding:16px; }
+.v2-comparison-entry p { margin:0; }
+.v2-answer-summary { background:#f0f6f2; border-left:3px solid #537e6d; padding:14px 18px; margin-bottom:20px; }
+.v2-answer-summary ol { margin:8px 0 0; }
+.v2-answer-summary li { font-size:16px; margin-bottom:4px; }
+.v2-guide-result-list { grid-template-columns:minmax(0,1.3fr) minmax(0,1fr); align-items:start; }
+.v2-guide-result-list:has(> a:only-child) { grid-template-columns:1fr; max-width:48em; }
+.v2-guide-result-list .v2-recommendation-primary { border:2px solid #397d68; }
+.v2-guide-result-list .v2-recommendation-label { display:block; margin-bottom:8px; }
+.v2-guide-result-list .v2-pending-condition { border-top:1px solid #d3e1db; padding-top:12px; }
+.v2-answer-layout, .v2-inline-plan .v2-answer-layout { grid-template-columns:1fr; gap:24px; }
+.v2-next-step { background:#edf5ef; color:#103844; border:1px solid #aec6b8; }
+.v2-next-step .v2-kicker, .v2-site .v2-next-step .v2-caption { color:#3d5961; }
+.v2-next-step > p { max-width:48em; }
+.v2-next-step .v2-primary { width:auto; }
+.v2-inner-page { background:#fffefbf5; }
+.v2-compare-controls { margin-top:20px; padding:16px; border:1px solid #a8bfb3; border-radius:10px; background:#f1f7f3; }
+.v2-compare-controls > div { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.v2-compare-controls label { min-width:0; font-size:16px; }
+.v2-compare-controls select { display:block; width:100%; min-height:48px; font:inherit; color:#103844; background:white; border:1px solid #92b2ae; border-radius:6px; padding:8px 4px; }
+.v2-compare-controls select:focus-visible { outline:3px solid #a64d16; outline-offset:3px; }
+.v2-comparison-grid { grid-template-rows:repeat(9,auto); }
+.v2-compare-card { display:grid; grid-row:span 9; grid-template-rows:subgrid; gap:0; padding:16px; }
+.v2-compare-card > dl { display:grid; grid-row:span 6; grid-template-rows:subgrid; margin:0; }
+.v2-compare-card dl > div:first-child, .v2-compare-card .v2-tax { min-height:0; }
+.v2-compare-card .v2-button { margin-top:16px; }
+@media(min-width:701px) {
+ .v2-plan-grid { grid-template-rows:repeat(7,auto); }
+ .v2-plan-card { display:grid; grid-row:span 7; grid-template-rows:subgrid; row-gap:0; }
+}
+@media(max-width:700px) {
+ .v2-hero { padding-top:16px; padding-bottom:18px; }
+ .v2-hero h1 { font-size:28px; }
+ .v2-audience { grid-template-columns:1fr 1fr; }
+ .v2-audience-button { padding:10px; min-height:92px; gap:6px; }
+ .v2-audience-button svg { display:none; }
+ .v2-chat-entry { min-height:48px; padding:8px 12px; }
+ .v2-chat-entry > span { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:8px; }
+ .v2-chat-entry small { display:none; }
+ .v2-plan-card h3, .v2-plan-card .v2-plan-name { padding-right:60px; }
+ .v2-site .v2-section-heading h2 { font-size:26px; }
+ .v2-guide-result-list { grid-template-columns:1fr; }
+ .v2-comparison-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+ .v2-compare-card { padding:10px; }
+ .v2-site .v2-compare-card h2 { font-size:22px; }
+ .v2-site .v2-compare-card dd { font-size:18px; }
+ .v2-compare-card .v2-tax dd strong { font-size:18px; }
+}
+@media print { .v2-compare-controls { display:none!important; } }
+.v2-hero h1 > span { display:inline-block; }
+.v2-unit { white-space:nowrap; }
+.v2-guide-result-list .v2-unit { color:inherit; font:inherit; display:inline; }
+.v2-inner-page > h1 { font-size:28px; }
+.v2-site .v2-compare-card h2 { font-size:22px; }

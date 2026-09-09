@@ -20,8 +20,12 @@ const planIcon = id => {
   };
   return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${house}${symbols[id]}</svg>`;
 };
-const tax = (item, type = 'detail') => `<div class="v2-tax"><dt>${esc(item.label)}</dt><dd><strong>${esc(item.value)}</strong><p>${esc(type === 'card' ? item.summary || item.note : item.note)}</p></dd></div>`;
+const keepUnits = value => esc(value).replace(/(\d[\d,.]*(?:%|‰|元|萬元|年期|戶))/g, '<span class="v2-unit">$1</span>');
+const tax = (item, type = 'detail') => `<div class="v2-tax"><dt>${esc(item.label)}</dt><dd><strong>${keepUnits(item.value)}</strong><p>${keepUnits(type === 'card' ? item.summary || item.note : item.note)}</p></dd></div>`;
 const plans = data.plans;
+const management = {ordinary:'屋主自行招租與管理', public:'自行出租，配合房客補貼認定', social:'政府計畫合作業者協助包租或代管', personal:'自行委託合法租賃住宅服務業'};
+const actions = {ordinary:['先確認租金標準','房屋稅洽稅捐處；租賃所得向國稅局申報。租金標準試算不是個人應納稅額試算。'], public:['查詢公益出租人認定','地方稅由稅捐處依認定資料主動辦理；所得稅仍須向國稅局申報。'], social:['洽詢計畫合作業者','先由合作業者確認計畫條件；地方稅由稅捐處主動辦理，所得稅向國稅局申報。'], personal:['確認業者與申請文件','地方稅須向稅捐處申請；所得稅向國稅局申報。']};
+const otherTaxes = plan => plan.taxes.filter((_, i) => i !== plan.highlightTax).map(t => `<span>${esc(t.label)}：${plan.id === 'ordinary' ? esc(t.value) : t.label === '綜合所得稅' ? '另有租金免稅與費用扣除規定' : keepUnits(t.value)}${plan.id === 'personal' && t.label === '地價稅' ? '（有減徵上限）' : ''}</span>`).join('');
 if (plans.length !== 4 || new Set(plans.map(p => p.id)).size !== 4) throw new Error('Four unique plans required');
 for (const plan of plans) {
   if (plan.taxes.length !== 3 || !plan.source?.checked || !plan.links.length) throw new Error(`Incomplete plan: ${plan.id}`);
@@ -31,9 +35,10 @@ for (const plan of plans) {
 const cards = plans.map((plan, i) => `<a class="v2-plan-card v2-${esc(plan.accent)}" href="#plan-${plan.id}" id="card-${plan.id}">
   <div class="v2-card-top"><span class="v2-plan-icon">${planIcon(plan.id)}</span><span class="v2-card-number">0${i + 1}</span></div>
   <h3>${esc(plan.situation)}</h3><p class="v2-plan-name">${esc(plan.eyebrow)}</p>
-  <p class="v2-card-description">${esc(plan.summary)}</p>
+  <p class="v2-card-description">${esc(plan.suitable)}</p>
   <dl class="v2-card-tax">${tax(plan.taxes[plan.highlightTax], 'card')}</dl>
-  <span class="v2-card-action">查看優惠與辦理方式 <span aria-hidden="true">→</span></span>
+  <p class="v2-other-taxes">${otherTaxes(plan)}</p>
+  <span class="v2-card-action">查看條件與辦理方式 <span aria-hidden="true">→</span></span>
 </a>`).join('\n');
 
 const planDetails = plans.map(plan => `<section data-page="plan-${plan.id}" id="plan-${plan.id}" class="v2-container v2-inner-page v2-${esc(plan.accent)}" aria-labelledby="title-${plan.id}">
@@ -42,12 +47,13 @@ const planDetails = plans.map(plan => `<section data-page="plan-${plan.id}" id="
   <p class="v2-detail-lead">${esc(plan.summary)}</p>
   <div class="v2-answer-layout">
     <div class="v2-answer-main">
-      <section class="v2-fit"><h2>我可能適用嗎？</h2><p>${esc(plan.condition)}</p></section>
+      <section class="v2-fit"><h2>適合誰？</h2><p>${esc(plan.suitable)}</p></section>
       <section class="v2-benefits"><h2>有哪些租稅優惠？</h2><dl class="v2-tax-grid">${plan.taxes.map(t => tax(t)).join('')}</dl></section>
     </div>
-    <aside class="v2-next-step" aria-labelledby="next-${plan.id}"><span class="v2-kicker">下一步</span><h2 id="next-${plan.id}">先從這裡開始</h2><p>${esc(plan.firstStep)}</p>${link(plan.links[0], 'v2-button v2-primary')}<p class="v2-caption">${plan.id === 'public' || plan.id === 'social' ? '地方稅由稅捐處主動辦理；綜合所得稅仍須向國稅局申報。' : plan.id === 'personal' ? '地方稅須向稅捐處申請；所得稅向國稅局申報。' : '這是租金標準試算，不是個人應納稅額試算。'}</p></aside>
+    <aside class="v2-next-step" aria-labelledby="next-${plan.id}"><span class="v2-kicker">下一步</span><h2 id="next-${plan.id}">${esc(actions[plan.id][0])}</h2><p>${esc(plan.firstStep)}</p>${link(plan.links[0], 'v2-button v2-primary')}<p class="v2-caption">${esc(actions[plan.id][1])}</p></aside>
   </div>
   <div class="v2-detail-more">
+    <details><summary><span>完整適用條件</span><span class="v2-expand" aria-hidden="true">＋</span></summary><div class="v2-details-body"><p class="v2-full-condition">${esc(plan.condition)}</p></div></details>
     <details><summary><span>辦理順序與應備資料</span><span class="v2-expand" aria-hidden="true">＋</span></summary><div class="v2-two-columns"><section><h3>建議辦理順序</h3><ol>${plan.process.map(step => `<li>${esc(step)}</li>`).join('')}</ol></section><section><h3>可先準備的資料</h3>${list(plan.documents)}<p class="v2-caption">實際檢附項目依官方申請頁面及承辦機關要求。${plan.documentSource ? link(plan.documentSource) : ''}</p></section></div></details>
     <details><summary><span>適用期間與注意事項</span><span class="v2-expand" aria-hidden="true">＋</span></summary><div class="v2-details-body">${list(plan.cautions)}</div></details>
   </div>
@@ -72,13 +78,14 @@ const faqs = [
 ];
 const faqHtml = faqs.map(([q,a,next]) => `<details><summary><span>${esc(q)}</span><span class="v2-expand" aria-hidden="true">＋</span></summary><div class="v2-details-body"><p>${esc(a)}</p>${next.href.startsWith('#') ? `<a class="v2-text-link" href="${next.href}">${esc(next.label)} →</a>` : link(next, 'v2-text-link')}</div></details>`).join('\n');
 const resources = data.resources.slice(3).map(item => `<div>${link({label:item.title,href:item.href})}<p>${esc(item.description)}</p></div>`).join('');
-const comparison = plans.map(plan => `<article class="v2-compare-card v2-${plan.accent}"><h2>${esc(plan.eyebrow)}</h2><p class="v2-compare-situation">${esc(plan.situation)}</p><dl><div><dt>適用條件</dt><dd>${esc(plan.condition)}</dd></div>${plan.taxes.map(t => tax(t)).join('')}<div><dt>第一步</dt><dd>${esc(plan.firstStep)}</dd></div></dl><a href="#plan-${plan.id}" class="v2-button">查看優惠與辦理方式 →</a></article>`).join('\n');
+const comparison = plans.map(plan => `<article data-compare-plan="${plan.id}" class="v2-compare-card v2-${plan.accent}"><h2>${esc(plan.eyebrow)}</h2><p class="v2-compare-situation">${esc(plan.situation)}</p><dl><div><dt>管理方式</dt><dd>${esc(management[plan.id])}</dd></div><div><dt>主要門檻</dt><dd>${esc(plan.condition)}</dd></div>${plan.taxes.map(t => tax(t)).join('')}<div><dt>第一步</dt><dd>${esc(plan.firstStep)}</dd></div></dl><a href="#plan-${plan.id}" class="v2-button">查看優惠與辦理方式 →</a></article>`).join('\n');
 const hash = name => createHash('sha256').update(read(name)).digest('hex').slice(0, 10);
 const replacements = {
   BASE_VERSION: hash('assets/css/site.css'), STYLE_VERSION: hash('assets/css/guide-v2.css'),
   RULES_VERSION: hash('assets/js/guide-rules.js'), UI_VERSION: hash('assets/js/guide-ui.js'),
   HOUSE_ICON: icon('self'), PERSON_ICON: icon('person'), OFFICIAL: esc(data.meta.official),
   PLAN_CARDS: cards, PLAN_DETAILS: planDetails, TENANT_GROUPS: tenantGroups, FAQ: faqHtml,
+  COMPARE_CONTROLS: `<fieldset class="v2-compare-controls" hidden><legend>選擇兩個方案並列比較</legend><div>${[0,1].map((n) => `<label>方案${n + 1}<select data-compare-select="${n}">${plans.map((p,i) => `<option value="${p.id}"${i === n ? ' selected' : ''}>${esc(p.eyebrow)}</option>`).join('')}</select></label>`).join('')}</div><p class="v2-caption" role="status" id="compare-status"></p></fieldset>`,
   RESOURCES: resources, COMPARISON: comparison, NOTE: esc(data.meta.note), CHECKED: data.meta.checked,
   MESSENGER: read('site/messenger.html')
 };

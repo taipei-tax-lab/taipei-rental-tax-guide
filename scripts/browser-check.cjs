@@ -24,7 +24,7 @@ fs.mkdirSync(artifacts, {recursive:true});
       assert.ok(await page.locator('.v2-plan-grid').isVisible());
       assert.equal(await page.locator(`#card-${id}`).getAttribute('aria-expanded'), 'true');
       assert.equal(await page.locator(`[data-page="plan-${id}"] .v2-tax`).count(), 3);
-      await page.locator(`[data-page="plan-${id}"] .v2-detail-more details`).first().locator('summary').click();
+      await page.locator(`[data-page="plan-${id}"] .v2-detail-more details`).filter({hasText:'辦理順序與應備資料'}).locator('summary').click();
       assert.ok(await page.locator(`[data-page="plan-${id}"] .v2-two-columns`).isVisible());
       await page.locator(`[data-page="plan-${id}"] .v2-back`).click();
     }
@@ -42,8 +42,12 @@ fs.mkdirSync(artifacts, {recursive:true});
     await page.getByRole('button',{name:'我自己處理',exact:true}).click();
     await page.getByRole('button',{name:'不確定房客的補貼資格',exact:true}).click();
     assert.equal(await page.locator('.v2-guide-result-list a').count(), 2);
+    assert.deepEqual(await page.locator('.v2-answer-summary li').allTextContents(), ['我自己處理','不確定房客的補貼資格']);
+    assert.equal(await page.locator('.v2-recommendation-primary').count(), 1);
+    assert.equal(await page.locator('.v2-pending-condition').count(), 2);
     await page.getByRole('button',{name:'← 上一題',exact:true}).click();
     await page.getByRole('button',{name:'符合資格，或已取得補貼',exact:true}).click();
+    assert.deepEqual(await page.locator('.v2-answer-summary li').allTextContents(), ['我自己處理','符合資格，或已取得補貼']);
     await page.locator('.v2-guide-result-list a').click();
     await page.locator('[data-page="plan-public"]:visible').waitFor();
     await page.screenshot({path:`${artifacts}/desktop-plan.png`,fullPage:true});
@@ -79,7 +83,24 @@ fs.mkdirSync(artifacts, {recursive:true});
         await page.screenshot({path:`${artifacts}/mobile-plan.png`,fullPage:true});
       }
     }
+    await page.goto(base + '#comparison', {waitUntil:'domcontentloaded'});
+    const firstSelect = page.locator('[data-compare-select="0"]');
+    const secondSelect = page.locator('[data-compare-select="1"]');
+    await firstSelect.selectOption('social');
+    await secondSelect.selectOption('personal');
+    assert.deepEqual(await page.locator('[data-compare-plan]:visible').evaluateAll(cards => cards.map(c => c.dataset.comparePlan)), ['social','personal']);
+    await firstSelect.selectOption('personal');
+    assert.notEqual(await firstSelect.inputValue(), await secondSelect.inputValue());
+    assert.equal(await page.locator('[data-compare-plan]:visible').count(), 2);
+    await page.screenshot({path:`${artifacts}/mobile-comparison.png`,fullPage:true});
     await page.setViewportSize({width:1280,height:900});
+    await page.waitForFunction(() => Array.from(document.querySelectorAll('[data-compare-plan]')).every(card => !card.hidden));
+    assert.equal(await page.locator('[data-compare-plan]:visible').count(), 4);
+    const aligned = await page.locator('.v2-compare-card dl').evaluateAll(lists => Array.from(lists[0].children).every((_, row) => {
+      const tops = lists.map(list => list.children[row].getBoundingClientRect().top);
+      return Math.max(...tops) - Math.min(...tops) < 2;
+    }));
+    assert.ok(aligned, 'Comparison rows align across plans');
     await page.goto(base + '#comparison', {waitUntil:'domcontentloaded'});
     await page.screenshot({path:`${artifacts}/desktop-comparison.png`,fullPage:true});
     await page.evaluate(() => { document.documentElement.style.fontSize = '200%'; });

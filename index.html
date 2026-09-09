@@ -10,8 +10,8 @@
   <meta property="og:image" content="https://taipei-tax-lab.github.io/taipei-rental-tax-guide/hero-v2.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="./favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="./assets/css/site.css?v=4f7fe5e086">
-  <link rel="stylesheet" href="./assets/css/guide-v2.css?v=0c81128b43">
+  <link rel="stylesheet" href="./assets/css/site.css?v=dd5dfa67b5">
+  <link rel="stylesheet" href="./assets/css/guide-v2.css?v=557fd3c086">
   <!-- The existing Messenger theme, markup and runtime remain unchanged. -->
   <link rel="stylesheet" href="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/themes/df-messenger-default.css">
   <link rel="stylesheet" href="./assets/css/messenger.css">
@@ -29,9 +29,8 @@
       <div data-page="home" id="top">
         <section class="v2-hero" aria-labelledby="home-title">
           <div class="v2-hero-copy">
-            <p class="v2-kicker">臺北市出租房屋租稅優惠</p>
-            <h1 id="home-title" tabindex="-1">了解租稅優惠，<br><em>查詢適用方案</em></h1>
-            <p>依您的出租情況，查詢適用條件、<br class="v2-mobile-break">各項租稅優惠及申辦方式。</p>
+            <h1 id="home-title" tabindex="-1"><span>了解租稅優惠，</span><em>查詢適用方案</em></h1>
+            <p>依您的出租情況，查詢適用條件、各項租稅優惠及申辦方式。</p>
             <p class="v2-entry-label">您想查什麼？請從這裡開始</p>
             <div class="v2-audience" aria-label="選擇查詢方式">
               <a href="#owners" data-audience="owner" class="v2-audience-button" aria-current="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m3 10 9-7 9 7M5 9v12h14V9M9 21v-7h6v7"/></svg><span><strong>我是屋主</strong><small>查出租方案與租稅優惠</small></span></a>
@@ -45,8 +44,42 @@
           <section id="owners" class="v2-owner-section" data-audience-panel="owner" aria-labelledby="owner-title">
             <div class="v2-section-heading" id="plans">
               <div><p class="v2-kicker">屋主租稅優惠</p><h2 id="owner-title" tabindex="-1">哪一種情況最接近您？</h2></div>
-
+              <a class="v2-text-link" href="#guide">不知道怎麼選？ →</a>
             </div>
+            <div class="v2-plan-grid"><a class="v2-plan-card v2-blue" href="#plan-ordinary" id="card-ordinary">
+  <div class="v2-card-top"><span class="v2-plan-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m2 9 6-6 6 5M4 10v11h4"/><path d="M7 13h2"/><circle cx="18" cy="13" r="3"/><path d="m15.9 15.1-5 5m2-2 1.5 1.5"/></svg></span><span class="v2-card-number">01</span></div>
+  <h3>我自己出租、自己管理</h3><p class="v2-plan-name">一般出租</p>
+  <p class="v2-card-description">希望保有出租彈性，願意自行處理招租、契約、收租及日常管理的屋主。</p>
+  <dl class="v2-card-tax"><div class="v2-tax"><dt>房屋稅</dt><dd><strong><span class="v2-unit">1.5%</span>／<span class="v2-unit">2%</span>／<span class="v2-unit">2.4%</span></strong><p>須達租金標準，依全國持有應稅房屋戶數適用。</p></dd></div></dl>
+  <p class="v2-other-taxes"><span>地價稅：依一般規定辦理</span><span>綜合所得稅：依租賃所得規定申報</span></p>
+  <span class="v2-card-action">查看條件與辦理方式 <span aria-hidden="true">→</span></span>
+</a>
+<a class="v2-plan-card v2-orange" href="#plan-public" id="card-public">
+  <div class="v2-card-top"><span class="v2-plan-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m2 9 6-6 6 5M4 10v11h4"/><path d="M7 13h2"/><path d="M16.5 21s-5.5-3.5-5.5-6.5a2.75 2.75 0 0 1 5.5-1 2.75 2.75 0 0 1 5.5 1c0 3-5.5 6.5-5.5 6.5Z"/></svg></span><span class="v2-card-number">02</span></div>
+  <h3>我的房客有租金補貼</h3><p class="v2-plan-name">公益出租人</p>
+  <p class="v2-card-description">願意將住宅出租給符合租金補貼資格的房客，並配合資格認定的住宅所有權人。</p>
+  <dl class="v2-card-tax"><div class="v2-tax"><dt>房屋稅</dt><dd><strong>稅率 <span class="v2-unit">1.2%</span></strong><p><span class="v2-unit">116年期</span>稅基折減<span class="v2-unit">12.5%</span>，相當稅率<span class="v2-unit">1.05%</span>。</p></dd></div></dl>
+  <p class="v2-other-taxes"><span>地價稅：自用住宅用地稅率 <span class="v2-unit">2‰</span></span><span>綜合所得稅：另有租金免稅與費用扣除規定</span></p>
+  <span class="v2-card-action">查看條件與辦理方式 <span aria-hidden="true">→</span></span>
+</a>
+<a class="v2-plan-card v2-green" href="#plan-social" id="card-social">
+  <div class="v2-card-top"><span class="v2-plan-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m2 9 6-6 6 5M4 10v11h4"/><path d="M7 13h2"/><path d="m16.5 11 5.5 2v3c0 2.5-2.5 4.5-5.5 6-3-1.5-5.5-3.5-5.5-6v-3z"/><path d="m14 16 2 2 3-3"/></svg></span><span class="v2-card-number">03</span></div>
+  <h3>我想加入政府包租代管</h3><p class="v2-plan-name">社會住宅包租代管</p>
+  <p class="v2-card-description">希望降低空置與管理負擔，願意依政府計畫條件出租合法住宅的屋主。</p>
+  <dl class="v2-card-tax"><div class="v2-tax"><dt>房屋稅</dt><dd><strong>減徵為稅率 <span class="v2-unit">1%</span></strong><p><span class="v2-unit">116年期</span>稅基折減<span class="v2-unit">12.5%</span>，相當稅率<span class="v2-unit">0.875%</span>。</p></dd></div></dl>
+  <p class="v2-other-taxes"><span>地價稅：減徵 <span class="v2-unit">80%</span></span><span>綜合所得稅：另有租金免稅與費用扣除規定</span></p>
+  <span class="v2-card-action">查看條件與辦理方式 <span aria-hidden="true">→</span></span>
+</a>
+<a class="v2-plan-card v2-purple" href="#plan-personal" id="card-personal">
+  <div class="v2-card-top"><span class="v2-plan-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m2 9 6-6 6 5M4 10v11h4"/><path d="M7 13h2"/><rect x="12" y="11" width="10" height="11" rx="1"/><path d="M15 14h4m-4 3h4m-4 3h2"/></svg></span><span class="v2-card-number">04</span></div>
+  <h3>我想委託合法業者管理</h3><p class="v2-plan-name">個人租賃住宅包租代管</p>
+  <p class="v2-card-description">希望委託專業業者處理招租與管理，並能簽訂一年以上住宅使用契約的自然人屋主。</p>
+  <dl class="v2-card-tax"><div class="v2-tax"><dt>房屋稅</dt><dd><strong>減徵 <span class="v2-unit">40%</span></strong><p>每屋減徵稅額以<span class="v2-unit">1萬元</span>為上限。</p></dd></div></dl>
+  <p class="v2-other-taxes"><span>地價稅：減徵 <span class="v2-unit">40%</span>（有減徵上限）</span><span>綜合所得稅：另有租金免稅與費用扣除規定</span></p>
+  <span class="v2-card-action">查看條件與辦理方式 <span aria-hidden="true">→</span></span>
+</a></div>
+            <p class="v2-caption">優惠須符合各方案條件；「相當稅率」已計入該年期稅基折減，並非另一項法定稅率。</p>
+            <div id="inline-plan-slot"></div>
             <details class="v2-guide" id="guide">
               <summary><span><strong>不知道適用哪個方案？</strong><small>依您的出租情況，逐步查找可能適用的方案。</small></span><span class="v2-guide-cta">開始判斷 <span class="v2-expand" aria-hidden="true">＋</span></span></summary>
               <div class="v2-guide-body">
@@ -54,37 +87,7 @@
                 <div id="guide-stage" aria-live="polite"><p>請依出租情境查看方案，或使用<a href="#comparison">四方案完整比較</a>。啟用 JavaScript 後可使用快速判斷。</p></div>
               </div>
             </details>
-            <div class="v2-plan-grid"><a class="v2-plan-card v2-blue" href="#plan-ordinary" id="card-ordinary">
-  <div class="v2-card-top"><span class="v2-plan-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m2 9 6-6 6 5M4 10v11h4"/><path d="M7 13h2"/><circle cx="18" cy="13" r="3"/><path d="m15.9 15.1-5 5m2-2 1.5 1.5"/></svg></span><span class="v2-card-number">01</span></div>
-  <h3>我自己出租、自己管理</h3><p class="v2-plan-name">一般出租</p>
-  <p class="v2-card-description">由屋主自行找房客、簽約及管理，並依規定辦理房屋稅與租賃所得申報。</p>
-  <dl class="v2-card-tax"><div class="v2-tax"><dt>房屋稅</dt><dd><strong>1.5%／2%／2.4%</strong><p>須達租金標準，依全國持有應稅房屋戶數適用。</p></dd></div></dl>
-  <span class="v2-card-action">查看優惠與辦理方式 <span aria-hidden="true">→</span></span>
-</a>
-<a class="v2-plan-card v2-orange" href="#plan-public" id="card-public">
-  <div class="v2-card-top"><span class="v2-plan-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m2 9 6-6 6 5M4 10v11h4"/><path d="M7 13h2"/><path d="M16.5 21s-5.5-3.5-5.5-6.5a2.75 2.75 0 0 1 5.5-1 2.75 2.75 0 0 1 5.5 1c0 3-5.5 6.5-5.5 6.5Z"/></svg></span><span class="v2-card-number">02</span></div>
-  <h3>我的房客有租金補貼</h3><p class="v2-plan-name">公益出租人</p>
-  <p class="v2-card-description">將合法住宅出租給符合租金補貼資格的房客，經認定後可適用相關租稅優惠。</p>
-  <dl class="v2-card-tax"><div class="v2-tax"><dt>房屋稅</dt><dd><strong>稅率 1.2%</strong><p>116年期稅基折減12.5%，相當稅率1.05%。</p></dd></div></dl>
-  <span class="v2-card-action">查看優惠與辦理方式 <span aria-hidden="true">→</span></span>
-</a>
-<a class="v2-plan-card v2-green" href="#plan-social" id="card-social">
-  <div class="v2-card-top"><span class="v2-plan-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m2 9 6-6 6 5M4 10v11h4"/><path d="M7 13h2"/><path d="m16.5 11 5.5 2v3c0 2.5-2.5 4.5-5.5 6-3-1.5-5.5-3.5-5.5-6v-3z"/><path d="m14 16 2 2 3-3"/></svg></span><span class="v2-card-number">03</span></div>
-  <h3>我想加入政府包租代管</h3><p class="v2-plan-name">社會住宅包租代管</p>
-  <p class="v2-card-description">透過政府計畫與合作業者協助招租、媒合及管理，可選擇包租或代管模式。</p>
-  <dl class="v2-card-tax"><div class="v2-tax"><dt>房屋稅</dt><dd><strong>減徵為稅率 1%</strong><p>116年期稅基折減12.5%，相當稅率0.875%。</p></dd></div></dl>
-  <span class="v2-card-action">查看優惠與辦理方式 <span aria-hidden="true">→</span></span>
-</a>
-<a class="v2-plan-card v2-purple" href="#plan-personal" id="card-personal">
-  <div class="v2-card-top"><span class="v2-plan-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m2 9 6-6 6 5M4 10v11h4"/><path d="M7 13h2"/><rect x="12" y="11" width="10" height="11" rx="1"/><path d="M15 14h4m-4 3h4m-4 3h2"/></svg></span><span class="v2-card-number">04</span></div>
-  <h3>我想委託合法業者管理</h3><p class="v2-plan-name">個人租賃住宅包租代管</p>
-  <p class="v2-card-description">自然人屋主將住宅委託合法業者包租或代管，契約約定供居住使用一年以上。</p>
-  <dl class="v2-card-tax"><div class="v2-tax"><dt>房屋稅</dt><dd><strong>減徵 40%</strong><p>每屋減徵稅額以1萬元為上限。</p></dd></div></dl>
-  <span class="v2-card-action">查看優惠與辦理方式 <span aria-hidden="true">→</span></span>
-</a></div>
-            <p class="v2-caption">優惠須符合各方案條件；「相當稅率」已計入該年期稅基折減，並非另一項法定稅率。</p>
             <div class="v2-comparison-entry"><p>想了解各方案的差異？</p><a class="v2-button" href="#comparison">比較四種出租方案 →</a></div>
-            <div id="inline-plan-slot"></div>
           </section>
           <section id="tenants" class="v2-tenant-section" data-audience-panel="tenant" aria-labelledby="tenant-title">
             <div class="v2-section-heading"><div><p class="v2-kicker">房客常見需求</p><h2 id="tenant-title" tabindex="-1">補貼、房源與租屋權益</h2></div><span class="v2-caption">選擇需求，前往主管機關辦理</span></div>
@@ -111,12 +114,13 @@
   <p class="v2-detail-lead">由屋主自行找房客、簽約及管理，並依規定辦理房屋稅與租賃所得申報。</p>
   <div class="v2-answer-layout">
     <div class="v2-answer-main">
-      <section class="v2-fit"><h2>我可能適用嗎？</h2><p>房屋供住宅出租使用；申報租賃所得達本市一般租金標準者，房屋稅可依全國總持有戶數適用差別稅率。</p></section>
-      <section class="v2-benefits"><h2>有哪些租稅優惠？</h2><dl class="v2-tax-grid"><div class="v2-tax"><dt>房屋稅</dt><dd><strong>1.5%／2%／2.4%</strong><p>申報租賃所得須達本市一般租金標準；依全國總持有應稅房屋戶數，4戶以內1.5%、5至6戶2%、7戶以上2.4%。</p></dd></div><div class="v2-tax"><dt>地價稅</dt><dd><strong>依一般規定辦理</strong><p>本方案未另列專屬減免。</p></dd></div><div class="v2-tax"><dt>綜合所得稅</dt><dd><strong>依租賃所得規定申報</strong><p>請保存租約、租金及相關費用資料。</p></dd></div></dl></section>
+      <section class="v2-fit"><h2>適合誰？</h2><p>希望保有出租彈性，願意自行處理招租、契約、收租及日常管理的屋主。</p></section>
+      <section class="v2-benefits"><h2>有哪些租稅優惠？</h2><dl class="v2-tax-grid"><div class="v2-tax"><dt>房屋稅</dt><dd><strong><span class="v2-unit">1.5%</span>／<span class="v2-unit">2%</span>／<span class="v2-unit">2.4%</span></strong><p>申報租賃所得須達本市一般租金標準；依全國總持有應稅房屋戶數，<span class="v2-unit">4戶</span>以內<span class="v2-unit">1.5%</span>、5至<span class="v2-unit">6戶</span><span class="v2-unit">2%</span>、<span class="v2-unit">7戶</span>以上<span class="v2-unit">2.4%</span>。</p></dd></div><div class="v2-tax"><dt>地價稅</dt><dd><strong>依一般規定辦理</strong><p>本方案未另列專屬減免。</p></dd></div><div class="v2-tax"><dt>綜合所得稅</dt><dd><strong>依租賃所得規定申報</strong><p>請保存租約、租金及相關費用資料。</p></dd></div></dl></section>
     </div>
-    <aside class="v2-next-step" aria-labelledby="next-ordinary"><span class="v2-kicker">下一步</span><h2 id="next-ordinary">先從這裡開始</h2><p>先使用官方租金標準試算，再確認當年度申報方式。</p><a class="v2-button v2-primary" href="https://services.arpa.tpctax.dof.gov.taipei/rentStandard/index.php?content=calculator" target="_blank" rel="noopener noreferrer">開啟官方租金標準試算 <span aria-hidden="true">↗</span><span class="sr-only">（另開新視窗）</span></a><p class="v2-caption">這是租金標準試算，不是個人應納稅額試算。</p></aside>
+    <aside class="v2-next-step" aria-labelledby="next-ordinary"><span class="v2-kicker">下一步</span><h2 id="next-ordinary">先確認租金標準</h2><p>先使用官方租金標準試算，再確認當年度申報方式。</p><a class="v2-button v2-primary" href="https://services.arpa.tpctax.dof.gov.taipei/rentStandard/index.php?content=calculator" target="_blank" rel="noopener noreferrer">開啟官方租金標準試算 <span aria-hidden="true">↗</span><span class="sr-only">（另開新視窗）</span></a><p class="v2-caption">房屋稅洽稅捐處；租賃所得向國稅局申報。租金標準試算不是個人應納稅額試算。</p></aside>
   </div>
   <div class="v2-detail-more">
+    <details><summary><span>完整適用條件</span><span class="v2-expand" aria-hidden="true">＋</span></summary><div class="v2-details-body"><p class="v2-full-condition">房屋供住宅出租使用；申報租賃所得達本市一般租金標準者，房屋稅可依全國總持有戶數適用差別稅率。</p></div></details>
     <details><summary><span>辦理順序與應備資料</span><span class="v2-expand" aria-hidden="true">＋</span></summary><div class="v2-two-columns"><section><h3>建議辦理順序</h3><ol><li>整理房屋、土地現值與全年租金資料</li><li>使用官方工具確認是否達租金標準</li><li>簽訂並保存租賃契約與收付紀錄</li><li>依當年度規定申報房屋稅及租賃所得</li></ol></section><section><h3>可先準備的資料</h3><ul><li>房屋評定現值</li><li>公告土地現值總額</li><li>全年租金與租賃契約</li><li>租金收付及修繕相關紀錄</li></ul><p class="v2-caption">實際檢附項目依官方申請頁面及承辦機關要求。</p></section></div></details>
     <details><summary><span>適用期間與注意事項</span><span class="v2-expand" aria-hidden="true">＋</span></summary><div class="v2-details-body"><ul><li>租金標準試算為初步確認，實際稅額仍依申報資料核定。</li><li>房屋稅屬地方稅；綜合所得稅由國稅局受理。</li></ul></div></details>
   </div>
@@ -130,12 +134,13 @@
   <p class="v2-detail-lead">將合法住宅出租給符合租金補貼資格的房客，經認定後可適用相關租稅優惠。</p>
   <div class="v2-answer-layout">
     <div class="v2-answer-main">
-      <section class="v2-fit"><h2>我可能適用嗎？</h2><p>出租人須為住宅所有權人，住宅須為合法建築物。地方稅優惠的房客條件為符合租金補貼申請資格；所得稅優惠另要求房客領有租金補貼，出租人限自然人。</p></section>
-      <section class="v2-benefits"><h2>有哪些租稅優惠？</h2><dl class="v2-tax-grid"><div class="v2-tax"><dt>房屋稅</dt><dd><strong>稅率 1.2%</strong><p>116年期稅基折減12.5%，相當稅率1.05%。</p></dd></div><div class="v2-tax"><dt>地價稅</dt><dd><strong>自用住宅用地稅率 2‰</strong><p>由稅捐處依認定資料辦理。</p></dd></div><div class="v2-tax"><dt>綜合所得稅</dt><dd><strong>每屋每月1萬5,000元免稅；必要費用率43%</strong><p>限自然人住宅所有權人，且房客領有租金補貼；向國稅局申報。必要費用的計算請依所得稅規定辦理。</p></dd></div></dl></section>
+      <section class="v2-fit"><h2>適合誰？</h2><p>願意將住宅出租給符合租金補貼資格的房客，並配合資格認定的住宅所有權人。</p></section>
+      <section class="v2-benefits"><h2>有哪些租稅優惠？</h2><dl class="v2-tax-grid"><div class="v2-tax"><dt>房屋稅</dt><dd><strong>稅率 <span class="v2-unit">1.2%</span></strong><p><span class="v2-unit">116年期</span>稅基折減<span class="v2-unit">12.5%</span>，相當稅率<span class="v2-unit">1.05%</span>。</p></dd></div><div class="v2-tax"><dt>地價稅</dt><dd><strong>自用住宅用地稅率 <span class="v2-unit">2‰</span></strong><p>由稅捐處依認定資料辦理。</p></dd></div><div class="v2-tax"><dt>綜合所得稅</dt><dd><strong>每屋每月1萬<span class="v2-unit">5,000元</span>免稅；必要費用率<span class="v2-unit">43%</span></strong><p>限自然人住宅所有權人，且房客領有租金補貼；向國稅局申報。必要費用的計算請依所得稅規定辦理。</p></dd></div></dl></section>
     </div>
-    <aside class="v2-next-step" aria-labelledby="next-public"><span class="v2-kicker">下一步</span><h2 id="next-public">先從這裡開始</h2><p>先確認房客的租金補貼資格，再查詢公益出租人認定。</p><a class="v2-button v2-primary" href="https://nprent.nlma.gov.tw/nprent/" target="_blank" rel="noopener noreferrer">查詢公益出租人認定 <span aria-hidden="true">↗</span><span class="sr-only">（另開新視窗）</span></a><p class="v2-caption">地方稅由稅捐處主動辦理；綜合所得稅仍須向國稅局申報。</p></aside>
+    <aside class="v2-next-step" aria-labelledby="next-public"><span class="v2-kicker">下一步</span><h2 id="next-public">查詢公益出租人認定</h2><p>先確認房客的租金補貼資格，再查詢公益出租人認定。</p><a class="v2-button v2-primary" href="https://nprent.nlma.gov.tw/nprent/" target="_blank" rel="noopener noreferrer">查詢公益出租人認定 <span aria-hidden="true">↗</span><span class="sr-only">（另開新視窗）</span></a><p class="v2-caption">地方稅由稅捐處依認定資料主動辦理；所得稅仍須向國稅局申報。</p></aside>
   </div>
   <div class="v2-detail-more">
+    <details><summary><span>完整適用條件</span><span class="v2-expand" aria-hidden="true">＋</span></summary><div class="v2-details-body"><p class="v2-full-condition">出租人須為住宅所有權人，住宅須為合法建築物。地方稅優惠的房客條件為符合租金補貼申請資格；所得稅優惠另要求房客領有租金補貼，出租人限自然人。</p></div></details>
     <details><summary><span>辦理順序與應備資料</span><span class="v2-expand" aria-hidden="true">＋</span></summary><div class="v2-two-columns"><section><h3>建議辦理順序</h3><ol><li>確認自己為住宅所有權人及房屋為合法建築物</li><li>確認房客符合或已取得租金補貼資格</li><li>由機關主動認定，或依規定自行申請</li><li>地方稅由稅捐處辦理；所得稅向國稅局申報</li></ol></section><section><h3>可先準備的資料</h3><ul><li>租賃契約</li><li>房客租金補貼資格相關資料</li><li>房屋及土地資料</li><li>其他官方申請頁面所列文件</li></ul><p class="v2-caption">實際檢附項目依官方申請頁面及承辦機關要求。</p></section></div></details>
     <details><summary><span>適用期間與注意事項</span><span class="v2-expand" aria-hidden="true">＋</span></summary><div class="v2-details-body"><ul><li>房屋稅、地價稅與綜合所得稅的出租人資格不完全相同。</li><li>補貼資格、認定期間與年度稅基折減，以最新公告為準。</li><li>房屋稅相當稅率依年期變動：115年期0.9%、116年期1.05%；117年期起稅基不再折減，稅率1.2%。</li></ul></div></details>
   </div>
@@ -149,12 +154,13 @@
   <p class="v2-detail-lead">透過政府計畫與合作業者協助招租、媒合及管理，可選擇包租或代管模式。</p>
   <div class="v2-answer-layout">
     <div class="v2-answer-main">
-      <section class="v2-fit"><h2>我可能適用嗎？</h2><p>出租人須為住宅所有權人，住宅須為合法建築物，並加入社會住宅包租代管計畫。房屋、承租人及契約依計畫規定；地方稅優惠的出租人可為自然人或法人，綜合所得稅優惠限自然人。</p></section>
-      <section class="v2-benefits"><h2>有哪些租稅優惠？</h2><dl class="v2-tax-grid"><div class="v2-tax"><dt>房屋稅</dt><dd><strong>減徵為稅率 1%</strong><p>116年期稅基折減12.5%，相當稅率0.875%。</p></dd></div><div class="v2-tax"><dt>地價稅</dt><dd><strong>減徵 80%</strong><p>相當稅率約2‰至11‰。</p></dd></div><div class="v2-tax"><dt>綜合所得稅</dt><dd><strong>每屋每月1萬5,000元免稅；必要費用率60%</strong><p>向國稅局申報，優惠限自然人。</p></dd></div></dl></section>
+      <section class="v2-fit"><h2>適合誰？</h2><p>希望降低空置與管理負擔，願意依政府計畫條件出租合法住宅的屋主。</p></section>
+      <section class="v2-benefits"><h2>有哪些租稅優惠？</h2><dl class="v2-tax-grid"><div class="v2-tax"><dt>房屋稅</dt><dd><strong>減徵為稅率 <span class="v2-unit">1%</span></strong><p><span class="v2-unit">116年期</span>稅基折減<span class="v2-unit">12.5%</span>，相當稅率<span class="v2-unit">0.875%</span>。</p></dd></div><div class="v2-tax"><dt>地價稅</dt><dd><strong>減徵 <span class="v2-unit">80%</span></strong><p>相當稅率約<span class="v2-unit">2‰</span>至<span class="v2-unit">11‰</span>。</p></dd></div><div class="v2-tax"><dt>綜合所得稅</dt><dd><strong>每屋每月1萬<span class="v2-unit">5,000元</span>免稅；必要費用率<span class="v2-unit">60%</span></strong><p>向國稅局申報，優惠限自然人。</p></dd></div></dl></section>
     </div>
-    <aside class="v2-next-step" aria-labelledby="next-social"><span class="v2-kicker">下一步</span><h2 id="next-social">先從這裡開始</h2><p>先了解包租與代管差異，再洽詢計畫合作業者。</p><a class="v2-button v2-primary" href="https://leasing-and-management.udd.gov.taipei/news/70" target="_blank" rel="noopener noreferrer">屋主洽詢第5期合作業者 <span aria-hidden="true">↗</span><span class="sr-only">（另開新視窗）</span></a><p class="v2-caption">地方稅由稅捐處主動辦理；綜合所得稅仍須向國稅局申報。</p></aside>
+    <aside class="v2-next-step" aria-labelledby="next-social"><span class="v2-kicker">下一步</span><h2 id="next-social">洽詢計畫合作業者</h2><p>先了解包租與代管差異，再洽詢計畫合作業者。</p><a class="v2-button v2-primary" href="https://leasing-and-management.udd.gov.taipei/news/70" target="_blank" rel="noopener noreferrer">屋主洽詢第5期合作業者 <span aria-hidden="true">↗</span><span class="sr-only">（另開新視窗）</span></a><p class="v2-caption">先由合作業者確認計畫條件；地方稅由稅捐處主動辦理，所得稅向國稅局申報。</p></aside>
   </div>
   <div class="v2-detail-more">
+    <details><summary><span>完整適用條件</span><span class="v2-expand" aria-hidden="true">＋</span></summary><div class="v2-details-body"><p class="v2-full-condition">出租人須為住宅所有權人，住宅須為合法建築物，並加入社會住宅包租代管計畫。房屋、承租人及契約依計畫規定；地方稅優惠的出租人可為自然人或法人，綜合所得稅優惠限自然人。</p></div></details>
     <details><summary><span>辦理順序與應備資料</span><span class="v2-expand" aria-hidden="true">＋</span></summary><div class="v2-two-columns"><section><h3>建議辦理順序</h3><ol><li>備妥房屋權利證明與基本資料</li><li>洽詢臺北市或國家住都中心列示的合作業者</li><li>比較包租與代管模式及管理責任</li><li>完成媒合與簽約，由合作業者協助後續管理</li><li>依規定辦理地方稅及綜合所得稅</li></ol></section><section><h3>可先準備的資料</h3><ul><li>房屋權利證明</li><li>房屋基本資料與現況資料</li><li>合作業者要求的申請文件</li><li>包租或代管契約</li></ul><p class="v2-caption">實際檢附項目依官方申請頁面及承辦機關要求。</p></section></div></details>
     <details><summary><span>適用期間與注意事項</span><span class="v2-expand" aria-hidden="true">＋</span></summary><div class="v2-details-body"><ul><li>包租是由業者承租後轉租；代管則由屋主與房客簽約。</li><li>實際優惠仍須符合計畫、契約內容及核定資格。</li><li>房屋稅相當稅率依年期變動：115年期0.75%、116年期0.875%；117年期起稅基不再折減，稅率1%。</li></ul></div></details>
   </div>
@@ -168,12 +174,13 @@
   <p class="v2-detail-lead">自然人屋主將住宅委託合法業者包租或代管，契約約定供居住使用一年以上。</p>
   <div class="v2-answer-layout">
     <div class="v2-answer-main">
-      <section class="v2-fit"><h2>我可能適用嗎？</h2><p>住宅所有權人限自然人，須委託合法租賃住宅服務業，住宅供居住使用且契約一年以上。出租住宅須為經編釘門牌或已設立房屋稅籍的建物。</p></section>
-      <section class="v2-benefits"><h2>有哪些租稅優惠？</h2><dl class="v2-tax-grid"><div class="v2-tax"><dt>房屋稅</dt><dd><strong>減徵 40%</strong><p>每屋減徵稅額以1萬元為上限。</p></dd></div><div class="v2-tax"><dt>地價稅</dt><dd><strong>減徵 40%</strong><p>每屋減徵稅額以1萬元為上限。</p></dd></div><div class="v2-tax"><dt>綜合所得稅</dt><dd><strong>6,000元免稅；6,001元至2萬元費用率53%；逾2萬元43%</strong><p>以每屋每月租金收入計算。</p></dd></div></dl></section>
+      <section class="v2-fit"><h2>適合誰？</h2><p>希望委託專業業者處理招租與管理，並能簽訂一年以上住宅使用契約的自然人屋主。</p></section>
+      <section class="v2-benefits"><h2>有哪些租稅優惠？</h2><dl class="v2-tax-grid"><div class="v2-tax"><dt>房屋稅</dt><dd><strong>減徵 <span class="v2-unit">40%</span></strong><p>每屋減徵稅額以<span class="v2-unit">1萬元</span>為上限。</p></dd></div><div class="v2-tax"><dt>地價稅</dt><dd><strong>減徵 <span class="v2-unit">40%</span></strong><p>每屋減徵稅額以<span class="v2-unit">1萬元</span>為上限。</p></dd></div><div class="v2-tax"><dt>綜合所得稅</dt><dd><strong><span class="v2-unit">6,000元</span>免稅；<span class="v2-unit">6,001元</span>至<span class="v2-unit">2萬元</span>費用率<span class="v2-unit">53%</span>；逾<span class="v2-unit">2萬元</span><span class="v2-unit">43%</span></strong><p>以每屋每月租金收入計算。</p></dd></div></dl></section>
     </div>
-    <aside class="v2-next-step" aria-labelledby="next-personal"><span class="v2-kicker">下一步</span><h2 id="next-personal">先從這裡開始</h2><p>先查詢合法業者，再確認服務內容、契約及申請期限。</p><a class="v2-button v2-primary" href="https://resim.moi.gov.tw/Home/RentIndex" target="_blank" rel="noopener noreferrer">查詢合法租賃住宅服務業 <span aria-hidden="true">↗</span><span class="sr-only">（另開新視窗）</span></a><p class="v2-caption">地方稅須向稅捐處申請；所得稅向國稅局申報。</p></aside>
+    <aside class="v2-next-step" aria-labelledby="next-personal"><span class="v2-kicker">下一步</span><h2 id="next-personal">確認業者與申請文件</h2><p>先查詢合法業者，再確認服務內容、契約及申請期限。</p><a class="v2-button v2-primary" href="https://resim.moi.gov.tw/Home/RentIndex" target="_blank" rel="noopener noreferrer">查詢合法租賃住宅服務業 <span aria-hidden="true">↗</span><span class="sr-only">（另開新視窗）</span></a><p class="v2-caption">地方稅須向稅捐處申請；所得稅向國稅局申報。</p></aside>
   </div>
   <div class="v2-detail-more">
+    <details><summary><span>完整適用條件</span><span class="v2-expand" aria-hidden="true">＋</span></summary><div class="v2-details-body"><p class="v2-full-condition">住宅所有權人限自然人，須委託合法租賃住宅服務業，住宅供居住使用且契約一年以上。出租住宅須為經編釘門牌或已設立房屋稅籍的建物。</p></div></details>
     <details><summary><span>辦理順序與應備資料</span><span class="v2-expand" aria-hidden="true">＋</span></summary><div class="v2-two-columns"><section><h3>建議辦理順序</h3><ol><li>查詢合法租賃住宅服務業</li><li>比較包租與代管服務、費用及責任</li><li>簽訂供居住使用一年以上的契約</li><li>房屋稅原則於3月22日前、地價稅原則於9月22日前申請</li><li>年度綜合所得稅申報時依規定辦理</li></ol></section><section><h3>可先準備的資料</h3><ul><li>減徵地價稅及房屋稅申請書</li><li>本人身分證明；代辦時依規定備妥委託書與受託人身分證明</li><li>包租：與包租業者簽訂的租賃契約影本</li><li>代管：委託管理契約與租賃契約影本</li></ul><p class="v2-caption">實際檢附項目依官方申請頁面及承辦機關要求。<a class="" href="https://www-ws.gov.taipei/001/Upload/336/relfile/16016/124219/9bf4c7a3-948a-42a2-9af7-a2a7293235cb.pdf" target="_blank" rel="noopener noreferrer">查看申請書範例與應備文件（PDF） <span aria-hidden="true">↗</span><span class="sr-only">（另開新視窗）</span></a></p></section></div></details>
     <details><summary><span>適用期間與注意事項</span><span class="v2-expand" aria-hidden="true">＋</span></summary><div class="v2-details-body"><ul><li>申請期限遇假日可能順延，請以當年度公告為準。</li><li>地方稅須向稅捐處提出申請，所得稅則向國稅局申報。</li></ul></div></details>
   </div>
@@ -186,10 +193,11 @@
         <p class="v2-kicker">四方案完整比較</p>
         <h1 id="comparison-title" tabindex="-1">管理方式、適用條件與租稅優惠</h1>
         <p>先比較出租方式與條件，再看三大稅目及第一個辦理動作。各項優惠有不同要件，不能逕自相加。</p>
-        <div class="v2-comparison-grid"><article class="v2-compare-card v2-blue"><h2>一般出租</h2><p class="v2-compare-situation">我自己出租、自己管理</p><dl><div><dt>適用條件</dt><dd>房屋供住宅出租使用；申報租賃所得達本市一般租金標準者，房屋稅可依全國總持有戶數適用差別稅率。</dd></div><div class="v2-tax"><dt>房屋稅</dt><dd><strong>1.5%／2%／2.4%</strong><p>申報租賃所得須達本市一般租金標準；依全國總持有應稅房屋戶數，4戶以內1.5%、5至6戶2%、7戶以上2.4%。</p></dd></div><div class="v2-tax"><dt>地價稅</dt><dd><strong>依一般規定辦理</strong><p>本方案未另列專屬減免。</p></dd></div><div class="v2-tax"><dt>綜合所得稅</dt><dd><strong>依租賃所得規定申報</strong><p>請保存租約、租金及相關費用資料。</p></dd></div><div><dt>第一步</dt><dd>先使用官方租金標準試算，再確認當年度申報方式。</dd></div></dl><a href="#plan-ordinary" class="v2-button">查看優惠與辦理方式 →</a></article>
-<article class="v2-compare-card v2-orange"><h2>公益出租人</h2><p class="v2-compare-situation">我的房客有租金補貼</p><dl><div><dt>適用條件</dt><dd>出租人須為住宅所有權人，住宅須為合法建築物。地方稅優惠的房客條件為符合租金補貼申請資格；所得稅優惠另要求房客領有租金補貼，出租人限自然人。</dd></div><div class="v2-tax"><dt>房屋稅</dt><dd><strong>稅率 1.2%</strong><p>116年期稅基折減12.5%，相當稅率1.05%。</p></dd></div><div class="v2-tax"><dt>地價稅</dt><dd><strong>自用住宅用地稅率 2‰</strong><p>由稅捐處依認定資料辦理。</p></dd></div><div class="v2-tax"><dt>綜合所得稅</dt><dd><strong>每屋每月1萬5,000元免稅；必要費用率43%</strong><p>限自然人住宅所有權人，且房客領有租金補貼；向國稅局申報。必要費用的計算請依所得稅規定辦理。</p></dd></div><div><dt>第一步</dt><dd>先確認房客的租金補貼資格，再查詢公益出租人認定。</dd></div></dl><a href="#plan-public" class="v2-button">查看優惠與辦理方式 →</a></article>
-<article class="v2-compare-card v2-green"><h2>社會住宅包租代管</h2><p class="v2-compare-situation">我想加入政府包租代管</p><dl><div><dt>適用條件</dt><dd>出租人須為住宅所有權人，住宅須為合法建築物，並加入社會住宅包租代管計畫。房屋、承租人及契約依計畫規定；地方稅優惠的出租人可為自然人或法人，綜合所得稅優惠限自然人。</dd></div><div class="v2-tax"><dt>房屋稅</dt><dd><strong>減徵為稅率 1%</strong><p>116年期稅基折減12.5%，相當稅率0.875%。</p></dd></div><div class="v2-tax"><dt>地價稅</dt><dd><strong>減徵 80%</strong><p>相當稅率約2‰至11‰。</p></dd></div><div class="v2-tax"><dt>綜合所得稅</dt><dd><strong>每屋每月1萬5,000元免稅；必要費用率60%</strong><p>向國稅局申報，優惠限自然人。</p></dd></div><div><dt>第一步</dt><dd>先了解包租與代管差異，再洽詢計畫合作業者。</dd></div></dl><a href="#plan-social" class="v2-button">查看優惠與辦理方式 →</a></article>
-<article class="v2-compare-card v2-purple"><h2>個人租賃住宅包租代管</h2><p class="v2-compare-situation">我想委託合法業者管理</p><dl><div><dt>適用條件</dt><dd>住宅所有權人限自然人，須委託合法租賃住宅服務業，住宅供居住使用且契約一年以上。出租住宅須為經編釘門牌或已設立房屋稅籍的建物。</dd></div><div class="v2-tax"><dt>房屋稅</dt><dd><strong>減徵 40%</strong><p>每屋減徵稅額以1萬元為上限。</p></dd></div><div class="v2-tax"><dt>地價稅</dt><dd><strong>減徵 40%</strong><p>每屋減徵稅額以1萬元為上限。</p></dd></div><div class="v2-tax"><dt>綜合所得稅</dt><dd><strong>6,000元免稅；6,001元至2萬元費用率53%；逾2萬元43%</strong><p>以每屋每月租金收入計算。</p></dd></div><div><dt>第一步</dt><dd>先查詢合法業者，再確認服務內容、契約及申請期限。</dd></div></dl><a href="#plan-personal" class="v2-button">查看優惠與辦理方式 →</a></article></div>
+        <fieldset class="v2-compare-controls" hidden><legend>選擇兩個方案並列比較</legend><div><label>方案1<select data-compare-select="0"><option value="ordinary" selected>一般出租</option><option value="public">公益出租人</option><option value="social">社會住宅包租代管</option><option value="personal">個人租賃住宅包租代管</option></select></label><label>方案2<select data-compare-select="1"><option value="ordinary">一般出租</option><option value="public" selected>公益出租人</option><option value="social">社會住宅包租代管</option><option value="personal">個人租賃住宅包租代管</option></select></label></div><p class="v2-caption" role="status" id="compare-status"></p></fieldset>
+        <div class="v2-comparison-grid"><article data-compare-plan="ordinary" class="v2-compare-card v2-blue"><h2>一般出租</h2><p class="v2-compare-situation">我自己出租、自己管理</p><dl><div><dt>管理方式</dt><dd>屋主自行招租與管理</dd></div><div><dt>主要門檻</dt><dd>房屋供住宅出租使用；申報租賃所得達本市一般租金標準者，房屋稅可依全國總持有戶數適用差別稅率。</dd></div><div class="v2-tax"><dt>房屋稅</dt><dd><strong><span class="v2-unit">1.5%</span>／<span class="v2-unit">2%</span>／<span class="v2-unit">2.4%</span></strong><p>申報租賃所得須達本市一般租金標準；依全國總持有應稅房屋戶數，<span class="v2-unit">4戶</span>以內<span class="v2-unit">1.5%</span>、5至<span class="v2-unit">6戶</span><span class="v2-unit">2%</span>、<span class="v2-unit">7戶</span>以上<span class="v2-unit">2.4%</span>。</p></dd></div><div class="v2-tax"><dt>地價稅</dt><dd><strong>依一般規定辦理</strong><p>本方案未另列專屬減免。</p></dd></div><div class="v2-tax"><dt>綜合所得稅</dt><dd><strong>依租賃所得規定申報</strong><p>請保存租約、租金及相關費用資料。</p></dd></div><div><dt>第一步</dt><dd>先使用官方租金標準試算，再確認當年度申報方式。</dd></div></dl><a href="#plan-ordinary" class="v2-button">查看優惠與辦理方式 →</a></article>
+<article data-compare-plan="public" class="v2-compare-card v2-orange"><h2>公益出租人</h2><p class="v2-compare-situation">我的房客有租金補貼</p><dl><div><dt>管理方式</dt><dd>自行出租，配合房客補貼認定</dd></div><div><dt>主要門檻</dt><dd>出租人須為住宅所有權人，住宅須為合法建築物。地方稅優惠的房客條件為符合租金補貼申請資格；所得稅優惠另要求房客領有租金補貼，出租人限自然人。</dd></div><div class="v2-tax"><dt>房屋稅</dt><dd><strong>稅率 <span class="v2-unit">1.2%</span></strong><p><span class="v2-unit">116年期</span>稅基折減<span class="v2-unit">12.5%</span>，相當稅率<span class="v2-unit">1.05%</span>。</p></dd></div><div class="v2-tax"><dt>地價稅</dt><dd><strong>自用住宅用地稅率 <span class="v2-unit">2‰</span></strong><p>由稅捐處依認定資料辦理。</p></dd></div><div class="v2-tax"><dt>綜合所得稅</dt><dd><strong>每屋每月1萬<span class="v2-unit">5,000元</span>免稅；必要費用率<span class="v2-unit">43%</span></strong><p>限自然人住宅所有權人，且房客領有租金補貼；向國稅局申報。必要費用的計算請依所得稅規定辦理。</p></dd></div><div><dt>第一步</dt><dd>先確認房客的租金補貼資格，再查詢公益出租人認定。</dd></div></dl><a href="#plan-public" class="v2-button">查看優惠與辦理方式 →</a></article>
+<article data-compare-plan="social" class="v2-compare-card v2-green"><h2>社會住宅包租代管</h2><p class="v2-compare-situation">我想加入政府包租代管</p><dl><div><dt>管理方式</dt><dd>政府計畫合作業者協助包租或代管</dd></div><div><dt>主要門檻</dt><dd>出租人須為住宅所有權人，住宅須為合法建築物，並加入社會住宅包租代管計畫。房屋、承租人及契約依計畫規定；地方稅優惠的出租人可為自然人或法人，綜合所得稅優惠限自然人。</dd></div><div class="v2-tax"><dt>房屋稅</dt><dd><strong>減徵為稅率 <span class="v2-unit">1%</span></strong><p><span class="v2-unit">116年期</span>稅基折減<span class="v2-unit">12.5%</span>，相當稅率<span class="v2-unit">0.875%</span>。</p></dd></div><div class="v2-tax"><dt>地價稅</dt><dd><strong>減徵 <span class="v2-unit">80%</span></strong><p>相當稅率約<span class="v2-unit">2‰</span>至<span class="v2-unit">11‰</span>。</p></dd></div><div class="v2-tax"><dt>綜合所得稅</dt><dd><strong>每屋每月1萬<span class="v2-unit">5,000元</span>免稅；必要費用率<span class="v2-unit">60%</span></strong><p>向國稅局申報，優惠限自然人。</p></dd></div><div><dt>第一步</dt><dd>先了解包租與代管差異，再洽詢計畫合作業者。</dd></div></dl><a href="#plan-social" class="v2-button">查看優惠與辦理方式 →</a></article>
+<article data-compare-plan="personal" class="v2-compare-card v2-purple"><h2>個人租賃住宅包租代管</h2><p class="v2-compare-situation">我想委託合法業者管理</p><dl><div><dt>管理方式</dt><dd>自行委託合法租賃住宅服務業</dd></div><div><dt>主要門檻</dt><dd>住宅所有權人限自然人，須委託合法租賃住宅服務業，住宅供居住使用且契約一年以上。出租住宅須為經編釘門牌或已設立房屋稅籍的建物。</dd></div><div class="v2-tax"><dt>房屋稅</dt><dd><strong>減徵 <span class="v2-unit">40%</span></strong><p>每屋減徵稅額以<span class="v2-unit">1萬元</span>為上限。</p></dd></div><div class="v2-tax"><dt>地價稅</dt><dd><strong>減徵 <span class="v2-unit">40%</span></strong><p>每屋減徵稅額以<span class="v2-unit">1萬元</span>為上限。</p></dd></div><div class="v2-tax"><dt>綜合所得稅</dt><dd><strong><span class="v2-unit">6,000元</span>免稅；<span class="v2-unit">6,001元</span>至<span class="v2-unit">2萬元</span>費用率<span class="v2-unit">53%</span>；逾<span class="v2-unit">2萬元</span><span class="v2-unit">43%</span></strong><p>以每屋每月租金收入計算。</p></dd></div><div><dt>第一步</dt><dd>先查詢合法業者，再確認服務內容、契約及申請期限。</dd></div></dl><a href="#plan-personal" class="v2-button">查看優惠與辦理方式 →</a></article></div>
         <p class="v2-notice">以下為公開資訊整理；實際資格、適用期間與稅額，以主管機關公告及個案核定為準。</p>
       </section>
     </main>
@@ -200,8 +208,8 @@
       <small>租稅來源核對：2026-09-08　｜　適用範圍：臺北市　｜　房屋稅年期請見各項標示</small>
     </footer>
   </div>
-  <script src="./assets/js/guide-rules.js?v=41c1a336de"></script>
-  <script src="./assets/js/guide-ui.js?v=e867cbf837"></script>
+  <script src="./assets/js/guide-rules.js?v=b589f9a2cf"></script>
+  <script src="./assets/js/guide-ui.js?v=403c56601b"></script>
   <!-- Dialogflow CX Conversational Messenger -->
 <script src="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js"></script>
 

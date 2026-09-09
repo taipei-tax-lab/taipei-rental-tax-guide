@@ -7,10 +7,10 @@
 - 首頁依屋主／房客分流；直接呈現四種出租情境及優惠摘要。
 - 桌機四欄時，點選方案在卡片下方展開；手機／平板維持詳情畫面。共用完整條件、三大稅目、下一步與官方入口。
 - 不確定者使用最多三題的閱讀導引，附建議理由，不判定正式資格。
-- 完整比較在第二層，手機直向閱讀。
+- 完整比較在第二層，各項目對齊；手機可選兩方案並列比較。
 - 十項既有房客服務保留，整理為補貼、房源、租屋／設籍三類。
-- 首頁提供屋主、房客、直接問小幫手三個明顯入口；快速判斷移到方案卡片前方。
-- 小幫手快捷入口使用官方 openChat 開啟原有右下角視窗，不送出問題或清除對話。Messenger、角色面板、設定與素材沿用 main；CX 題庫及雲端設定另案處理。
+- 首頁提供屋主、房客、直接問小幫手三個明顯入口；快速判斷位於方案卡片後方，標題旁保留快捷入口。
+- 小幫手快捷入口使用官方 openChat 開啟原有右下角視窗，不送出問題或清除對話。Messenger 沿用已確認的人物素材、比例與關閉行為；CX 題庫及雲端設定另案處理。
 
 ## 開發與預覽
 
@@ -36,7 +36,7 @@ npm run dev
 | assets/js/guide-rules.js | 最多三題的閱讀導引規則 |
 | assets/js/guide-ui.js | 身分切換、hash 導覽、返回、展開與列印 |
 | assets/css/site.css | 保留的既有基礎樣式及小幫手使用的色彩變數 |
-| assets/css/messenger.css、assets/js/messenger-ui.js | 原有小幫手樣式及行為，本次未改 |
+| assets/css/messenger.css、assets/js/messenger-ui.js | 小幫手樣式及行為，本輪維持既有版本 |
 | index.html | GitHub Pages 使用的建置結果，不直接手改 |
 
 舊 _next/ 快照與 site-enhancements.js 保留但不再由 V2 載入。舊版可由 main／對應 Git 歷史版本取得。
@@ -59,7 +59,7 @@ node scripts/browser-check.cjs
 
 保留原 GitHub Pages 分支部署方式。建置後提交 index.html、assets/、hero-v2.png、favicon.svg 及 .nojekyll 等網站資產；原始檔與建置腳本也一併版控，供日後重建。
 
-本次在 codex/rental-guide-v2 開發，分支尚未合併或部署。本機建置與開發分支推送不會改變 main 的正式頁面。
+首版 V2 已由 PR #2 合併；本輪在 codex/rental-guide-v2-refinement 開發，尚未提交或發布。本機建置與開發分支推送不會改變 main 的正式頁面。
 
 ## 專案與 CX 文件
 
@@ -70,3 +70,11 @@ node scripts/browser-check.cjs
 - [Messenger 介面規格](docs/messenger-ui-spec.md)
 
 CX 文件是既有規劃或操作紀錄，不表示所列功能均已實作。網站政策資料不會自動同步到 Data Store；新題庫、知識版本與設定留待下一階段。
+
+## 本輪閱讀與互動改善
+
+首頁先呈現方案摘要，再提供不確定者導引；桌機詳情緊接卡片展開。卡片分開呈現主要稅目與其他稅目提示。導引顯示已選條件、優先閱讀建議與待確認條件，上一題與重新開始會同步更新摘要。方案詳情依適用對象、優惠、具體辦理動作、完整條件／文件呈現。
+
+手機比較可選兩個不同方案；相同選項會自動調整另一欄，並顯示目前比較名稱。放大至桌機時恢復四方案。停用 JavaScript 時仍保留全部方案資訊。
+
+另可設定 PORT 預覽（例如 4175），瀏覽器與聊天檢查以 PREVIEW_URL 指向同一份 worktree，避免誤測其他目錄。政策原始數值及核對日期未更動；真人可用性與 iOS／Android 實機仍待驗收。
