@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
+import {createHash} from 'node:crypto';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {execFileSync} from 'node:child_process';
@@ -27,9 +28,9 @@ test('all plans expose complete tax information and official next steps without 
   assert.doesNotMatch(html, /_next\/|vinext\.navigationRuntime|site-enhancements\.js/);
 });
 test('embedded Messenger is the preserved fragment with the original agent settings', () => {
-  const fragment = fs.readFileSync(path.join(root, 'site/messenger.html'), 'utf8');
+  const fragment = fs.readFileSync(path.join(root, 'site/messenger.html'), 'utf8').replace('{{MESSENGER_UI_VERSION}}', createHash('sha256').update(fs.readFileSync(path.join(root, 'assets/js/messenger-ui.js'))).digest('hex').slice(0,10));
   assert.ok(html.includes(fragment));
   assert.equal((html.match(/<df-messenger\s/g) || []).length, 1);
   assert.match(fragment, /agent-id="9fb1cac6-62cd-40e6-8b13-eecf651f1f72"/);
-  assert.match(fragment, /src="\.\/assets\/js\/messenger-ui\.js"/);
+  assert.match(fragment, /src="\.\/assets\/js\/messenger-ui\.js\?v=[a-f0-9]{10}"/);
 });

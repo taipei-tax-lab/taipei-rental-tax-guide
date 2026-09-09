@@ -87,7 +87,8 @@ const replacements = {
   PLAN_CARDS: cards, PLAN_DETAILS: planDetails, TENANT_GROUPS: tenantGroups, FAQ: faqHtml,
   COMPARE_CONTROLS: `<fieldset class="v2-compare-controls" hidden><legend>選擇兩個方案並列比較</legend><div>${[0,1].map((n) => `<label>方案${n + 1}<select data-compare-select="${n}">${plans.map((p,i) => `<option value="${p.id}"${i === n ? ' selected' : ''}>${esc(p.eyebrow)}</option>`).join('')}</select></label>`).join('')}</div><p class="v2-caption" role="status" id="compare-status"></p></fieldset>`,
   RESOURCES: resources, COMPARISON: comparison, NOTE: esc(data.meta.note), CHECKED: data.meta.checked,
-  MESSENGER: read('site/messenger.html')
+  MESSENGER_STYLE_VERSION: hash('assets/css/messenger.css'),
+  MESSENGER: read('site/messenger.html').replace('{{MESSENGER_UI_VERSION}}', hash('assets/js/messenger-ui.js'))
 };
 const html = read('site/template.html').replace(/\{\{([A-Z_]+)\}\}/g, (_, key) => {
   if (!(key in replacements)) throw new Error(`Missing template value ${key}`);

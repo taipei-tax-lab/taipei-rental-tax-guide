@@ -332,3 +332,10 @@ df-messenger:hover { --df-messenger-chat-bubble-background:transparent; }
 @media(max-width:560px) { df-messenger { --df-messenger-chat-bubble-size:72px; --df-messenger-chat-bubble-icon-size:132px; } }
 
 df-messenger { --df-messenger-chat-bubble-icon-color:#ffffff; --df-messenger-chat-bubble-close-icon-transform-rotate:0deg; }
+
+/* Short / zoomed viewports keep more space for the conversation and input. */
+df-messenger[data-compact-chat] {
+  --df-messenger-titlebar-padding: 8px 12px;
+  --df-messenger-input-padding: 6px;
+  --df-messenger-input-inner-padding: 8px 44px 8px 12px;
+}
