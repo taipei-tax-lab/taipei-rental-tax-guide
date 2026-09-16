@@ -99,9 +99,10 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
 .v2-details-body > p { max-width: 900px; }
 .v2-faq-list .v2-details-body { padding-left: 4px; }
 .v2-resources { margin: 28px 0 40px; background: #fff; border: 1px solid var(--v2-border); border-radius: 10px; }
-.v2-resources > summary { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 20px; }
-.v2-resources small { font-size: 1rem; color: var(--v2-muted); display: inline-block; margin-left: 20px; }
-.v2-resource-body { padding: 0 20px 20px; display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 20px; }
+.v2-resources-heading { padding: 20px 20px 16px; border-bottom: 1px solid var(--v2-border); }
+.v2-resources-title { font-size: 1.15rem; color: var(--v2-accent); margin: 0 0 4px; }
+.v2-resources-heading .v2-caption { margin: 0; }
+.v2-resource-body { padding: 20px; display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 20px; }
 .v2-resource-body > .v2-caption { grid-column: 1 / -1; margin: 0; }
 .v2-resource-body a, .v2-source-links a, .v2-tenant-links a { color: var(--teal); font-weight: 700; text-decoration: underline; text-underline-offset: 4px; }
 .v2-resource-body p { font-size: 1rem; margin: 8px 0 0; }
@@ -123,6 +124,11 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
 .v2-answer-main h2, .v2-next-step h2, .v2-source h2 { font-size: 1.25rem; }
 .v2-fit { margin-bottom: 24px; }
 .v2-fit p { margin: 0; }
+.v2-conditions { margin-bottom: 24px; }
+.v2-conditions h2 { font-size: 1.25rem; margin-bottom: 10px; }
+.v2-conditions ol { margin: 0; padding-left: 24px; }
+.v2-conditions li { font-size: 1.125rem; line-height: 1.75; margin-bottom: 8px; color: var(--v2-ink); }
+.v2-conditions li:last-child { margin-bottom: 0; }
 .v2-tax-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; margin: 0; }
 .v2-tax-grid > .v2-tax { border-top: 3px solid var(--v2-accent); padding: 16px; background: #fff; border-radius: 8px; box-shadow: 0 0 0 1px #d7e0dd; }
 .v2-tax-grid dd strong { font-size: 1.125rem; }
@@ -168,6 +174,7 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
   .v2-header, .v2-hero { padding-left: 28px; padding-right: 28px; }
   .v2-container { padding-left: 28px; padding-right: 28px; }
   .v2-plan-grid, .v2-comparison-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .v2-resource-body { grid-template-columns: repeat(2,minmax(0,1fr)); }
   .v2-plan-card { padding: 20px 22px 0; }
   .v2-card-tax .v2-tax { min-height: 88px; }
   .v2-footer { margin-left: 28px; margin-right: 28px; }
