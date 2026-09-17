@@ -99,7 +99,11 @@ def test_messenger_regression():
                 # E. 沒有 horizontal overflow
                 assert m["horizontalOverflow"] <= 0, f"Horizontal overflow detected at {w}x{h} zoom={zoom}: {m['horizontalOverflow']}px"
 
-        # 4. Message length regression (empty, short, long, multi-turn)
+        # 4. Notice geometry stress check (synthetic DOM manipulation)
+        # Note: This is a synthetic container stress check on DOM geometry rather than
+        # a simulation of Google's internal LitElement message rendering shadow DOM.
+        # It verifies that varying payloads or manipulating the message-list node
+        # does not cause notice clipping or displace the notice into details.
         page.set_viewport_size({"width": 1024, "height": 768})
         for count, text_len in [(0, 0), (1, 30), (1, 600), (6, 200)]:
             page.evaluate(f"""() => {{
@@ -130,8 +134,8 @@ def test_messenger_regression():
                     clipped: notice ? (notice.scrollHeight > notice.clientHeight + 1) : false
                 };
             }""")
-            assert not msg_check["clipped"], f"Notice clipped with count={count}, len={text_len}"
-            assert not msg_check["noticeInDetails"], f"Notice in details with count={count}"
+            assert not msg_check["clipped"], f"Notice geometry stress check: notice clipped with synthetic payload count={count}, len={text_len}"
+            assert not msg_check["noticeInDetails"], f"Notice geometry stress check: notice unexpectedly placed in details with synthetic payload count={count}"
 
         # 5. Short viewport test (height < 400)
         page.set_viewport_size({"width": 390, "height": 360})
