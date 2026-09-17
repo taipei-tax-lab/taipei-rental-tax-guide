@@ -29,7 +29,13 @@ const plans = data.plans;
 if (plans.length !== 4 || new Set(plans.map(p => p.id)).size !== 4) throw new Error('Four unique plans required');
 for (const plan of plans) {
   if (plan.taxes.length !== 3 || !plan.source?.checked || !plan.links.length) throw new Error(`Incomplete plan: ${plan.id}`);
-  for (const url of [...plan.links.map(l => l.href), plan.source.url]) if (new URL(url).protocol !== 'https:') throw new Error('HTTPS sources required');
+  const planUrls = [
+    ...plan.links.map(l => l.href),
+    plan.source.url,
+    ...(plan.sourceLinks || []).map(l => l.url || l.href),
+    ...(plan.documentSource?.href ? [plan.documentSource.href] : [])
+  ];
+  for (const url of planUrls) if (new URL(url).protocol !== 'https:') throw new Error('HTTPS sources required');
 }
 
 const otherTaxes = plan => {
