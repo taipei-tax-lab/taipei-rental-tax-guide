@@ -32,11 +32,13 @@ const fs=require('node:fs');
    assert.ok(geometry.title.top>=0&&geometry.title.bottom<=height,`title at ${width}x${height}`);
    assert.ok(geometry.input.top>=geometry.title.bottom&&geometry.input.bottom<=height,`input at ${width}x${height}`);
    assert.ok(geometry.close.top>=0&&geometry.close.bottom<=height,`close at ${width}x${height}`);
-   if(geometry.panel) {assert.ok(Math.abs(geometry.panel.top-geometry.chat.top)<2);assert.ok(Math.abs(geometry.panel.bottom-geometry.chat.bottom)<2);}
+   if(geometry.panel) {assert.ok(Math.abs(geometry.panel.top-geometry.chat.top)<2);assert.ok(Math.abs(geometry.panel.bottom-geometry.chat.bottom)<2);assert.ok(Math.abs(geometry.chat.left-geometry.panel.right)<=1);}
+   const extras=page.locator('.rental-input-extras');
+   assert.ok(await extras.locator('> p').isVisible());
+   assert.equal(await extras.locator('details p').count(),0);
    if(height<400) {
-    const extras=page.locator('.rental-input-extras');
     await extras.locator('summary').click();
-    assert.ok(await extras.locator('p').isVisible());
+    assert.ok(await extras.locator('> p').isVisible());
     await extras.locator('summary').click();
     assert.equal(await page.locator('df-messenger-chat-bubble .close-button').isVisible(),false);
    }

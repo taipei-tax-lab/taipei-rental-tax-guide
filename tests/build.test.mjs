@@ -66,3 +66,21 @@ test('build script validates all plan sourceLinks require HTTPS', () => {
   assert.match(script, /plan\.sourceLinks/);
   assert.match(script, /new URL\(url\)\.protocol !== 'https:'/);
 });
+
+test('favicon uses official Taipei Revenue Service mark and preserves header logo', () => {
+  const template = fs.readFileSync(path.join(root, 'site/template.html'), 'utf8');
+  assert.doesNotMatch(template, /favicon\.svg/, 'template.html must not reference old generic favicon');
+  assert.match(template, /<link rel="icon" href="\.\/assets\/images\/tpctax-mark\.png" type="image\/png">/);
+  assert.ok(fs.existsSync(path.join(root, 'assets/images/tpctax-mark.png')), 'Official mark asset must exist');
+  assert.match(html, /<link rel="icon" href="\.\/assets\/images\/tpctax-mark\.png" type="image\/png">/);
+  assert.match(html, /src="\.\/assets\/images\/tpctax-logo\.png"/, 'Header brand logo must be preserved');
+});
+
+test('messenger ui rules ensure notice is never moved into details and panel aligns gapless', () => {
+  const messengerUi = fs.readFileSync(path.join(root, 'assets/js/messenger-ui.js'), 'utf8');
+  assert.match(messengerUi, /\.rental-input-extras\{flex:none;/);
+  assert.doesNotMatch(messengerUi, /max-height:\s*35%/);
+  assert.doesNotMatch(messengerUi, /details\.querySelector\('summary'\)\.after\(notice\)/, 'Notice must never be moved into details');
+  assert.match(messengerUi, /box-sizing:border-box/, 'assistant panel must declare box-sizing: border-box');
+  assert.match(messengerUi, /elements\.assistantPanel\.style\.left\s*=\s*\(rect\.left - panelWidth/, 'assistant panel must align with chat left');
+});

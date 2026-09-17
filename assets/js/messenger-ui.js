@@ -107,7 +107,7 @@
       var style = document.createElement("style");
       style.id = "assistant-panel-styles";
       style.textContent = [
-        ".assistant-panel{position:fixed;z-index:9998;display:flex;flex-direction:column;width:280px;overflow:hidden;border:1px solid rgba(17,73,79,.16);border-right:0;border-radius:22px 0 0 22px;background:var(--cream);color:var(--ink);box-shadow:-14px 18px 50px rgba(13,57,63,.18);visibility:hidden}",
+        ".assistant-panel{position:fixed;z-index:9998;display:flex;flex-direction:column;box-sizing:border-box;width:280px;overflow:hidden;border:1px solid rgba(17,73,79,.16);border-right:0;border-radius:22px 0 0 22px;background:var(--cream);color:var(--ink);box-shadow:-14px 18px 50px rgba(13,57,63,.18);visibility:hidden}",
         ".assistant-panel.is-visible{visibility:visible}",
         ".assistant-panel[hidden]{display:none}",
         ".assistant-panel__character{flex:1 1 auto;min-height:0;padding:18px 24px 0;overflow:hidden;background:radial-gradient(circle at 50% 42%,rgba(255,255,255,.92),transparent 54%),linear-gradient(160deg,rgba(239,247,243,.94),rgba(238,226,202,.75))}",
@@ -367,29 +367,43 @@
     if (elements.messenger) elements.messenger.classList.toggle("assistant-panel-attached", isVisible);
   }
 
+  function ensureGeometryObserver(elements) {
+    if (!elements || !elements.bubble || elements.bubble.dataset.geometryBound === "true") return;
+    var chatWindow = elements.bubble.shadowRoot && elements.bubble.shadowRoot.querySelector(".chat-wrapper");
+    if (chatWindow) {
+      new ResizeObserver(updateAssistantPanel).observe(chatWindow);
+      chatWindow.addEventListener("transitionend", updateAssistantPanel);
+      elements.bubble.dataset.geometryBound = "true";
+    }
+  }
+
   function updateAssistantPanel() {
     var elements = getMessengerElements();
     if (!elements.messenger || !elements.assistantPanel) return;
+    ensureGeometryObserver(elements);
     var viewport = getViewportSize();
     var messengerStyle = getComputedStyle(elements.messenger);
     var right = parseFloat(messengerStyle.right) || 14;
-    var bottom = parseFloat(messengerStyle.bottom) || 14;
     var chatWidth = getCssPixels(elements.messenger, "--df-messenger-chat-window-width", MESSENGER_LIMITS.maxWidth);
-    var chatHeight = getCssPixels(elements.messenger, "--df-messenger-chat-window-height", MESSENGER_LIMITS.maxHeight);
-    var bubbleSize = getCssPixels(elements.messenger, "--df-messenger-chat-bubble-size", 62);
-    var windowOffset = getCssPixels(elements.messenger, "--df-messenger-chat-window-offset", 18);
     var isVisible = chatIsOpen && canShowAssistantPanel(viewport, chatWidth, right);
-    elements.assistantPanel.style.right = right + chatWidth - MESSENGER_LIMITS.assistantPanelOverlap + "px";
-    elements.assistantPanel.style.bottom = Math.max(14, bottom) + bubbleSize + windowOffset + "px";
-    elements.assistantPanel.style.height = Math.round(chatHeight) + "px";
     // Use the actual chat rectangle; the vendor applies its own window offset.
-    var chat = elements.bubble && elements.bubble.shadowRoot && elements.bubble.shadowRoot.querySelector('.chat-wrapper');
+    var chat = elements.bubble && elements.bubble.shadowRoot && elements.bubble.shadowRoot.querySelector(".chat-wrapper");
     if (isVisible && chat) {
       var rect = chat.getBoundingClientRect();
-      elements.assistantPanel.style.top = rect.top + 'px';
-      elements.assistantPanel.style.bottom = 'auto';
-      elements.assistantPanel.style.right = (window.innerWidth - rect.left - MESSENGER_LIMITS.assistantPanelOverlap) + 'px';
-      elements.assistantPanel.style.height = rect.height + 'px';
+      if (rect.width > 50 && rect.height > 50) {
+        var panelWidth = elements.assistantPanel.getBoundingClientRect().width || MESSENGER_LIMITS.assistantPanelWidth;
+        elements.assistantPanel.style.left = (rect.left - panelWidth + MESSENGER_LIMITS.assistantPanelOverlap) + "px";
+        elements.assistantPanel.style.right = "auto";
+        elements.assistantPanel.style.top = rect.top + "px";
+        elements.assistantPanel.style.bottom = "auto";
+        elements.assistantPanel.style.height = rect.height + "px";
+      }
+    } else {
+      elements.assistantPanel.style.left = "";
+      elements.assistantPanel.style.right = "";
+      elements.assistantPanel.style.top = "";
+      elements.assistantPanel.style.bottom = "";
+      elements.assistantPanel.style.height = "";
     }
     setAssistantPanelVisible(elements, isVisible);
   }
@@ -402,7 +416,12 @@
       resizeMessenger();
       updateAssistantPanel();
       installInputExtras();
-      window.requestAnimationFrame(updateAssistantPanel);
+      window.requestAnimationFrame(function () {
+        updateAssistantPanel();
+        window.requestAnimationFrame(updateAssistantPanel);
+      });
+      window.setTimeout(updateAssistantPanel, 150);
+      window.setTimeout(updateAssistantPanel, 350);
       if (chatIsOpen) showTemporaryAssistantState("welcome", ASSISTANT_TIMING.welcome);
       else resetAssistantState();
     });
@@ -446,15 +465,15 @@
     var extras = document.createElement('div');
     extras.className = 'rental-input-extras';
     extras.innerHTML = '<style>' +
-      '.rental-input-extras{flex:0 1 auto;min-height:0;max-height:35%;overflow-y:auto;padding:8px 16px;background:#fffefb;color:#3d5961;font-family:Arial,sans-serif}' +
-      '.rental-input-extras p{margin:0;padding:10px 12px;border-left:3px solid #a33c19;border-radius:8px;background:#fff0e5;color:#923616;font-size:16px;line-height:1.6}.rental-input-extras strong{font-weight:700}' +
+      '.rental-input-extras{flex:none;box-sizing:border-box;padding:8px 16px;background:#fffefb;color:#3d5961;font-family:Arial,sans-serif}' +
+      '.rental-input-extras p{flex:none;box-sizing:border-box;margin:0;padding:10px 12px;border-left:3px solid #a33c19;border-radius:8px;background:#fff0e5;color:#923616;font-size:16px;line-height:1.6;overflow:visible}.rental-input-extras strong{font-weight:700}' +
       '.rental-input-extras details{display:none;margin-bottom:8px}' +
       '.rental-input-extras summary{cursor:pointer;font-size:16px;font-weight:700;color:#0c686d;padding:4px 0}' +
-      '.messenger-topic-list{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}' +
+      '.messenger-topic-list{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px;max-height:180px;overflow-y:auto}' +
       '.messenger-topic{padding:8px;border:1px solid #a5c7c9;border-radius:8px;background:#f3f8f6;color:#103844;font-size:16px;cursor:pointer;text-align:left}' +
       '.messenger-topic:focus-visible{outline:2px solid #0c686d;outline-offset:2px}' +
       '@media(max-width:899px),(max-height:519px){.rental-input-extras details{display:block}}' +
-      '@media(max-height:600px){.rental-input-extras{padding:4px 8px}.rental-input-extras p{padding:5px 8px;line-height:1.4}.rental-input-extras details{margin-bottom:4px}}' +
+      '@media(max-height:600px){.rental-input-extras{padding:4px 8px}.rental-input-extras p{padding:5px 8px;line-height:1.4}.rental-input-extras details{margin-bottom:4px}.messenger-topic-list{max-height:120px}}' +
       '</style><details><summary>熱門問題</summary></details>' +
       '<p><span aria-hidden="true">⚠ </span>本服務提供一般性資訊。<br><strong>請勿輸入身分證字號、完整地址或電話。</strong></p>';
     extras.querySelector('details').appendChild(document.getElementById('messenger-topics').content.cloneNode(true));
@@ -466,13 +485,13 @@
   function updateInputExtras(extras) {
     var compact = getViewportSize().height < 400;
     var details = extras.querySelector('details');
-    var notice = extras.querySelector('p');
     if (extras.dataset.compact === String(compact)) return;
     extras.dataset.compact = String(compact);
-    details.open = false;
-    details.querySelector('summary').textContent = compact ? '使用提醒與熱門問題' : '熱門問題';
-    if (compact) details.querySelector('summary').after(notice);
-    else extras.appendChild(notice);
+    if (details) {
+      details.open = false;
+      var summary = details.querySelector('summary');
+      if (summary) summary.textContent = '熱門問題';
+    }
   }
 
   function bindMessengerResize() {
