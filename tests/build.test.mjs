@@ -47,3 +47,22 @@ test('typography rules prevent forced line breaks and keep tokens inline', () =>
   assert.match(css, /\.v2-unit\s*\{[^}]*display:\s*inline;/);
   assert.doesNotMatch(css, /\.v2-plan-name\b[^}]*text-wrap:\s*balance/);
 });
+
+test('public landlord includes official flow PDF with https www-ws.gov.taipei source link', () => {
+  const publicPlan = data.plans.find(p => p.id === 'public');
+  const flowPdfLink = publicPlan.sourceLinks?.find(l => l.title === '認定公益出租人流程圖（PDF）');
+  assert.ok(flowPdfLink, 'Missing 認定公益出租人流程圖（PDF） source link');
+  assert.ok(flowPdfLink.url.startsWith('https://'));
+  assert.equal(new URL(flowPdfLink.url).host, 'www-ws.gov.taipei');
+  assert.ok(!flowPdfLink.url.includes('chrome-extension://'));
+  assert.ok(flowPdfLink.url.includes('&'), 'content.json must store unescaped &');
+  assert.ok(!flowPdfLink.url.includes('&amp;'), 'content.json must not store manually escaped &amp;');
+  assert.ok(html.includes(flowPdfLink.url.replaceAll('&', '&amp;')));
+  assert.doesNotMatch(html, /chrome-extension:\/\//);
+});
+
+test('build script validates all plan sourceLinks require HTTPS', () => {
+  const script = fs.readFileSync(path.join(root, 'scripts/build.mjs'), 'utf8');
+  assert.match(script, /plan\.sourceLinks/);
+  assert.match(script, /new URL\(url\)\.protocol !== 'https:'/);
+});
