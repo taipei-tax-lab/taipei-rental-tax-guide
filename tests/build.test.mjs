@@ -40,3 +40,10 @@ test('all plans provide a full condition hook for the guide UI', () => {
     assert.match(planSection, /<li\s+class="v2-full-condition">/);
   }
 });
+test('typography rules prevent forced line breaks and keep tokens inline', () => {
+  const css = fs.readFileSync(path.join(root, 'assets/css/guide-v2.css'), 'utf8');
+  assert.match(css, /\.v2-other-taxes\s*>\s*span\s*\{\s*display:\s*block;\s*\}/);
+  assert.doesNotMatch(css, /\.v2-other-taxes\s+span\s*\{/);
+  assert.match(css, /\.v2-unit\s*\{[^}]*display:\s*inline;/);
+  assert.doesNotMatch(css, /\.v2-plan-name\b[^}]*text-wrap:\s*balance/);
+});
