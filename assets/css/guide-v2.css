@@ -7,7 +7,7 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
 .v2-site [hidden] { display: none !important; }
 .v2-site a, .v2-site button, .v2-site summary { touch-action: manipulation; }
 .v2-site :is(a, button, summary):focus-visible, .v2-skip:focus { outline: 3px solid #a64d16; outline-offset: 4px; }
-.v2-site :is(h1,h2,h3) { line-height: 1.4; font-weight: 750; text-wrap: pretty; }
+.v2-site :is(h1,h2,h3) { line-height: 1.4; font-weight: 750; text-wrap: wrap; }
 .v2-site h1 { font-size: clamp(1.8rem, 3.3vw, 2.5rem); margin-bottom: 16px; letter-spacing: -.035em; }
 .v2-site h2 { font-size: 1.75rem; margin-bottom: 16px; }
 .v2-site h3 { font-size: 1.125rem; margin-bottom: 10px; }
@@ -362,8 +362,8 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
 .v2-guide-result-list .v2-card-tax .v2-tax { min-height:0; }
 @media(max-width:700px) { .v2-guide-progress { gap:6px; } .v2-guide-progress li { font-size:16px; } }
 
-/* Balance headings and short controls; keep paragraphs readable at all widths. */
-.v2-site :is(h1,h2,h3,button,summary,.v2-button,.v2-audience-button strong,.v2-plan-name) { text-wrap:balance; word-break:normal; overflow-wrap:break-word; }
+/* Natural wrapping for headings, controls and plan names; keep paragraphs readable at all widths. */
+.v2-site :is(h1,h2,h3,button,summary,.v2-button,.v2-audience-button strong,.v2-plan-name) { text-wrap:wrap; word-break:normal; overflow-wrap:break-word; }
 .v2-site :is(p,li,dd) { text-wrap:pretty; overflow-wrap:break-word; }
 .v2-audience-button > span { min-width:0; }
 @media(min-width:701px) { .v2-plan-grid, .v2-compare-grid { column-gap:20px; } }
@@ -387,7 +387,7 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
 .v2-card-tax { margin:0; background:#f7faf8; padding:12px; }
 .v2-card-tax .v2-tax { min-height:0; }
 .v2-other-taxes { font-size:16px; line-height:1.75; margin:10px 0; color:var(--v2-muted); }
-.v2-other-taxes span { display:block; }
+.v2-other-taxes > span { display:block; }
 .v2-card-action { margin-top:auto; border-top:1px solid var(--v2-border); min-height:56px; }
 .v2-guide { margin:24px 0 0; border:1px solid #91b7aa; }
 .v2-comparison-entry { display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:16px; padding:16px; }
@@ -440,7 +440,7 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
 }
 @media print { .v2-compare-controls { display:none!important; } }
 .v2-hero h1 > span { display:inline-block; }
-.v2-unit { white-space:nowrap; }
+.v2-unit { white-space:nowrap; display:inline; }
 .v2-guide-result-list .v2-unit { color:inherit; font:inherit; display:inline; }
 .v2-inner-page > h1 { font-size:28px; }
 .v2-site .v2-compare-card h2 { font-size:22px; }

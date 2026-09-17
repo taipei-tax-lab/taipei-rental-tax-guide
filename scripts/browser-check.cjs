@@ -17,6 +17,11 @@ fs.mkdirSync(artifacts, {recursive:true});
     await page.screenshot({path:`${artifacts}/desktop-home.png`, fullPage:true});
     assert.equal(await page.locator('[data-page]:visible').count(), 1);
     assert.equal(await page.locator('.v2-plan-card:visible').count(), 4);
+    const unitDisplays = await page.locator('.v2-other-taxes .v2-unit').evaluateAll(els => els.map(el => getComputedStyle(el).display));
+    assert.ok(unitDisplays.length > 0 && unitDisplays.every(d => d === 'inline'), 'All .v2-other-taxes .v2-unit must be display: inline');
+    const planNameWraps = await page.locator('.v2-plan-name').evaluateAll(els => els.map(el => getComputedStyle(el).textWrap));
+    assert.ok(planNameWraps.every(w => w !== 'balance'), '.v2-plan-name must not have text-wrap: balance');
+
     for (const id of ['ordinary','public','social','personal']) {
       await page.locator(`#card-${id}`).click();
       await page.locator(`[data-page="plan-${id}"]:visible`).waitFor();
