@@ -42,6 +42,17 @@
       progress.append(step);
     });
     stage.append(progress);
+    if (answers.length) {
+      const summary = el('div', 'v2-answer-summary');
+      summary.append(el('strong', '', '您目前選擇的條件'));
+      const selected = el('ol');
+      answers.forEach((value, index) => {
+        const question = window.RentalGuideRules.next(answers.slice(0, index));
+        selected.append(el('li', '', question.choices.find(choice => choice.value === value).label));
+      });
+      summary.append(selected);
+      stage.append(summary);
+    }
     if (state.type === 'question') {
       const fieldset = el('fieldset', 'v2-question');
       const legend = el('legend');
@@ -63,12 +74,14 @@
       const heading = el('h3', '', state.title);
       heading.tabIndex = -1;
       const suggestions = el('div', 'v2-guide-result-list');
-      for (const recommendation of state.recommendations) {
+      for (const [index, recommendation] of state.recommendations.entries()) {
         const name = document.querySelector(`#card-${recommendation.id} .v2-plan-name`).textContent;
-        const anchor = el('a');
+        const anchor = el('a', index === 0 ? 'v2-recommendation-primary' : 'v2-recommendation-secondary');
         anchor.href = `#plan-${recommendation.id}`;
         const summary = document.querySelector(`#card-${recommendation.id} .v2-card-tax`).cloneNode(true);
-        anchor.append(el('strong', '', name), el('p', '', `建議原因：${recommendation.reason}`), summary, el('span', '', '查看優惠與辦理方式 →'));
+        anchor.append(el('span', 'v2-recommendation-label', index === 0 ? '建議先看' : '也可比較'), el('strong', '', name), el('p', '', `建議原因：${recommendation.reason}`), summary, el('span', '', '查看優惠與辦理方式 →'));
+        const condition = document.querySelector(`#plan-${recommendation.id} .v2-full-condition`).textContent;
+        anchor.insertBefore(el('p', 'v2-pending-condition', `仍須確認：${condition}`), anchor.lastChild);
         suggestions.append(anchor);
       }
       const compare = el('a', 'v2-text-link', '查看四方案完整比較 →');
@@ -95,6 +108,9 @@
     for (const button of site.querySelectorAll('[data-audience]')) {
       if (button.dataset.audience === audience) button.setAttribute('aria-current', 'true');
       else button.removeAttribute('aria-current');
+      let mark = button.querySelector('.v2-audience-selected');
+      if (!mark) { mark = el('span', 'v2-audience-selected', '目前選擇'); button.append(mark); }
+      mark.hidden = button.dataset.audience !== audience;
     }
   }
   function route(initial = false) {
@@ -209,6 +225,26 @@
       helperStatus.textContent = '小幫手暫時無法載入，請稍後重試；下方方案與官方窗口仍可使用。';
     }, 10000);
   });
+  const compareControls = document.querySelector('.v2-compare-controls');
+  const selectors = Array.from(compareControls.querySelectorAll('select'));
+  const compareCards = Array.from(document.querySelectorAll('[data-compare-plan]'));
+  const compactComparison = window.matchMedia('(max-width: 700px)');
+  function updateComparison(changed) {
+    if (selectors[0].value === selectors[1].value) {
+      const other = selectors[changed === 0 ? 1 : 0];
+      other.value = compareCards.find(card => card.dataset.comparePlan !== selectors[changed].value).dataset.comparePlan;
+    }
+    compareControls.hidden = !compactComparison.matches;
+    compareCards.forEach(card => {
+      const index = selectors.findIndex(select => select.value === card.dataset.comparePlan);
+      card.hidden = compactComparison.matches && index < 0;
+      card.style.order = compactComparison.matches ? index : '';
+    });
+    document.getElementById('compare-status').textContent = `目前比較：${selectors.map(select => select.selectedOptions[0].textContent).join('、')}`;
+  }
+  selectors.forEach((select, index) => select.addEventListener('change', () => updateComparison(index)));
+  compactComparison.addEventListener('change', () => updateComparison(0));
+  updateComparison(0);
   let printDetails = [];
   function preparePrint() {
     const printPage = pages.find(page => page.dataset.page === currentPage);
