@@ -59,7 +59,7 @@ const planDetails = plans.map(plan => {
   <div class="v2-answer-layout">
     <div class="v2-answer-main">
       <section class="v2-fit"><h2>適合誰？</h2><p>${esc(plan.suitable)}</p></section>
-      <section class="v2-conditions"><h2>完整適用條件</h2><ol>${plan.conditions.map(c => `<li>${esc(c)}</li>`).join('')}</ol></section>
+      <section class="v2-conditions"><h2>完整適用條件</h2><ol>${plan.conditions.map((c, i) => `<li${i === 0 ? ' class="v2-full-condition"' : ''}>${esc(c)}</li>`).join('')}</ol></section>
       <section class="v2-benefits"><h2>有哪些租稅優惠？</h2><dl class="v2-tax-grid">${plan.taxes.map(t => tax(t)).join('')}</dl></section>
     </div>
     <aside class="v2-next-step" aria-labelledby="next-${plan.id}"><span class="v2-kicker">下一步</span><h2 id="next-${plan.id}">${esc(plan.nextStepTitle || '先從這裡開始')}</h2><p>${esc(plan.firstStep)}</p>${link(plan.links[0], 'v2-button v2-primary')}<p class="v2-caption">${esc(plan.nextStepCaption)}</p></aside>

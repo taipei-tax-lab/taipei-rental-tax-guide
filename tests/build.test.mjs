@@ -34,3 +34,9 @@ test('embedded Messenger is the preserved fragment with the original agent setti
   assert.match(fragment, /agent-id="9fb1cac6-62cd-40e6-8b13-eecf651f1f72"/);
   assert.match(fragment, /src="\.\/assets\/js\/messenger-ui\.js\?v=[a-f0-9]{10}"/);
 });
+test('all plans provide a full condition hook for the guide UI', () => {
+  for (const plan of data.plans) {
+    const planSection = html.slice(html.indexOf(`id="plan-${plan.id}"`), html.indexOf(`id="plan-${plan.id}"`) + 3500);
+    assert.match(planSection, /<li\s+class="v2-full-condition">/);
+  }
+});
