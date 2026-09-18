@@ -60,6 +60,8 @@ def test_messenger_regression():
         card4_attrs = page.evaluate("""() => {
             const card = document.querySelector('.v2-income-standard-entry');
             const img = card?.querySelector('img');
+            const strong = card?.querySelector('strong');
+            const small = card?.querySelector('small');
             return {
                 exists: !!card,
                 href: card?.href,
@@ -67,7 +69,9 @@ def test_messenger_regression():
                 rel: card?.rel,
                 ariaLabel: card?.getAttribute('aria-label'),
                 imgSrc: img?.getAttribute('src'),
-                imgAlt: img?.getAttribute('alt')
+                imgClass: img?.className,
+                strongText: strong?.textContent?.trim(),
+                smallText: small?.textContent?.trim()
             };
         }""")
         assert card4_attrs["exists"], "Missing .v2-income-standard-entry card"
@@ -76,10 +80,14 @@ def test_messenger_regression():
         assert card4_attrs["target"] == "_blank", f"Card target must be _blank, got {card4_attrs['target']}"
         assert "noopener" in card4_attrs["rel"] and "noreferrer" in card4_attrs["rel"], \
             f"rel must contain noopener and noreferrer, got {card4_attrs['rel']}"
-        assert card4_attrs["imgSrc"] == "./assets/images/income-standard-entry-card.png", \
+        assert card4_attrs["imgSrc"] == "./assets/images/income-standard-icon.png", \
             f"img src unexpected: {card4_attrs['imgSrc']}"
-        assert card4_attrs["imgAlt"] == "所得達租金標準申報優惠稅率專區", \
-            f"img alt unexpected: {card4_attrs['imgAlt']}"
+        assert "v2-audience-icon" in (card4_attrs["imgClass"] or ""), \
+            f"img class unexpected: {card4_attrs['imgClass']}"
+        assert card4_attrs["strongText"] == "所得達租金標準", \
+            f"strong text unexpected: {card4_attrs['strongText']}"
+        assert card4_attrs["smallText"] == "申報優惠稅率專區", \
+            f"small text unexpected: {card4_attrs['smallText']}"
 
         # B. Viewport layout matrix: ALL 4 cards must have equal width and equal height (max diff <= 1px)
         audience_test_viewports = [

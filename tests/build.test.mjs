@@ -99,26 +99,27 @@ test('income-standard-launcher floating shortcut is completely removed', () => {
   assert.doesNotMatch(html, /src="\.\/assets\/images\/income-standard-launcher\.png"/);
 });
 
-test('income-standard audience entry card is declared and built correctly', () => {
-  const assetPath = path.join(root, 'assets/images/income-standard-entry-card.png');
-  assert.ok(fs.existsSync(assetPath), 'income-standard-entry-card.png asset must exist');
+test('income-standard audience entry card is declared and built with shared card structure', () => {
+  const iconAssetPath = path.join(root, 'assets/images/income-standard-icon.png');
+  const oldBannerAssetPath = path.join(root, 'assets/images/income-standard-entry-card.png');
+  assert.ok(fs.existsSync(iconAssetPath), 'income-standard-icon.png asset must exist');
+  assert.ok(!fs.existsSync(oldBannerAssetPath), 'old income-standard-entry-card.png asset must be removed');
 
   const template = fs.readFileSync(path.join(root, 'site/template.html'), 'utf8');
+  const freshHtml = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
 
-  // site/template.html checks
-  assert.match(template, /class="v2-audience-button v2-income-standard-entry"/);
-  assert.match(template, /href="https:\/\/services\.arpa\.tpctax\.dof\.gov\.taipei\/incomeReachStandard\/form\.php"/);
-  assert.match(template, /target="_blank"/);
-  assert.match(template, /rel="noopener noreferrer"/);
-  assert.match(template, /src="\.\/assets\/images\/income-standard-entry-card\.png"/);
-  assert.match(template, /alt="所得達租金標準申報優惠稅率專區"/);
+  for (const markup of [template, freshHtml]) {
+    assert.match(markup, /class="v2-audience-button v2-income-standard-entry"/);
+    assert.match(markup, /href="https:\/\/services\.arpa\.tpctax\.dof\.gov\.taipei\/incomeReachStandard\/form\.php"/);
+    assert.match(markup, /target="_blank"/);
+    assert.match(markup, /rel="noopener noreferrer"/);
+    assert.match(markup, /class="v2-audience-icon" src="\.\/assets\/images\/income-standard-icon\.png"/);
+    assert.match(markup, /<strong>所得達租金標準<\/strong>/);
+    assert.match(markup, /<small>申報優惠稅率專區<\/small>/);
+    assert.doesNotMatch(markup, /income-standard-entry-card\.png/);
+  }
 
-  // generated index.html checks
-  assert.match(html, /class="v2-audience-button v2-income-standard-entry"/);
-  assert.match(html, /href="https:\/\/services\.arpa\.tpctax\.dof\.gov\.taipei\/incomeReachStandard\/form\.php"/);
-  assert.match(html, /target="_blank"/);
-  assert.match(html, /rel="noopener noreferrer"/);
-  assert.match(html, /src="\.\/assets\/images\/income-standard-entry-card\.png"/);
-  assert.match(html, /alt="所得達租金標準申報優惠稅率專區"/);
+  const css = fs.readFileSync(path.join(root, 'assets/css/guide-v2.css'), 'utf8');
+  assert.match(css, /\.v2-audience-button :is\(svg, \.v2-audience-icon\)/);
 });
 

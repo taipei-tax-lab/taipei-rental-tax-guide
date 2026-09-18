@@ -261,7 +261,7 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
 .v2-hero-copy > .v2-entry-label { font-weight: 750; color: var(--teal-dark); margin: 22px 0 10px; }
 .v2-audience { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; width: min(100%, 1160px); max-width: none; background: none; border: 0; padding: 0; }
 .v2-audience-button { justify-content: flex-start; text-align: left; padding: 19px 20px; min-height: 96px; border: 2px solid #92b2ae; background: #fff; box-shadow: 0 3px 10px #1038440b; cursor: pointer; }
-.v2-audience-button svg { width: 28px; height: 28px; }
+.v2-audience-button :is(svg, .v2-audience-icon) { width: 28px; height: 28px; flex-shrink: 0; object-fit: contain; }
 .v2-audience-button strong { display: block; font-size: 1.25rem; }
 .v2-audience-button small { display: block; font-size: 1rem; font-weight: 400; margin-top: 4px; }
 .v2-audience-button[aria-current="true"] { border-color: var(--teal-dark); box-shadow: 0 3px 10px #10384420; }
@@ -281,7 +281,7 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
 @media (max-width: 700px) {
   .v2-audience { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
   .v2-audience-button { padding: 14px 12px; gap: 8px; min-height: 102px; align-items: flex-start; }
-  .v2-audience-button svg { width: 22px; height: 22px; margin-top: 4px; }
+  .v2-audience-button :is(svg, .v2-audience-icon) { width: 22px; height: 22px; margin-top: 4px; }
   .v2-audience-button strong { font-size: 1.125rem; }
   .v2-audience-button small { line-height: 1.5; }
   .v2-chat-entry { min-height: 102px; align-items: flex-start; justify-content: flex-start; }
@@ -378,35 +378,7 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
 .v2-audience-selected { position:absolute; bottom:5px; right:12px; font-size:16px; font-weight:700; }
 .v2-chat-entry { background:#f7faf8; border:1px solid #b3c9c3; box-shadow:none; }
 .v2-chat-entry strong { font-size:18px; }
-.v2-income-standard-entry {
-  background: transparent;
-  border: 0;
-  box-shadow: none;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  min-height: 84px;
-}
-.v2-income-standard-entry img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  max-height: 100%;
-  object-fit: contain;
-  border-radius: 12px;
-  transition: transform 160ms ease, filter 160ms ease;
-}
-.v2-income-standard-entry:hover img {
-  transform: translateY(-2px);
-  filter: drop-shadow(0 4px 12px rgba(16, 56, 68, 0.18));
-}
-.v2-income-standard-entry:focus-visible {
-  outline: 3px solid var(--orange);
-  outline-offset: 3px;
-  border-radius: 12px;
-}
+/* Card 4 inherits shared .v2-audience-button styling */
 .v2-owner-section { padding-top:18px; }
 .v2-plan-card { background:#fff; }
 .v2-plan-card .v2-card-top { margin-bottom:6px; }
@@ -452,9 +424,8 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
  .v2-hero h1 { font-size:28px; }
  .v2-audience { grid-template-columns:1fr 1fr; }
  .v2-audience-button { padding:10px; min-height:92px; gap:6px; }
- .v2-audience-button svg { display:none; }
+ .v2-audience-button :is(svg, .v2-audience-icon) { display:none; }
  .v2-chat-entry { min-height:92px; padding:10px; align-items:flex-start; justify-content:flex-start; }
- .v2-income-standard-entry { min-height:92px; padding:0; }
  .v2-plan-card h3, .v2-plan-card .v2-plan-name { padding-right:60px; }
  .v2-site .v2-section-heading h2 { font-size:26px; }
  .v2-guide-result-list { grid-template-columns:1fr; }
@@ -467,7 +438,6 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
 @media (max-width: 380px) {
   .v2-audience { grid-template-columns: 1fr; }
   .v2-audience-button { min-height: 80px; }
-  .v2-income-standard-entry { min-height: 80px; }
 }
 @media print { .v2-compare-controls { display:none!important; } }
 .v2-hero h1 > span { display:inline-block; }
