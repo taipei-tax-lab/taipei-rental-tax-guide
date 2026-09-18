@@ -61,7 +61,7 @@ def test_messenger_regression():
             const card = document.querySelector('.v2-income-standard-entry');
             const cardImage = card?.querySelector('.v2-income-standard-card-image');
             const fallback = card?.querySelector('.v2-income-standard-fallback');
-            const fallbackIcon = fallback?.querySelector('.v2-income-standard-fallback-icon');
+            const fallbackIcon = card?.querySelector('picture');
             const strong = fallback?.querySelector('strong');
             const small = fallback?.querySelector('small');
             return {
@@ -72,7 +72,7 @@ def test_messenger_regression():
                 ariaLabel: card?.getAttribute('aria-label'),
                 cardImgSrc: cardImage?.getAttribute('src'),
                 fallbackExists: !!fallback,
-                fallbackIconSrc: fallbackIcon?.getAttribute('src'),
+                desktopSource: fallbackIcon?.querySelector('source[media]')?.getAttribute('srcset'),
                 strongText: strong?.textContent?.trim(),
                 smallText: small?.textContent?.trim()
             };
@@ -83,11 +83,11 @@ def test_messenger_regression():
         assert card4_attrs["target"] == "_blank", f"Card target must be _blank, got {card4_attrs['target']}"
         assert "noopener" in card4_attrs["rel"] and "noreferrer" in card4_attrs["rel"], \
             f"rel must contain noopener and noreferrer, got {card4_attrs['rel']}"
-        assert card4_attrs["cardImgSrc"] == "./assets/images/income-standard-card.png", \
+        assert card4_attrs["cardImgSrc"] == "./assets/images/income-standard-illustration.png", \
             f"card img src unexpected: {card4_attrs['cardImgSrc']}"
         assert card4_attrs["fallbackExists"], "Fallback container must exist"
-        assert card4_attrs["fallbackIconSrc"] == "./assets/images/income-standard-illustration.png", \
-            f"fallback icon src unexpected: {card4_attrs['fallbackIconSrc']}"
+        assert card4_attrs["desktopSource"] == "./assets/images/income-standard-card.webp", \
+            f"desktop source unexpected: {card4_attrs['desktopSource']}"
         assert card4_attrs["strongText"] == "所得達租金標準", \
             f"strong text unexpected: {card4_attrs['strongText']}"
         assert card4_attrs["smallText"] == "申報優惠稅率專區", \
@@ -107,6 +107,11 @@ def test_messenger_regression():
         for w, h in audience_test_viewports:
             page.set_viewport_size({"width": w, "height": h})
             time.sleep(0.2)
+            page.wait_for_function("""() => {
+                const img = document.querySelector('.v2-income-standard-card-image');
+                const expected = innerWidth >= 1100 ? 'income-standard-card.webp' : 'income-standard-illustration.webp';
+                return img.complete && img.naturalWidth > 0 && img.currentSrc.endsWith(expected);
+            }""")
             card_geom = page.evaluate("""() => {
                 const cards = Array.from(document.querySelectorAll('.v2-audience > *'));
                 const rects = cards.map(c => c.getBoundingClientRect());
@@ -138,6 +143,7 @@ def test_messenger_regression():
                         selectedRect.left >= selectedCardRect.left && selectedRect.right <= selectedCardRect.right,
                     overflow: document.documentElement.scrollWidth - window.innerWidth,
                     cardImgDisplay: cardImg ? window.getComputedStyle(cardImg).display : 'none',
+                    currentSrc: cardImg.currentSrc,
                     fallbackDisplay: fallback ? window.getComputedStyle(fallback).display : 'none'
                 };
             }""")
@@ -167,8 +173,8 @@ def test_messenger_regression():
                 assert card_geom["fallbackDisplay"] == "none", \
                     f"At {w}x{h} Desktop, fallback container must be hidden (got display: {card_geom['fallbackDisplay']})"
             else:
-                assert card_geom["cardImgDisplay"] == "none", \
-                    f"At {w}x{h} Tablet/Mobile, full card image must be hidden (got display: {card_geom['cardImgDisplay']})"
+                assert card_geom["currentSrc"].endswith("income-standard-illustration.webp"), \
+                    f"At {w}x{h}, picture must select the illustration: {card_geom}"
                 assert card_geom["fallbackDisplay"] != "none", \
                     f"At {w}x{h} Tablet/Mobile, fallback container must be visible (got display: {card_geom['fallbackDisplay']})"
 

@@ -1,7 +1,12 @@
 /* V2 is scoped to the information site. Legacy tokens and Messenger styles stay intact. */
 body.v2-body { background: #f7f8f5; isolation: isolate; }
+/* PNG remains the fallback when image-set/type selection is unsupported. */
+body.v2-body { --hero-art: url('../../hero-v2.png'); }
+@supports (background-image: image-set(url('../../hero-v2.webp') type('image/webp'))) {
+  body.v2-body { --hero-art: image-set(url('../../hero-v2.webp') type('image/webp'), url('../../hero-v2.png') type('image/png')); }
+}
 /* A viewport-fixed background layer also works on mobile without background-attachment quirks. */
-body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none; background-image: linear-gradient(90deg, #f7f8f5f2 0%, #f7f8f5db 42%, #f7f8f5ad 100%), url('../../hero-v2.png'); background-position: center, right 80px; background-size: cover, min(1100px, 90vw) auto; background-repeat: no-repeat; }
+body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none; background-image: linear-gradient(90deg, #f7f8f5f2 0%, #f7f8f5db 42%, #f7f8f5ad 100%), var(--hero-art); background-position: center, right 80px; background-size: cover, min(1100px, 90vw) auto; background-repeat: no-repeat; }
 .v2-site { --v2-border: #cddbd9; --v2-muted: #49646a; --v2-accent: #0c686d; font-size: 1rem; line-height: 1.7; }
 .v2-site *, .v2-site *::before, .v2-site *::after { box-sizing: border-box; }
 .v2-site [hidden] { display: none !important; }
@@ -312,7 +317,7 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
   .v2-card-tax .v2-tax { min-height: 96px; }
 }
 @media (max-width: 700px) {
-  body.v2-body::before { background-position: center, right 90px; background-size: cover, 700px auto; background-image: linear-gradient(90deg, #f7f8f5f5, #f7f8f5d9), url('../../hero-v2.png'); }
+  body.v2-body::before { background-position: center, right 90px; background-size: cover, 700px auto; background-image: linear-gradient(90deg, #f7f8f5f5, #f7f8f5d9), var(--hero-art); }
   .v2-brand { flex-direction: column; align-items: flex-start; gap: 7px; }
   .v2-brand-logo { width: 210px; }
   .v2-brand-title { border: 0; padding: 0; }
@@ -403,6 +408,8 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
     justify-content: center;
   }
   .v2-income-standard-entry:hover:not([aria-current="true"]) { background: transparent; }
+  .v2-income-standard-content { display: contents; }
+  .v2-income-standard-fallback-icon { display: block; width: 100%; height: 100%; aspect-ratio: 1040 / 378; }
   .v2-income-standard-card-image {
     display: block;
     width: 100%;
@@ -420,20 +427,20 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
   }
 }
 @media (max-width: 1099px) {
-  .v2-income-standard-card-image {
-    display: none;
-  }
-  .v2-income-standard-fallback {
+  .v2-income-standard-card-image { display: block; width: 100%; height: 100%; object-fit: contain; }
+  .v2-income-standard-content {
     display: flex;
     align-items: center;
     gap: 8px;
     width: 100%;
     min-width: 0;
   }
-  .v2-income-standard-fallback > span {
+  .v2-income-standard-fallback {
     min-width: 0;
   }
   .v2-income-standard-fallback-icon {
+    display: block;
+    aspect-ratio: 1;
     width: 44px;
     height: 44px;
     flex-shrink: 0;
@@ -486,7 +493,7 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
  .v2-audience { grid-template-columns:1fr 1fr; }
  .v2-audience-button { padding:10px; min-height:92px; gap:6px; }
  .v2-audience-button svg { display:none; }
- .v2-income-standard-fallback { gap: 6px; }
+ .v2-income-standard-content { gap: 6px; }
  .v2-income-standard-fallback-icon { width: 38px; height: 38px; }
  .v2-chat-entry { min-height:92px; padding:10px; align-items:flex-start; justify-content:flex-start; }
  .v2-plan-card h3, .v2-plan-card .v2-plan-name { padding-right:60px; }
@@ -501,7 +508,7 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
 @media (max-width: 380px) {
   .v2-audience { grid-template-columns: 1fr; }
   .v2-audience-button { min-height: 80px; }
-  .v2-income-standard-fallback { gap: 10px; }
+  .v2-income-standard-content { gap: 10px; }
   .v2-income-standard-fallback-icon { width: 44px; height: 44px; }
 }
 @media print { .v2-compare-controls { display:none!important; } }

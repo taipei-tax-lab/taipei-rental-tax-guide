@@ -219,7 +219,10 @@
     return "./assets/images/assistant/" + ASSISTANT_STATES[state] + "." + extension;
   }
 
+  var assistantStatesPreloaded = false;
   function preloadAssistantStates() {
+    if (assistantStatesPreloaded) return;
+    assistantStatesPreloaded = true;
     Object.keys(ASSISTANT_STATES).forEach(function (state) {
       var image = new Image();
       image.src = assistantAssetPath(state, "webp");
@@ -422,7 +425,10 @@
       });
       window.setTimeout(updateAssistantPanel, 150);
       window.setTimeout(updateAssistantPanel, 350);
-      if (chatIsOpen) showTemporaryAssistantState("welcome", ASSISTANT_TIMING.welcome);
+      if (chatIsOpen) {
+        preloadAssistantStates();
+        showTemporaryAssistantState("welcome", ASSISTANT_TIMING.welcome);
+      }
       else resetAssistantState();
     });
     document.addEventListener("df-user-input-entered", beginThinking);
@@ -511,7 +517,6 @@
     ensureAssistantPanel();
     var elements = getMessengerElements();
     if (!elements.messenger || !elements.bubble) return;
-    preloadAssistantStates();
     bindChatBubbleIcon(elements.bubble);
     resetAssistantState();
     resizeMessenger();
