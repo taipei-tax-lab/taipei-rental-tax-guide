@@ -9,12 +9,12 @@
   <meta property="og:description" content="從您的情況出發，找出租稅優惠與辦理方式。">
   <meta property="og:image" content="https://taipei-tax-lab.github.io/taipei-rental-tax-guide/hero-v2.png">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="./assets/images/tpctax-mark.png" type="image/png">
   <link rel="stylesheet" href="./assets/css/site.css?v=a00e880ef9">
-  <link rel="stylesheet" href="./assets/css/guide-v2.css?v=bce474ceb0">
+  <link rel="stylesheet" href="./assets/css/guide-v2.css?v=699b14a7bf">
   <!-- The existing Messenger theme, markup and runtime remain unchanged. -->
   <link rel="stylesheet" href="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/themes/df-messenger-default.css">
-  <link rel="stylesheet" href="./assets/css/messenger.css?v=10352849cf">
+  <link rel="stylesheet" href="./assets/css/messenger.css?v=3a502568c7">
 </head>
 <body class="v2-body">
   <a class="v2-skip" href="#content">跳到主要內容</a>
@@ -36,6 +36,23 @@
               <a href="#owners" data-audience="owner" class="v2-audience-button" aria-current="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m3 10 9-7 9 7M5 9v12h14V9M9 21v-7h6v7"/></svg><span><strong>我是屋主</strong><small>查出租方案與租稅優惠</small></span></a>
               <a href="#tenants" data-audience="tenant" class="v2-audience-button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="7" r="3"/><path d="M5 21v-3a7 7 0 0 1 14 0v3"/></svg><span><strong>我是房客</strong><small>查補貼、房源與租屋權益</small></span></a>
               <button type="button" class="v2-audience-button v2-chat-entry" id="open-helper"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a7 7 0 0 1-7 7H8l-5 4V6a3 3 0 0 1 3-3h11a3 3 0 0 1 3 3z"/><path d="M7 8h9M7 12h6"/></svg><span><strong>直接問小幫手</strong><small>直接描述您的問題</small></span></button>
+              <a
+                class="v2-audience-button v2-income-standard-entry"
+                href="https://services.arpa.tpctax.dof.gov.taipei/incomeReachStandard/form.php"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="所得達租金標準申報優惠稅率專區（另開新視窗）"
+              >
+                <div class="v2-income-standard-content">
+                  <picture class="v2-income-standard-fallback-icon">
+                    <source media="(min-width: 1100px)" type="image/webp" srcset="./assets/images/income-standard-card.webp" width="1040" height="378">
+                    <source media="(min-width: 1100px)" srcset="./assets/images/income-standard-card.png" width="1040" height="378">
+                    <source type="image/webp" srcset="./assets/images/income-standard-illustration.webp" width="320" height="320">
+                    <img class="v2-income-standard-card-image" src="./assets/images/income-standard-illustration.png" alt="" width="320" height="320" aria-hidden="true">
+                  </picture>
+                  <span class="v2-income-standard-fallback"><strong>所得達租金標準</strong><small>申報優惠稅率專區</small></span>
+                </div>
+              </a>
             </div>
             <p id="helper-status" class="v2-caption" role="status" hidden></p>
           </div>
@@ -240,7 +257,7 @@
 
 </template>
 
-<script src="./assets/js/messenger-ui.js?v=e1050b04d3"></script>
+<script src="./assets/js/messenger-ui.js?v=eb1de5c102"></script>
 
 </body>
 </html>

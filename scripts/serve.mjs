@@ -11,7 +11,7 @@ http.createServer((req, res) => {
   try { pathname = decodeURIComponent(new URL(req.url, 'http://localhost').pathname); } catch { res.writeHead(400).end(); return; }
   if (pathname === '/') pathname = '/index.html';
   // Serve only public website assets, never source, tests or Git metadata.
-  if (!(/^\/(index\.html|favicon\.svg|hero-v2\.png)$/.test(pathname) || /^\/assets\/(css|js|images)\//.test(pathname))) {
+  if (!(/^\/(index\.html|favicon\.svg|hero-v2\.(png|webp))$/.test(pathname) || /^\/assets\/(css|js|images)\//.test(pathname))) {
     res.writeHead(404).end('Not found'); return;
   }
   const file = path.resolve(root, '.' + pathname);

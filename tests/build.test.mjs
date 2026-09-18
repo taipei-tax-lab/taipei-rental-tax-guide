@@ -66,3 +66,79 @@ test('build script validates all plan sourceLinks require HTTPS', () => {
   assert.match(script, /plan\.sourceLinks/);
   assert.match(script, /new URL\(url\)\.protocol !== 'https:'/);
 });
+
+test('favicon uses official Taipei Revenue Service mark and preserves header logo', () => {
+  const template = fs.readFileSync(path.join(root, 'site/template.html'), 'utf8');
+  assert.doesNotMatch(template, /favicon\.svg/, 'template.html must not reference old generic favicon');
+  assert.match(template, /<link rel="icon" href="\.\/assets\/images\/tpctax-mark\.png" type="image\/png">/);
+  assert.ok(fs.existsSync(path.join(root, 'assets/images/tpctax-mark.png')), 'Official mark asset must exist');
+  assert.match(html, /<link rel="icon" href="\.\/assets\/images\/tpctax-mark\.png" type="image\/png">/);
+  assert.match(html, /src="\.\/assets\/images\/tpctax-logo\.png"/, 'Header brand logo must be preserved');
+});
+
+test('messenger ui rules ensure notice is never moved into details and panel aligns gapless', () => {
+  const messengerUi = fs.readFileSync(path.join(root, 'assets/js/messenger-ui.js'), 'utf8');
+  assert.match(messengerUi, /\.rental-input-extras\{flex:none;/);
+  assert.doesNotMatch(messengerUi, /max-height:\s*35%/);
+  assert.doesNotMatch(messengerUi, /details\.querySelector\('summary'\)\.after\(notice\)/, 'Notice must never be moved into details');
+  assert.match(messengerUi, /box-sizing:border-box/, 'assistant panel must declare box-sizing: border-box');
+  assert.match(messengerUi, /elements\.assistantPanel\.style\.left\s*=\s*\(rect\.left - panelWidth/, 'assistant panel must align with chat left');
+});
+
+test('income-standard-launcher floating shortcut is completely removed', () => {
+  const messengerHtml = fs.readFileSync(path.join(root, 'site/messenger.html'), 'utf8');
+  const assetPath = path.join(root, 'assets/images/income-standard-launcher.png');
+  assert.ok(!fs.existsSync(assetPath), 'income-standard-launcher.png asset must not exist');
+
+  // site/messenger.html checks
+  assert.doesNotMatch(messengerHtml, /class="income-standard-launcher"/);
+  assert.doesNotMatch(messengerHtml, /src="\.\/assets\/images\/income-standard-launcher\.png"/);
+
+  // generated index.html checks
+  assert.doesNotMatch(html, /class="income-standard-launcher"/);
+  assert.doesNotMatch(html, /src="\.\/assets\/images\/income-standard-launcher\.png"/);
+});
+
+test('income-standard audience entry card is declared and built with responsive dual presentation', () => {
+  const cardAssetPath = path.join(root, 'assets/images/income-standard-card.png');
+  const illustAssetPath = path.join(root, 'assets/images/income-standard-illustration.png');
+  const oldBannerAssetPath = path.join(root, 'assets/images/income-standard-entry-card.png');
+  const oldIconAssetPath = path.join(root, 'assets/images/income-standard-icon.png');
+
+  assert.ok(fs.existsSync(cardAssetPath), 'income-standard-card.png asset must exist');
+  assert.ok(fs.existsSync(illustAssetPath), 'income-standard-illustration.png asset must exist');
+  assert.ok(!fs.existsSync(oldBannerAssetPath), 'old income-standard-entry-card.png must not exist');
+  assert.ok(!fs.existsSync(oldIconAssetPath), 'old income-standard-icon.png must not exist');
+
+  const template = fs.readFileSync(path.join(root, 'site/template.html'), 'utf8');
+  const freshHtml = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
+
+  for (const markup of [template, freshHtml]) {
+    assert.match(markup, /class="v2-audience-button v2-income-standard-entry"/);
+    assert.match(markup, /href="https:\/\/services\.arpa\.tpctax\.dof\.gov\.taipei\/incomeReachStandard\/form\.php"/);
+    assert.match(markup, /target="_blank"/);
+    assert.match(markup, /rel="noopener noreferrer"/);
+    assert.match(markup, /aria-label="所得達租金標準申報優惠稅率專區（另開新視窗）"/);
+    assert.match(markup, /<picture class="v2-income-standard-fallback-icon">/);
+    assert.match(markup, /<source media="\(min-width: 1100px\)" type="image\/webp" srcset="\.\/assets\/images\/income-standard-card\.webp"/);
+    assert.match(markup, /class="v2-income-standard-fallback"/);
+    assert.match(markup, /class="v2-income-standard-card-image"\s+src="\.\/assets\/images\/income-standard-illustration\.png"/);
+    const entry = markup.slice(markup.indexOf('class="v2-audience-button v2-income-standard-entry"'), markup.indexOf('</picture>') + 10);
+    assert.equal((entry.match(/<img\b/g) || []).length, 1, 'One responsive image, not two eager images');
+    assert.match(markup, /<strong>所得達租金標準<\/strong>/);
+    assert.match(markup, /<small>申報優惠稅率專區<\/small>/);
+    assert.doesNotMatch(markup, /income-standard-entry-card\.png/);
+    assert.doesNotMatch(markup, /income-standard-icon\.png/);
+
+    // Extract Card 4 HTML and verify no arrow elements or characters
+    const card4Html = markup.slice(markup.indexOf('v2-income-standard-entry'), markup.indexOf('</div>', markup.indexOf('v2-income-standard-entry')) + 10);
+    assert.doesNotMatch(card4Html, />\s*→|&gt;|aria-hidden="true">\s*→/);
+  }
+
+  const css = fs.readFileSync(path.join(root, 'assets/css/guide-v2.css'), 'utf8');
+  assert.match(css, /@media\s*\(min-width:\s*1100px\)/);
+  assert.match(css, /@media\s*\(max-width:\s*1099px\)/);
+  assert.match(css, /\.v2-income-standard-card-image/);
+  assert.match(css, /\.v2-income-standard-fallback/);
+});
+

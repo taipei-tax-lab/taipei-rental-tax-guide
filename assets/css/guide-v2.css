@@ -1,7 +1,12 @@
 /* V2 is scoped to the information site. Legacy tokens and Messenger styles stay intact. */
 body.v2-body { background: #f7f8f5; isolation: isolate; }
+/* PNG remains the fallback when image-set/type selection is unsupported. */
+body.v2-body { --hero-art: url('../../hero-v2.png'); }
+@supports (background-image: image-set(url('../../hero-v2.webp') type('image/webp'))) {
+  body.v2-body { --hero-art: image-set(url('../../hero-v2.webp') type('image/webp'), url('../../hero-v2.png') type('image/png')); }
+}
 /* A viewport-fixed background layer also works on mobile without background-attachment quirks. */
-body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none; background-image: linear-gradient(90deg, #f7f8f5f2 0%, #f7f8f5db 42%, #f7f8f5ad 100%), url('../../hero-v2.png'); background-position: center, right 80px; background-size: cover, min(1100px, 90vw) auto; background-repeat: no-repeat; }
+body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none; background-image: linear-gradient(90deg, #f7f8f5f2 0%, #f7f8f5db 42%, #f7f8f5ad 100%), var(--hero-art); background-position: center, right 80px; background-size: cover, min(1100px, 90vw) auto; background-repeat: no-repeat; }
 .v2-site { --v2-border: #cddbd9; --v2-muted: #49646a; --v2-accent: #0c686d; font-size: 1rem; line-height: 1.7; }
 .v2-site *, .v2-site *::before, .v2-site *::after { box-sizing: border-box; }
 .v2-site [hidden] { display: none !important; }
@@ -259,7 +264,7 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
 .v2-hero-copy { width: 100%; }
 .v2-hero-art { opacity: .45; }
 .v2-hero-copy > .v2-entry-label { font-weight: 750; color: var(--teal-dark); margin: 22px 0 10px; }
-.v2-audience { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; width: min(100%, 940px); max-width: none; background: none; border: 0; padding: 0; }
+.v2-audience { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; width: min(100%, 1160px); max-width: none; background: none; border: 0; padding: 0; }
 .v2-audience-button { justify-content: flex-start; text-align: left; padding: 19px 20px; min-height: 96px; border: 2px solid #92b2ae; background: #fff; box-shadow: 0 3px 10px #1038440b; cursor: pointer; }
 .v2-audience-button svg { width: 28px; height: 28px; }
 .v2-audience-button strong { display: block; font-size: 1.25rem; }
@@ -284,9 +289,7 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
   .v2-audience-button svg { width: 22px; height: 22px; margin-top: 4px; }
   .v2-audience-button strong { font-size: 1.125rem; }
   .v2-audience-button small { line-height: 1.5; }
-  .v2-chat-entry { grid-column: 1 / -1; min-height: 72px; align-items: center; justify-content: center; }
-  .v2-chat-entry svg { margin-top: 0; }
-  .v2-chat-entry small { margin-top: 0; }
+  .v2-chat-entry { min-height: 102px; align-items: flex-start; justify-content: flex-start; }
   .v2-guide > summary { flex-wrap: wrap; gap: 12px; }
   .v2-guide-cta { justify-content: center; width: 100%; padding: 9px 14px; }
 }
@@ -314,7 +317,7 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
   .v2-card-tax .v2-tax { min-height: 96px; }
 }
 @media (max-width: 700px) {
-  body.v2-body::before { background-position: center, right 90px; background-size: cover, 700px auto; background-image: linear-gradient(90deg, #f7f8f5f5, #f7f8f5d9), url('../../hero-v2.png'); }
+  body.v2-body::before { background-position: center, right 90px; background-size: cover, 700px auto; background-image: linear-gradient(90deg, #f7f8f5f5, #f7f8f5d9), var(--hero-art); }
   .v2-brand { flex-direction: column; align-items: flex-start; gap: 7px; }
   .v2-brand-logo { width: 210px; }
   .v2-brand-title { border: 0; padding: 0; }
@@ -374,12 +377,80 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
 .v2-hero-copy > p:not(.v2-kicker) { max-width:42em; margin-bottom:12px; }
 .v2-hero-copy > .v2-entry-label { margin:12px 0 8px; }
 .v2-header { min-height:76px; padding-top:12px; padding-bottom:12px; }
-.v2-audience { grid-template-columns:1fr 1fr .85fr; gap:12px; }
+.v2-audience { grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: 1fr; gap: 12px; width: min(100%, 1160px); }
 .v2-audience-button { position:relative; min-height:84px; padding:12px 16px; }
 .v2-audience-button[aria-current] { padding-bottom:32px; }
 .v2-audience-selected { position:absolute; bottom:5px; right:12px; font-size:16px; font-weight:700; }
 .v2-chat-entry { background:#f7faf8; border:1px solid #b3c9c3; box-shadow:none; }
 .v2-chat-entry strong { font-size:18px; }
+/* Card 4: Responsive Dual Presentation */
+.v2-income-standard-entry {
+  cursor: pointer;
+}
+@media (min-width: 1100px) {
+  /* The approved artwork sets the row height; Cards 1~3 are vertically centered and slightly slimmer. */
+  .v2-audience { grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 1.12fr); }
+  .v2-audience > .v2-audience-button:not(.v2-income-standard-entry) {
+    align-self: center;
+    height: 90%;
+  }
+  .v2-audience-button {
+    min-height: 0;
+    padding: 4px 10px;
+    gap: 8px;
+  }
+  .v2-audience-button svg { flex-shrink: 0; }
+  .v2-audience-button small { margin-top: 0; }
+  .v2-audience-button[aria-current] { padding-top: 0; padding-bottom: 24px; }
+  .v2-audience-selected { bottom: 3px; line-height: 1; }
+  .v2-income-standard-entry {
+    aspect-ratio: 1040 / 378;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+    justify-content: center;
+  }
+  .v2-income-standard-entry:hover:not([aria-current="true"]) { background: transparent; }
+  .v2-income-standard-content { display: contents; }
+  .v2-income-standard-fallback-icon { display: block; width: 100%; height: 100%; aspect-ratio: 1040 / 378; }
+  .v2-income-standard-card-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 12px;
+    transition: filter 160ms ease;
+  }
+  .v2-income-standard-entry:hover .v2-income-standard-card-image {
+    filter: drop-shadow(0 4px 12px rgba(16, 56, 68, 0.18));
+  }
+  .v2-income-standard-fallback {
+    display: none;
+  }
+}
+@media (max-width: 1099px) {
+  .v2-income-standard-card-image { display: block; width: 100%; height: 100%; object-fit: contain; }
+  .v2-income-standard-content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    min-width: 0;
+  }
+  .v2-income-standard-fallback {
+    min-width: 0;
+  }
+  .v2-income-standard-fallback-icon {
+    display: block;
+    aspect-ratio: 1;
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    object-fit: contain;
+  }
+}
 .v2-owner-section { padding-top:18px; }
 .v2-plan-card { background:#fff; }
 .v2-plan-card .v2-card-top { margin-bottom:6px; }
@@ -426,9 +497,9 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
  .v2-audience { grid-template-columns:1fr 1fr; }
  .v2-audience-button { padding:10px; min-height:92px; gap:6px; }
  .v2-audience-button svg { display:none; }
- .v2-chat-entry { min-height:48px; padding:8px 12px; }
- .v2-chat-entry > span { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:8px; }
- .v2-chat-entry small { display:none; }
+ .v2-income-standard-content { gap: 6px; }
+ .v2-income-standard-fallback-icon { width: 38px; height: 38px; }
+ .v2-chat-entry { min-height:92px; padding:10px; align-items:flex-start; justify-content:flex-start; }
  .v2-plan-card h3, .v2-plan-card .v2-plan-name { padding-right:60px; }
  .v2-site .v2-section-heading h2 { font-size:26px; }
  .v2-guide-result-list { grid-template-columns:1fr; }
@@ -437,6 +508,12 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
  .v2-site .v2-compare-card h2 { font-size:22px; }
  .v2-site .v2-compare-card dd { font-size:18px; }
  .v2-compare-card .v2-tax dd strong { font-size:18px; }
+}
+@media (max-width: 380px) {
+  .v2-audience { grid-template-columns: 1fr; }
+  .v2-audience-button { min-height: 80px; }
+  .v2-income-standard-content { gap: 10px; }
+  .v2-income-standard-fallback-icon { width: 44px; height: 44px; }
 }
 @media print { .v2-compare-controls { display:none!important; } }
 .v2-hero h1 > span { display:inline-block; }
