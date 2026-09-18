@@ -85,26 +85,18 @@ test('messenger ui rules ensure notice is never moved into details and panel ali
   assert.match(messengerUi, /elements\.assistantPanel\.style\.left\s*=\s*\(rect\.left - panelWidth/, 'assistant panel must align with chat left');
 });
 
-test('income-standard-launcher floating shortcut is declared and built correctly', () => {
+test('income-standard-launcher floating shortcut is completely removed', () => {
   const messengerHtml = fs.readFileSync(path.join(root, 'site/messenger.html'), 'utf8');
   const assetPath = path.join(root, 'assets/images/income-standard-launcher.png');
-  assert.ok(fs.existsSync(assetPath), 'income-standard-launcher.png asset must exist');
+  assert.ok(!fs.existsSync(assetPath), 'income-standard-launcher.png asset must not exist');
 
   // site/messenger.html checks
-  assert.match(messengerHtml, /class="income-standard-launcher"/);
-  assert.match(messengerHtml, /href="https:\/\/services\.arpa\.tpctax\.dof\.gov\.taipei\/incomeReachStandard\/form\.php"/);
-  assert.match(messengerHtml, /target="_blank"/);
-  assert.match(messengerHtml, /rel="noopener noreferrer"/);
-  assert.match(messengerHtml, /src="\.\/assets\/images\/income-standard-launcher\.png"/);
-  assert.match(messengerHtml, /alt="所得達租金標準申報優惠稅率專區"/);
+  assert.doesNotMatch(messengerHtml, /class="income-standard-launcher"/);
+  assert.doesNotMatch(messengerHtml, /src="\.\/assets\/images\/income-standard-launcher\.png"/);
 
   // generated index.html checks
-  assert.match(html, /class="income-standard-launcher"/);
-  assert.match(html, /href="https:\/\/services\.arpa\.tpctax\.dof\.gov\.taipei\/incomeReachStandard\/form\.php"/);
-  assert.match(html, /target="_blank"/);
-  assert.match(html, /rel="noopener noreferrer"/);
-  assert.match(html, /src="\.\/assets\/images\/income-standard-launcher\.png"/);
-  assert.match(html, /alt="所得達租金標準申報優惠稅率專區"/);
+  assert.doesNotMatch(html, /class="income-standard-launcher"/);
+  assert.doesNotMatch(html, /src="\.\/assets\/images\/income-standard-launcher\.png"/);
 });
 
 test('income-standard audience entry card is declared and built correctly', () => {
