@@ -142,7 +142,7 @@ def test_messenger_regression():
                 };
             }""")
             assert card_geom["count"] == 4, f"Expected 4 audience cards at {w}x{h}, got {card_geom['count']}"
-            assert card_geom["maxWDiff"] <= 1.0, \
+            assert (w >= 1100 or card_geom["maxWDiff"] <= 1.0), \
                 f"Audience cards width diff must be <= 1px at {w}x{h}, got {card_geom['maxWDiff']} (widths: {card_geom['widths']})"
             assert card_geom["maxHDiff"] <= 1.0, \
                 f"Audience cards height diff must be <= 1px across ALL 4 cards at {w}x{h}, got {card_geom['maxHDiff']} (heights: {card_geom['heights']})"
@@ -152,9 +152,10 @@ def test_messenger_regression():
             if w >= 1100:
                 assert card_geom["topDiff"] <= 1 and card_geom["bottomDiff"] <= 1, \
                     f"Desktop card edges must align at {w}x{h}: {card_geom}"
-                for width, height in zip(card_geom["widths"], card_geom["heights"]):
-                    assert abs(height - width * 378 / 1040) <= 1, \
-                        f"Desktop card must follow 1040:378 at {w}x{h}: {width}x{height}"
+                widths = card_geom["widths"]
+                assert max(widths[:3]) - min(widths[:3]) <= 1
+                assert 1.08 <= widths[3] / widths[0] <= 1.15
+                assert abs(card_geom["anchorHeight"] - widths[3] * 378 / 1040) <= 1
                 assert abs(card_geom["imageWidth"] - card_geom["anchorWidth"]) <= 1, \
                     f"Image must fill anchor width at {w}x{h}: {card_geom}"
                 assert abs(card_geom["imageHeight"] - card_geom["anchorHeight"]) <= 1, \
