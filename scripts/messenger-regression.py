@@ -56,20 +56,23 @@ def test_messenger_regression():
         assert not launcher_check["exists"], "Floating launcher .income-standard-launcher must be completely removed from DOM"
 
         # 3. Audience 4-card layout & interaction checks
-        # A. 4th card attributes
+        # A. 4th card attributes & dual presentation elements
         card4_attrs = page.evaluate("""() => {
             const card = document.querySelector('.v2-income-standard-entry');
-            const img = card?.querySelector('img');
-            const strong = card?.querySelector('strong');
-            const small = card?.querySelector('small');
+            const cardImage = card?.querySelector('.v2-income-standard-card-image');
+            const fallback = card?.querySelector('.v2-income-standard-fallback');
+            const fallbackIcon = fallback?.querySelector('.v2-income-standard-fallback-icon');
+            const strong = fallback?.querySelector('strong');
+            const small = fallback?.querySelector('small');
             return {
                 exists: !!card,
                 href: card?.href,
                 target: card?.target,
                 rel: card?.rel,
                 ariaLabel: card?.getAttribute('aria-label'),
-                imgSrc: img?.getAttribute('src'),
-                imgClass: img?.className,
+                cardImgSrc: cardImage?.getAttribute('src'),
+                fallbackExists: !!fallback,
+                fallbackIconSrc: fallbackIcon?.getAttribute('src'),
                 strongText: strong?.textContent?.trim(),
                 smallText: small?.textContent?.trim()
             };
@@ -80,16 +83,17 @@ def test_messenger_regression():
         assert card4_attrs["target"] == "_blank", f"Card target must be _blank, got {card4_attrs['target']}"
         assert "noopener" in card4_attrs["rel"] and "noreferrer" in card4_attrs["rel"], \
             f"rel must contain noopener and noreferrer, got {card4_attrs['rel']}"
-        assert card4_attrs["imgSrc"] == "./assets/images/income-standard-icon.png", \
-            f"img src unexpected: {card4_attrs['imgSrc']}"
-        assert "v2-audience-icon" in (card4_attrs["imgClass"] or ""), \
-            f"img class unexpected: {card4_attrs['imgClass']}"
+        assert card4_attrs["cardImgSrc"] == "./assets/images/income-standard-card.png", \
+            f"card img src unexpected: {card4_attrs['cardImgSrc']}"
+        assert card4_attrs["fallbackExists"], "Fallback container must exist"
+        assert card4_attrs["fallbackIconSrc"] == "./assets/images/income-standard-illustration.png", \
+            f"fallback icon src unexpected: {card4_attrs['fallbackIconSrc']}"
         assert card4_attrs["strongText"] == "所得達租金標準", \
             f"strong text unexpected: {card4_attrs['strongText']}"
         assert card4_attrs["smallText"] == "申報優惠稅率專區", \
             f"small text unexpected: {card4_attrs['smallText']}"
 
-        # B. Viewport layout matrix: ALL 4 cards must have equal width and equal height (max diff <= 1px)
+        # B. Viewport layout matrix: ALL 4 cards must have equal width and equal height (max diff <= 1px), plus dual presentation visibility
         audience_test_viewports = [
             (1440, 900),
             (1280, 800),
@@ -107,13 +111,17 @@ def test_messenger_regression():
                 const rects = cards.map(c => c.getBoundingClientRect());
                 const widths = rects.map(r => r.width);
                 const heights = rects.map(r => r.height);
+                const cardImg = document.querySelector('.v2-income-standard-card-image');
+                const fallback = document.querySelector('.v2-income-standard-fallback');
                 return {
                     count: cards.length,
                     widths: widths,
                     heights: heights,
                     maxWDiff: Math.max(...widths) - Math.min(...widths),
                     maxHDiff: Math.max(...heights) - Math.min(...heights),
-                    overflow: document.documentElement.scrollWidth - window.innerWidth
+                    overflow: document.documentElement.scrollWidth - window.innerWidth,
+                    cardImgDisplay: cardImg ? window.getComputedStyle(cardImg).display : 'none',
+                    fallbackDisplay: fallback ? window.getComputedStyle(fallback).display : 'none'
                 };
             }""")
             assert card_geom["count"] == 4, f"Expected 4 audience cards at {w}x{h}, got {card_geom['count']}"
@@ -122,6 +130,18 @@ def test_messenger_regression():
             assert card_geom["maxHDiff"] <= 1.0, \
                 f"Audience cards height diff must be <= 1px across ALL 4 cards at {w}x{h}, got {card_geom['maxHDiff']} (heights: {card_geom['heights']})"
             assert card_geom["overflow"] <= 0, f"Horizontal overflow at {w}x{h}: {card_geom['overflow']}"
+
+            # Dual presentation assertion: Desktop (>= 1100) shows card image; Tablet/Mobile (< 1100) shows fallback
+            if w >= 1100:
+                assert card_geom["cardImgDisplay"] != "none", \
+                    f"At {w}x{h} Desktop, full card image must be visible (got display: {card_geom['cardImgDisplay']})"
+                assert card_geom["fallbackDisplay"] == "none", \
+                    f"At {w}x{h} Desktop, fallback container must be hidden (got display: {card_geom['fallbackDisplay']})"
+            else:
+                assert card_geom["cardImgDisplay"] == "none", \
+                    f"At {w}x{h} Tablet/Mobile, full card image must be hidden (got display: {card_geom['cardImgDisplay']})"
+                assert card_geom["fallbackDisplay"] != "none", \
+                    f"At {w}x{h} Tablet/Mobile, fallback container must be visible (got display: {card_geom['fallbackDisplay']})"
 
         # C. Audience card interactions
         page.set_viewport_size({"width": 1440, "height": 900})
