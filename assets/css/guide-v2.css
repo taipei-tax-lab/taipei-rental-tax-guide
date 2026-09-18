@@ -383,13 +383,25 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
   cursor: pointer;
 }
 @media (min-width: 1100px) {
+  /* Let all four outer boxes follow the approved artwork, desktop only. */
+  .v2-audience-button {
+    aspect-ratio: 1040 / 378;
+    min-height: 0;
+    padding: 4px 10px;
+    gap: 8px;
+  }
+  .v2-audience-button svg { flex-shrink: 0; }
+  .v2-audience-button small { margin-top: 0; }
+  .v2-audience-button[aria-current] { padding-top: 0; padding-bottom: 24px; }
+  .v2-audience-selected { bottom: 2px; line-height: 1.25; }
   .v2-income-standard-entry {
-    border-color: transparent;
+    border: 0;
     background: transparent;
     box-shadow: none;
     padding: 0;
     justify-content: center;
   }
+  .v2-income-standard-entry:hover:not([aria-current="true"]) { background: transparent; }
   .v2-income-standard-card-image {
     display: block;
     width: 100%;
@@ -397,10 +409,9 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
     max-height: 100%;
     object-fit: contain;
     border-radius: 12px;
-    transition: transform 160ms ease, filter 160ms ease;
+    transition: filter 160ms ease;
   }
   .v2-income-standard-entry:hover .v2-income-standard-card-image {
-    transform: translateY(-2px);
     filter: drop-shadow(0 4px 12px rgba(16, 56, 68, 0.18));
   }
   .v2-income-standard-fallback {

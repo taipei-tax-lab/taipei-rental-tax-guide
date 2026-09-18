@@ -97,6 +97,7 @@ def test_messenger_regression():
         audience_test_viewports = [
             (1440, 900),
             (1280, 800),
+            (1100, 800),
             (1024, 768),
             (768, 1024),
             (390, 844),
@@ -113,12 +114,28 @@ def test_messenger_regression():
                 const heights = rects.map(r => r.height);
                 const cardImg = document.querySelector('.v2-income-standard-card-image');
                 const fallback = document.querySelector('.v2-income-standard-fallback');
+                const imageRect = cardImg.getBoundingClientRect();
+                const anchorRect = cardImg.closest('a').getBoundingClientRect();
+                const selected = document.querySelector('.v2-audience-selected');
+                const selectedRect = selected?.getBoundingClientRect();
+                const selectedCard = selected?.closest('.v2-audience-button');
+                const selectedCardRect = selectedCard?.getBoundingClientRect();
+                const subtitleRect = selectedCard?.querySelector('small').getBoundingClientRect();
                 return {
                     count: cards.length,
                     widths: widths,
                     heights: heights,
                     maxWDiff: Math.max(...widths) - Math.min(...widths),
                     maxHDiff: Math.max(...heights) - Math.min(...heights),
+                    topDiff: Math.max(...rects.map(r => r.top)) - Math.min(...rects.map(r => r.top)),
+                    bottomDiff: Math.max(...rects.map(r => r.bottom)) - Math.min(...rects.map(r => r.bottom)),
+                    imageWidth: imageRect.width,
+                    imageHeight: imageRect.height,
+                    anchorWidth: anchorRect.width,
+                    anchorHeight: anchorRect.height,
+                    selectedClear: !!selectedRect && selectedRect.top >= subtitleRect.bottom &&
+                        selectedRect.bottom <= selectedCardRect.bottom &&
+                        selectedRect.left >= selectedCardRect.left && selectedRect.right <= selectedCardRect.right,
                     overflow: document.documentElement.scrollWidth - window.innerWidth,
                     cardImgDisplay: cardImg ? window.getComputedStyle(cardImg).display : 'none',
                     fallbackDisplay: fallback ? window.getComputedStyle(fallback).display : 'none'
@@ -133,6 +150,17 @@ def test_messenger_regression():
 
             # Dual presentation assertion: Desktop (>= 1100) shows card image; Tablet/Mobile (< 1100) shows fallback
             if w >= 1100:
+                assert card_geom["topDiff"] <= 1 and card_geom["bottomDiff"] <= 1, \
+                    f"Desktop card edges must align at {w}x{h}: {card_geom}"
+                for width, height in zip(card_geom["widths"], card_geom["heights"]):
+                    assert abs(height - width * 378 / 1040) <= 1, \
+                        f"Desktop card must follow 1040:378 at {w}x{h}: {width}x{height}"
+                assert abs(card_geom["imageWidth"] - card_geom["anchorWidth"]) <= 1, \
+                    f"Image must fill anchor width at {w}x{h}: {card_geom}"
+                assert abs(card_geom["imageHeight"] - card_geom["anchorHeight"]) <= 1, \
+                    f"Image must fill anchor height at {w}x{h}: {card_geom}"
+                assert card_geom["selectedClear"], f"Selected label overlaps subtitle or escapes card at {w}x{h}"
+                print(f"Audience geometry {w}x{h}: {card_geom}")
                 assert card_geom["cardImgDisplay"] != "none", \
                     f"At {w}x{h} Desktop, full card image must be visible (got display: {card_geom['cardImgDisplay']})"
                 assert card_geom["fallbackDisplay"] == "none", \
@@ -361,4 +389,3 @@ def test_messenger_regression():
 
 if __name__ == "__main__":
     test_messenger_regression()
-
