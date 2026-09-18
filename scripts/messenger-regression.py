@@ -20,6 +20,9 @@ Validates:
 
 import sys
 import time
+import tempfile
+from pathlib import Path
+from urllib.parse import urlsplit
 from playwright.sync_api import sync_playwright
 
 if hasattr(sys.stdout, 'reconfigure'):
@@ -83,7 +86,7 @@ def test_messenger_regression():
         assert card4_attrs["target"] == "_blank", f"Card target must be _blank, got {card4_attrs['target']}"
         assert "noopener" in card4_attrs["rel"] and "noreferrer" in card4_attrs["rel"], \
             f"rel must contain noopener and noreferrer, got {card4_attrs['rel']}"
-        assert card4_attrs["cardImgSrc"] == "./assets/images/income-standard-illustration.png", \
+        assert card4_attrs["cardImgSrc"].startswith("data:image/"), \
             f"card img src unexpected: {card4_attrs['cardImgSrc']}"
         assert card4_attrs["fallbackExists"], "Fallback container must exist"
         assert card4_attrs["desktopSource"] == "./assets/images/income-standard-card.webp", \
@@ -104,11 +107,13 @@ def test_messenger_regression():
             (360, 800),
             (320, 480)
         ]
+        screenshot_dir = Path(tempfile.mkdtemp(prefix="mobile-income-entry-"))
         for w, h in audience_test_viewports:
             page.set_viewport_size({"width": w, "height": h})
             time.sleep(0.2)
             page.wait_for_function("""() => {
                 const img = document.querySelector('.v2-income-standard-card-image');
+                if (innerWidth <= 700) return img.complete && img.currentSrc.startsWith('data:image/');
                 const expected = innerWidth >= 1100 ? 'income-standard-card.webp' : 'income-standard-illustration.webp';
                 return img.complete && img.naturalWidth > 0 && img.currentSrc.endsWith(expected);
             }""")
@@ -181,11 +186,53 @@ def test_messenger_regression():
                     f"At {w}x{h} Desktop, full card image must be visible (got display: {card_geom['cardImgDisplay']})"
                 assert card_geom["fallbackDisplay"] == "none", \
                     f"At {w}x{h} Desktop, fallback container must be hidden (got display: {card_geom['fallbackDisplay']})"
-            else:
+            elif w > 700:
                 assert card_geom["currentSrc"].endswith("income-standard-illustration.webp"), \
                     f"At {w}x{h}, picture must select the illustration: {card_geom}"
                 assert card_geom["fallbackDisplay"] != "none", \
                     f"At {w}x{h} Tablet/Mobile, fallback container must be visible (got display: {card_geom['fallbackDisplay']})"
+
+            else:
+                assert card_geom["currentSrc"].startswith("data:image/"), card_geom
+                assert card_geom["imageWidth"] == 0 and card_geom["imageHeight"] == 0, card_geom
+                text_check = page.evaluate("""() => {
+                    const card = document.querySelector('.v2-income-standard-entry');
+                    const cards = [...document.querySelectorAll('.v2-audience > *')].map(c => c.getBoundingClientRect());
+                    return {
+                        twoColumns: Math.abs(cards[0].top - cards[1].top) <= 1 && cards[2].top > cards[0].top,
+                        singleColumn: cards.every(r => Math.abs(r.left - cards[0].left) <= 1),
+                        text: ['strong', 'small'].map(selector => {
+                            const el = card.querySelector(selector);
+                            const rect = el.getBoundingClientRect();
+                            const outer = card.getBoundingClientRect();
+                            return {text: el.textContent, fits: el.scrollWidth <= el.clientWidth + 1 &&
+                                el.scrollHeight <= el.clientHeight + 1 &&
+                                rect.height <= parseFloat(getComputedStyle(el).lineHeight) + 1 &&
+                                rect.top >= outer.top && rect.bottom <= outer.bottom};
+                        })
+                    };
+                }""")
+                assert all(t["fits"] for t in text_check["text"]), text_check
+                assert text_check["twoColumns"] if w == 390 else text_check["singleColumn"], text_check
+                print(f"Mobile geometry {w}x{h}: {card_geom}; text: {text_check}")
+                page.screenshot(path=str(screenshot_dir / f"income-entry-{w}x{h}.png"))
+        print(f"Mobile screenshots (not committed): {screenshot_dir}")
+
+        # Fresh contexts prevent a previous viewport's requests/cache masking source selection.
+        income_names = {f"income-standard-{kind}.{ext}" for kind in ("card", "illustration") for ext in ("png", "webp")}
+        for w, h in [(390, 844), (768, 1024), (1440, 900)]:
+            cold_context = browser.new_context(viewport={"width": w, "height": h})
+            cold_page = cold_context.new_page()
+            requested = []
+            cold_page.on("request", lambda request: requested.append(urlsplit(request.url).path.rsplit("/", 1)[-1]))
+            cold_page.on("pageerror", lambda err: errors.append(f"PageError: {err}"))
+            cold_page.on("console", lambda msg: errors.append(f"ConsoleError: {msg.text}") if msg.type == "error" else None)
+            cold_page.goto(PREVIEW_URL, wait_until="networkidle")
+            actual = [name for name in requested if name in income_names]
+            expected = [] if w <= 700 else ["income-standard-card.webp" if w >= 1100 else "income-standard-illustration.webp"]
+            assert actual == expected, f"Cold income requests at {w}: {actual}, expected {expected}"
+            print(f"Cold income requests at {w}: {actual}")
+            cold_context.close()
 
         # C. Audience card interactions
         page.set_viewport_size({"width": 1440, "height": 900})
