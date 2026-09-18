@@ -122,7 +122,7 @@ test('income-standard audience entry card is declared and built with responsive 
     assert.match(markup, /<picture class="v2-income-standard-fallback-icon">/);
     assert.match(markup, /<source media="\(min-width: 1100px\)" type="image\/webp" srcset="\.\/assets\/images\/income-standard-card\.webp"/);
     assert.match(markup, /class="v2-income-standard-fallback"/);
-    assert.match(markup, /class="v2-income-standard-card-image"\s+src="\.\/assets\/images\/income-standard-illustration\.png"/);
+    assert.match(markup, /class="v2-income-standard-card-image"\s+src="data:image\/gif;base64,/);
     const entry = markup.slice(markup.indexOf('class="v2-audience-button v2-income-standard-entry"'), markup.indexOf('</picture>') + 10);
     assert.equal((entry.match(/<img\b/g) || []).length, 1, 'One responsive image, not two eager images');
     assert.match(markup, /<strong>所得達租金標準<\/strong>/);
