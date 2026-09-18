@@ -107,3 +107,26 @@ test('income-standard-launcher floating shortcut is declared and built correctly
   assert.match(html, /alt="所得達租金標準申報優惠稅率專區"/);
 });
 
+test('income-standard audience entry card is declared and built correctly', () => {
+  const assetPath = path.join(root, 'assets/images/income-standard-entry-card.png');
+  assert.ok(fs.existsSync(assetPath), 'income-standard-entry-card.png asset must exist');
+
+  const template = fs.readFileSync(path.join(root, 'site/template.html'), 'utf8');
+
+  // site/template.html checks
+  assert.match(template, /class="v2-audience-button v2-income-standard-entry"/);
+  assert.match(template, /href="https:\/\/services\.arpa\.tpctax\.dof\.gov\.taipei\/incomeReachStandard\/form\.php"/);
+  assert.match(template, /target="_blank"/);
+  assert.match(template, /rel="noopener noreferrer"/);
+  assert.match(template, /src="\.\/assets\/images\/income-standard-entry-card\.png"/);
+  assert.match(template, /alt="所得達租金標準申報優惠稅率專區"/);
+
+  // generated index.html checks
+  assert.match(html, /class="v2-audience-button v2-income-standard-entry"/);
+  assert.match(html, /href="https:\/\/services\.arpa\.tpctax\.dof\.gov\.taipei\/incomeReachStandard\/form\.php"/);
+  assert.match(html, /target="_blank"/);
+  assert.match(html, /rel="noopener noreferrer"/);
+  assert.match(html, /src="\.\/assets\/images\/income-standard-entry-card\.png"/);
+  assert.match(html, /alt="所得達租金標準申報優惠稅率專區"/);
+});
+

@@ -92,7 +92,192 @@ def test_messenger_regression():
         assert abs(post_scroll["right"] - pre_scroll["right"]) <= 1.0, \
             f"Scroll test failed: right diff is {abs(post_scroll['right'] - pre_scroll['right'])}"
 
-        # 4. Viewport matrix for chat closed: gap and alignment
+        # 4. Audience 4-card layout & interaction checks
+        # A. 4th card attributes
+        card4_attrs = page.evaluate("""() => {
+            const card = document.querySelector('.v2-income-standard-entry');
+            const img = card?.querySelector('img');
+            return {
+                exists: !!card,
+                href: card?.href,
+                target: card?.target,
+                rel: card?.rel,
+                ariaLabel: card?.getAttribute('aria-label'),
+                imgSrc: img?.getAttribute('src'),
+                imgAlt: img?.getAttribute('alt')
+            };
+        }""")
+        assert card4_attrs["exists"], "Missing .v2-income-standard-entry card"
+        assert card4_attrs["href"] == "https://services.arpa.tpctax.dof.gov.taipei/incomeReachStandard/form.php", \
+            f"Unexpected card href: {card4_attrs['href']}"
+        assert card4_attrs["target"] == "_blank", f"Card target must be _blank, got {card4_attrs['target']}"
+        assert "noopener" in card4_attrs["rel"] and "noreferrer" in card4_attrs["rel"], \
+            f"rel must contain noopener and noreferrer, got {card4_attrs['rel']}"
+        assert card4_attrs["imgSrc"] == "./assets/images/income-standard-entry-card.png", \
+            f"img src unexpected: {card4_attrs['imgSrc']}"
+        assert card4_attrs["imgAlt"] == "所得達租金標準申報優惠稅率專區", \
+            f"img alt unexpected: {card4_attrs['imgAlt']}"
+
+        # B. Viewport layout matrix for audience cards
+        audience_desktop_viewports = [(1440, 900), (1280, 800), (1024, 768), (768, 1024)]
+        for w, h in audience_desktop_viewports:
+            page.set_viewport_size({"width": w, "height": h})
+            time.sleep(0.2)
+            card_geom = page.evaluate("""() => {
+                const cards = Array.from(document.querySelectorAll('.v2-audience > *'));
+                const rects = cards.map(c => c.getBoundingClientRect());
+                const widths = rects.map(r => r.width);
+                const heights = rects.map(r => r.height);
+                return {
+                    count: cards.length,
+                    widths: widths,
+                    heights: heights,
+                    maxWDiff: Math.max(...widths) - Math.min(...widths),
+                    maxHDiff: Math.max(...heights) - Math.min(...heights),
+                    overflow: document.documentElement.scrollWidth - window.innerWidth
+                };
+            }""")
+            assert card_geom["count"] == 4, f"Expected 4 audience cards at {w}x{h}, got {card_geom['count']}"
+            assert card_geom["maxWDiff"] <= 1.0, \
+                f"Audience cards width diff must be <= 1px at {w}x{h}, got {card_geom['maxWDiff']}"
+            assert card_geom["maxHDiff"] <= 1.0, \
+                f"Audience cards height diff must be <= 1px at {w}x{h}, got {card_geom['maxHDiff']}"
+            assert card_geom["overflow"] <= 0, f"Horizontal overflow at {w}x{h}: {card_geom['overflow']}"
+
+        # C. Mobile 2x2 layout (390x844)
+        page.set_viewport_size({"width": 390, "height": 844})
+        time.sleep(0.2)
+        mobile_2x2 = page.evaluate("""() => {
+            const cards = Array.from(document.querySelectorAll('.v2-audience > *'));
+            const rects = cards.map(c => c.getBoundingClientRect());
+            return {
+                count: cards.length,
+                rects: rects,
+                r1WidthDiff: Math.abs(rects[0].width - rects[1].width),
+                r1HeightDiff: Math.abs(rects[0].height - rects[1].height),
+                r2WidthDiff: Math.abs(rects[2].width - rects[3].width),
+                r2HeightDiff: Math.abs(rects[2].height - rects[3].height),
+                colWidthDiff: Math.abs(rects[0].width - rects[2].width),
+                row2BelowRow1: rects[2].top >= rects[0].bottom - 1.0,
+                overflow: document.documentElement.scrollWidth - window.innerWidth
+            };
+        }""")
+        assert mobile_2x2["count"] == 4, f"Expected 4 cards in 2x2 mobile, got {mobile_2x2['count']}"
+        assert mobile_2x2["r1WidthDiff"] <= 1.0, f"Row 1 width diff > 1px: {mobile_2x2['r1WidthDiff']}"
+        assert mobile_2x2["r1HeightDiff"] <= 1.0, f"Row 1 height diff > 1px: {mobile_2x2['r1HeightDiff']}"
+        assert mobile_2x2["r2WidthDiff"] <= 1.0, f"Row 2 width diff > 1px: {mobile_2x2['r2WidthDiff']}"
+        assert mobile_2x2["r2HeightDiff"] <= 1.0, f"Row 2 height diff > 1px: {mobile_2x2['r2HeightDiff']}"
+        assert mobile_2x2["colWidthDiff"] <= 1.0, f"Column width diff > 1px: {mobile_2x2['colWidthDiff']}"
+        assert mobile_2x2["row2BelowRow1"], "Row 2 must be below Row 1 in 2x2 mobile"
+        assert mobile_2x2["overflow"] <= 0, f"Horizontal overflow in 2x2 mobile: {mobile_2x2['overflow']}"
+
+        # D. Very narrow mobile 1-column layout (360x800, 320x480)
+        for w, h in [(360, 800), (320, 480)]:
+            page.set_viewport_size({"width": w, "height": h})
+            time.sleep(0.2)
+            single_col = page.evaluate("""() => {
+                const container = document.querySelector('.v2-audience');
+                const cRect = container?.getBoundingClientRect();
+                const cards = Array.from(document.querySelectorAll('.v2-audience > *'));
+                const rects = cards.map(c => c.getBoundingClientRect());
+                const isStacked = rects.every((r, i) => i === 0 || r.top >= rects[i - 1].bottom - 1.0);
+                const allFullWidth = rects.every(r => Math.abs(r.width - cRect.width) <= 2.0);
+                return {
+                    count: cards.length,
+                    isStacked: isStacked,
+                    allFullWidth: allFullWidth,
+                    overflow: document.documentElement.scrollWidth - window.innerWidth
+                };
+            }""")
+            assert single_col["count"] == 4, f"Expected 4 cards at {w}x{h}, got {single_col['count']}"
+            assert single_col["isStacked"], f"Cards must be vertically stacked in 1-column at {w}x{h}"
+            assert single_col["allFullWidth"], f"Cards must be full width of container at {w}x{h}"
+            assert single_col["overflow"] <= 0, f"Horizontal overflow at {w}x{h}: {single_col['overflow']}"
+
+        # E. Audience card interactions
+        page.set_viewport_size({"width": 1440, "height": 900})
+        time.sleep(0.2)
+        # Initial state: owner is active
+        state0 = page.evaluate("""() => {
+            const ownerBtn = document.querySelector('[data-audience="owner"]');
+            const tenantBtn = document.querySelector('[data-audience="tenant"]');
+            const card4 = document.querySelector('.v2-income-standard-entry');
+            const ownerPanel = document.querySelector('[data-audience-panel="owner"]');
+            const tenantPanel = document.querySelector('[data-audience-panel="tenant"]');
+            return {
+                ownerAria: ownerBtn?.getAttribute('aria-current'),
+                tenantAria: tenantBtn?.getAttribute('aria-current'),
+                card4Aria: card4?.getAttribute('aria-current'),
+                ownerHidden: ownerPanel?.hidden,
+                tenantHidden: tenantPanel?.hidden
+            };
+        }""")
+        assert state0["ownerAria"] == "true", "Owner button should initially have aria-current='true'"
+        assert state0["tenantAria"] is None, "Tenant button should not have aria-current"
+        assert not state0["ownerHidden"], "Owner panel should initially be visible"
+        assert state0["tenantHidden"], "Tenant panel should initially be hidden"
+
+        # Click 4th card (income standard entry) -> should NOT change aria-current, should NOT switch panel
+        page.evaluate("() => document.querySelector('.v2-income-standard-entry').dispatchEvent(new MouseEvent('click', {bubbles: true, cancelable: true}))")
+        time.sleep(0.2)
+        state_after_card4 = page.evaluate("""() => {
+            const ownerBtn = document.querySelector('[data-audience="owner"]');
+            const tenantBtn = document.querySelector('[data-audience="tenant"]');
+            const card4 = document.querySelector('.v2-income-standard-entry');
+            const ownerPanel = document.querySelector('[data-audience-panel="owner"]');
+            const tenantPanel = document.querySelector('[data-audience-panel="tenant"]');
+            return {
+                ownerAria: ownerBtn?.getAttribute('aria-current'),
+                tenantAria: tenantBtn?.getAttribute('aria-current'),
+                card4Aria: card4?.getAttribute('aria-current'),
+                ownerHidden: ownerPanel?.hidden,
+                tenantHidden: tenantPanel?.hidden
+            };
+        }""")
+        assert state_after_card4["ownerAria"] == "true", "Owner button should still have aria-current after clicking card 4"
+        assert state_after_card4["card4Aria"] is None, "Card 4 must not receive aria-current"
+        assert not state_after_card4["ownerHidden"], "Owner panel must remain visible after clicking card 4"
+        assert state_after_card4["tenantHidden"], "Tenant panel must remain hidden after clicking card 4"
+
+        # Click tenant button -> switches to tenant panel
+        page.evaluate("() => document.querySelector('[data-audience=\"tenant\"]').click()")
+        time.sleep(0.2)
+        state_tenant = page.evaluate("""() => {
+            const ownerBtn = document.querySelector('[data-audience="owner"]');
+            const tenantBtn = document.querySelector('[data-audience="tenant"]');
+            const ownerPanel = document.querySelector('[data-audience-panel="owner"]');
+            const tenantPanel = document.querySelector('[data-audience-panel="tenant"]');
+            return {
+                ownerAria: ownerBtn?.getAttribute('aria-current'),
+                tenantAria: tenantBtn?.getAttribute('aria-current'),
+                ownerHidden: ownerPanel?.hidden,
+                tenantHidden: tenantPanel?.hidden
+            };
+        }""")
+        assert state_tenant["tenantAria"] == "true", "Tenant button should have aria-current='true'"
+        assert state_tenant["ownerAria"] is None, "Owner button should not have aria-current"
+        assert state_tenant["ownerHidden"], "Owner panel should be hidden"
+        assert not state_tenant["tenantHidden"], "Tenant panel should be visible"
+
+        # Click owner button -> switches back to owner panel
+        page.evaluate("() => document.querySelector('[data-audience=\"owner\"]').click()")
+        time.sleep(0.2)
+        state_owner = page.evaluate("""() => {
+            const ownerBtn = document.querySelector('[data-audience="owner"]');
+            const tenantBtn = document.querySelector('[data-audience="tenant"]');
+            const ownerPanel = document.querySelector('[data-audience-panel="owner"]');
+            const tenantPanel = document.querySelector('[data-audience-panel="tenant"]');
+            return {
+                ownerAria: ownerBtn?.getAttribute('aria-current'),
+                tenantAria: tenantBtn?.getAttribute('aria-current'),
+                ownerHidden: ownerPanel?.hidden,
+                tenantHidden: tenantPanel?.hidden
+            };
+        }""")
+        assert state_owner["ownerAria"] == "true", "Owner button should have aria-current='true'"
+        assert not state_owner["ownerHidden"], "Owner panel should be visible"
+
+        # 5. Viewport matrix for chat closed: gap with speech bubble and alignment
         test_viewports = [
             (1440, 900),
             (1280, 800),
@@ -111,35 +296,44 @@ def test_messenger_regression():
                 const df = document.querySelector('df-messenger');
                 const bubble = document.querySelector('df-messenger-chat-bubble');
                 const btn = bubble?.shadowRoot?.querySelector('button.bubble');
+                const iconImg = bubble?.shadowRoot?.querySelector('.icon img[data-assistant-chat-bubble-icon]') || bubble?.shadowRoot?.querySelector('.icon img');
                 const lRect = l?.getBoundingClientRect();
                 const dfRect = df?.getBoundingClientRect();
                 const btnRect = btn?.getBoundingClientRect();
+                const imgRect = iconImg?.getBoundingClientRect();
 
-                const bubbleTop = (btnRect && btnRect.height > 0) ? btnRect.top : (dfRect ? dfRect.top : null);
+                const speechBubbleTop = (imgRect && imgRect.height > 0) ? imgRect.top : (btnRect ? btnRect.top : null);
                 const bubbleRight = (btnRect && btnRect.width > 0) ? btnRect.right : (dfRect ? dfRect.right : null);
 
                 return {
                     lRect: lRect,
-                    bubbleTop: bubbleTop,
+                    speechBubbleTop: speechBubbleTop,
                     bubbleRight: bubbleRight,
-                    gap: (bubbleTop !== null && lRect) ? (bubbleTop - lRect.bottom) : null,
+                    gap: (speechBubbleTop !== null && lRect) ? (speechBubbleTop - lRect.bottom) : null,
                     rightDiff: (bubbleRight !== null && lRect) ? Math.abs(bubbleRight - lRect.right) : null,
                     overflow: document.documentElement.scrollWidth - window.innerWidth
                 };
             }""")
             assert geom["gap"] is not None, f"Could not measure gap at {w}x{h}"
-            assert 8.0 <= geom["gap"] <= 18.0, \
-                f"Shortcut gap with bubble must be 8-18px at {w}x{h}, got {geom['gap']}"
+            assert 10.0 <= geom["gap"] <= 16.0, \
+                f"Shortcut gap with speech bubble must be 10-16px at {w}x{h}, got {geom['gap']}"
             assert geom["rightDiff"] <= 3.0, \
                 f"Shortcut right-alignment diff with bubble must be <= 3px at {w}x{h}, got {geom['rightDiff']}"
             assert geom["overflow"] <= 0, \
                 f"Horizontal overflow detected at {w}x{h} (closed): {geom['overflow']}px"
 
-        # 5. Open chat and test layering, elementFromPoint, and click-through
+        # 6. Open chat via helper button and test layering, elementFromPoint, and click-through
         page.set_viewport_size({"width": 1440, "height": 900})
         time.sleep(0.3)
-        page.evaluate("() => document.querySelector('df-messenger-chat-bubble')?.openChat()")
-        time.sleep(0.6)
+        # Test that clicking open-helper button opens the chat
+        page.evaluate("() => document.getElementById('open-helper').click()")
+        page.wait_for_function("""() => {
+            const bubble = document.querySelector('df-messenger-chat-bubble');
+            const chat = bubble?.shadowRoot?.querySelector('.chat-wrapper');
+            const rect = chat?.getBoundingClientRect();
+            return rect && rect.width > 350 && rect.height > 500;
+        }""")
+        time.sleep(0.3)
 
         # A. Layering & elementFromPoint
         layering = page.evaluate("""() => {
@@ -154,6 +348,8 @@ def test_messenger_regression():
             const hit = document.elementFromPoint(centerX, centerY);
 
             return {
+                cRect: cRect,
+                lRect: lRect,
                 covered: (cRect && lRect) ? (
                     cRect.left <= lRect.left &&
                     cRect.right >= lRect.right &&
@@ -164,7 +360,7 @@ def test_messenger_regression():
                 hitLauncher: hit === l || l?.contains(hit)
             };
         }""")
-        assert layering["covered"], "Chat window must fully cover the shortcut button when open"
+        assert layering["covered"], f"Chat window must fully cover the shortcut button when open: {layering}"
         assert not layering["hitLauncher"], f"elementFromPoint at shortcut center must not hit shortcut, got {layering['hitTag']}"
 
         # B. Click-through protection check

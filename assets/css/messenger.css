@@ -351,7 +351,7 @@ df-messenger[data-compact-chat] {
   position: fixed;
   z-index: 9997;
   right: max(14px, env(safe-area-inset-right));
-  bottom: calc(max(14px, env(safe-area-inset-bottom)) + 136px);
+  bottom: calc(max(14px, env(safe-area-inset-bottom)) + 170px);
   width: 116px;
   height: 116px;
   display: block;
@@ -397,7 +397,7 @@ df-messenger[data-compact-chat] {
   .income-standard-launcher {
     width: 96px;
     height: 96px;
-    bottom: calc(max(14px, env(safe-area-inset-bottom)) + 121px);
+    bottom: calc(max(14px, env(safe-area-inset-bottom)) + 152px);
   }
 }
 
