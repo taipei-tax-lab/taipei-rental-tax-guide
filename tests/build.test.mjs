@@ -84,3 +84,26 @@ test('messenger ui rules ensure notice is never moved into details and panel ali
   assert.match(messengerUi, /box-sizing:border-box/, 'assistant panel must declare box-sizing: border-box');
   assert.match(messengerUi, /elements\.assistantPanel\.style\.left\s*=\s*\(rect\.left - panelWidth/, 'assistant panel must align with chat left');
 });
+
+test('income-standard-launcher floating shortcut is declared and built correctly', () => {
+  const messengerHtml = fs.readFileSync(path.join(root, 'site/messenger.html'), 'utf8');
+  const assetPath = path.join(root, 'assets/images/income-standard-launcher.png');
+  assert.ok(fs.existsSync(assetPath), 'income-standard-launcher.png asset must exist');
+
+  // site/messenger.html checks
+  assert.match(messengerHtml, /class="income-standard-launcher"/);
+  assert.match(messengerHtml, /href="https:\/\/services\.arpa\.tpctax\.dof\.gov\.taipei\/incomeReachStandard\/form\.php"/);
+  assert.match(messengerHtml, /target="_blank"/);
+  assert.match(messengerHtml, /rel="noopener noreferrer"/);
+  assert.match(messengerHtml, /src="\.\/assets\/images\/income-standard-launcher\.png"/);
+  assert.match(messengerHtml, /alt="所得達租金標準申報優惠稅率專區"/);
+
+  // generated index.html checks
+  assert.match(html, /class="income-standard-launcher"/);
+  assert.match(html, /href="https:\/\/services\.arpa\.tpctax\.dof\.gov\.taipei\/incomeReachStandard\/form\.php"/);
+  assert.match(html, /target="_blank"/);
+  assert.match(html, /rel="noopener noreferrer"/);
+  assert.match(html, /src="\.\/assets\/images\/income-standard-launcher\.png"/);
+  assert.match(html, /alt="所得達租金標準申報優惠稅率專區"/);
+});
+
