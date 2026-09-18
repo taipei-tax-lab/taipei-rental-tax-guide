@@ -132,8 +132,11 @@ def test_messenger_regression():
                     heights: heights,
                     maxWDiff: Math.max(...widths) - Math.min(...widths),
                     maxHDiff: Math.max(...heights) - Math.min(...heights),
-                    topDiff: Math.max(...rects.map(r => r.top)) - Math.min(...rects.map(r => r.top)),
-                    bottomDiff: Math.max(...rects.map(r => r.bottom)) - Math.min(...rects.map(r => r.bottom)),
+                    firstThreeHDiff: Math.max(...heights.slice(0, 3)) - Math.min(...heights.slice(0, 3)),
+                    firstToFourthRatio: heights[0] / heights[3],
+                    topOffset: rects[0].top - rects[3].top,
+                    bottomOffset: rects[3].bottom - rects[0].bottom,
+                    centeringDiff: Math.abs((rects[0].top - rects[3].top) - (rects[3].bottom - rects[0].bottom)),
                     imageWidth: imageRect.width,
                     imageHeight: imageRect.height,
                     anchorWidth: anchorRect.width,
@@ -150,14 +153,19 @@ def test_messenger_regression():
             assert card_geom["count"] == 4, f"Expected 4 audience cards at {w}x{h}, got {card_geom['count']}"
             assert (w >= 1100 or card_geom["maxWDiff"] <= 1.0), \
                 f"Audience cards width diff must be <= 1px at {w}x{h}, got {card_geom['maxWDiff']} (widths: {card_geom['widths']})"
-            assert card_geom["maxHDiff"] <= 1.0, \
-                f"Audience cards height diff must be <= 1px across ALL 4 cards at {w}x{h}, got {card_geom['maxHDiff']} (heights: {card_geom['heights']})"
+            if w < 1100:
+                assert card_geom["maxHDiff"] <= 1.0, \
+                    f"Audience cards height diff must be <= 1px across ALL 4 cards at {w}x{h}, got {card_geom['maxHDiff']} (heights: {card_geom['heights']})"
             assert card_geom["overflow"] <= 0, f"Horizontal overflow at {w}x{h}: {card_geom['overflow']}"
 
             # Dual presentation assertion: Desktop (>= 1100) shows card image; Tablet/Mobile (< 1100) shows fallback
             if w >= 1100:
-                assert card_geom["topDiff"] <= 1 and card_geom["bottomDiff"] <= 1, \
-                    f"Desktop card edges must align at {w}x{h}: {card_geom}"
+                assert card_geom["firstThreeHDiff"] <= 1.0, \
+                    f"First 3 cards height diff must be <= 1px at {w}x{h}, got {card_geom['firstThreeHDiff']} (heights: {card_geom['heights']})"
+                assert 0.88 <= card_geom["firstToFourthRatio"] <= 0.92, \
+                    f"First 3 cards height ratio to card 4 must be 88%-92% at {w}x{h}, got {card_geom['firstToFourthRatio']}"
+                assert card_geom["centeringDiff"] <= 1.0, \
+                    f"First 3 cards must be vertically centered relative to card 4 at {w}x{h}, got topOffset={card_geom['topOffset']}, bottomOffset={card_geom['bottomOffset']}"
                 widths = card_geom["widths"]
                 assert max(widths[:3]) - min(widths[:3]) <= 1
                 assert 1.08 <= widths[3] / widths[0] <= 1.15
@@ -167,6 +175,7 @@ def test_messenger_regression():
                 assert abs(card_geom["imageHeight"] - card_geom["anchorHeight"]) <= 1, \
                     f"Image must fill anchor height at {w}x{h}: {card_geom}"
                 assert card_geom["selectedClear"], f"Selected label overlaps subtitle or escapes card at {w}x{h}"
+                page.locator('.v2-audience').screenshot(path=f'.preview/final-height-{w}x{h}.png')
                 print(f"Audience geometry {w}x{h}: {card_geom}")
                 assert card_geom["cardImgDisplay"] != "none", \
                     f"At {w}x{h} Desktop, full card image must be visible (got display: {card_geom['cardImgDisplay']})"
