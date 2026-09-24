@@ -5,31 +5,26 @@ Last updated: 2026-09-24
 ## Current production baseline
 
 - Repository: `taipei-tax-lab/taipei-rental-tax-guide`
-- Production application release baseline before this planning update: `07716f3b614b24b1fcd1d9e108c2501ffee22fea` (PR #7 merge)
+- Production application release baseline: `76c164b2585545c455bf5e66a06fb8f4d66c746c` (PR #8 merge)
 - GitHub Pages: `https://taipei-tax-lab.github.io/taipei-rental-tax-guide/`
-- The planning files added for the 2026-09-24 task are documentation only; they do not change the production application tree.
+- Production deployment: Active and verified via automated Playwright smoke tests.
 
 ## Active task
 
-- Status: **REVIEW_APPROVED_READY_FOR_PR**
+- Status: **RELEASED**
 - Task: 財產稅科 2026-09-22 最新 PDF 修正稿內容更新
 - Source review date: 2026-09-24
-- Implementation branch: `fix/2026-09-24-property-tax-content`
+- Release date: 2026-09-24
+- PR: [#8](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/pull/8) (`fix/2026-09-24-property-tax-content` → `main`)
+- Merge method: Standard Merge Commit (`76c164b2585545c455bf5e66a06fb8f4d66c746c`)
 - Implementation commit SHA: `24c08736a13057df5b04b7f5c8490f7e366a88d5`
+- GitHub Pages build status: `built` (Run 35949816007 completed successfully)
+- Production smoke test: **PASS** (Chrome headless Playwright on live GitHub Pages: 1440x900 and 390x844 viewports verified, all approved text present, removed 114租金標準 link absent, 臺北市住都中心 link verified, overflow = 0, pageerror = 0, console.error = 0)
 - Changed files:
   - `site/content.json` (方案文字、適用條件、連結文字與租稅摘要更新；新增臺北市住都中心資源)
   - `scripts/build.mjs` (更新常見問題與房客服務窗口文字、比較表稅目備註取用邏輯、分組索引)
   - `index.html` (依 source 自動建置之產出)
-- Test results:
-  - `node scripts/build.mjs`: PASS (Reproducible HTML generation)
-  - `node --test tests/*.test.mjs`: 18/18 PASS
-  - `node scripts/performance-budget.mjs`: PASS
-  - `git diff --check`: PASS (0 whitespace errors)
-  - `python scripts/messenger-regression.py`: ALL REGRESSION CHECKS PASSED (Chrome headless: Favicon, floating shortcut removal, notice non-clipping, gapless panel, responsive viewports 1440x900, 1280x800, 1100x800, 390x844, 360x800, 320x480, overflow = 0, pageerror = 0, console.error = 0)
-- ChatGPT review: **PASS** (2026-09-24)
-  - All approved PDF edits and both user-confirmed corrections were verified in source and generated `index.html`.
-  - Deliberate wording differences between Page 4/Page 8 and Page 5/Page 8 were preserved.
-  - No unrelated CSS, Messenger, responsive, image, or performance changes were introduced.
+- Historical branches: Preserved (`fix/2026-09-24-property-tax-content` preserved)
 - Unresolved ambiguity: None
 
 ## Source-of-truth rules
