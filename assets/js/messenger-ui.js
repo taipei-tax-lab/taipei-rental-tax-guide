@@ -24,7 +24,7 @@
   var ASSISTANT_COPY = {
     idle: {
       eyebrow: "臺北市稅捐稽徵處",
-      title: "出租房屋租稅小幫手",
+      title: "租稅小幫手",
       description: "有出租房屋租稅、出租方案或申請流程問題，都可以直接問我。",
       status: "等待您的問題"
     },
@@ -82,19 +82,19 @@
     var panel = document.createElement("aside");
     panel.className = "assistant-panel";
     panel.dataset.state = "idle";
-    panel.setAttribute("aria-label", "出租房屋租稅小幫手使用說明");
+    panel.setAttribute("aria-label", "租稅小幫手使用說明");
     panel.setAttribute("aria-hidden", "true");
     panel.hidden = true;
     panel.innerHTML = [
       '<div class="assistant-panel__character">',
       '  <picture>',
       '    <source data-assistant-source srcset="./assets/images/assistant/assistant-idle.webp" type="image/webp">',
-      '    <img data-assistant-image src="./assets/images/assistant/assistant-idle.png" alt="出租房屋租稅小幫手角色" width="400" height="656">',
+      '    <img data-assistant-image src="./assets/images/assistant/assistant-idle.png" alt="租稅小幫手角色" width="400" height="656">',
       '  </picture>',
       '</div>',
       '<div class="assistant-panel__content">',
       '  <span class="assistant-panel__eyebrow" data-assistant-eyebrow>臺北市稅捐稽徵處</span>',
-      '  <h2 data-assistant-title>出租房屋租稅小幫手</h2>',
+      '  <h2 data-assistant-title>租稅小幫手</h2>',
       '  <p data-assistant-description>有出租房屋租稅、出租方案或申請流程問題，都可以直接問我。</p>',
       '  <div class="assistant-panel__topics"><h3>熱門問題</h3></div>',
       '</div>'
@@ -459,8 +459,27 @@
     });
   }
 
+  // Hide the built-in Messenger title bar to give more vertical space to the conversation.
+  // The custom launcher remains available as the close control when the chat is open.
+  function hideChatTitlebar() {
+    var bubble = getMessengerElements().bubble;
+    var chat = bubble && bubble.shadowRoot && bubble.shadowRoot.querySelector('df-messenger-chat');
+    var root = chat && chat.shadowRoot;
+    if (!root || root.querySelector('[data-rental-hide-titlebar]')) return;
+
+    var style = document.createElement('style');
+    style.setAttribute('data-rental-hide-titlebar', '');
+    style.textContent = [
+      'df-messenger-titlebar{display:none!important}',
+      '.titlebar{display:none!important}',
+      '.title-bar{display:none!important}'
+    ].join('');
+    root.appendChild(style);
+  }
+
   // Keep the notice in the input layout so it never covers a message.
   function installInputExtras() {
+    hideChatTitlebar();
     var bubble = getMessengerElements().bubble;
     var chat = bubble && bubble.shadowRoot && bubble.shadowRoot.querySelector('df-messenger-chat');
     var root = chat && chat.shadowRoot;
