@@ -427,6 +427,9 @@
       window.setTimeout(updateAssistantPanel, 350);
       if (chatIsOpen) {
         preloadAssistantStates();
+        hideChatTitlebar();
+        window.setTimeout(hideChatTitlebar, 120);
+        window.setTimeout(hideChatTitlebar, 320);
         showTemporaryAssistantState("welcome", ASSISTANT_TIMING.welcome);
       }
       else resetAssistantState();
@@ -460,21 +463,55 @@
   }
 
   // Hide the built-in Messenger title bar to give more vertical space to the conversation.
+  // Dialogflow Messenger nests its UI across multiple open shadow roots, so hiding the
+  // title bar has to walk those roots instead of relying on a selector in only one root.
   // The custom launcher remains available as the close control when the chat is open.
   function hideChatTitlebar() {
     var bubble = getMessengerElements().bubble;
-    var chat = bubble && bubble.shadowRoot && bubble.shadowRoot.querySelector('df-messenger-chat');
-    var root = chat && chat.shadowRoot;
-    if (!root || root.querySelector('[data-rental-hide-titlebar]')) return;
+    if (!bubble || !bubble.shadowRoot) return;
 
-    var style = document.createElement('style');
-    style.setAttribute('data-rental-hide-titlebar', '');
-    style.textContent = [
-      'df-messenger-titlebar{display:none!important}',
-      '.titlebar{display:none!important}',
-      '.title-bar{display:none!important}'
-    ].join('');
-    root.appendChild(style);
+    var hiddenCount = 0;
+
+    function visit(root) {
+      if (!root || typeof root.querySelectorAll !== 'function') return;
+
+      root.querySelectorAll('*').forEach(function (element) {
+        var tag = (element.tagName || '').toLowerCase();
+        var className = typeof element.className === 'string' ? element.className.toLowerCase() : '';
+        var id = (element.id || '').toLowerCase();
+
+        var isTitlebar =
+          tag.indexOf('titlebar') !== -1 ||
+          tag.indexOf('title-bar') !== -1 ||
+          className.indexOf('titlebar') !== -1 ||
+          className.indexOf('title-bar') !== -1 ||
+          id.indexOf('titlebar') !== -1 ||
+          id.indexOf('title-bar') !== -1;
+
+        if (isTitlebar) {
+          element.style.setProperty('display', 'none', 'important');
+          element.setAttribute('aria-hidden', 'true');
+          hiddenCount += 1;
+        }
+
+        if (element.shadowRoot) visit(element.shadowRoot);
+      });
+    }
+
+    visit(bubble.shadowRoot);
+
+    // Some Messenger internals are hydrated only after the chat opens. Retry briefly so
+    // the title bar is removed even when it appears a moment after the outer component.
+    if (hiddenCount === 0) {
+      window.setTimeout(function () {
+        var currentBubble = getMessengerElements().bubble;
+        if (currentBubble && currentBubble.shadowRoot) visit(currentBubble.shadowRoot);
+      }, 80);
+      window.setTimeout(function () {
+        var currentBubble = getMessengerElements().bubble;
+        if (currentBubble && currentBubble.shadowRoot) visit(currentBubble.shadowRoot);
+      }, 240);
+    }
   }
 
   // Keep the notice in the input layout so it never covers a message.
