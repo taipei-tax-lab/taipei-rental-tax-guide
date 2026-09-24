@@ -11,11 +11,22 @@ Last updated: 2026-09-24
 
 ## Active task
 
-- Status: **READY_FOR_IMPLEMENTATION**
+- Status: **IMPLEMENTED_AWAITING_REVIEW**
 - Task: 財產稅科 2026-09-22 最新 PDF 修正稿內容更新
 - Source review date: 2026-09-24
-- Detailed instructions: `TASK_2026-09-24_PROPERTY_TAX_REVIEW.md`
-- Recommended implementation branch: `fix/2026-09-24-property-tax-content`
+- Implementation branch: `fix/2026-09-24-property-tax-content`
+- Implementation commit SHA: `24c08736a13057df5b04b7f5c8490f7e366a88d5`
+- Changed files:
+  - `site/content.json` (方案文字、適用條件、連結文字與租稅摘要更新；新增臺北市住都中心資源)
+  - `scripts/build.mjs` (更新常見問題與房客服務窗口文字、比較表稅目備註取用邏輯、分組索引)
+  - `index.html` (依 source 自動建置之產出)
+- Test results:
+  - `node scripts/build.mjs`: PASS (Reproducible HTML generation)
+  - `node --test tests/*.test.mjs`: 18/18 PASS
+  - `node scripts/performance-budget.mjs`: PASS
+  - `git diff --check`: PASS (0 whitespace errors)
+  - `python scripts/messenger-regression.py`: ALL REGRESSION CHECKS PASSED (Chrome headless: Favicon, floating shortcut removal, notice non-clipping, gapless panel, responsive viewports 1440x900, 1280x800, 1100x800, 390x844, 360x800, 320x480, overflow = 0, pageerror = 0, console.error = 0)
+- Unresolved ambiguity: None (All PDF review items and user-confirmed corrections implemented faithfully)
 
 ## Source-of-truth rules
 
