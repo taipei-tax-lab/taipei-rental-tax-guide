@@ -29,34 +29,34 @@
       status: "等待您的問題"
     },
     welcome: {
-      eyebrow: "歡迎使用",
-      title: "您好，我來協助您",
-      description: "可以直接輸入問題，也可以從熱門問題開始查詢。",
-      status: "準備為您服務"
+      eyebrow: "臺北市稅捐稽徵處",
+      title: "租稅小幫手",
+      description: "有出租房屋租稅、出租方案或申請流程問題，都可以直接問我。",
+      status: "等待您的問題"
     },
     thinking: {
-      eyebrow: "資訊整理中",
-      title: "正在整理相關資訊",
-      description: "我正在依您的問題查找並整理相關租稅與申請資訊。",
-      status: "查詢與整理中…"
+      eyebrow: "臺北市稅捐稽徵處",
+      title: "租稅小幫手",
+      description: "有出租房屋租稅、出租方案或申請流程問題，都可以直接問我。",
+      status: "等待您的問題"
     },
     responding: {
-      eyebrow: "回答已準備完成",
-      title: "已為您整理好回答",
-      description: "請查看右側回覆；如果還有不清楚的地方，可以繼續追問。",
-      status: "回答已送達"
+      eyebrow: "臺北市稅捐稽徵處",
+      title: "租稅小幫手",
+      description: "有出租房屋租稅、出租方案或申請流程問題，都可以直接問我。",
+      status: "等待您的問題"
     },
     guiding: {
-      eyebrow: "快速引導",
-      title: "已收到您選擇的主題",
-      description: "我會以這個主題為起點，整理相關資訊給您。",
-      status: "正在帶入主題…"
+      eyebrow: "臺北市稅捐稽徵處",
+      title: "租稅小幫手",
+      description: "有出租房屋租稅、出租方案或申請流程問題，都可以直接問我。",
+      status: "等待您的問題"
     },
     error: {
-      eyebrow: "暫時無法完成",
-      title: "這次查詢沒有順利完成",
-      description: "請稍後再試一次，或重新輸入您的問題。",
-      status: "請重新嘗試"
+      eyebrow: "臺北市稅捐稽徵處",
+      title: "租稅小幫手",
+      description: "有出租房屋租稅、出租方案或申請流程問題，都可以直接問我。",
+      status: "等待您的問題"
     }
   };
 
