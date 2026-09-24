@@ -82,8 +82,8 @@ const planDetails = plans.map(plan => {
 
 const groups = [
   {title: '我要申請租金補貼', intro: '中央租金補貼、臺北幸福租與各類身分補貼。', ids: [0,1,2,3,4], icon: 'subsidy', label: '查看補貼入口'},
-  {title: '我要找包租代管房屋', intro: '查承租資格、合作業者與友善房源資訊。', ids: [5,6,7], icon: 'building', label: '查看房源與承租資訊'},
-  {title: '我有租屋／設籍問題', intro: '設籍、租約法律諮詢與消費爭議，請依需求找下列窗口。', ids: [8,9,10,11], icon: 'person', label: '查看對應服務窗口'}
+  {title: '我要找包租代管房屋', intro: '查承租資格、合作業者與友善房源資訊。', ids: [5,6,7,8], icon: 'building', label: '查看房源與承租資訊'},
+  {title: '我有租屋／設籍問題', intro: '設籍、租約法律諮詢與消費爭議，請依問題找下列窗口。', ids: [9,10,11,12], icon: 'person', label: '查看對應服務窗口'}
 ];
 const tenantGroups = groups.map((group, i) => `<details class="v2-tenant-card" id="tenant-group-${i}"><summary><span class="v2-plan-icon">${icon(group.icon)}</span><h3>${esc(group.title)}</h3><p>${esc(group.intro)}</p><span class="v2-card-action">${esc(group.label)} <span class="v2-expand" aria-hidden="true">＋</span></span></summary><div class="v2-tenant-links">${group.ids.map(index => {const item = data.tenants[index]; return `<div>${link({label: item.title, href: item.href})}<p>${esc(item.source)}</p></div>`;}).join('')}<p class="v2-caption">請依各機關最新公告為準。</p></div></details>`).join('\n');
 
@@ -99,17 +99,16 @@ const faqs = [
   ],
   [
     '「包租」與「代管」有什麼不同？',
-    '包租是指租屋服務事業（租賃住宅服務業）與房東簽訂包租約後，以二房東角色，再轉租給房客，並提供管理服務；代管則是租屋服務事業（租賃住宅服務業）協助房東出租住宅給房客，由房東與房客簽訂租約，並提供管理服務。政府社會住宅包租代管與個人租賃住宅包租代管的適用條件不同。',
+    '包租是指租屋服務事業（租賃住宅服務業）與房東簽訂租約後，以二房東角色，再轉租給房客，並提供管理服務；代管則是租屋服務事業（租賃住宅服務業）協助房東將住宅媒合並出租給房客，由房東與房客簽訂租約，並提供管理服務。政府社會住宅包租代管與個人租賃住宅包租代管的適用條件不同。',
     [
       {href:'#comparison', label:'比較兩種包租代管方案'}
     ]
   ],
   [
     '本市一般租金標準？',
-    '可備妥房屋評定現值、公告土地現值總額與全年租金，使用官方工具試算。租金標準與實際應納稅額不同。',
+    '可備妥房屋評定現值、公告土地現值與全年租金，使用官方工具試算。租金標準與實際應納稅額不同。',
     [
-      {href:data.meta.calculator, label:'開啟官方租金標準試算'},
-      {href:'https://law-out.mof.gov.tw/LawContent.aspx?id=GL011704', label:'114 年度房屋及土地之「當地一般租金標準」'}
+      {href:data.meta.calculator, label:'開啟官方租金標準試算'}
     ]
   ],
   [
@@ -127,10 +126,7 @@ const faqHtml = faqs.map(([q, a, actions = []]) => {
 const resources = data.resources.slice(3).map(item => `<div>${link({label:item.title,href:item.href})}<p>${esc(item.description)}</p></div>`).join('');
 const comparison = plans.map(plan => {
   const compareTaxes = plan.taxes.map(t => {
-    let note = t.note;
-    if (plan.id === 'ordinary' && t.label === '綜合所得稅') {
-      note = t.compareNote || t.note;
-    }
+    const note = t.compareNote || t.note;
     return tax({ ...t, note }, 'comparison');
   }).join('');
   return `<article data-compare-plan="${plan.id}" class="v2-compare-card v2-${plan.accent}"><h2>${esc(plan.eyebrow)}</h2><p class="v2-compare-situation">${esc(plan.compareSituation || plan.situation)}</p><dl><div><dt>管理方式</dt><dd>${esc(plan.management)}</dd></div><div><dt>主要門檻</dt><dd>${esc(plan.condition)}</dd></div>${compareTaxes}<div><dt>第一步</dt><dd>${esc(plan.firstStep)}</dd></div></dl><a href="#plan-${plan.id}" class="v2-button">查看優惠與辦理方式 →</a></article>`;

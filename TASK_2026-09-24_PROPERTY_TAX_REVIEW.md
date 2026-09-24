@@ -209,3 +209,38 @@ These two corrections supersede the literal PDF reading:
 5. Push branch。
 6. **不要開 PR。不要 merge main。**
 7. 停止並回報 ChatGPT Review。
+
+---
+
+## 13. ChatGPT review result (2026-09-24)
+
+Status: **PASS / APPROVED FOR PR**
+
+Verified directly on GitHub:
+- Branch: `fix/2026-09-24-property-tax-content`
+- Implementation commit: `24c08736a13057df5b04b7f5c8490f7e366a88d5`
+- State update commit: `7f3ad18cccdafa856263dc7bc86abc175251a664`
+- Branch is ahead of `main` by 2 commits and behind by 0.
+- Approved PDF edits and the two user-confirmed corrections are present in source and generated output.
+- Deliberate wording differences were preserved.
+- No unrelated UI / responsive / Messenger / image / performance changes were introduced.
+
+## 14. Next action: release
+
+AntiGravity 2.0 may now:
+1. Re-run build/tests.
+2. Open PR from `fix/2026-09-24-property-tax-content` to `main`.
+3. Merge via **Standard Merge Commit** only.
+4. Wait for GitHub Pages to build.
+5. Run a targeted production content smoke test.
+6. Update `PROJECT_STATE.md` to `RELEASED` with PR / merge / Pages / production verification data.
+7. Commit and push the final state update to `main`.
+8. Stop.
+
+Do not:
+- squash
+- rebase
+- force push
+- delete historical branches
+- perform extra content rewriting
+- make any UI polishing changes
