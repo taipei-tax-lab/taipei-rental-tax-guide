@@ -29,16 +29,16 @@ test('text hashing treats CRLF and LF as the same source content', () => {
 test('checked-in GitHub Pages output is reproducible', () => {
   execFileSync(process.execPath, ['scripts/build.mjs','--check'], {cwd: root});
 });
-test('approved owner-guide hierarchy stays clear and the source-check date appears only in the footer', () => {
+test('free-design owner flow presents optional guide before the scenario list and keeps the source-check date in the footer', () => {
   const template = read('site/template.html');
   const owner = template.slice(template.indexOf('<section id="owners"'), template.indexOf('<section id="tenants"'));
-  assert.match(owner, /<a class="v2-text-link v2-guide-shortcut" href="#guide">不確定適用方案？使用快速判斷找方向 →<\/a>/);
   const ownerTitle = owner.indexOf('id="owner-title"');
-  const shortcut = owner.indexOf('v2-guide-shortcut');
-  const plans = owner.indexOf('class="v2-plan-grid"');
   const guide = owner.indexOf('class="v2-guide"');
-  assert.ok(ownerTitle >= 0 && shortcut > ownerTitle && shortcut < plans, 'decision support follows the owner-plan heading and precedes the plan cards');
-  assert.ok(plans >= 0 && guide > plans, 'the full guide remains available after the plans');
+  const plans = owner.indexOf('class="v2-plan-grid"');
+  const caution = owner.indexOf('v2-plan-note');
+  assert.ok(ownerTitle >= 0 && guide > ownerTitle && guide < plans, 'quick guide follows the owner heading and precedes plan scenarios');
+  assert.ok(caution >= 0 && caution < plans, 'shared condition caution appears before the plan scenarios');
+  assert.match(owner, /不確定適用方案？/);
   assert.doesNotMatch(owner, /v2-source-check|租稅來源核對：/);
   assert.equal((template.match(/租稅來源核對：\{\{CHECKED\}\}/g) || []).length, 1, 'the template keeps one source-check placeholder');
   const footerStart = template.indexOf('<footer class="v2-footer">');
@@ -48,10 +48,9 @@ test('approved owner-guide hierarchy stays clear and the source-check date appea
   assert.doesNotMatch(html, /v2-source-check/);
   assert.equal(html.split('租稅來源核對：' + data.meta.checked).length - 1, 1, 'generated output keeps the footer date only');
   const css = read('assets/css/guide-v2.css');
-  assert.match(css, /\.v2-guide-shortcut\s*\{/);
-  assert.doesNotMatch(css, /\.v2-source-check\b/);
+  assert.match(css, /\.v2-plan-card:focus-visible\s*\{/);
+  assert.match(css, /\.v2-guide\s*>\s*summary:focus-visible\s*,/);
 });
-
 test('static anchors are unique and every internal link resolves', () => {
   const allIds = Array.from(html.matchAll(/\bid="([^"]+)"/g), m => m[1]);
   assert.equal(new Set(allIds).size, allIds.length);
@@ -140,46 +139,21 @@ test('income-standard-launcher floating shortcut is completely removed', () => {
   assert.doesNotMatch(html, /src="\.\/assets\/images\/income-standard-launcher\.png"/);
 });
 
-test('income-standard audience entry card is declared and built with responsive dual presentation', () => {
-  const cardAssetPath = path.join(root, 'assets/images/income-standard-card.png');
-  const illustAssetPath = path.join(root, 'assets/images/income-standard-illustration.png');
-  const oldBannerAssetPath = path.join(root, 'assets/images/income-standard-entry-card.png');
-  const oldIconAssetPath = path.join(root, 'assets/images/income-standard-icon.png');
-
-  assert.ok(fs.existsSync(cardAssetPath), 'income-standard-card.png asset must exist');
-  assert.ok(fs.existsSync(illustAssetPath), 'income-standard-illustration.png asset must exist');
-  assert.ok(!fs.existsSync(oldBannerAssetPath), 'old income-standard-entry-card.png must not exist');
-  assert.ok(!fs.existsSync(oldIconAssetPath), 'old income-standard-icon.png must not exist');
-
-  const template = fs.readFileSync(path.join(root, 'site/template.html'), 'utf8');
-  const freshHtml = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
-
+test('home prioritizes the two audience routes and preserves secondary service entry points', () => {
+  const template = read('site/template.html');
+  const freshHtml = read('index.html');
   for (const markup of [template, freshHtml]) {
-    assert.match(markup, /class="v2-audience-button v2-income-standard-entry"/);
+    assert.equal((markup.match(/class="v2-audience-button"/g) || []).length, 2, 'only owner and tenant are primary routes');
+    assert.match(markup, /href="#owners" data-audience="owner"/);
+    assert.match(markup, /href="#tenants" data-audience="tenant"/);
+    assert.match(markup, /class="v2-service-link v2-chat-entry" id="open-helper"/);
     assert.match(markup, /href="https:\/\/services\.arpa\.tpctax\.dof\.gov\.taipei\/incomeReachStandard\/form\.php"/);
     assert.match(markup, /target="_blank"/);
     assert.match(markup, /rel="noopener noreferrer"/);
     assert.match(markup, /aria-label="所得達租金標準申報優惠稅率專區（另開新視窗）"/);
-    assert.match(markup, /<picture class="v2-income-standard-fallback-icon">/);
-    assert.match(markup, /<source media="\(min-width: 1100px\)" type="image\/webp" srcset="\.\/assets\/images\/income-standard-card\.webp"/);
-    assert.match(markup, /class="v2-income-standard-fallback"/);
-    assert.match(markup, /class="v2-income-standard-card-image"\s+src="data:image\/gif;base64,/);
-    const entry = markup.slice(markup.indexOf('class="v2-audience-button v2-income-standard-entry"'), markup.indexOf('</picture>') + 10);
-    assert.equal((entry.match(/<img\b/g) || []).length, 1, 'One responsive image, not two eager images');
-    assert.match(markup, /<strong>所得達租金標準<\/strong>/);
-    assert.match(markup, /<small>申報優惠稅率專區<\/small>/);
-    assert.doesNotMatch(markup, /income-standard-entry-card\.png/);
-    assert.doesNotMatch(markup, /income-standard-icon\.png/);
-
-    // Extract Card 4 HTML and verify no arrow elements or characters
-    const card4Html = markup.slice(markup.indexOf('v2-income-standard-entry'), markup.indexOf('</div>', markup.indexOf('v2-income-standard-entry')) + 10);
-    assert.doesNotMatch(card4Html, />\s*→|&gt;|aria-hidden="true">\s*→/);
+    assert.doesNotMatch(markup, /v2-income-standard-fallback|v2-income-standard-card-image/);
   }
-
-  const css = fs.readFileSync(path.join(root, 'assets/css/guide-v2.css'), 'utf8');
-  assert.match(css, /@media\s*\(min-width:\s*1100px\)/);
-  assert.match(css, /@media\s*\(max-width:\s*1099px\)/);
-  assert.match(css, /\.v2-income-standard-card-image/);
-  assert.match(css, /\.v2-income-standard-fallback/);
+  const css = read('assets/css/guide-v2.css');
+  assert.match(css, /\.v2-service-tools\s*\{/);
+  assert.match(css, /@media\(max-width:700px\)/);
 });
-
