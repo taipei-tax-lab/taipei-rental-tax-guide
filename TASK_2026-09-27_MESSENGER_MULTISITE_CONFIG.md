@@ -1,6 +1,6 @@
 # TASK_2026-09-27_MESSENGER_MULTISITE_CONFIG
 
-Status: **READY_FOR_IMPLEMENTATION**
+Status: **IMPLEMENTED_AWAITING_REVIEW**
 
 ## 目標
 
@@ -295,3 +295,17 @@ Do not:
 - modify the CX/QA repo
 
 Release will happen only after cross-repo and Web ChatGPT review.
+
+## Implementation result (2026-09-27)
+
+- Status: **IMPLEMENTED_AWAITING_REVIEW**.
+- Implementation commit: `df23991e52258c8e14ae2b26fe5f02158f2f544c`.
+- Config mechanism: the rental site's existing `df-messenger` element now declares `data-initial-playbook` with `projects/serviceagent-1150909/locations/asia-northeast1/agents/799426c1-ba69-49dc-85e4-5065985706e2/playbooks/7861bc8f-d2fb-43d3-8ca1-651415eb4205`. Shared JS reads the attribute; it has no Rental Playbook fallback. Missing or blank config omits `currentPlaybook` and retains `timeZone` and runtime `parameters`.
+- First-turn semantics: configured `currentPlaybook` is armed for the initial request only, removed after `df-request-sent`, and re-armed on new session, session expiration/end, or storage reset. Hash changes continue updating only the current page section; after first request they do not re-arm `currentPlaybook`.
+- Runtime contract preserved: `runtime_entry_section` remains hash / `main[data-page]`; `runtime_current_date` remains unchanged; timezone remains `Asia/Taipei`; no `runtime_site` or `current_house_tax_year` was introduced.
+- Changed files: `site/messenger.html`, `assets/js/messenger-ui.js`, `tests/messenger-runtime.test.mjs`, generated `index.html`, this task, and `PROJECT_STATE.md`.
+- Regression tests: 8 new behavior/config tests cover site config and generated output, no shared Rental fallback, first-turn and post-request behavior, session re-arm lifecycle, missing config, runtime date/timezone/section semantics, page hash updates, and preserved Messenger UI/copy.
+- Validation: normal build PASS; `node scripts/build.mjs --check` PASS; `node --test` PASS (28/28); `node scripts/performance-budget.mjs` PASS; `git diff --check` PASS.
+- Browser smoke: Chrome open/close/reopen passed without sending a query. No horizontal overflow at 1536px, 390px, or 320px. Captured screenshots showed no visible error text. The accessibility tree exposed the generic `Something went wrong` string on both localhost and the existing production page; no CX response was tested, so live-answer behavior remains unverified.
+- Cross-repo checkpoint: latest read was QA framework `main` / `origin/main` at `6af5e207e3283cc5f49415cbb879ef31cad2de30`; clean working tree. Active QA-12B is READY TO EXECUTE and modifies only Example 2 while freezing Instructions and frontend/runtime transport. Rental Playbook resource ID, input names `runtime_current_date` / `runtime_entry_section`, and QA-10C contract are unchanged. No frontend change or CX mutation is needed for this task. Include QA-12B's eventual result in integration review before any release. QA repo remained untouched.
+- No PR was opened, no merge was made, and GitHub Pages configuration was not changed.

@@ -35,7 +35,7 @@ Last updated: 2026-09-27
 
 ## Active task
 
-- Status: **READY_FOR_IMPLEMENTATION**
+- Status: **IMPLEMENTED_AWAITING_REVIEW**
 - Task: Messenger multi-site config v1
 - Task file: `TASK_2026-09-27_MESSENGER_MULTISITE_CONFIG.md`
 - Execution agent: local Codex Desktop
@@ -52,11 +52,25 @@ Last updated: 2026-09-27
   - QA-10C first-turn arm / post-request disarm / session re-arm lifecycle
 - Generic fallback: if a future site has no initial Playbook config, omit `currentPlaybook` and let the Agent default Router handle entry; never fall back to Rental
 - Cross-repo coordination: read `taipei-tax-lab/dialogflow-cx-qa-framework` STATE/TASKS at start and before completion; do not modify that repo from this task
-- Current QA-side expected work: QA-12A Instructions-only behavior repair; it explicitly forbids frontend/runtime transport changes
+- Current QA-side expected work: QA-12B Example 2 causality experiment; Instructions and frontend/runtime transport are frozen
 - Multi-agent rule: each agent owns one repo/scope; at milestones sessions read the other repo's STATE/TASK; if contradiction exists, authorize one agent only to mutate the affected side
 - This task does not add 1999/納保 Playbooks or IDs; it only makes the current frontend ready for site-specific initial Playbook configuration
 - Completion: update STATE/TASK to `IMPLEMENTED_AWAITING_REVIEW`, commit/push branch, then stop
 - No PR, no merge, no Pages switch, no CX/GCP mutation
+
+## Messenger multi-site config v1 implementation (2026-09-27)
+
+- Status: **IMPLEMENTED_AWAITING_REVIEW**.
+- Work branch: `refactor/messenger-multisite-config`, based on production `main` at `1ae269999bc3048320ac471f7e21ffccc925ae72`.
+- Implementation commit: `df23991e52258c8e14ae2b26fe5f02158f2f544c` (`refactor(messenger): configure initial playbook per site`).
+- `site/messenger.html` declares `data-initial-playbook` with the current Rental Tax Guide resource. Shared `assets/js/messenger-ui.js` reads this site config and only includes `currentPlaybook` when a nonblank value exists; missing config sends the existing timezone/runtime parameters and leaves entry to the Agent default Router.
+- `currentPlaybook` remains first-request priority only. Existing QA-10C arm/disarm/re-arm behavior is preserved. `runtime_entry_section` remains the page section from hash / `main[data-page]`; `runtime_current_date` and `Asia/Taipei` are unchanged. No `runtime_site` or `current_house_tax_year` was added.
+- Changed implementation files: `site/messenger.html`, `assets/js/messenger-ui.js`, `tests/messenger-runtime.test.mjs`, and generated `index.html` (config plus Messenger JS cache hash).
+- Regression coverage: 8 new Messenger runtime/config tests; full Node suite **28/28 passed**.
+- Validation: normal build PASS; build `--check` PASS; full Node tests PASS (28/28); performance budget PASS; `git diff --check` PASS.
+- Browser smoke: Chrome opened, closed, and reopened Messenger without sending a query. No horizontal overflow at 1536px (document/body 1521px), 390px (375px), or 320px (320px). Screenshots showed no visible error text. The accessibility tree exposed the widget's generic `Something went wrong` string on both localhost and the existing production page; this was also not visible in the captured production screenshot. No CX response behavior was tested.
+- Cross-repo checkpoint: `dialogflow-cx-qa-framework` was clean on `main` at both observations (start `59a1e7480acfbe7150736cafcc53c4929816c76b`; completion `6af5e207e3283cc5f49415cbb879ef31cad2de30`, matching `origin/main`). Latest QA task is QA-12B, READY TO EXECUTE; it freezes Instructions and frontend/runtime transport and targets only Example 2. The Rental Playbook ID, input parameter names (`runtime_current_date`, `runtime_entry_section`), and QA-10C runtime contract are unchanged. No frontend follow-up is needed for this contract-preserving refactor; QA-12B results should be included in integration review before any release. The QA repo was not modified.
+- No PR, merge, Pages publishing change, or CX/GCP mutation was made.
 
 ## Messenger multi-site architecture decision (2026-09-27)
 
