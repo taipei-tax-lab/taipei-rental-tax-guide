@@ -25,15 +25,30 @@ Last updated: 2026-09-27
 
 ## Active task
 
-- Status: **RELEASED**
-- Task: Phase 5A 公務 CX source 一致性與跨平台 release gate
-- Task file: `TASK_2026-09-27_PHASE5A_CX_RELEASE_GATE.md`
+- Status: **READY_FOR_IMPLEMENTATION**
+- Task: Post-release maintenance / audit follow-up
+- Task file: `TASK_2026-09-27_POST_RELEASE_MAINTENANCE.md`
 - Execution agent: local Codex Desktop
-- Work branch: `phase5a-official-cx` (merged into `main`; historical branch retained)
-- Review gate: **PASSED**
-- Runtime smoke gate: **PASSED on production GitHub Pages**
-- PR: [#9](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/pull/9)
-- Release merge: `251884ee3d133d4f2e5723b3d25ccdfc8a1bf642` (Standard Merge Commit)
+- Start branch: latest `main`
+- Work branch to create: `maintenance/2026-09-27-post-release`
+- Scope:
+  - fix stale tenant-count tests/docs
+  - update outdated README release wording
+  - clean stale regression-script descriptions
+  - classify remaining audit findings into a technical-debt backlog
+- Review gate: ChatGPT review after implementation
+- PR / merge: **not allowed yet**
+- Completion requirement: Codex must update both `PROJECT_STATE.md` and the active TASK with implementation SHA, changed files, validation results, backlog classification, limitations/ambiguities, then push the work branch and stop.
+
+## Post-release handoff
+
+- Phase 5A is closed and released.
+- Phase 5A task file was finalized as `RELEASED`.
+- New maintenance task created: `TASK_2026-09-27_POST_RELEASE_MAINTENANCE.md`.
+- Planning commits on `main`:
+  - `8a2f8f4818b3c0b6efea9743d5c3c782a50c5d17` — close Phase 5A task
+  - `bb9fdc8c1aac0b5a319b95967e2a2be24d3056f0` — add post-release maintenance task
+- Project rule remains: agents/conversations may be stateless; repository STATE/TASK are the handoff source.
 
 ## Phase 5A final release result (2026-09-27)
 
