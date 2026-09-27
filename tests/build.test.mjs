@@ -29,6 +29,21 @@ test('text hashing treats CRLF and LF as the same source content', () => {
 test('checked-in GitHub Pages output is reproducible', () => {
   execFileSync(process.execPath, ['scripts/build.mjs','--check'], {cwd: root});
 });
+test("owner guide is subordinate help and source-check date uses the metadata source", () => {
+  const template = read('site/template.html');
+  const owner = template.slice(template.indexOf('<section id="owners"'), template.indexOf('<section id="tenants"'));
+  assert.match(owner, /<a class="v2-text-link v2-guide-shortcut" href="#guide">不確定適用方案？使用快速判斷找方向 →<\/a>/);
+  const plans = owner.indexOf('class="v2-plan-grid"');
+  const freshness = owner.indexOf('class="v2-source-check"');
+  const guide = owner.indexOf('class="v2-guide"');
+  assert.ok(plans >= 0 && freshness > plans && guide > freshness, "freshness follows the four plans and precedes optional guidance");
+  assert.equal((template.match(/租稅來源核對：\{\{CHECKED\}\}/g) || []).length, 2, "plan area and footer use the same generated date");
+  assert.equal(html.split(`租稅來源核對：${data.meta.checked}`).length - 1, 2, "both displays use meta.checked");
+  const css = read('assets/css/guide-v2.css');
+  assert.match(css, /\.v2-guide-shortcut\s*\{/);
+  assert.match(css, /\.v2-site\s+\.v2-source-check\s*\{/);
+  assert.match(css, /@media\s*\(max-width:\s*700px\)[\s\S]*?\.v2-site\s+\.v2-source-check\s*\{\s*text-align:\s*left;/);
+});
 test('static anchors are unique and every internal link resolves', () => {
   const allIds = Array.from(html.matchAll(/\bid="([^"]+)"/g), m => m[1]);
   assert.equal(new Set(allIds).size, allIds.length);
