@@ -24,13 +24,14 @@ Last updated: 2026-09-27
 
 ## Active task
 
-- Status: **IMPLEMENTED_AWAITING_REVIEW**
+- Status: **REVIEW_APPROVED_READY_FOR_PR**
 - Task: Phase 5A 公務 CX source 一致性與跨平台 release gate
 - Task file: `TASK_2026-09-27_PHASE5A_CX_RELEASE_GATE.md`
 - Execution agent: local Codex Desktop
 - Work branch: `phase5a-official-cx`
-- Review gate: ChatGPT review after implementation
-- PR / merge: **not allowed yet**
+- Review gate: **PASSED**
+- Runtime smoke gate: **PASSED on GitHub Pages**
+- PR / merge: **approved to proceed with release protocol**
 
 ## Audit result (2026-09-27)
 
@@ -159,3 +160,70 @@ Codex should:
 8. stop and return the result for ChatGPT review
 
 Do not open PR. Do not merge main.
+
+
+## Review approval and runtime smoke (2026-09-27)
+
+### ChatGPT GitHub review
+
+Result: **PASS**
+
+Verified directly on GitHub:
+- implementation commit `5a16eeb3feb6d53be791f756fcd9df7d9141a46c`
+- state commit `f47095fb12c53ce91bf77d8241a7bc09f16383b2`
+- candidate source and generated output both use the official CX configuration
+- private CX IDs are absent from the candidate Messenger source/output
+- source/generated CX consistency guard is present
+- CRLF/LF normalization and explicit LF policy are implemented
+- no unrelated P2/P3 refactor was mixed into the release-gate implementation
+- branch remains based on current `main` and was not behind at review time
+
+### GitHub Pages candidate deployment
+
+- GitHub Pages was switched to `phase5a-official-cx`.
+- Deployment of candidate HEAD `f47095fb12c53ce91bf77d8241a7bc09f16383b2` completed successfully.
+- The allowed Dialogflow Messenger domain is `taipei-tax-lab.github.io`.
+- The user manually verified the live GitHub Pages candidate:
+  - Messenger opens normally
+  - no `Something went wrong` error on the allowed domain
+  - official CX interaction works
+  - no blocking issue observed
+
+The localhost-only `Something went wrong` observed during Codex smoke testing is therefore treated as expected behavior under the configured domain restriction, not a release blocker.
+
+## Release protocol for Phase 5A
+
+The candidate is now approved to proceed:
+
+1. Fetch latest refs and confirm `phase5a-official-cx` is not behind `main`.
+2. Re-run the release-gate checks:
+   - build
+   - build --check
+   - full Node tests
+   - performance budget
+   - `git diff --check`
+3. Open a PR:
+   - base: `main`
+   - head: `phase5a-official-cx`
+4. Use **Standard Merge Commit** only.
+   - no squash
+   - no rebase
+5. After merge, switch GitHub Pages back to `main`.
+6. Wait for the Pages deployment from `main` to complete.
+7. Perform a final production smoke test on the live Pages site:
+   - confirm official CX is still active
+   - Messenger opens
+   - one basic query can be sent and answered
+   - close / reopen works
+   - no horizontal overflow at desktop/mobile
+   - no visible `Something went wrong`
+8. Update `PROJECT_STATE.md` on `main`:
+   - Status → `RELEASED`
+   - PR number / URL
+   - release merge commit SHA
+   - Pages deployment result
+   - production smoke test result
+9. Commit and push the final state update to `main`.
+10. Preserve historical branches.
+
+Do not include deferred P2/P3 cleanup in this release.
