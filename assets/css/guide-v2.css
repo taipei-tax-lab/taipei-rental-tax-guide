@@ -525,4 +525,5 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
 .v2-unit { white-space:nowrap; display:inline; }
 .v2-guide-result-list .v2-unit { color:inherit; font:inherit; display:inline; }
 .v2-inner-page > h1 { font-size:28px; }
+.v2-guide-shortcut { display:inline-block; margin-top:8px; font-size:1rem; font-weight:600; }
 .v2-site .v2-compare-card h2 { font-size:22px; }

@@ -9,8 +9,9 @@ Last updated: 2026-09-27
 - Previous production baseline before Phase 5A: `ab1cb35b53763a6e6341b2041125894defaf8b27`
 - Previous production release merge: `251884ee3d133d4f2e5723b3d25ccdfc8a1bf642` (PR #9)
 - Latest production release merge: `20c915066c87fc4308c89dc601d324803b3bc0ef` (PR #10)
-- Latest production commit: `e1d8642a88b26e42fce0f3100a4f51fc96d9fde9` — QA-10C Generic Runtime Context v1
-- Latest GitHub Pages deployment: run #90, commit `e1d8642`, completed successfully
+- Latest production application commit: `e1d8642a88b26e42fce0f3100a4f51fc96d9fde9` (QA-10C Generic Runtime Context v1)
+- Latest `main` planning/state commit: `73d0bbbb242e66080cc316a6bd38cfebfaa1853c`.
+- Latest GitHub Pages deployment: run #90, production source commit `e1d8642`, completed successfully.
 - GitHub Pages: `https://taipei-tax-lab.github.io/taipei-rental-tax-guide/`
 - Production status: **RELEASED**
 - Production Messenger now uses the official/public-service CX configuration.
@@ -25,19 +26,138 @@ Last updated: 2026-09-27
   - project-id: `serviceagent-1150909`
   - agent-id: `799426c1-ba69-49dc-85e4-5065985706e2`
 
+## Latest production task — QA-10C Generic Runtime Context v1 (2026-09-27)
+
+- Status: **CLOSED — REVIEWED PASS**.
+- Frontend implementation: `e1d8642a88b26e42fce0f3100a4f51fc96d9fde9`; framework implementation: `8389b8b54ad7ee8e0cd6e103228aab5b7a234aff`.
+- Production Pages deployment run #90 succeeded; Messenger E01–E08 8/8, targeted CX regression 4/4, frontend tests 19/19, and build check passed.
+- Runtime date/timezone/entry section remain generic integration context; tax-year knowledge remains in CX knowledge and is not hard-coded in frontend JS.
+
 ## Active task
 
-- Status: **CLOSED — REVIEWED PASS**
-- Task: QA-10C Generic Runtime Context v1 / First Production Consumer: Rental Tax Guide
-- QA framework: `taipei-tax-lab/dialogflow-cx-qa-framework`
-- QA framework implementation commit: `8389b8b54ad7ee8e0cd6e103228aab5b7a234aff`
-- Frontend implementation commit: `e1d8642a88b26e42fce0f3100a4f51fc96d9fde9`
-- GitHub Pages deployment: run #90 — **success**
-- Validation: Messenger E01–E08 8/8 PASS; targeted CX regression 4/4 PASS; frontend tests 19/19 PASS; build check PASS.
-- Review: Web ChatGPT **PASS** on 2026-09-27.
-- Architectural boundary: runtime date/timezone/entry section are generic integration context;房屋稅年期 remains Common Property Tax Knowledge and is not hard-coded into frontend JS.
-- Final full approved v1.2 regression remains a future QA release gate.
-- No subsequent production task is authorized by this state update.
+- Status: **REVIEW_APPROVED_READY_FOR_PR**
+- Task: Impeccable UX refinement PoC — keep approved quick-guide hierarchy only
+- Task file: `TASK_2026-09-27_IMPECCABLE_UX_AUDIT.md`
+- Execution agent: local Codex Desktop
+- Baseline: production `main` at `73d0bbbb242e66080cc316a6bd38cfebfaa1853c` (source release `e1d8642a88b26e42fce0f3100a4f51fc96d9fde9`; Pages run #90 passed)
+- Work branch: `ux/impeccable-refinement-poc`
+- Human visual review decision:
+  1. **APPROVE** the quick-guide hierarchy refinement: `不確定適用方案？使用快速判斷找方向 →`
+  2. **REJECT / REVERT** the added owner-plan-area `租稅來源核對` line; the existing footer source-check date is sufficient
+  3. keep the first-viewport compression candidate deferred
+- Required final source result:
+  - keep the quick-guide shortcut layout/style/wording
+  - remove the new plan-area source-check markup and its dedicated CSS
+  - return source-check display count to the original footer-only behavior
+  - update the Stage 2 regression test so it protects the approved quick-guide hierarchy without requiring the rejected date duplication
+- Release authorization: after the revision passes all gates, open a PR to `main`, use **Standard Merge Commit** only, wait for Pages, verify production, and update STATE/TASK to `RELEASED`
+- Do not start the next free-design Impeccable experiment until this release is complete
+
+## Human visual review decision (2026-09-27)
+
+- The user compared local baseline and candidate side by side.
+- **Accepted:** moving the quick-guide shortcut under the owner-plan heading and clarifying it as a fallback/decision-support path. The visual hierarchy is improved enough to keep.
+- **Rejected:** duplicating `租稅來源核對：{{CHECKED}}` directly below the four plan cards. In real visual review it felt unnecessary and added clutter; the existing footer date is sufficient.
+- Therefore the production-bound change is intentionally smaller than the Stage 2 candidate: **quick-guide hierarchy only**.
+- This is a UX judgment from direct side-by-side human review and supersedes the earlier Stage 2 approval of the source-check-date candidate.
+
+## Impeccable Stage 2 decision
+
+- Human review approved Stage 1 candidates #2 and #3 for a small implementation experiment.
+- Candidate #2: clarify the hierarchy between four rental plans and the “不知道怎麼選？” guide.
+- Candidate #3: show the existing source-check date closer to the tax-plan/comparison information while keeping `site/content.json -> meta.checked` as the single source of truth.
+- Candidate #1 (force benefit summaries into the first desktop viewport) is deferred.
+- Stage 2 remains an isolated PoC on the same branch; production `main` is unchanged.
+- Human review is required again before any PR or merge.
+
+## Stage 2 implementation result (2026-09-27)
+
+- Status: **STAGE2_IMPLEMENTED_AWAITING_HUMAN_REVIEW**
+- Work branch: ux/impeccable-refinement-poc
+- Implementation commit: 4c65a700dc870f06c3eb1150cb32a9682f920cc0 (feat: refine owner plan guidance layout).
+- Production main remains at the recorded baseline; no PR, merge, or GitHub Pages source change was made.
+
+### Approved changes
+
+- The quick-guide shortcut now sits under the owner-plan heading with helper wording that presents it as decision support. The four plans and their order remain unchanged; the guide disclosure and behavior remain available below the plans.
+- A secondary 租稅來源核對 line now follows the four plan cards and precedes their caveat. Both the new line and existing footer use the generated meta.checked value; the footer remains.
+- On screens at or below 700px, the new date line is left aligned so the label and date remain visible. At wider widths it is right aligned.
+- The deferred first-viewport compression was not implemented. No policy, tax wording, figures, eligibility rules, guide logic, Messenger, or CX content changed.
+
+### Impeccable approach and validation
+
+- Used the installed Impeccable layout workflow and spatial-hierarchy review. Two independent layout assessments informed the direction. The layout-only detector reported 8 warnings on unrelated existing patterns (3 icon-tile-stack and 5 cramped-padding); neither approved target was flagged. No new broad audit or critique, or prohibited refinement mode, was run.
+- node scripts/build.mjs: PASS.
+- node scripts/build.mjs --check: PASS.
+- node --test: PASS, 20 tests; 0 failures.
+- node scripts/performance-budget.mjs: PASS for all three static assets and guards.
+- git diff --check: PASS.
+
+### Browser review
+
+- Compared the production baseline with the local build in Chrome at 1440px desktop, 720px intermediate, 390×844, and 320×844 viewports.
+- At 1440px, the helper remains subordinate under the heading, all four plans stay in one row, and the source-check date appears below the cards before the caveat. The separate quick-guide panel remains easy to find.
+- At 720px, the plans form two columns; the source-check line remains immediately after them and right aligned.
+- At 390px and 320px, plan cards stack in reading order, the helper link wraps naturally, and the source-check date is visible and left aligned. Browser measurements showed no horizontal overflow in either candidate viewport; the production baseline also showed no horizontal overflow.
+- The local Playwright package is unavailable, so no repository Playwright suite ran. Targeted checks used the Codex Chrome browser viewport and read-only page inspection; no dependency was added. 200% browser zoom was not verified. Physical-device, synthesized-touch, and full keyboard/screen-reader checks were not performed.
+
+## Stage 2 ChatGPT review (2026-09-27)
+
+Result: **CHANGES REQUESTED — one small typography regression**
+
+The Stage 2 structure and scope are otherwise sound:
+- quick-guide hierarchy change is appropriately small and preserves behavior
+- source-check date uses the existing `{{CHECKED}}` source and keeps the footer
+- deferred first-viewport compression was not implemented
+- no policy/tax/CX changes were mixed in
+- reported build/test/performance checks are green
+
+One correction is required before human visual review:
+
+- Existing project typography rule in `assets/css/guide-v2.css` explicitly states: `body 18px, supporting text at least 16px`.
+- Stage 2 added:
+  - `.v2-guide-shortcut { font-size: .9375rem; }` → 15px at the default root size
+  - `.v2-source-check { font-size: .875rem; }` → 14px
+- Both newly added supporting texts therefore fall below the project's established minimum supporting-text size.
+
+Required correction:
+- keep the new hierarchy/layout and muted treatment
+- remove the shortcut's smaller font override or set it to at least `1rem`
+- set the source-check line to at least `1rem`
+- preserve visual subordination through color, weight, spacing, alignment, and placement rather than sub-16px text
+- rerun build, build --check, Node tests, performance budget, and `git diff --check`
+- update STATE/TASK with the corrective commit and validation
+- then return status to `STAGE2_IMPLEMENTED_AWAITING_HUMAN_REVIEW`
+
+No other Stage 2 redesign or refinement is requested.
+
+## Stage 2 typography correction (2026-09-27)
+
+- Status: **STAGE2_IMPLEMENTED_AWAITING_HUMAN_REVIEW**
+- Corrective implementation commit: 7adadd5a09c153202aec4a6a7b79fdce3a6ca68e.
+- In assets/css/guide-v2.css, only the two reviewed font sizes changed: the quick-guide shortcut and source-check line are now 1rem (16px). Their color, weight, spacing, alignment, placement, wording, and behavior remain unchanged.
+- index.html was regenerated; its only change is the stylesheet cache hash.
+- Browser computed styles confirmed both texts render at 16px with a 16px root size at the default desktop viewport and a 390px viewport.
+- Validation: node scripts/build.mjs PASS; node scripts/build.mjs --check PASS; node --test PASS (20/20); node scripts/performance-budget.mjs PASS; git diff --check PASS.
+- No additional Impeccable refinement, other UI/UX changes, policy/tax/CX changes, PR, merge, or Pages switch was made.
+
+## Impeccable PoC handoff
+
+- Production `main` remains released and unchanged.
+- This PoC is isolated on `ux/impeccable-refinement-poc`.
+- Impeccable is already installed in Codex; do not project-local install, run `init`, or run `document`.
+- Stage 1 is intentionally read-only for website source. The purpose is to test the quality of Impeccable's UX judgment before approving any refinement.
+- The repository STATE/TASK remain the handoff source between agents.
+
+## Impeccable UX audit result (Stage 1, 2026-09-27)
+
+- Status: **AUDIT_COMPLETE_AWAITING_HUMAN_SELECTION**; next step is human selection of any Stage 2 candidate.
+- Target: production page `https://taipei-tax-lab.github.io/taipei-rental-tax-guide/`, source target `index.html`, slug `index-html`.
+- Technical audit health: **14/20 (Good)**. Critique: **31/40 (Good, 77.5%)**; all 10 Read-mode heuristics applied.
+- The TASK file contains the evidence, detector rule-by-rule review, heuristic scores, limitations, and 3 Stage 2 candidates. The detector emitted 107 warnings across 6 rules; source review classified these as a mix of false positives, intentional patterns, and one low-impact partial padding observation—not 107 defects.
+- Three medium-priority critique observations: first tax benefit summaries start below the inspected desktop first viewport; four owner plans plus the guide appear as five paths; the existing source-check date is only in the footer. One low-priority observation concerns the guide combining subsidy qualification with subsidy already received.
+- Browser evidence includes desktop screenshots and a 390×844 emulated viewport. No physical-device, synthesized-touch, full keyboard/screen-reader, zoom, or network-waterfall validation was performed. Browser DOM/script mutation was unavailable, so no detector overlay was claimed.
+- Only `PROJECT_STATE.md` and this TASK are intended for the Stage 1 commit. Website HTML/CSS/JS/content source was not modified. No tests/build were run. No PR was opened and no merge was performed.
 
 ## Post-release maintenance release result (2026-09-27)
 
@@ -155,7 +275,7 @@ The stale tenant-count assertion/documentation and README release-state mismatch
 4. `index.html` is generated output and must not be hand-edited as the primary fix.
 5. A candidate is not release-ready unless rebuilding reproduces the intended official CX configuration.
 6. GitHub repo state outranks an individual agent/conversation.
-7. For the active task, follow `TASK_2026-09-27_POST_RELEASE_MAINTENANCE.md`.
+7. The active task is listed at the top of this file; post-release maintenance is historical reference.
 
 ## Post-release maintenance review (2026-09-27)
 
@@ -267,21 +387,15 @@ This protocol was completed on 2026-09-27; the results are recorded in **Phase 5
 
 Do not include deferred P2/P3 cleanup in this release.
 
-## QA-10C Generic Runtime Context v1 Implementation (2026-09-27)
+## Impeccable final revision — pre-PR gate (2026-09-27)
 
-- Status: **IMPLEMENTED & VERIFIED**
-- Target Playbook: `Rental Tax Guide` (`7861bc8f-d2fb-43d3-8ca1-651415eb4205`)
-- Implementation Details:
-  - Source of Truth: `assets/js/messenger-ui.js`
-  - Generic Runtime Context:
-    - `getTaipeiCurrentDate()`: `Asia/Taipei` timezone in `YYYY-MM-DD` format.
-    - `getCurrentPageSection()`: Extracted dynamically from `location.hash` / `data-page`.
-    - `buildRuntimeParameters()`: Sets `runtime_current_date` and `runtime_entry_section`.
-  - One-shot Direct Entry Lifecycle:
-    - Armed on `initialize()`, `df-messenger-loaded`, `df-session-expired`, `df-session-ended`, `startNewSession()`, and `clearStorage()`.
-    - Disarmed on `df-request-sent`: Subsequent query turns retain `timeZone` and `parameters` while stripping `currentPlaybook` to prevent session state resets.
-    - Section context dynamically refreshed on `hashchange` without re-arming `currentPlaybook`.
-- Acceptance Verification:
-  - Real Messenger Wire & Behavior (E01–E08): **8/8 PASSED**.
-  - Frontend Test Suite: **19/19 PASSED**.
-  - Frontend Build Check: Reproducible build verified.
+- Status: **REVIEW_APPROVED_READY_FOR_PR**
+- Candidate implementation commit: 7845717df16f4c78ab830a08cc122910fa1d42bb.
+- The quick-guide shortcut remains under the owner-plan heading with the approved wording and 16px minimum size.
+- Removed the duplicated plan-area source-check line and its desktop/mobile CSS; the existing footer remains the sole display of meta.checked.
+- Regenerated index.html; revised tests/build.test.mjs to protect the helper hierarchy and footer-only source date.
+- Compared with current main, the only production-visible change is the approved quick-guide hierarchy. No other UX/UI, policy, tax, eligibility, Messenger, or CX content changed.
+- Validation: build PASS; build --check PASS; full Node tests 20/20 PASS; performance budget PASS; git diff --check PASS.
+- Browser smoke: desktop Chrome showed the owner heading, shortcut, and four plan cards; 390×844 emulated Chrome reported documentWidth=390, bodyWidth=390, no horizontal overflow, no plan-area date, and the footer source date present.
+- Impeccable layout detector ran once. It returned seven existing warnings (three icon-tile-stack, four cramped-padding); none identified the changed helper. It could not resolve the generated page's relative CSS paths from its target context, so color/custom-property checks were incomplete. No unrelated changes were made.
+- Browser limits: Playwright is unavailable; no physical-device, touch, complete keyboard/screen-reader, or 200% zoom checks were run.

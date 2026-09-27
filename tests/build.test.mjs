@@ -29,6 +29,29 @@ test('text hashing treats CRLF and LF as the same source content', () => {
 test('checked-in GitHub Pages output is reproducible', () => {
   execFileSync(process.execPath, ['scripts/build.mjs','--check'], {cwd: root});
 });
+test('approved owner-guide hierarchy stays clear and the source-check date appears only in the footer', () => {
+  const template = read('site/template.html');
+  const owner = template.slice(template.indexOf('<section id="owners"'), template.indexOf('<section id="tenants"'));
+  assert.match(owner, /<a class="v2-text-link v2-guide-shortcut" href="#guide">不確定適用方案？使用快速判斷找方向 →<\/a>/);
+  const ownerTitle = owner.indexOf('id="owner-title"');
+  const shortcut = owner.indexOf('v2-guide-shortcut');
+  const plans = owner.indexOf('class="v2-plan-grid"');
+  const guide = owner.indexOf('class="v2-guide"');
+  assert.ok(ownerTitle >= 0 && shortcut > ownerTitle && shortcut < plans, 'decision support follows the owner-plan heading and precedes the plan cards');
+  assert.ok(plans >= 0 && guide > plans, 'the full guide remains available after the plans');
+  assert.doesNotMatch(owner, /v2-source-check|租稅來源核對：/);
+  assert.equal((template.match(/租稅來源核對：\{\{CHECKED\}\}/g) || []).length, 1, 'the template keeps one source-check placeholder');
+  const footerStart = template.indexOf('<footer class="v2-footer">');
+  const footerEnd = template.indexOf('</footer>', footerStart);
+  assert.ok(footerStart >= 0 && footerEnd > footerStart, 'footer must exist');
+  assert.match(template.slice(footerStart, footerEnd), /<small>租稅來源核對：\{\{CHECKED\}\}/);
+  assert.doesNotMatch(html, /v2-source-check/);
+  assert.equal(html.split('租稅來源核對：' + data.meta.checked).length - 1, 1, 'generated output keeps the footer date only');
+  const css = read('assets/css/guide-v2.css');
+  assert.match(css, /\.v2-guide-shortcut\s*\{/);
+  assert.doesNotMatch(css, /\.v2-source-check\b/);
+});
+
 test('static anchors are unique and every internal link resolves', () => {
   const allIds = Array.from(html.matchAll(/\bid="([^"]+)"/g), m => m[1]);
   assert.equal(new Set(allIds).size, allIds.length);
