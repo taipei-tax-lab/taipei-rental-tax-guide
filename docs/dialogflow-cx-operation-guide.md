@@ -44,7 +44,9 @@ Vertex AI Search / Discovery Engine Data Store
 
 ## 2. Agent 基本設定
 
-進入 Conversational Agents / Dialogflow CX Console 後，確認使用下列資源：
+網站目前有 production 與 Phase 5A candidate 兩套前端 CX 指向，操作雲端資源前先確認目標環境：
+
+### Production：`main` 現行設定
 
 ```text
 Google Cloud Project ID: aerial-day-496714-v6
@@ -57,7 +59,18 @@ Default Language: zh-tw
 Time Zone: Asia/Hong_Kong
 ```
 
-目前不要因為文件中的時區名稱而自行修改設定；若未來要改時區，應先說明原因、影響與驗證方式。
+### Phase 5A candidate：預定切換的公務 CX
+
+```text
+Google Cloud Project ID: serviceagent-1150909
+Agent ID: 799426c1-ba69-49dc-85e4-5065985706e2
+Agent Region: asia-northeast1
+Default Language: zh-tw
+```
+
+Phase 5A candidate 尚未代表 production 已切換。網站前端設定的 source of truth 是 `site/messenger.html`；根目錄 `index.html` 是由 `scripts/build.mjs` 產生的 output，不要直接手改。修改 candidate 的 CX 指向後，必須重新 build 並確認 source 與 generated `index.html` 的 location、project ID、agent ID 一致，再進入發布審查。這只更新網站端 Messenger 指向，不會修改 Dialogflow CX / GCP 雲端設定。
+
+目前不要因為文件中的時區名稱而自行修改任何 Agent 設定；若未來要改時區，應先說明原因、影響與驗證方式。
 
 ---
 
@@ -68,7 +81,7 @@ Time Zone: Asia/Hong_Kong
 操作順序：
 
 1. 開啟 Conversational Agents Console。
-2. 選擇 Project `aerial-day-496714-v6`。
+2. 確認目前操作的是正確 Project：production `main` 為 `aerial-day-496714-v6`；Phase 5A candidate 預定指向 `serviceagent-1150909`。不要只依賴目前開啟的 Console project。
 3. 選擇 Agent「出租房屋租稅優惠測試」。
 4. 進入 `Manage`。
 5. 開啟 `Change History`。
@@ -340,9 +353,18 @@ Example 應展示以下流程：
 
 ## 10. Messenger 前端設定
 
-目前網站使用 Google 官方 `df-messenger` Web Component，不是 iframe。
+目前網站使用 Google 官方 `df-messenger` Web Component，不是 iframe。設定 source of truth 位於 `site/messenger.html`，build script 將它嵌入根目錄 generated `index.html`；不可將 generated output 當成主要編輯來源。
 
-目前設定位於 repository 根目錄的 `index.html`：
+前端設定分支：
+
+| 網站版本 | Project ID | Agent ID | 狀態 |
+| --- | --- | --- | --- |
+| `main` production | `aerial-day-496714-v6` | `9fb1cac6-62cd-40e6-8b13-eecf651f1f72` | 現行 production |
+| `phase5a-official-cx` candidate | `serviceagent-1150909` | `799426c1-ba69-49dc-85e4-5065985706e2` | 待 review / release |
+
+修改 candidate 後，先執行 `npm run build`，再執行 `npm run build -- --check` 與 `npm test`。確認 source/generated CX 設定一致後才交由 release review。不得直接手改 `index.html` 作為主要修正。
+
+Messenger source 範例如下（Phase 5A candidate）：
 
 - CSS 在 `<head>`。
 - Dialogflow Messenger JavaScript 在 `</body>` 前。
@@ -353,8 +375,8 @@ Example 應展示以下流程：
 ```html
 <df-messenger
   location="asia-northeast1"
-  project-id="aerial-day-496714-v6"
-  agent-id="9fb1cac6-62cd-40e6-8b13-eecf651f1f72"
+  project-id="serviceagent-1150909"
+  agent-id="799426c1-ba69-49dc-85e4-5065985706e2"
   language-code="zh-tw"
   max-query-length="-1">
   <df-messenger-chat-bubble
@@ -369,9 +391,9 @@ Example 應展示以下流程：
 </df-messenger>
 ```
 
-如果仍使用同一個 Agent、同一個 Region 與同一個 Language，Dialogflow Console 的一般 Playbook 或 Data Store 修改不需要修改前端。
+如果仍使用同一個 Agent、同一個 Region 與同一個 Language，Dialogflow Console 的一般 Playbook 或 Data Store 修改不需要修改網站前端。
 
-只有在更換 Agent、Project、Region 或語言時，才需要同步檢查 `index.html`。
+只有在更換 Agent、Project、Region 或語言時，才更新 `site/messenger.html`，重新產生並檢查 `index.html`。Production `main` 與 Phase 5A candidate 的變更必須分開審查；candidate 未完成 release 前，不要假設 production 已使用公務 CX。
 
 不要將 API key、Service Account key 或其他秘密憑證寫入前端 repository。Project ID 與 Agent ID 因為 Messenger 必須使用，會出現在公開 HTML 中；但秘密憑證不能放在前端。
 

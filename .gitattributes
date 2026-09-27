@@ -1,0 +1,6 @@
+# Keep build inputs and generated HTML on LF on every platform.
+*.html text eol=lf
+*.css text eol=lf
+*.js text eol=lf
+*.mjs text eol=lf
+*.json text eol=lf
