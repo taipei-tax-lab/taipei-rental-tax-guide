@@ -7,8 +7,8 @@ Last updated: 2026-09-27
 - Repository: `taipei-tax-lab/taipei-rental-tax-guide`
 - Production branch: `main`
 - Previous production baseline before Phase 5A: `ab1cb35b53763a6e6341b2041125894defaf8b27`
-- Previous production release merge: `76c164b2585545c455bf5e66a06fb8f4d66c746c` (PR #8)
-- Latest production release merge: `251884ee3d133d4f2e5723b3d25ccdfc8a1bf642` (PR #9)
+- Previous production release merge: `251884ee3d133d4f2e5723b3d25ccdfc8a1bf642` (PR #9)
+- Latest production release merge: `20c915066c87fc4308c89dc601d324803b3bc0ef` (PR #10)
 - GitHub Pages: `https://taipei-tax-lab.github.io/taipei-rental-tax-guide/`
 - Production status: **RELEASED**
 - Production Messenger now uses the official/public-service CX configuration.
@@ -25,7 +25,7 @@ Last updated: 2026-09-27
 
 ## Active task
 
-- Status: **REVIEW_APPROVED_READY_FOR_PR**
+- Status: **RELEASED**
 - Task: Post-release maintenance / audit follow-up
 - Task file: `TASK_2026-09-27_POST_RELEASE_MAINTENANCE.md`
 - Execution agent: local Codex Desktop
@@ -34,12 +34,24 @@ Last updated: 2026-09-27
 - Implementation commit: `17a12dd5725dc17abcc92ece06fbf340fe8ec0e1`
 - Scope: stale tenant count test/docs, README release state, stale Messenger regression descriptions, and classification of remaining audit findings.
 - Review gate: **PASSED**
-- PR / merge: **approved for PR; not merged yet**
+- PR: #10 — https://github.com/taipei-tax-lab/taipei-rental-tax-guide/pull/10
+- PR / merge: **merged with Standard Merge Commit**; release merge `20c915066c87fc4308c89dc601d324803b3bc0ef`
+- GitHub Pages: main deployment run #88 completed successfully for the release merge: https://github.com/taipei-tax-lab/taipei-rental-tax-guide/actions/runs/36290049347
 - Implementation files: `scripts/browser-check.cjs`, `scripts/messenger-regression.py`, `README.md`, `docs/v2-development.md`.
 - Validation: build, build `--check`, Node tests (19/19), performance budget, syntax checks, and `git diff --check` passed. Build left generated `index.html` unchanged.
 - Browser smoke: local page loaded in the Codex in-app browser; ready state, title, 13 tenant links in 3 groups, Messenger element, retired-launcher absence, no horizontal overflow at the observed 526px viewport, and zero browser console errors verified. No Messenger interaction or query was sent.
 - Automated Playwright regression scripts were unavailable because Playwright is not installed; only the browser smoke above ran.
 - D backlog classifications and evidence are recorded in the task Completion Record.
+
+## Post-release maintenance release result (2026-09-27)
+
+- PR #10: https://github.com/taipei-tax-lab/taipei-rental-tax-guide/pull/10
+- Merge method: Standard Merge Commit; no squash or rebase.
+- Release merge commit: `20c915066c87fc4308c89dc601d324803b3bc0ef`.
+- GitHub Pages main deployment: run #88, commit `20c915066c87fc4308c89dc601d324803b3bc0ef`, completed successfully: https://github.com/taipei-tax-lab/taipei-rental-tax-guide/actions/runs/36290049347
+- Final release-gate validation: build, build `--check`, Node tests (19/19), performance budget, syntax checks, and `git diff --check` passed; generated `index.html` remained unchanged.
+- The Playwright browser suites remain unavailable in the local environment; the previously documented limited in-app browser smoke applies. No production browser/CX smoke was required for this maintenance-only release.
+- Deferred audit backlog remains unimplemented and recorded in the task file.
 
 ## Post-release handoff
 

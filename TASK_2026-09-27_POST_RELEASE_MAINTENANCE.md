@@ -1,6 +1,6 @@
 # TASK_2026-09-27_POST_RELEASE_MAINTENANCE
 
-Status: **REVIEW_APPROVED_READY_FOR_PR**
+Status: **RELEASED**
 
 ## Goal
 
@@ -73,9 +73,9 @@ README 仍含舊 refinement branch「尚未提交／發布」等歷史性敘述�
 - 不新增 SEO / CSP
 - 不修改稅務政策內容
 - 不修改已核定的頁面文案
-- 不開 PR / 不 merge main
+- 實作與 review 階段不開 PR、不 merge main；review 通過後依下方 Release protocol 正式發布。
 
-## Git workflow
+## Implementation workflow (completed before review)
 
 1. 先同步最新 `main`。
 2. 閱讀：
@@ -100,8 +100,7 @@ README 仍含舊 refinement branch「尚未提交／發布」等歷史性敘述�
 9. commit 並 push branch。
 10. 停止，交回 ChatGPT review。
 
-**不要開 PR。**
-**不要 merge main。**
+Review approval 後由使用者明確授權依下方 Release protocol 開 PR 並 merge main。
 **不要刪除歷史 branch。**
 
 ## Completion criteria
@@ -120,7 +119,7 @@ README 仍含舊 refinement branch「尚未提交／發布」等歷史性敘述�
 
 ## Completion Record (2026-09-27)
 
-- Status: **IMPLEMENTED_AWAITING_REVIEW**
+- Status: **RELEASED**
 - Work branch: `maintenance/2026-09-27-post-release`
 - Implementation commit: `17a12dd5725dc17abcc92ece06fbf340fe8ec0e1` (`maintenance: reconcile stale tenant count and docs`)
 - Implementation changed files:
@@ -156,7 +155,7 @@ README 仍含舊 refinement branch「尚未提交／發布」等歷史性敘述�
 ### Limitations / scope
 
 - No production source, tax content, Messenger configuration, or CX/GCP settings were changed.
-- No PR was opened and `main` was not merged or modified.
+- The implementation was reviewed, released through PR #10, and merged into `main`; the implementation stage above had ended before release began.
 - Full scripted browser regression was unavailable because Playwright is not installed; the local browser smoke did not test Messenger open/close behavior or submit a query.
 - The remaining audit findings above were classified only; none were implemented.
 
@@ -180,15 +179,14 @@ ChatGPT reviewed the implementation on GitHub and confirmed:
 
 The unavailable Playwright suites remain a documented environment limitation and are not a release blocker for this maintenance scope.
 
-### Next action
+### Release result
 
-Proceed with PR `maintenance/2026-09-27-post-release` → `main`, using a **Standard Merge Commit** only.
-
-After merge:
-1. wait for GitHub Pages deployment to succeed
-2. update both `PROJECT_STATE.md` and this TASK to `RELEASED`
-3. record PR URL/number, merge SHA, Pages deployment result, and final validation
-4. commit/push the final documentation update to `main`
-5. stop and report
+- PR #10: https://github.com/taipei-tax-lab/taipei-rental-tax-guide/pull/10 (`maintenance/2026-09-27-post-release` → `main`).
+- Merge method: **Standard Merge Commit**, no squash or rebase.
+- Release merge commit: `20c915066c87fc4308c89dc601d324803b3bc0ef`.
+- GitHub Pages main deployment: run #88 completed successfully for commit `20c915066c87fc4308c89dc601d324803b3bc0ef`: https://github.com/taipei-tax-lab/taipei-rental-tax-guide/actions/runs/36290049347
+- Final release-gate validation: build PASS; build `--check` PASS; full Node tests 19/19 PASS; performance budget PASS; JavaScript/Python syntax checks PASS; `git diff --check` PASS; generated `index.html` unchanged.
+- The scripted Playwright browser suites remain unavailable in this environment; the limited in-app browser smoke is documented above. This maintenance release did not change production HTML/CSS/JS output or CX settings.
+- `PROJECT_STATE.md` and this TASK now record `RELEASED`; deferred backlog items remain unimplemented.
 
 Do not implement deferred backlog items in this release.
