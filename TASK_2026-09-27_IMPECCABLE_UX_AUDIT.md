@@ -1,6 +1,6 @@
 # TASK_2026-09-27_IMPECCABLE_UX_AUDIT
 
-Status: **STAGE2_IMPLEMENTED_AWAITING_HUMAN_REVIEW**
+Status: **READY_FOR_FINAL_REVISION_AND_RELEASE**
 
 Stage 1 audit is complete; Stage 2 implementation and review evidence are recorded below.
 
@@ -558,3 +558,98 @@ Do not change anything else. No PR, merge, Pages switch, policy/tax/CX change, o
 - Browser computed styles: root 16px; shortcut 16px and source-check 16px at desktop and 390px mobile viewport.
 - Validation: node scripts/build.mjs PASS; node scripts/build.mjs --check PASS; node --test PASS (20 passed, 0 failed); node scripts/performance-budget.mjs PASS; git diff --check PASS.
 - No additional Impeccable pass or other UX/UI, policy, tax, Messenger, or CX change was made.
+
+
+---
+
+## Human visual review and final release decision
+
+Status: **READY_FOR_FINAL_REVISION_AND_RELEASE**
+
+The user completed a side-by-side local visual comparison of:
+- production baseline `main`
+- `ux/impeccable-refinement-poc`
+
+### Final decision
+
+#### KEEP — quick-guide hierarchy refinement
+
+Keep the Stage 2 change that moves the shortcut under the owner-plan heading and presents it as decision support:
+
+> 不確定適用方案？使用快速判斷找方向 →
+
+Keep its current approved 16px minimum typography and existing layout treatment.
+
+Reason: direct visual comparison showed this hierarchy improvement is useful and appropriately restrained.
+
+#### REVERT — duplicated plan-area source-check date
+
+Remove the Stage 2 addition:
+
+> 租稅來源核對：{{CHECKED}}
+
+from immediately below the four owner plan cards.
+
+Also remove its dedicated `.v2-source-check` CSS, including the mobile alignment rule.
+
+Do **not** remove or alter the existing footer source-check line. The footer remains the only intended display of `meta.checked`.
+
+Reason: direct visual review found the extra date line unnecessary and visually redundant.
+
+#### CONTINUE TO DEFER — first-viewport compression
+
+Do not change hero/route/section spacing merely to force tax-benefit figures into the first desktop viewport.
+
+### Required code/test revision
+
+Expected implementation changes:
+- `site/template.html`: keep `.v2-guide-shortcut`; remove the owner-plan `.v2-source-check` paragraph
+- `assets/css/guide-v2.css`: keep `.v2-guide-shortcut`; remove `.v2-source-check` rules
+- `index.html`: regenerate normally
+- `tests/build.test.mjs`: replace the Stage 2 test so it:
+  - verifies the approved quick-guide shortcut and hierarchy
+  - verifies source-check output is footer-only / no duplicated owner-plan source-check
+  - no longer requires `.v2-source-check` CSS
+- update STATE/TASK completion facts
+
+Do not change policy text, tax figures, eligibility logic, quick-guide behavior, Messenger, CX, or unrelated UI.
+
+### Validation and release authorization
+
+After the final revision:
+
+1. Run normal build.
+2. Run build `--check`.
+3. Run the full Node test suite.
+4. Run performance budget.
+5. Run `git diff --check`.
+6. Do a targeted desktop/mobile browser smoke if available.
+7. Confirm the only user-visible production change vs current `main` is the approved quick-guide hierarchy refinement.
+8. Update STATE/TASK to `REVIEW_APPROVED_READY_FOR_PR`.
+9. Open PR:
+   - base: `main`
+   - head: `ux/impeccable-refinement-poc`
+10. Use **Standard Merge Commit** only; no squash/rebase.
+11. Wait for GitHub Pages deployment from `main` to succeed.
+12. Perform a focused production smoke:
+   - approved quick-guide shortcut appears correctly
+   - no extra plan-area source-check date
+   - footer source-check remains
+   - no horizontal overflow at desktop/mobile
+   - no visible regression around owner plans
+13. Update `PROJECT_STATE.md` and this TASK on `main`:
+   - status → `RELEASED`
+   - PR number / URL
+   - merge commit SHA
+   - Pages deployment result
+   - final validation/smoke result
+14. Commit and push the final release documentation to `main`.
+15. Preserve the historical PoC branch.
+
+The user has approved this release path. No additional human design decision is needed unless the revision introduces a new visual change beyond the instructions above.
+
+### Next experiment — not part of this release
+
+After this release is complete, a **new branch from the new production main** will be created for a separate Impeccable free-design experiment.
+
+Do not create or implement that experiment in this release task.
