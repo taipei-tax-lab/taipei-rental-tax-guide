@@ -35,23 +35,123 @@ Last updated: 2026-09-27
 
 ## Active task
 
-- Status: **RELEASED**
-- Task: Impeccable UX refinement PoC — keep approved quick-guide hierarchy only
-- Task file: `TASK_2026-09-27_IMPECCABLE_UX_AUDIT.md`
+- Status: **REVIEW_APPROVED_READY_FOR_PR**
+- Task: Messenger multi-site config v1
+- Task file: `TASK_2026-09-27_MESSENGER_MULTISITE_CONFIG.md`
 - Execution agent: local Codex Desktop
-- Baseline: production `main` at `73d0bbbb242e66080cc316a6bd38cfebfaa1853c` (source release `e1d8642a88b26e42fce0f3100a4f51fc96d9fde9`; Pages run #90 passed)
-- Work branch: `ux/impeccable-refinement-poc`
-- Human visual review decision:
-  1. **APPROVE** the quick-guide hierarchy refinement: `不確定適用方案？使用快速判斷找方向 →`
-  2. **REJECT / REVERT** the added owner-plan-area `租稅來源核對` line; the existing footer source-check date is sufficient
-  3. keep the first-viewport compression candidate deferred
-- Required final source result:
-  - keep the quick-guide shortcut layout/style/wording
-  - remove the new plan-area source-check markup and its dedicated CSS
-  - return source-check display count to the original footer-only behavior
-  - update the Stage 2 regression test so it protects the approved quick-guide hierarchy without requiring the rejected date duplication
-- Release authorization: completed as recorded in the Impeccable UX release result below (PR #11, Standard Merge Commit only).
-- The separate free-design Impeccable experiment remains out of scope for this release.
+- Baseline: production `main` at `1ae269999bc3048320ac471f7e21ffccc925ae72`
+- Work branch: `refactor/messenger-multisite-config`
+- Purpose: refactor the existing QA-10C one-shot direct-entry so each website explicitly declares its own initial Playbook instead of shared JS hard-coding Rental Tax Guide
+- Current site decision: Rental site explicitly declares Rental Tax Guide as its initial Playbook
+- Initial Playbook semantics: first-turn priority only; not a permanent lock and not a replacement for CX routing
+- Keep unchanged:
+  - `runtime_entry_section` remains current page section (hash / `data-page`)
+  - `runtime_current_date` remains frontend-provided runtime date
+  - request timezone remains `Asia/Taipei`
+  - frontend does not calculate/send `current_house_tax_year`
+  - QA-10C first-turn arm / post-request disarm / session re-arm lifecycle
+- Generic fallback: if a future site has no initial Playbook config, omit `currentPlaybook` and let the Agent default Router handle entry; never fall back to Rental
+- Cross-repo coordination: read `taipei-tax-lab/dialogflow-cx-qa-framework` STATE/TASKS at start and before completion; do not modify that repo from this task
+- Current QA-side expected work: QA-12B Example 2 causality experiment; Instructions and frontend/runtime transport are frozen
+- Multi-agent rule: each agent owns one repo/scope; at milestones sessions read the other repo's STATE/TASK; if contradiction exists, authorize one agent only to mutate the affected side
+- This task does not add 1999/納保 Playbooks or IDs; it only makes the current frontend ready for site-specific initial Playbook configuration
+- Completion: update STATE/TASK to `IMPLEMENTED_AWAITING_REVIEW`, commit/push branch, then stop
+- No PR, no merge, no Pages switch, no CX/GCP mutation
+
+## Messenger multi-site config v1 implementation (2026-09-27)
+
+- Status: **IMPLEMENTED_AWAITING_REVIEW**.
+- Work branch: `refactor/messenger-multisite-config`, based on production `main` at `1ae269999bc3048320ac471f7e21ffccc925ae72`.
+- Implementation commit: `df23991e52258c8e14ae2b26fe5f02158f2f544c` (`refactor(messenger): configure initial playbook per site`).
+- `site/messenger.html` declares `data-initial-playbook` with the current Rental Tax Guide resource. Shared `assets/js/messenger-ui.js` reads this site config and only includes `currentPlaybook` when a nonblank value exists; missing config sends the existing timezone/runtime parameters and leaves entry to the Agent default Router.
+- `currentPlaybook` remains first-request priority only. Existing QA-10C arm/disarm/re-arm behavior is preserved. `runtime_entry_section` remains the page section from hash / `main[data-page]`; `runtime_current_date` and `Asia/Taipei` are unchanged. No `runtime_site` or `current_house_tax_year` was added.
+- Changed implementation files: `site/messenger.html`, `assets/js/messenger-ui.js`, `tests/messenger-runtime.test.mjs`, and generated `index.html` (config plus Messenger JS cache hash).
+- Regression coverage: 8 new Messenger runtime/config tests; full Node suite **28/28 passed**.
+- Validation: normal build PASS; build `--check` PASS; full Node tests PASS (28/28); performance budget PASS; `git diff --check` PASS.
+- Browser smoke: Chrome opened, closed, and reopened Messenger without sending a query. No horizontal overflow at 1536px (document/body 1521px), 390px (375px), or 320px (320px). Screenshots showed no visible error text. The accessibility tree exposed the widget's generic `Something went wrong` string on both localhost and the existing production page; this was also not visible in the captured production screenshot. No CX response behavior was tested.
+- Cross-repo checkpoint: `dialogflow-cx-qa-framework` was clean on `main` at both observations (start `59a1e7480acfbe7150736cafcc53c4929816c76b`; completion `6af5e207e3283cc5f49415cbb879ef31cad2de30`, matching `origin/main`). Latest QA task is QA-12B, READY TO EXECUTE; it freezes Instructions and frontend/runtime transport and targets only Example 2. The Rental Playbook ID, input parameter names (`runtime_current_date`, `runtime_entry_section`), and QA-10C runtime contract are unchanged. No frontend follow-up is needed for this contract-preserving refactor; QA-12B results should be included in integration review before any release. The QA repo was not modified.
+- No PR, merge, Pages publishing change, or CX/GCP mutation was made.
+
+## Messenger multi-site architecture decision (2026-09-27)
+
+### How initial Playbook is determined
+
+The website determines it explicitly through site-specific Messenger configuration.
+
+Do not infer it from the user's wording, current page hash, model judgment, or a hard-coded global Rental fallback.
+
+Conceptually:
+
+```text
+出租專區 site config
+  → initialPlaybook = Rental Tax Guide
+  → new session first turn uses currentPlaybook
+  → first request sent
+  → currentPlaybook removed
+  → normal CX session/routing continues
+```
+
+Future 1999 and taxpayer-rights sites will declare their own initial Playbooks in their own site config. Their resource IDs are not part of this task.
+
+This means “from a given service section, prioritize that service's Playbook” while still allowing CX to handle later explicit cross-domain intent.
+
+### Cross-repo working model
+
+No additional synchronization service is needed.
+
+- Frontend repo records frontend/runtime truth in its STATE/TASK.
+- QA repo records CX/QA truth in its STATE/TASKS.
+- At a milestone, either existing Web ChatGPT session may read the other repo.
+- A new integration session may also read both repos and reconcile them.
+- If there is a conflict, only one local agent should be instructed to make the corrective mutation.
+
+This keeps the user's existing GitHub handoff workflow and avoids both local agents changing the same interface at the same time.
+
+## Messenger multi-site config review (2026-09-27)
+
+- Result: **PASS — REVIEW_APPROVED_READY_FOR_PR**
+- Reviewed implementation commit: `df23991e52258c8e14ae2b26fe5f02158f2f544c`.
+- Verified directly on GitHub:
+  - Rental Playbook resource moved out of shared `assets/js/messenger-ui.js` and is declared by the rental site's `site/messenger.html` as `data-initial-playbook`.
+  - Shared JS resolves the configured Playbook dynamically and has no hard-coded Rental fallback/resource ID.
+  - Missing/blank config sends timezone/runtime parameters without `currentPlaybook`, allowing the Agent default entry/Router to take over.
+  - Existing QA-10C one-shot lifecycle is preserved: first-turn arm, `df-request-sent` disarm, new-session/session-expiry/storage-reset re-arm.
+  - `runtime_current_date`, `runtime_entry_section`, and `Asia/Taipei` semantics remain unchanged.
+  - `runtime_entry_section` remains page-section context; no `runtime_site` or `current_house_tax_year` was added.
+  - Generated `index.html` contains the site-specific config and cache hash update.
+  - New `tests/messenger-runtime.test.mjs` exercises configured entry, post-first-turn behavior, reset/re-arm, missing-config fallback, hash/page-section behavior, and UI-copy preservation.
+- Reported validation remains green: build PASS; build --check PASS; Node tests 28/28 PASS; performance budget PASS; `git diff --check` PASS.
+- Browser smoke limitations are acceptable for this refactor; live CX query is deferred to post-merge production smoke on the allowed Pages domain.
+
+### Latest cross-repo checkpoint
+
+The QA repo was re-read after Codex completion:
+
+- `taipei-tax-lab/dialogflow-cx-qa-framework` is now at **QA-12B completed, awaiting Web ChatGPT review**.
+- QA-12B final verdict: `QA12B_EXAMPLE2_PATCH_REJECTED`.
+- The attempted Example 2 change was fully rolled back; live Rental Tax Guide returned to the authoritative pre-change baseline.
+- Rental Playbook resource ID remains `7861bc8f-d2fb-43d3-8ca1-651415eb4205`.
+- Runtime input parameter names remain `runtime_current_date` and `runtime_entry_section`.
+- QA-10C runtime transport contract is unchanged.
+- Therefore there is **no contract drift and no frontend correction is required** before release.
+
+### Release protocol
+
+1. Sync latest refs and confirm this branch is not behind `main`.
+2. Re-run build, build --check, full Node tests, performance budget, and `git diff --check`.
+3. Open PR:
+   - base: `main`
+   - head: `refactor/messenger-multisite-config`
+4. Use **Standard Merge Commit** only; no squash/rebase.
+5. Wait for GitHub Pages deployment from `main` to succeed.
+6. Run focused production smoke on the allowed Pages domain:
+   - Messenger opens/closes/reopens
+   - one basic rental question receives a response
+   - no visible `Something went wrong`
+   - no horizontal overflow at desktop/mobile
+   - source/generated page still carries the configured Rental initial Playbook
+7. Update `PROJECT_STATE.md` and this TASK on `main` to `RELEASED`, recording PR, merge SHA, Pages run, validation, and production smoke.
+8. Preserve the historical branch.
 
 ## Human visual review decision (2026-09-27)
 
