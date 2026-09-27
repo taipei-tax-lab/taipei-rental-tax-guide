@@ -2,8 +2,11 @@
 const {chromium} = require('playwright');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
+const path = require('node:path');
 const base = process.env.PREVIEW_URL || 'http://127.0.0.1:4173/';
 const artifacts = '.preview';
+const tenantItems = JSON.parse(fs.readFileSync(path.join(__dirname, '../site/content.json'), 'utf8')).tenants;
+assert.ok(Array.isArray(tenantItems) && tenantItems.length > 0, 'site/content.json must define tenant/service items');
 fs.mkdirSync(artifacts, {recursive:true});
 
 (async () => {
@@ -67,7 +70,7 @@ fs.mkdirSync(artifacts, {recursive:true});
       await group.locator('summary').click();
       assert.ok(await group.locator('.v2-tenant-links').isVisible());
     }
-    assert.equal(await page.locator('.v2-tenant-links a:visible').count(), 10);
+    assert.equal(await page.locator('.v2-tenant-links a:visible').count(), tenantItems.length);
     await page.goto(base + '#plan-personal', {waitUntil:'domcontentloaded'});
     await page.locator('[data-page="plan-personal"]:visible').waitFor();
     await page.reload({waitUntil:'domcontentloaded'});
@@ -164,7 +167,7 @@ fs.mkdirSync(artifacts, {recursive:true});
     assert.equal(await nojsPage.locator('.v2-plan-card').count(),4);
     assert.equal(await nojsPage.locator('[data-page^="plan-"] .v2-tax').count(),12);
     await nojs.close();
-    fs.writeFileSync(`${artifacts}/browser-results.json`, JSON.stringify({errors, chatLoaded:chatState.loaded, checked:['four plans and return','guidance previous and result','10 tenant resource links','direct links and reload','320–1440px overflow','200% text','chat-unavailable fallback','no-JS tax content',...(chatState.loaded ? ['chat open/close at 320/390/1440px','same chat instance across route changes'] : [])]},null,2));
+    fs.writeFileSync(`${artifacts}/browser-results.json`, JSON.stringify({errors, chatLoaded:chatState.loaded, checked:['four plans and return','guidance previous and result',`${tenantItems.length} tenant resource links (count from site/content.json)`,'direct links and reload','320–1440px overflow','200% text','chat-unavailable fallback','no-JS tax content',...(chatState.loaded ? ['chat open/close at 320/390/1440px','same chat instance across route changes'] : [])]},null,2));
     assert.deepEqual(errors, []);
     console.log('Browser integration checks passed. Screenshots in .preview/.');
   } finally { await browser.close(); }

@@ -1,6 +1,6 @@
 # TASK_2026-09-27_POST_RELEASE_MAINTENANCE
 
-Status: **READY_FOR_IMPLEMENTATION**
+Status: **REVIEW_APPROVED_READY_FOR_PR**
 
 ## Goal
 
@@ -116,3 +116,79 @@ README 仍含舊 refinement branch「尚未提交／發布」等歷史性敘述�
 - `PROJECT_STATE.md` 與本 TASK 已記錄完成情形
 - branch 已 push
 - no PR / no merge
+
+
+## Completion Record (2026-09-27)
+
+- Status: **IMPLEMENTED_AWAITING_REVIEW**
+- Work branch: `maintenance/2026-09-27-post-release`
+- Implementation commit: `17a12dd5725dc17abcc92ece06fbf340fe8ec0e1` (`maintenance: reconcile stale tenant count and docs`)
+- Implementation changed files:
+  - `scripts/browser-check.cjs` — derives expected tenant/service link count from `site/content.json` and reports that source-derived count.
+  - `README.md` — removes the old “unsubmitted/unreleased” refinement status, records PR #9 production release and merge commit, and avoids a fixed tenant count.
+  - `docs/v2-development.md` — removes fixed tenant-count wording and points to the current source-derived check.
+  - `scripts/messenger-regression.py` — updates stale module documentation and success summary to describe the removed shortcut as absent.
+- State tracking files updated in the completion-record commit: `PROJECT_STATE.md`, `TASK_2026-09-27_POST_RELEASE_MAINTENANCE.md`.
+
+### Validation
+
+- `node scripts/build.mjs` — PASS; generated `index.html` unchanged.
+- `node scripts/build.mjs --check` — PASS.
+- `node --test` — PASS, 19 passed, 0 failed.
+- `node scripts/performance-budget.mjs` — PASS.
+- `node --check scripts/browser-check.cjs` — PASS.
+- Python AST syntax check for `scripts/messenger-regression.py` — PASS.
+- `git diff --check` — PASS.
+- Local browser smoke in Codex in-app browser — PASS: correct page title and ready state, 13 tenant links across 3 groups, Messenger element present, removed launcher absent, no horizontal overflow at the observed 526px viewport, and zero console errors. No Messenger interaction or query was sent.
+- npm and Playwright are unavailable in this environment; repository scripts were run directly with Node v24.19.0. The Playwright-based `scripts/browser-check.cjs` and `scripts/messenger-regression.py` were not run; the in-app browser smoke is limited to the checks listed above.
+
+### Remaining audit findings
+
+- `KEEP` — Tenant grouping by array index: `scripts/build.mjs` maps tenant positions 0–12 into groups, so insertion/reordering can silently change categories.
+- `KEEP` — FAQ hard-coded in `scripts/build.mjs`: question, answer, and action content remain separate from `site/content.json` and can drift during policy-content updates.
+- `KEEP` — `resources.slice(3)` maintenance fragility: rendering depends on the first three resource entries retaining their current ordering and role.
+- `KEEP` — Assistant idle image initial request: initialization inserts the hidden assistant panel with eager `picture` sources and an image `src`; initial network loading has not been measured in this maintenance task.
+- `KEEP` — Messenger titlebar / shadow-root workaround robustness: titlebar removal recursively inspects open, undocumented Messenger shadow DOM and retries with timers, making it sensitive to upstream markup changes.
+- `KEEP` — `site/content.json` version / checked metadata semantics: `meta.version` is not consumed by the build, while `meta.checked` is rendered; the fields' scope and update rules remain unclear alongside per-plan source dates.
+- `DEFER` — SEO / canonical / CSP / URL validation hardening: the page already has title, description, Open Graph metadata and the build enforces HTTPS for plan URLs; broader headers/metadata and validation for other URL collections have no identified release blocker and can be scoped separately.
+- No listed finding was classified `NO_LONGER_APPLIES`.
+
+### Limitations / scope
+
+- No production source, tax content, Messenger configuration, or CX/GCP settings were changed.
+- No PR was opened and `main` was not merged or modified.
+- Full scripted browser regression was unavailable because Playwright is not installed; the local browser smoke did not test Messenger open/close behavior or submit a query.
+- The remaining audit findings above were classified only; none were implemented.
+
+
+---
+
+## Review Result
+
+Status: **PASS / REVIEW_APPROVED_READY_FOR_PR**
+
+ChatGPT reviewed the implementation on GitHub and confirmed:
+
+- Implementation commit: `17a12dd5725dc17abcc92ece06fbf340fe8ec0e1`
+- Tenant-count browser assertion derives its expectation from `site/content.json`
+- README release wording is current
+- Stale regression-script descriptions are corrected
+- Remaining audit findings are classified only and were not implemented
+- No production policy content, Messenger configuration, or CX/GCP setting was changed
+- Generated `index.html` remained unchanged
+- Reported validation is green: build, build --check, Node tests 19/19, performance budget, syntax checks, and `git diff --check`
+
+The unavailable Playwright suites remain a documented environment limitation and are not a release blocker for this maintenance scope.
+
+### Next action
+
+Proceed with PR `maintenance/2026-09-27-post-release` → `main`, using a **Standard Merge Commit** only.
+
+After merge:
+1. wait for GitHub Pages deployment to succeed
+2. update both `PROJECT_STATE.md` and this TASK to `RELEASED`
+3. record PR URL/number, merge SHA, Pages deployment result, and final validation
+4. commit/push the final documentation update to `main`
+5. stop and report
+
+Do not implement deferred backlog items in this release.

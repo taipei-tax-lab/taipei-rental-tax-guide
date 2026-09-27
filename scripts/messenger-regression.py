@@ -2,20 +2,13 @@
 Messenger UI & Layout Regression Test Suite (Python Playwright + Chrome)
 Validates:
 1. Favicon: tpctax-mark.png, image/png
-2. 租金標準專區快捷按鈕 (income-standard-launcher):
-   - 元素存在、href、target="_blank"、rel (noopener noreferrer)、aria-label、img
-   - computed position: fixed, zIndex: 9997, df-messenger zIndex: 9999
-   - Chat closed: shortcut 在 bubble 上方，gap 8～18px，右側對齊 diff <= 3px
-   - 捲動測試: window.scrollTo 前後 top diff <= 1px, right diff <= 1px
-   - Chat open: chat window 覆蓋 shortcut，elementFromPoint 不命中 shortcut，點擊無穿透
-3. 提醒完整顯示: notice.scrollHeight <= notice.clientHeight + 1
-4. notice 永遠在 details 外: !details.contains(notice)
-5. assistant / chat gap: abs(chatRect.left - panelRect.right) <= 1px
-6. assistant / chat top / bottom 對齊: difference <= 1px
-7. Viewport matrix (1440x900, 1280x800, 1024x768, 768x1024, 390x844, 320x480, 390x360)
-8. Zoom matrix (100%, 125%, 150%)
-9. 沒有 horizontal overflow: scrollWidth <= innerWidth
-10. 0 console / page errors
+2. 已移除的所得達租金標準浮動快捷入口不存在於 DOM
+3. 提醒完整顯示，且維持在 details 外
+4. assistant / chat 間距與上下邊界
+5. Viewport matrix (1440x900, 1280x800, 1024x768, 768x1024, 390x844, 320x480, 390x360)
+6. Zoom matrix (100%, 125%, 150%)
+7. 沒有 horizontal overflow: scrollWidth <= innerWidth
+8. 0 console / page errors
 """
 
 import sys
@@ -448,7 +441,7 @@ def test_messenger_regression():
         assert len(errors) == 0, f"Encountered runtime errors: {errors}"
 
         browser.close()
-        print("ALL REGRESSION CHECKS PASSED: Favicon, floating shortcut, notice non-clipping, gapless panel, and responsive layouts verified.")
+        print("ALL REGRESSION CHECKS PASSED: Favicon, retired shortcut absence, notice layout, assistant/chat geometry, and responsive layouts verified.")
 
 if __name__ == "__main__":
     test_messenger_regression()

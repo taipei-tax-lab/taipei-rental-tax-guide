@@ -25,20 +25,21 @@ Last updated: 2026-09-27
 
 ## Active task
 
-- Status: **READY_FOR_IMPLEMENTATION**
+- Status: **REVIEW_APPROVED_READY_FOR_PR**
 - Task: Post-release maintenance / audit follow-up
 - Task file: `TASK_2026-09-27_POST_RELEASE_MAINTENANCE.md`
 - Execution agent: local Codex Desktop
-- Start branch: latest `main`
-- Work branch to create: `maintenance/2026-09-27-post-release`
-- Scope:
-  - fix stale tenant-count tests/docs
-  - update outdated README release wording
-  - clean stale regression-script descriptions
-  - classify remaining audit findings into a technical-debt backlog
-- Review gate: ChatGPT review after implementation
-- PR / merge: **not allowed yet**
-- Completion requirement: Codex must update both `PROJECT_STATE.md` and the active TASK with implementation SHA, changed files, validation results, backlog classification, limitations/ambiguities, then push the work branch and stop.
+- Start point: latest `main`, `3ac78dc13ac89ea07458a04270028b7147ccb590`
+- Work branch: `maintenance/2026-09-27-post-release`
+- Implementation commit: `17a12dd5725dc17abcc92ece06fbf340fe8ec0e1`
+- Scope: stale tenant count test/docs, README release state, stale Messenger regression descriptions, and classification of remaining audit findings.
+- Review gate: **PASSED**
+- PR / merge: **approved for PR; not merged yet**
+- Implementation files: `scripts/browser-check.cjs`, `scripts/messenger-regression.py`, `README.md`, `docs/v2-development.md`.
+- Validation: build, build `--check`, Node tests (19/19), performance budget, syntax checks, and `git diff --check` passed. Build left generated `index.html` unchanged.
+- Browser smoke: local page loaded in the Codex in-app browser; ready state, title, 13 tenant links in 3 groups, Messenger element, retired-launcher absence, no horizontal overflow at the observed 526px viewport, and zero browser console errors verified. No Messenger interaction or query was sent.
+- Automated Playwright regression scripts were unavailable because Playwright is not installed; only the browser smoke above ran.
+- D backlog classifications and evidence are recorded in the task Completion Record.
 
 ## Post-release handoff
 
@@ -134,22 +135,9 @@ This must be resolved so Windows and Linux builds/tests agree.
 
 The original P1 findings above describe the verified pre-fix audit state. The implementation above addresses their source/build and Windows EOL causes. At this handoff point, the candidate was awaiting review and had not been released.
 
-## Known audit findings intentionally deferred
+## Remaining audit findings / maintenance backlog
 
-These are real findings, but are **out of scope for the active Phase 5A release-gate task**:
-
-- stale tenant-count assertion/documentation
-- tenant grouping by array index
-- FAQ hard-coded in `scripts/build.mjs`
-- `resources.slice(3)` maintenance fragility
-- assistant idle image initial request
-- Messenger titlebar/shadow-root workaround robustness
-- README general release-state modernization
-- content metadata date/version cleanup
-- broader SEO/CSP/URL-validation improvements
-- general performance or accessibility refactors
-
-Do not mix these into the current fix unless explicitly approved later.
+The stale tenant-count assertion/documentation and README release-state mismatch were corrected in the post-release maintenance branch. Remaining audit items are classified in `TASK_2026-09-27_POST_RELEASE_MAINTENANCE.md`; they were not implemented in that task. General performance or accessibility refactors remain outside its scope.
 
 ## Source-of-truth rules
 
@@ -159,39 +147,51 @@ Do not mix these into the current fix unless explicitly approved later.
 4. `index.html` is generated output and must not be hand-edited as the primary fix.
 5. A candidate is not release-ready unless rebuilding reproduces the intended official CX configuration.
 6. GitHub repo state outranks an individual agent/conversation.
-7. For the active task, follow `TASK_2026-09-27_PHASE5A_CX_RELEASE_GATE.md`.
+7. For the active task, follow `TASK_2026-09-27_POST_RELEASE_MAINTENANCE.md`.
 
-## Implementation constraints
+## Post-release maintenance review (2026-09-27)
 
-- Do not modify Dialogflow CX / GCP cloud configuration.
-- Do not redesign the Messenger UI.
-- Do not refactor unrelated P2/P3 findings.
-- Do not open a PR or merge `main` during implementation.
-- Preserve historical branches.
-- Keep changes minimal and directly tied to the two P1 blockers plus the required CX operational documentation.
+ChatGPT reviewed the implementation on GitHub.
 
-## Implementation completion protocol (pre-review phase)
+Result: **PASS**
 
-Codex should:
+Verified:
+- implementation commit `17a12dd5725dc17abcc92ece06fbf340fe8ec0e1`
+- branch `maintenance/2026-09-27-post-release` is based on latest planning `main` and is not behind
+- changed implementation files are limited to the approved A/B/C maintenance scope
+- tenant count check now derives the expected count from `site/content.json`
+- README no longer claims the refinement branch is unpublished
+- stale Messenger regression descriptions were corrected
+- remaining audit findings were classified only; no deferred architecture/performance/CX work was implemented
+- reported validation: build PASS, build --check PASS, Node tests 19/19 PASS, performance budget PASS, syntax checks PASS, `git diff --check` PASS
+- generated `index.html` remained unchanged
 
-1. fetch latest refs and sync local `phase5a-official-cx`
-2. read this file and `TASK_2026-09-27_PHASE5A_CX_RELEASE_GATE.md`
-3. implement only the approved scope
-4. run cross-platform-oriented build/test validation on Windows
-5. verify rebuilt output stays on the official CX
-6. update this file:
-   - Status → `IMPLEMENTED_AWAITING_REVIEW`
-   - implementation commit SHA(s)
-   - changed files
-   - all test/build results
-   - EOL verification
-   - CX source/generated verification
-   - browser verification or limitation
-7. commit and push `phase5a-official-cx`
-8. stop and return the result for ChatGPT review
+Browser limitation remains documented: Playwright is not installed in the local Codex environment, so the scripted browser suites were not executed. The limited in-app browser smoke is sufficient for this maintenance scope because no production HTML/CSS/JS output or CX configuration changed.
 
-Do not open PR. Do not merge main.
+### Release protocol for current maintenance task
 
+1. Sync latest refs and confirm the maintenance branch is not behind `main`.
+2. Re-run build, build --check, full Node tests, performance budget, syntax checks, and `git diff --check`.
+3. Open PR:
+   - base: `main`
+   - head: `maintenance/2026-09-27-post-release`
+4. Use **Standard Merge Commit** only.
+   - no squash
+   - no rebase
+5. Wait for GitHub Pages deployment from `main` to complete successfully.
+6. Update both:
+   - `PROJECT_STATE.md`
+   - `TASK_2026-09-27_POST_RELEASE_MAINTENANCE.md`
+7. Record:
+   - status → `RELEASED`
+   - PR number / URL
+   - merge commit SHA
+   - Pages deployment result
+   - final validation results
+8. Commit and push the final state/task update to `main`.
+9. Preserve historical branches.
+
+Do not implement deferred backlog items in this release.
 
 ## Review approval and runtime smoke (2026-09-27)
 
