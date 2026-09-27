@@ -35,7 +35,7 @@ Last updated: 2026-09-27
 
 ## Active task
 
-- Status: **REVIEW_APPROVED_READY_FOR_PR**
+- Status: **RELEASED**
 - Task: Messenger multi-site config v1
 - Task file: `TASK_2026-09-27_MESSENGER_MULTISITE_CONFIG.md`
 - Execution agent: local Codex Desktop
@@ -510,3 +510,19 @@ Do not include deferred P2/P3 cleanup in this release.
 - Production desktop smoke: 1440×900, document/body widths 1425, no horizontal overflow; approved helper and four plan cards present, source date only in footer.
 - Production mobile smoke: 390×844, document/body widths 390, no horizontal overflow; approved helper and four plan cards present, no plan-area source date, footer source date present.
 - The release preserves the historical `ux/impeccable-refinement-poc` branch. GitHub Pages remains deployed from `main`.
+
+## Messenger multi-site config v1 release result (2026-09-27)
+
+- Status: **RELEASED**.
+- PR #12: https://github.com/taipei-tax-lab/taipei-rental-tax-guide/pull/12 (base `main`, head `refactor/messenger-multisite-config`).
+- Merge method: **Standard Merge Commit**; no squash or rebase. Merge SHA: `684bb9aa67a0783dbec686ae2d9d59e4a578fa46`.
+- GitHub Pages deployment: run #95 for `main` / merge SHA `684bb9aa67a0783dbec686ae2d9d59e4a578fa46`, completed successfully: https://github.com/taipei-tax-lab/taipei-rental-tax-guide/actions/runs/36323824317.
+- Release validation: normal build PASS; build `--check` PASS; full Node tests PASS (28/28); performance budget PASS; `git diff --check` PASS.
+- Production smoke on `https://taipei-tax-lab.github.io/taipei-rental-tax-guide/`:
+  - Messenger opened, closed, and reopened successfully.
+  - The live page's `df-messenger[data-initial-playbook]` contains the Rental Tax Guide resource `projects/serviceagent-1150909/locations/asia-northeast1/agents/799426c1-ba69-49dc-85e4-5065985706e2/playbooks/7861bc8f-d2fb-43d3-8ca1-651415eb4205`.
+  - The basic question `公益出租人的房屋稅優惠是什麼？` received a normal answer with the applicable tax rate and year-specific reductions.
+  - Desktop 1536×900: document/body width 1521px; no horizontal overflow. Mobile 390×844: document/body width 375px; no horizontal overflow. Narrow 320×844: document/body width 320px; no horizontal overflow.
+  - Browser screenshots showed no visible `Something went wrong`. The accessibility tree retained the widget's generic fallback string while the live answer was displayed; it was not visible in the rendered Messenger.
+- Latest QA framework `main` checkpoint: QA-12B closed with its Example 2 patch rejected and rolled back; Playbook/runtime interface remains unchanged. No CX/GCP changes were made.
+- Historical branch `refactor/messenger-multisite-config` is preserved at `757f5f65f1127cd3e79d16dba2430f55a96dd565`.

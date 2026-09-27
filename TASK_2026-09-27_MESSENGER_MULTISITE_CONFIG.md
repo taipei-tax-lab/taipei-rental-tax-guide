@@ -1,6 +1,6 @@
 # TASK_2026-09-27_MESSENGER_MULTISITE_CONFIG
 
-Status: **REVIEW_APPROVED_READY_FOR_PR**
+Status: **RELEASED**
 
 ## 目標
 
@@ -361,3 +361,19 @@ Proceed with:
 8. Preserve branch history.
 
 No further design or CX change is authorized in this release.
+
+## Release result (2026-09-27)
+
+- Status: **RELEASED**.
+- PR #12: https://github.com/taipei-tax-lab/taipei-rental-tax-guide/pull/12 (base `main`, head `refactor/messenger-multisite-config`).
+- Merge method: **Standard Merge Commit**; no squash or rebase. Merge SHA: `684bb9aa67a0783dbec686ae2d9d59e4a578fa46`.
+- GitHub Pages deployment: run #95 for `main` / merge SHA `684bb9aa67a0783dbec686ae2d9d59e4a578fa46`, completed successfully: https://github.com/taipei-tax-lab/taipei-rental-tax-guide/actions/runs/36323824317.
+- Validation: `node scripts/build.mjs` PASS; `node scripts/build.mjs --check` PASS; `node --test` PASS (28/28); `node scripts/performance-budget.mjs` PASS; `git diff --check` PASS.
+- Production smoke at `https://taipei-tax-lab.github.io/taipei-rental-tax-guide/`:
+  - Messenger opened / closed / reopened successfully.
+  - `df-messenger[data-initial-playbook]` retained the Rental resource ID `7861bc8f-d2fb-43d3-8ca1-651415eb4205`.
+  - `公益出租人的房屋稅優惠是什麼？` returned a normal answer with the applicable rate and year-specific reductions.
+  - No visible `Something went wrong` appeared in the browser screenshots. The accessibility tree retained the widget's generic fallback string while the live answer was shown, but it was not visible in the rendered Messenger.
+  - No horizontal overflow: desktop 1536×900 (document/body 1521px), mobile 390×844 (375px), and narrow 320×844 (320px).
+- Cross-repo checkpoint: latest QA framework `main` has QA-12B closed as a valid controlled experiment with the Example 2 patch rejected and rollback verified. The authoritative Playbook baseline and QA-10C runtime contract are unchanged; no frontend/CX contract drift or follow-up mutation is required.
+- Historical branch preserved: `refactor/messenger-multisite-config` at `757f5f65f1127cd3e79d16dba2430f55a96dd565`.
