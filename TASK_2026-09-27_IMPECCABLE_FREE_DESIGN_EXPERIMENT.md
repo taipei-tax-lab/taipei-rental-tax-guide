@@ -1,6 +1,6 @@
 # TASK_2026-09-27_IMPECCABLE_FREE_DESIGN_EXPERIMENT
 
-Status: **READY_FOR_EXPERIMENT**
+Status: **EXPERIMENT_COMPLETE_AWAITING_HUMAN_REVIEW**
 
 ## Goal
 
@@ -221,3 +221,68 @@ Do not:
 這一輪的成功標準不是「改得越多越好」，而是：
 
 > 讓使用者清楚看見：Impeccable 在安全底線內有充分自由時，是否能提出並實作一個明顯優於 production 的 UX / UI 方向。
+
+## Experiment result (2026-09-27)
+
+Status: **EXPERIMENT_COMPLETE_AWAITING_HUMAN_REVIEW**
+
+### Phase A — Re-evaluate production main
+
+The baseline review was performed against main at 1ae269999bc3048320ac471f7e21ffccc925ae72. The design critique was Read mode with aggregate 28/40. Independent design/layout reviews found that the service already has recognizable Taipei Revenue Service identity, owner/tenant routes, scenario-first plan names, complete plan details, and a useful guide with progress/back/reset and a non-eligibility disclaimer.
+
+The broadest opportunities were:
+
+1. Plan benefit figures draw attention before their shared caution and conditions.
+2. Four schemes and a guide can read as five peer choices.
+3. The top entry area groups audience routes with an assistant and an unrelated filing service.
+4. Four equal-width summaries compress the tax information.
+5. A fixed residential illustration continues behind long-form reading.
+
+The detector was treated as a pattern finder, not as a defect count. The baseline full run returned 107 warnings at index.html:0, including 77 wide-tracking signals on short labels/IDs. The separate layout pass returned 8 warnings (5 cramped-padding, 3 icon-tile-stack). Source review classified these as a mixture of old/overridden patterns, intentional signposting, and some real spacing observations. No issue in the earlier Stage 2 shortlist constrained this experiment.
+
+### Phase B — Implemented direction
+
+The opening now uses a new service heading and presents owner and tenant as the only primary routes. “直接問小幫手” and the official income-standard filing service remain available as secondary tools. Existing helper status behavior, external filing target, and Messenger setup remain unchanged.
+
+The owner path uses a clearer heading and places the quick guide first as optional decision support. Four schemes now form one scenario row each: rental situation and summary on the left, tax benefit information alongside, and a visible detail action at the right. The full details remain the source for complete conditions. The shared caution stays before the list. The four plan names, order, tax text, and values were not changed.
+
+The residential illustration appears only in the hero; reading sections use a plain background. Tenant groups are plain disclosure rows, and FAQ/official resources receive more spacing. The comparison uses two columns on desktop/tablet and one column on mobile. At 320px, a body minimum-width rule caused a 15px emulation overflow; the experiment removes that floor for the narrow breakpoint and the final viewport check passes.
+
+No new asset or third-party dependency was added. No JavaScript, site/content.json, policy/tax facts, CX/GCP settings, or Messenger configuration changed.
+
+### Impeccable and critique record
+
+- Impeccable context was run before implementation.
+- The baseline was inspected by two separate design/layout review passes before detector results were synthesized.
+- Commands used: context; detect --json index.html; critique-storage slug/write/trend for index-html.
+- Critique aggregate: 28/40, Read mode. No individual heuristic scores were inferred beyond the scores preserved in the review handoff.
+- Critique archive: .impeccable/critique/2026-09-27T11-04-00Z__index-html.md; target fingerprint is the read-only main baseline index.html. Trend reports this as the first stored run.
+- Final full detector: 109 findings — wide-tracking 80, border-accent-on-rounded 16, side-tab 5, cramped-padding 4, icon-tile-stack 3, dark-glow 1. Most findings carry index.html:0 rather than actionable line numbers. Several categories reflect existing/detail CSS and scanner limitations; they are not 109 confirmed defects. The final pass identified no blocking issue in the candidate's primary role/plan structure.
+
+### Validation
+
+- node scripts/build.mjs — PASS.
+- node scripts/build.mjs --check — PASS; generated output matches source.
+- node --test — PASS, 20/20 tests.
+- node scripts/performance-budget.mjs — PASS; all declared static asset budgets passed.
+- git diff --check — PASS.
+- Implementation commit: 27dea81d62f51904ce1ea487e2fd40bc09c2667a.
+- Changed files: site/template.html; assets/css/guide-v2.css; generated index.html; tests/build.test.mjs; tests/performance.test.mjs; scripts/performance-budget.mjs; critique snapshot above; this TASK; PROJECT_STATE.md.
+- Build/test guard changes now assert the two primary audience routes, preserved assistant/official filing routes, quick-guide-before-plans hierarchy, footer-only source-check date, and rebuild output.
+
+### Browser review and comparison previews
+
+- Main baseline: http://127.0.0.1:4183/
+- Experiment candidate: http://127.0.0.1:4184/
+- Both preview servers returned HTTP 200 and remain running. Desktop main and candidate views are open at the owner section. Additional main/candidate mobile views are open at 390px.
+- Candidate viewport checks at 1440×900, 768×900, 390×844, and 320×844 found no horizontal overflow. The baseline showed no overflow at 1440 and 390. At the 390px Chrome emulation, visualViewport is approximately 375px because the desktop browser reserves scrollbar space; document width equals the available client width.
+- Keyboard first-stop smoke reached the “跳到主要內容” skip link with a visible outline. The quick guide expanded and rendered its first question, plan ordinary opened its full detail route, comparison rendered four plans, and tenant services exposed 3 groups/13 official links. Candidate page console error list was empty. No Messenger query was sent.
+- 200% zoom, physical-device/synthesized-touch behavior, full keyboard traversal, and screen-reader behavior were not verified. The CUA viewport tool provided responsive widths but no zoom control.
+
+### What remains subjective for human review
+
+The scenario list makes each plan much wider and easier to compare but increases vertical scanning, especially on mobile. The new hero art treatment, shorter primary route list, and secondary service placement are design choices, not a claim of production superiority. Human review should compare both local previews and decide whether to keep, revise, or reject the direction.
+
+### Completion boundary
+
+The implementation was committed and pushed on experiment/impeccable-free-design. Status remains EXPERIMENT_COMPLETE_AWAITING_HUMAN_REVIEW. No PR was opened, main was not merged, GitHub Pages was not switched, and the candidate is not declared production-ready.

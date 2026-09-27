@@ -35,7 +35,7 @@ Last updated: 2026-09-27
 
 ## Active task
 
-- Status: **READY_FOR_EXPERIMENT**
+- Status: **EXPERIMENT_COMPLETE_AWAITING_HUMAN_REVIEW**
 - Task: Impeccable free-design experiment
 - Task file: `TASK_2026-09-27_IMPECCABLE_FREE_DESIGN_EXPERIMENT.md`
 - Execution agent: local Codex Desktop with Impeccable already installed
@@ -58,6 +58,22 @@ Last updated: 2026-09-27
 - The key question is whether a freer Impeccable pass can produce a clearly superior public-service UX, not whether it can make more changes.
 - Repository STATE/TASK remain the source of truth for agent handoff.
 
+## Impeccable free-design experiment result (2026-09-27)
+
+- Status: **EXPERIMENT_COMPLETE_AWAITING_HUMAN_REVIEW**
+- Work branch: experiment/impeccable-free-design.
+- Production baseline: origin/main at 1ae269999bc3048320ac471f7e21ffccc925ae72.
+- Implementation commit: 27dea81d62f51904ce1ea487e2fd40bc09c2667a (feat: run Impeccable free-design experiment).
+- Production main remains unchanged. No PR, merge, Pages source switch, or cloud/CX change was made.
+- The candidate rethinks the home entry as two primary audiences, moves helper and income-standard filing to secondary tools, uses four single-column owner scenario rows, and localizes illustration to the hero. Tenant links, FAQ, resources, and comparison use calmer reading layouts.
+- Existing plan content, guide behavior, four-plan comparison, official links, no-JavaScript plan information, Messenger entry/configuration, and footer source-check date remain available. No content.json, JS, policy/tax text, asset, or dependency was changed.
+- Baseline preview: http://127.0.0.1:4183/; experiment preview: http://127.0.0.1:4184/. Both local servers returned HTTP 200 and remain running. Four marked browser views remain open: desktop main/candidate at the owner section and mobile main/candidate at 390px.
+- Validation: build PASS; build --check PASS; full Node tests 20/20 PASS; performance budget PASS; git diff --check PASS.
+- Browser smoke: candidate at 1440, 768, 390×844, and 320×844 showed no horizontal overflow. Baseline at 1440 and 390×844 showed no horizontal overflow. Keyboard first stop is the skip link with visible focus. Quick guide expansion, an owner plan route, four comparison entries, 3 tenant groups/13 official links passed. Candidate console errors: none. No Messenger query was sent.
+- Impeccable critique aggregate: 28/40, Read mode; first stored trend entry. Final full detector: 109 warnings (80 wide-tracking, 16 border-accent-on-rounded, 5 side-tab, 4 cramped-padding, 3 icon-tile-stack, 1 dark-glow). Warnings are pattern signals; line-level source context and computed visibility matter. The new homepage row treatment removes the matching accent and card scaffold; legacy/detail patterns remain.
+- Critique snapshot: .impeccable/critique/2026-09-27T11-04-00Z__index-html.md, fingerprinted against the read-only main baseline index.html.
+- Browser limits: 200% zoom, physical-device/touch testing, full keyboard traversal, and screen-reader review were not verified. The 390px desktop emulation reserves scrollbar width, yielding a 375px visual viewport while keeping document width equal to the available width.
+- Human review is required before any release decision. This branch is an experiment, not a production-ready candidate.
 ## Human visual review decision (2026-09-27)
 
 - The user compared local baseline and candidate side by side.
