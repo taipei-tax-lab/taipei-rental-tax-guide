@@ -24,39 +24,39 @@
   var ASSISTANT_COPY = {
     idle: {
       eyebrow: "臺北市稅捐稽徵處",
-      title: "出租房屋租稅小幫手",
+      title: "租稅小幫手",
       description: "有出租房屋租稅、出租方案或申請流程問題，都可以直接問我。",
       status: "等待您的問題"
     },
     welcome: {
-      eyebrow: "歡迎使用",
-      title: "您好，我來協助您",
-      description: "可以直接輸入問題，也可以從熱門問題開始查詢。",
-      status: "準備為您服務"
+      eyebrow: "臺北市稅捐稽徵處",
+      title: "租稅小幫手",
+      description: "有出租房屋租稅、出租方案或申請流程問題，都可以直接問我。",
+      status: "等待您的問題"
     },
     thinking: {
-      eyebrow: "資訊整理中",
-      title: "正在整理相關資訊",
-      description: "我正在依您的問題查找並整理相關租稅與申請資訊。",
-      status: "查詢與整理中…"
+      eyebrow: "臺北市稅捐稽徵處",
+      title: "租稅小幫手",
+      description: "有出租房屋租稅、出租方案或申請流程問題，都可以直接問我。",
+      status: "等待您的問題"
     },
     responding: {
-      eyebrow: "回答已準備完成",
-      title: "已為您整理好回答",
-      description: "請查看右側回覆；如果還有不清楚的地方，可以繼續追問。",
-      status: "回答已送達"
+      eyebrow: "臺北市稅捐稽徵處",
+      title: "租稅小幫手",
+      description: "有出租房屋租稅、出租方案或申請流程問題，都可以直接問我。",
+      status: "等待您的問題"
     },
     guiding: {
-      eyebrow: "快速引導",
-      title: "已收到您選擇的主題",
-      description: "我會以這個主題為起點，整理相關資訊給您。",
-      status: "正在帶入主題…"
+      eyebrow: "臺北市稅捐稽徵處",
+      title: "租稅小幫手",
+      description: "有出租房屋租稅、出租方案或申請流程問題，都可以直接問我。",
+      status: "等待您的問題"
     },
     error: {
-      eyebrow: "暫時無法完成",
-      title: "這次查詢沒有順利完成",
-      description: "請稍後再試一次，或重新輸入您的問題。",
-      status: "請重新嘗試"
+      eyebrow: "臺北市稅捐稽徵處",
+      title: "租稅小幫手",
+      description: "有出租房屋租稅、出租方案或申請流程問題，都可以直接問我。",
+      status: "等待您的問題"
     }
   };
 
@@ -82,19 +82,19 @@
     var panel = document.createElement("aside");
     panel.className = "assistant-panel";
     panel.dataset.state = "idle";
-    panel.setAttribute("aria-label", "出租房屋租稅小幫手使用說明");
+    panel.setAttribute("aria-label", "租稅小幫手使用說明");
     panel.setAttribute("aria-hidden", "true");
     panel.hidden = true;
     panel.innerHTML = [
       '<div class="assistant-panel__character">',
       '  <picture>',
       '    <source data-assistant-source srcset="./assets/images/assistant/assistant-idle.webp" type="image/webp">',
-      '    <img data-assistant-image src="./assets/images/assistant/assistant-idle.png" alt="出租房屋租稅小幫手角色" width="400" height="656">',
+      '    <img data-assistant-image src="./assets/images/assistant/assistant-idle.png" alt="租稅小幫手角色" width="400" height="656">',
       '  </picture>',
       '</div>',
       '<div class="assistant-panel__content">',
       '  <span class="assistant-panel__eyebrow" data-assistant-eyebrow>臺北市稅捐稽徵處</span>',
-      '  <h2 data-assistant-title>出租房屋租稅小幫手</h2>',
+      '  <h2 data-assistant-title>租稅小幫手</h2>',
       '  <p data-assistant-description>有出租房屋租稅、出租方案或申請流程問題，都可以直接問我。</p>',
       '  <div class="assistant-panel__topics"><h3>熱門問題</h3></div>',
       '</div>'
@@ -427,6 +427,9 @@
       window.setTimeout(updateAssistantPanel, 350);
       if (chatIsOpen) {
         preloadAssistantStates();
+        hideChatTitlebar();
+        window.setTimeout(hideChatTitlebar, 120);
+        window.setTimeout(hideChatTitlebar, 320);
         showTemporaryAssistantState("welcome", ASSISTANT_TIMING.welcome);
       }
       else resetAssistantState();
@@ -459,8 +462,61 @@
     });
   }
 
+  // Hide the built-in Messenger title bar to give more vertical space to the conversation.
+  // Dialogflow Messenger nests its UI across multiple open shadow roots, so hiding the
+  // title bar has to walk those roots instead of relying on a selector in only one root.
+  // The custom launcher remains available as the close control when the chat is open.
+  function hideChatTitlebar() {
+    var bubble = getMessengerElements().bubble;
+    if (!bubble || !bubble.shadowRoot) return;
+
+    var hiddenCount = 0;
+
+    function visit(root) {
+      if (!root || typeof root.querySelectorAll !== 'function') return;
+
+      root.querySelectorAll('*').forEach(function (element) {
+        var tag = (element.tagName || '').toLowerCase();
+        var className = typeof element.className === 'string' ? element.className.toLowerCase() : '';
+        var id = (element.id || '').toLowerCase();
+
+        var isTitlebar =
+          tag.indexOf('titlebar') !== -1 ||
+          tag.indexOf('title-bar') !== -1 ||
+          className.indexOf('titlebar') !== -1 ||
+          className.indexOf('title-bar') !== -1 ||
+          id.indexOf('titlebar') !== -1 ||
+          id.indexOf('title-bar') !== -1;
+
+        if (isTitlebar) {
+          element.style.setProperty('display', 'none', 'important');
+          element.setAttribute('aria-hidden', 'true');
+          hiddenCount += 1;
+        }
+
+        if (element.shadowRoot) visit(element.shadowRoot);
+      });
+    }
+
+    visit(bubble.shadowRoot);
+
+    // Some Messenger internals are hydrated only after the chat opens. Retry briefly so
+    // the title bar is removed even when it appears a moment after the outer component.
+    if (hiddenCount === 0) {
+      window.setTimeout(function () {
+        var currentBubble = getMessengerElements().bubble;
+        if (currentBubble && currentBubble.shadowRoot) visit(currentBubble.shadowRoot);
+      }, 80);
+      window.setTimeout(function () {
+        var currentBubble = getMessengerElements().bubble;
+        if (currentBubble && currentBubble.shadowRoot) visit(currentBubble.shadowRoot);
+      }, 240);
+    }
+  }
+
   // Keep the notice in the input layout so it never covers a message.
   function installInputExtras() {
+    hideChatTitlebar();
     var bubble = getMessengerElements().bubble;
     var chat = bubble && bubble.shadowRoot && bubble.shadowRoot.querySelector('df-messenger-chat');
     var root = chat && chat.shadowRoot;

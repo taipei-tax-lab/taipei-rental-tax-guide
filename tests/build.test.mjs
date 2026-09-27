@@ -1,14 +1,31 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import {createHash} from 'node:crypto';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {execFileSync} from 'node:child_process';
+import {contentHash, normalizeEol} from '../scripts/text.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const html = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
-const data = JSON.parse(fs.readFileSync(path.join(root, 'site/content.json'), 'utf8'));
+const read = name => normalizeEol(fs.readFileSync(path.join(root, name), 'utf8'));
+const html = read('index.html');
+const data = JSON.parse(read('site/content.json'));
+
+const cxConfig = markup => {
+  const tag = markup.match(/<df-messenger\b[^>]*>/)?.[0];
+  assert.ok(tag, 'Messenger element must exist');
+  return Object.fromEntries(['location', 'project-id', 'agent-id'].map(name => {
+    const value = tag.match(new RegExp(`\\b${name}="([^"]+)"`))?.[1];
+    assert.ok(value, `Messenger ${name} must be configured`);
+    return [name, value];
+  }));
+};
+
+test('text hashing treats CRLF and LF as the same source content', () => {
+  assert.equal(normalizeEol('first\r\nsecond'), 'first\nsecond');
+  assert.equal(contentHash('first\r\nsecond'), contentHash('first\nsecond'));
+});
+
 test('checked-in GitHub Pages output is reproducible', () => {
   execFileSync(process.execPath, ['scripts/build.mjs','--check'], {cwd: root});
 });
@@ -27,11 +44,12 @@ test('all plans expose complete tax information and official next steps without 
   }
   assert.doesNotMatch(html, /_next\/|vinext\.navigationRuntime|site-enhancements\.js/);
 });
-test('embedded Messenger is the preserved fragment with the original agent settings', () => {
-  const fragment = fs.readFileSync(path.join(root, 'site/messenger.html'), 'utf8').replace('{{MESSENGER_UI_VERSION}}', createHash('sha256').update(fs.readFileSync(path.join(root, 'assets/js/messenger-ui.js'))).digest('hex').slice(0,10));
+test('generated Messenger preserves its source fragment and CX configuration', () => {
+  const messengerSource = read('site/messenger.html');
+  const fragment = messengerSource.replace('{{MESSENGER_UI_VERSION}}', contentHash(read('assets/js/messenger-ui.js')));
   assert.ok(html.includes(fragment));
   assert.equal((html.match(/<df-messenger\s/g) || []).length, 1);
-  assert.match(fragment, /agent-id="9fb1cac6-62cd-40e6-8b13-eecf651f1f72"/);
+  assert.deepEqual(cxConfig(html), cxConfig(messengerSource));
   assert.match(fragment, /src="\.\/assets\/js\/messenger-ui\.js\?v=[a-f0-9]{10}"/);
 });
 test('all plans provide a full condition hook for the guide UI', () => {

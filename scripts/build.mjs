@@ -1,10 +1,10 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
+import {contentHash, normalizeEol} from './text.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const read = name => fs.readFileSync(path.join(root, name), 'utf8');
+const read = name => normalizeEol(fs.readFileSync(path.join(root, name), 'utf8'));
 const data = JSON.parse(read('site/content.json'));
 const esc = value => String(value).replace(/[&<>"']/g, char => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'}[char]));
 const link = (item, cls = '') => `<a class="${cls}" href="${esc(item.href)}" target="_blank" rel="noopener noreferrer">${esc(item.label)} <span aria-hidden="true">↗</span><span class="sr-only">（另開新視窗）</span></a>`;
@@ -131,7 +131,7 @@ const comparison = plans.map(plan => {
   }).join('');
   return `<article data-compare-plan="${plan.id}" class="v2-compare-card v2-${plan.accent}"><h2>${esc(plan.eyebrow)}</h2><p class="v2-compare-situation">${esc(plan.compareSituation || plan.situation)}</p><dl><div><dt>管理方式</dt><dd>${esc(plan.management)}</dd></div><div><dt>主要門檻</dt><dd>${esc(plan.condition)}</dd></div>${compareTaxes}<div><dt>第一步</dt><dd>${esc(plan.firstStep)}</dd></div></dl><a href="#plan-${plan.id}" class="v2-button">查看優惠與辦理方式 →</a></article>`;
 }).join('\n');
-const hash = name => createHash('sha256').update(read(name).replace(/\r\n/g, '\n')).digest('hex').slice(0, 10);
+const hash = name => contentHash(read(name));
 const replacements = {
   BASE_VERSION: hash('assets/css/site.css'), STYLE_VERSION: hash('assets/css/guide-v2.css'),
   RULES_VERSION: hash('assets/js/guide-rules.js'), UI_VERSION: hash('assets/js/guide-ui.js'),
