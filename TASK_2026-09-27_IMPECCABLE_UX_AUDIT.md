@@ -23,11 +23,11 @@ Stage 1 audit is complete; Stage 2 implementation and review evidence are record
 
 Treat these as hard constraints:
 
-> Government public-service information site.  
-> Preserve existing Taipei Tax visual identity.  
-> Optimize for trust, comprehension, accessibility and task completion.  
-> No visual redesign unless explicitly requested.  
-> Policy content, legal meaning, tax figures, eligibility rules and approved wording must not be altered without human review.  
+> Government public-service information site.\
+> Preserve existing Taipei Tax visual identity.\
+> Optimize for trust, comprehension, accessibility and task completion.\
+> No visual redesign unless explicitly requested.\
+> Policy content, legal meaning, tax figures, eligibility rules and approved wording must not be altered without human review.\
 > Preserve existing functional behavior unless a change is explicitly approved.
 
 The quality order for this site is:
@@ -157,8 +157,8 @@ If browser tooling is unavailable, record the limitation instead of installing l
 7. Commit and push the branch.
 8. Stop.
 
-**Do not open PR.**  
-**Do not merge main.**  
+**Do not open PR.**\
+**Do not merge main.**\
 **Do not implement Stage 2 changes.**
 
 ## Completion criteria
@@ -351,7 +351,7 @@ Constraints:
 - citizen-facing helper wording may be minimally adjusted only if needed to clarify its role; do not alter policy wording
 
 Target outcome:
-> 四個方案 = primary choices  
+> 四個方案 = primary choices\
 > quick guide = clearly secondary decision support
 
 ### Approved candidate B — Surface the existing source-check date near tax figures
@@ -510,8 +510,8 @@ When implementation is complete:
 4. Commit and push `ux/impeccable-refinement-poc`.
 5. Stop and hand back to ChatGPT / user for visual review.
 
-**Do not open PR.**  
-**Do not merge main.**  
+**Do not open PR.**\
+**Do not merge main.**\
 **Do not switch GitHub Pages away from main.**
 
 
@@ -671,3 +671,12 @@ Status: **REVIEW_APPROVED_READY_FOR_PR**
 - Limits: Playwright is unavailable; physical-device/touch, full keyboard/screen-reader, and 200% zoom checks were not run.
 
 The final release protocol below is authorized and will be recorded after PR merge, Pages success, and production smoke.
+
+## Latest-main integration and final pre-PR verification (2026-09-27)
+
+- Synced `origin/main` at `73d0bbbb242e66080cc316a6bd38cfebfaa1853c`; production application commit `e1d8642a88b26e42fce0f3100a4f51fc96d9fde9` is covered by successful GitHub Pages run #90.
+- Integrated latest main with Standard no-ff merge commit `92f2131206a9e32c12669bc15af6f82ece5f6173` before opening the PR. This carries forward the reviewed QA-10C production runtime context; the UX task introduces no Messenger or CX change.
+- Rebuilt after integration: build PASS; build `--check` PASS; full Node suite PASS (20/20); performance budget PASS; `git diff --check` PASS, including the branch diff against latest main.
+- Desktop Chrome smoke at `http://127.0.0.1:4175/#plans` confirmed the approved shortcut before the four plan cards and the source date in the footer only.
+- Mobile Chrome CDP smoke at 390×844 confirmed viewport/document/body widths 390, no horizontal overflow, four plan cards, the exact approved shortcut, zero plan-area `.v2-source-check` elements, and the footer source date.
+- Branch comparison against latest main shows the only production-visible change is the approved quick-guide hierarchy. Playwright remains unavailable; no physical-device, touch, full keyboard/screen-reader, or 200% zoom review was performed.
