@@ -6,13 +6,14 @@ Last updated: 2026-09-27
 
 - Repository: `taipei-tax-lab/taipei-rental-tax-guide`
 - Production branch: `main`
-- Current production main baseline at audit time: `ab1cb35b53763a6e6341b2041125894defaf8b27`
-- Production release merge: `76c164b2585545c455bf5e66a06fb8f4d66c746c` (PR #8)
+- Previous production baseline before Phase 5A: `ab1cb35b53763a6e6341b2041125894defaf8b27`
+- Previous production release merge: `76c164b2585545c455bf5e66a06fb8f4d66c746c` (PR #8)
+- Latest production release merge: `251884ee3d133d4f2e5723b3d25ccdfc8a1bf642` (PR #9)
 - GitHub Pages: `https://taipei-tax-lab.github.io/taipei-rental-tax-guide/`
 - Production status: **RELEASED**
-- Production Messenger currently uses the older private CX configuration.
+- Production Messenger now uses the official/public-service CX configuration.
 
-## Current candidate
+## Phase 5A candidate (now released)
 
 - Branch: `phase5a-official-cx`
 - Candidate application baseline before the 2026-09-27 planning docs: `e1d85dfeb87a81596195220164b4e17cc0bdaf98`
@@ -24,14 +25,29 @@ Last updated: 2026-09-27
 
 ## Active task
 
-- Status: **REVIEW_APPROVED_READY_FOR_PR**
+- Status: **RELEASED**
 - Task: Phase 5A 公務 CX source 一致性與跨平台 release gate
 - Task file: `TASK_2026-09-27_PHASE5A_CX_RELEASE_GATE.md`
 - Execution agent: local Codex Desktop
-- Work branch: `phase5a-official-cx`
+- Work branch: `phase5a-official-cx` (merged into `main`; historical branch retained)
 - Review gate: **PASSED**
-- Runtime smoke gate: **PASSED on GitHub Pages**
-- PR / merge: **approved to proceed with release protocol**
+- Runtime smoke gate: **PASSED on production GitHub Pages**
+- PR: [#9](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/pull/9)
+- Release merge: `251884ee3d133d4f2e5723b3d25ccdfc8a1bf642` (Standard Merge Commit)
+
+## Phase 5A final release result (2026-09-27)
+
+- PR #9: https://github.com/taipei-tax-lab/taipei-rental-tax-guide/pull/9
+- Merge method: Standard Merge Commit; no squash or rebase.
+- Release merge commit: `251884ee3d133d4f2e5723b3d25ccdfc8a1bf642`.
+- GitHub Pages publishing source: `main` at `/`.
+- Main Pages deployment: run #83, commit `251884ee3d133d4f2e5723b3d25ccdfc8a1bf642`, completed successfully: https://github.com/taipei-tax-lab/taipei-rental-tax-guide/actions/runs/36286716700
+- Production CX configuration verified from the deployed page: location `asia-northeast1`, project `serviceagent-1150909`, agent `799426c1-ba69-49dc-85e4-5065985706e2`.
+- Production Messenger opened; one non-personal basic question about 公益出租人 was sent and received an agent response.
+- Close / reopen passed.
+- With Messenger open, desktop 1440×900 and mobile 390×844 both had document/body width equal to viewport width; no horizontal overflow.
+- A clean-context production screenshot showed Messenger open and ready for input with no visible error. One accessibility snapshot contained `Something went wrong` in the widget's `.error` node, whose computed opacity was `0` (visually hidden); the single sent question received a response.
+- No browser console errors or page errors were recorded in the isolated production smoke context.
 
 ## Audit result (2026-09-27)
 
@@ -68,7 +84,7 @@ Verified behavior on Windows:
 
 This must be resolved so Windows and Linux builds/tests agree.
 
-## Implementation result (2026-09-27)
+## Implementation result before review (2026-09-27)
 
 - Status: **IMPLEMENTED_AWAITING_REVIEW**
 - Implementation commit: `5a16eeb3feb6d53be791f756fcd9df7d9141a46c`
@@ -101,7 +117,7 @@ This must be resolved so Windows and Linux builds/tests agree.
 - CX source/generated: source and rebuilt output both use location `asia-northeast1`, project `serviceagent-1150909`, agent `799426c1-ba69-49dc-85e4-5065985706e2`. Private CX IDs are absent from generated output; regression guard passes.
 - Chrome smoke: candidate page loaded with no horizontal overflow at 1440×900 and 390×844. Messenger opened, closed and reopened. No console warnings/errors were observed. The widget displayed a generic `Something went wrong` message immediately on open; no query was entered or sent. No `pageerror` event listener was available. Cloud runtime behavior remains for review; no CX/GCP setting was changed.
 
-The original P1 findings above describe the verified pre-fix audit state. The implementation above addresses their source/build and Windows EOL causes. The candidate is awaiting review, not released.
+The original P1 findings above describe the verified pre-fix audit state. The implementation above addresses their source/build and Windows EOL causes. At this handoff point, the candidate was awaiting review and had not been released.
 
 ## Known audit findings intentionally deferred
 
@@ -123,7 +139,7 @@ Do not mix these into the current fix unless explicitly approved later.
 ## Source-of-truth rules
 
 1. `main` is the current production baseline.
-2. `phase5a-official-cx` is the next candidate, not production.
+2. `phase5a-official-cx` was the Phase 5A candidate and is now merged into production `main`; retain the historical branch.
 3. `site/messenger.html` is the Messenger source fragment used by the build.
 4. `index.html` is generated output and must not be hand-edited as the primary fix.
 5. A candidate is not release-ready unless rebuilding reproduces the intended official CX configuration.
@@ -139,7 +155,7 @@ Do not mix these into the current fix unless explicitly approved later.
 - Preserve historical branches.
 - Keep changes minimal and directly tied to the two P1 blockers plus the required CX operational documentation.
 
-## Completion protocol
+## Implementation completion protocol (pre-review phase)
 
 Codex should:
 
@@ -193,7 +209,7 @@ The localhost-only `Something went wrong` observed during Codex smoke testing is
 
 ## Release protocol for Phase 5A
 
-The candidate is now approved to proceed:
+This protocol was completed on 2026-09-27; the results are recorded in **Phase 5A final release result** above.
 
 1. Fetch latest refs and confirm `phase5a-official-cx` is not behind `main`.
 2. Re-run the release-gate checks:
