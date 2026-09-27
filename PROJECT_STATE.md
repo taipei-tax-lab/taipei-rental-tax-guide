@@ -25,23 +25,24 @@ Last updated: 2026-09-27
 
 ## Active task
 
-- Status: **RELEASED**
-- Task: Post-release maintenance / audit follow-up
-- Task file: `TASK_2026-09-27_POST_RELEASE_MAINTENANCE.md`
-- Execution agent: local Codex Desktop
-- Start point: latest `main`, `3ac78dc13ac89ea07458a04270028b7147ccb590`
-- Work branch: `maintenance/2026-09-27-post-release`
-- Implementation commit: `17a12dd5725dc17abcc92ece06fbf340fe8ec0e1`
-- Scope: stale tenant count test/docs, README release state, stale Messenger regression descriptions, and classification of remaining audit findings.
-- Review gate: **PASSED**
-- PR: #10 — https://github.com/taipei-tax-lab/taipei-rental-tax-guide/pull/10
-- PR / merge: **merged with Standard Merge Commit**; release merge `20c915066c87fc4308c89dc601d324803b3bc0ef`
-- GitHub Pages: main deployment run #88 completed successfully for the release merge: https://github.com/taipei-tax-lab/taipei-rental-tax-guide/actions/runs/36290049347
-- Implementation files: `scripts/browser-check.cjs`, `scripts/messenger-regression.py`, `README.md`, `docs/v2-development.md`.
-- Validation: build, build `--check`, Node tests (19/19), performance budget, syntax checks, and `git diff --check` passed. Build left generated `index.html` unchanged.
-- Browser smoke: local page loaded in the Codex in-app browser; ready state, title, 13 tenant links in 3 groups, Messenger element, retired-launcher absence, no horizontal overflow at the observed 526px viewport, and zero browser console errors verified. No Messenger interaction or query was sent.
-- Automated Playwright regression scripts were unavailable because Playwright is not installed; only the browser smoke above ran.
-- D backlog classifications and evidence are recorded in the task Completion Record.
+- Status: **READY_FOR_AUDIT**
+- Task: Impeccable UX refinement PoC — Stage 1 read-only audit + critique
+- Task file: `TASK_2026-09-27_IMPECCABLE_UX_AUDIT.md`
+- Execution agent: local Codex Desktop with Impeccable already installed
+- Baseline: production `main` at `9d4865963c736ce2428a8cfbd95c3d1f40022623`
+- Work branch: `ux/impeccable-refinement-poc`
+- Objective: evaluate whether Impeccable can identify small, evidence-based UX improvements without redesigning the site
+- Allowed in Stage 1: Impeccable `audit` + `critique`, repository/source inspection, local preview if useful, STATE/TASK documentation updates
+- Not allowed in Stage 1: website source changes, UI redesign, policy wording changes, CX/GCP changes, PR, merge
+- Completion: update STATE and TASK to `AUDIT_COMPLETE_AWAITING_HUMAN_SELECTION`, record findings and at most 3 Stage 2 candidates, commit/push branch, then stop
+
+## Impeccable PoC handoff
+
+- Production `main` remains released and unchanged.
+- This PoC is isolated on `ux/impeccable-refinement-poc`.
+- Impeccable is already installed in Codex; do not project-local install, run `init`, or run `document`.
+- Stage 1 is intentionally read-only for website source. The purpose is to test the quality of Impeccable's UX judgment before approving any refinement.
+- The repository STATE/TASK remain the handoff source between agents.
 
 ## Post-release maintenance release result (2026-09-27)
 
