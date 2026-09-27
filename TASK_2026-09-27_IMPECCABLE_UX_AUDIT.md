@@ -1,6 +1,6 @@
 # TASK_2026-09-27_IMPECCABLE_UX_AUDIT
 
-Status: **REVIEW_APPROVED_READY_FOR_PR**
+Status: **RELEASED**
 
 Stage 1 audit is complete; Stage 2 implementation and review evidence are recorded below.
 
@@ -564,7 +564,7 @@ Do not change anything else. No PR, merge, Pages switch, policy/tax/CX change, o
 
 ## Human visual review and final release decision
 
-Status: **REVIEW_APPROVED_READY_FOR_PR**
+Status: **REVIEW_APPROVED** (released below).
 
 The user completed a side-by-side local visual comparison of:
 - production baseline `main`
@@ -654,7 +654,7 @@ After this release is complete, a **new branch from the new production main** wi
 
 Do not create or implement that experiment in this release task.
 
-## Final revision result — ready for PR (2026-09-27)
+## Final revision result — pre-PR candidate (2026-09-27)
 
 Status: **REVIEW_APPROVED_READY_FOR_PR**
 
@@ -670,7 +670,7 @@ Status: **REVIEW_APPROVED_READY_FOR_PR**
 - Impeccable context and layout reference were used. One layout detector run returned seven existing warnings (three icon-tile-stack and four cramped-padding); no warning targeted the changed hierarchy. The detector could not resolve stylesheet paths from the generated-page target context, limiting color/custom-property checks. No other cleanup was undertaken.
 - Limits: Playwright is unavailable; physical-device/touch, full keyboard/screen-reader, and 200% zoom checks were not run.
 
-The final release protocol below is authorized and will be recorded after PR merge, Pages success, and production smoke.
+The release protocol was completed after merge, Pages success, and production smoke; see the final release record below.
 
 ## Latest-main integration and final pre-PR verification (2026-09-27)
 
@@ -680,3 +680,15 @@ The final release protocol below is authorized and will be recorded after PR mer
 - Desktop Chrome smoke at `http://127.0.0.1:4175/#plans` confirmed the approved shortcut before the four plan cards and the source date in the footer only.
 - Mobile Chrome CDP smoke at 390×844 confirmed viewport/document/body widths 390, no horizontal overflow, four plan cards, the exact approved shortcut, zero plan-area `.v2-source-check` elements, and the footer source date.
 - Branch comparison against latest main shows the only production-visible change is the approved quick-guide hierarchy. Playwright remains unavailable; no physical-device, touch, full keyboard/screen-reader, or 200% zoom review was performed.
+
+## Final release record (2026-09-27)
+
+Status: **RELEASED**
+
+- PR #11: https://github.com/taipei-tax-lab/taipei-rental-tax-guide/pull/11; base `main`, head `ux/impeccable-refinement-poc`.
+- Merge method: **Standard Merge Commit**; no squash or rebase. Merge SHA: `3bac3930aee9643a35d7e41ac375a581ab0b68b9`.
+- GitHub Pages run #92 deployed merge commit `3bac3930aee9643a35d7e41ac375a581ab0b68b9` from `main` successfully: https://github.com/taipei-tax-lab/taipei-rental-tax-guide/actions/runs/36307128126.
+- Final validation: build PASS; build `--check` PASS; full Node suite 20/20 PASS; performance budget PASS; `git diff --check` PASS for both working changes and the full branch diff before merge.
+- Production desktop Chrome smoke: 1440×900; document/body widths 1425 with no horizontal overflow. The approved helper is above all four owner plan cards, no plan-area source-check exists, and the footer date remains.
+- Production mobile Chrome smoke: 390×844; document/body widths 390 with no horizontal overflow. The exact approved helper and four cards are present, plan-area source-check count is zero, and the footer date remains.
+- No additional UX/UI, policy, tax, eligibility, Messenger, or CX changes were included. GitHub Pages remains on `main`; historical branch `ux/impeccable-refinement-poc` is preserved.

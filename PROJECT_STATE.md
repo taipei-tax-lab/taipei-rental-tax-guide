@@ -7,11 +7,11 @@ Last updated: 2026-09-27
 - Repository: `taipei-tax-lab/taipei-rental-tax-guide`
 - Production branch: `main`
 - Previous production baseline before Phase 5A: `ab1cb35b53763a6e6341b2041125894defaf8b27`
-- Previous production release merge: `251884ee3d133d4f2e5723b3d25ccdfc8a1bf642` (PR #9)
-- Latest production release merge: `20c915066c87fc4308c89dc601d324803b3bc0ef` (PR #10)
-- Latest production application commit: `e1d8642a88b26e42fce0f3100a4f51fc96d9fde9` (QA-10C Generic Runtime Context v1)
-- Latest `main` planning/state commit: `73d0bbbb242e66080cc316a6bd38cfebfaa1853c`.
-- Latest GitHub Pages deployment: run #90, production source commit `e1d8642`, completed successfully.
+- Earlier production release merge: `251884ee3d133d4f2e5723b3d25ccdfc8a1bf642` (PR #9)
+- Previous production release merge before PR #11: `20c915066c87fc4308c89dc601d324803b3bc0ef` (PR #10)
+- Latest production release merge: `3bac3930aee9643a35d7e41ac375a581ab0b68b9` (PR #11; Standard Merge Commit)
+- Latest production commit: `3bac3930aee9643a35d7e41ac375a581ab0b68b9`.
+- Latest GitHub Pages deployment: run #92, source commit `3bac393`, completed successfully: https://github.com/taipei-tax-lab/taipei-rental-tax-guide/actions/runs/36307128126.
 - GitHub Pages: `https://taipei-tax-lab.github.io/taipei-rental-tax-guide/`
 - Production status: **RELEASED**
 - Production Messenger now uses the official/public-service CX configuration.
@@ -26,7 +26,7 @@ Last updated: 2026-09-27
   - project-id: `serviceagent-1150909`
   - agent-id: `799426c1-ba69-49dc-85e4-5065985706e2`
 
-## Latest production task — QA-10C Generic Runtime Context v1 (2026-09-27)
+## Previous production task — QA-10C Generic Runtime Context v1 (2026-09-27)
 
 - Status: **CLOSED — REVIEWED PASS**.
 - Frontend implementation: `e1d8642a88b26e42fce0f3100a4f51fc96d9fde9`; framework implementation: `8389b8b54ad7ee8e0cd6e103228aab5b7a234aff`.
@@ -35,7 +35,7 @@ Last updated: 2026-09-27
 
 ## Active task
 
-- Status: **REVIEW_APPROVED_READY_FOR_PR**
+- Status: **RELEASED**
 - Task: Impeccable UX refinement PoC — keep approved quick-guide hierarchy only
 - Task file: `TASK_2026-09-27_IMPECCABLE_UX_AUDIT.md`
 - Execution agent: local Codex Desktop
@@ -50,8 +50,8 @@ Last updated: 2026-09-27
   - remove the new plan-area source-check markup and its dedicated CSS
   - return source-check display count to the original footer-only behavior
   - update the Stage 2 regression test so it protects the approved quick-guide hierarchy without requiring the rejected date duplication
-- Release authorization: after the revision passes all gates, open a PR to `main`, use **Standard Merge Commit** only, wait for Pages, verify production, and update STATE/TASK to `RELEASED`
-- Do not start the next free-design Impeccable experiment until this release is complete
+- Release authorization: completed as recorded in the Impeccable UX release result below (PR #11, Standard Merge Commit only).
+- The separate free-design Impeccable experiment remains out of scope for this release.
 
 ## Human visual review decision (2026-09-27)
 
@@ -399,3 +399,14 @@ Do not include deferred P2/P3 cleanup in this release.
 - Browser smoke: desktop Chrome showed the owner heading, shortcut, and four plan cards; 390×844 emulated Chrome reported documentWidth=390, bodyWidth=390, no horizontal overflow, no plan-area date, and the footer source date present.
 - Impeccable layout detector ran once. It returned seven existing warnings (three icon-tile-stack, four cramped-padding); none identified the changed helper. It could not resolve the generated page's relative CSS paths from its target context, so color/custom-property checks were incomplete. No unrelated changes were made.
 - Browser limits: Playwright is unavailable; no physical-device, touch, complete keyboard/screen-reader, or 200% zoom checks were run.
+
+## Impeccable UX release result (2026-09-27)
+
+- Status: **RELEASED**.
+- PR #11: https://github.com/taipei-tax-lab/taipei-rental-tax-guide/pull/11 (base `main`, head `ux/impeccable-refinement-poc`).
+- Merge method: **Standard Merge Commit**; no squash or rebase. Merge SHA: `3bac3930aee9643a35d7e41ac375a581ab0b68b9`.
+- GitHub Pages deployment: run #92 for `main` / merge SHA `3bac3930aee9643a35d7e41ac375a581ab0b68b9`, completed successfully: https://github.com/taipei-tax-lab/taipei-rental-tax-guide/actions/runs/36307128126.
+- Final validation: normal build PASS; build `--check` PASS; full Node tests 20/20 PASS; performance budget PASS; working-tree and branch `git diff --check` PASS.
+- Production desktop smoke: 1440×900, document/body widths 1425, no horizontal overflow; approved helper and four plan cards present, source date only in footer.
+- Production mobile smoke: 390×844, document/body widths 390, no horizontal overflow; approved helper and four plan cards present, no plan-area source date, footer source date present.
+- The release preserves the historical `ux/impeccable-refinement-poc` branch. GitHub Pages remains deployed from `main`.
