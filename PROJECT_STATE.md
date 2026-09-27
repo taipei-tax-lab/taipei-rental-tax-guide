@@ -25,7 +25,7 @@ Last updated: 2026-09-27
 
 ## Active task
 
-- Status: **STAGE2_IMPLEMENTED_AWAITING_HUMAN_REVIEW**
+- Status: **STAGE2_CHANGES_REQUESTED**
 - Task: Impeccable UX refinement PoC — Stage 2 targeted implementation
 - Task file: `TASK_2026-09-27_IMPECCABLE_UX_AUDIT.md`
 - Execution agent: local Codex Desktop with Impeccable already installed
@@ -78,6 +78,36 @@ Last updated: 2026-09-27
 - At 720px, the plans form two columns; the source-check line remains immediately after them and right aligned.
 - At 390px and 320px, plan cards stack in reading order, the helper link wraps naturally, and the source-check date is visible and left aligned. Browser measurements showed no horizontal overflow in either candidate viewport; the production baseline also showed no horizontal overflow.
 - The local Playwright package is unavailable, so no repository Playwright suite ran. Targeted checks used the Codex Chrome browser viewport and read-only page inspection; no dependency was added. 200% browser zoom was not verified. Physical-device, synthesized-touch, and full keyboard/screen-reader checks were not performed.
+
+## Stage 2 ChatGPT review (2026-09-27)
+
+Result: **CHANGES REQUESTED — one small typography regression**
+
+The Stage 2 structure and scope are otherwise sound:
+- quick-guide hierarchy change is appropriately small and preserves behavior
+- source-check date uses the existing `{{CHECKED}}` source and keeps the footer
+- deferred first-viewport compression was not implemented
+- no policy/tax/CX changes were mixed in
+- reported build/test/performance checks are green
+
+One correction is required before human visual review:
+
+- Existing project typography rule in `assets/css/guide-v2.css` explicitly states: `body 18px, supporting text at least 16px`.
+- Stage 2 added:
+  - `.v2-guide-shortcut { font-size: .9375rem; }` → 15px at the default root size
+  - `.v2-source-check { font-size: .875rem; }` → 14px
+- Both newly added supporting texts therefore fall below the project's established minimum supporting-text size.
+
+Required correction:
+- keep the new hierarchy/layout and muted treatment
+- remove the shortcut's smaller font override or set it to at least `1rem`
+- set the source-check line to at least `1rem`
+- preserve visual subordination through color, weight, spacing, alignment, and placement rather than sub-16px text
+- rerun build, build --check, Node tests, performance budget, and `git diff --check`
+- update STATE/TASK with the corrective commit and validation
+- then return status to `STAGE2_IMPLEMENTED_AWAITING_HUMAN_REVIEW`
+
+No other Stage 2 redesign or refinement is requested.
 
 ## Impeccable PoC handoff
 
