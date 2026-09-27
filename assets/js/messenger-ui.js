@@ -146,6 +146,111 @@
     };
   }
 
+  // --- Generic Runtime Context & Direct Playbook Entry Lifecycle (QA-10C) ---
+  var RENTAL_TAX_GUIDE_PLAYBOOK =
+    "projects/serviceagent-1150909/locations/asia-northeast1/agents/799426c1-ba69-49dc-85e4-5065985706e2/playbooks/7861bc8f-d2fb-43d3-8ca1-651415eb4205";
+
+  var runtimeContextState = {
+    isDirectEntryArmed: false,
+    targetPlaybook: RENTAL_TAX_GUIDE_PLAYBOOK
+  };
+
+  function getTaipeiCurrentDate() {
+    try {
+      var formatter = new Intl.DateTimeFormat("en-CA", {
+        timeZone: "Asia/Taipei",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+      });
+      return formatter.format(new Date());
+    } catch (e) {
+      var now = new Date();
+      var utc = now.getTime() + now.getTimezoneOffset() * 60000;
+      var taipeiTime = new Date(utc + 3600000 * 8);
+      var y = taipeiTime.getFullYear();
+      var m = String(taipeiTime.getMonth() + 1).padStart(2, "0");
+      var d = String(taipeiTime.getDate()).padStart(2, "0");
+      return y + "-" + m + "-" + d;
+    }
+  }
+
+  function getCurrentPageSection() {
+    var hash = window.location.hash || "";
+    if (hash.indexOf("#") === 0) {
+      hash = hash.substring(1);
+    }
+    if (hash) {
+      return hash;
+    }
+    var main = document.querySelector("main[data-page]");
+    if (main && main.dataset.page) {
+      return main.dataset.page;
+    }
+    return "home";
+  }
+
+  function buildRuntimeParameters() {
+    return {
+      runtime_current_date: getTaipeiCurrentDate(),
+      runtime_entry_section: getCurrentPageSection()
+    };
+  }
+
+  function wrapMessengerSessionMethods(messenger) {
+    if (!messenger) return;
+    if (typeof messenger.startNewSession === "function" && !messenger.__qa10c_wrapped_startNewSession) {
+      var origStartNewSession = messenger.startNewSession;
+      messenger.startNewSession = function () {
+        armDirectEntry(messenger);
+        return origStartNewSession.apply(this, arguments);
+      };
+      messenger.__qa10c_wrapped_startNewSession = true;
+    }
+    if (typeof messenger.clearStorage === "function" && !messenger.__qa10c_wrapped_clearStorage) {
+      var origClearStorage = messenger.clearStorage;
+      messenger.clearStorage = function () {
+        var res = origClearStorage.apply(this, arguments);
+        armDirectEntry(messenger);
+        return res;
+      };
+      messenger.__qa10c_wrapped_clearStorage = true;
+    }
+  }
+
+  function armDirectEntry(messenger) {
+    if (!messenger || typeof messenger.setQueryParameters !== "function") return;
+    wrapMessengerSessionMethods(messenger);
+    messenger.setQueryParameters({
+      currentPlaybook: runtimeContextState.targetPlaybook,
+      timeZone: "Asia/Taipei",
+      parameters: buildRuntimeParameters()
+    });
+    runtimeContextState.isDirectEntryArmed = true;
+  }
+
+  function disarmDirectEntry(messenger) {
+    if (!runtimeContextState.isDirectEntryArmed) return;
+    if (!messenger || typeof messenger.setQueryParameters !== "function") return;
+    messenger.setQueryParameters({
+      timeZone: "Asia/Taipei",
+      parameters: buildRuntimeParameters()
+    });
+    runtimeContextState.isDirectEntryArmed = false;
+  }
+
+  function updateRuntimeSectionContext(messenger) {
+    if (!messenger || typeof messenger.setQueryParameters !== "function") return;
+    if (runtimeContextState.isDirectEntryArmed) {
+      armDirectEntry(messenger);
+    } else {
+      messenger.setQueryParameters({
+        timeZone: "Asia/Taipei",
+        parameters: buildRuntimeParameters()
+      });
+    }
+  }
+
   function getViewportSize() {
     var viewport = window.visualViewport;
 
@@ -436,6 +541,9 @@
     });
     document.addEventListener("df-user-input-entered", beginThinking);
     document.addEventListener("df-request-sent", beginThinking);
+    document.addEventListener("df-request-sent", function () {
+      disarmDirectEntry(elements.messenger || getMessengerElements().messenger);
+    });
     document.addEventListener("df-response-received", function () {
       guidingUntil = 0;
       showTemporaryAssistantState("responding", ASSISTANT_TIMING.responding);
@@ -443,6 +551,15 @@
     document.addEventListener("df-messenger-error", function () {
       guidingUntil = 0;
       showTemporaryAssistantState("error", ASSISTANT_TIMING.error);
+    });
+    document.addEventListener("df-session-expired", function () {
+      armDirectEntry(elements.messenger || getMessengerElements().messenger);
+    });
+    document.addEventListener("df-session-ended", function () {
+      armDirectEntry(elements.messenger || getMessengerElements().messenger);
+    });
+    window.addEventListener("hashchange", function () {
+      updateRuntimeSectionContext(elements.messenger || getMessengerElements().messenger);
     });
     elements.assistantPanel.dataset.eventsBound = "true";
   }
@@ -584,6 +701,7 @@
       elements.assistantPanel.dataset.topicsBound = 'true';
     }
     bindMessengerResize();
+    armDirectEntry(elements.messenger);
     var chatWindow = elements.bubble.shadowRoot && elements.bubble.shadowRoot.querySelector('.chat-wrapper');
     if (chatWindow && !elements.bubble.dataset.geometryBound) {
       new ResizeObserver(updateAssistantPanel).observe(chatWindow);
@@ -592,7 +710,13 @@
     }
   }
 
-  window.addEventListener('df-messenger-loaded', function () { window.setTimeout(installInputExtras, 0); });
+  window.addEventListener('df-messenger-loaded', function () {
+    var elements = getMessengerElements();
+    if (elements.messenger) {
+      armDirectEntry(elements.messenger);
+    }
+    window.setTimeout(installInputExtras, 0);
+  });
 
   function initializeAfterHydration() { window.setTimeout(initialize, 100); }
   if (document.readyState === "complete") initializeAfterHydration();

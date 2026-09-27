@@ -9,6 +9,9 @@ Last updated: 2026-09-27
 - Previous production baseline before Phase 5A: `ab1cb35b53763a6e6341b2041125894defaf8b27`
 - Previous production release merge: `251884ee3d133d4f2e5723b3d25ccdfc8a1bf642` (PR #9)
 - Latest production release merge: `20c915066c87fc4308c89dc601d324803b3bc0ef` (PR #10)
+- Latest production application commit: `e1d8642a88b26e42fce0f3100a4f51fc96d9fde9` (QA-10C Generic Runtime Context v1)
+- Latest `main` planning/state commit: `73d0bbbb242e66080cc316a6bd38cfebfaa1853c`.
+- Latest GitHub Pages deployment: run #90, production source commit `e1d8642`, completed successfully.
 - GitHub Pages: `https://taipei-tax-lab.github.io/taipei-rental-tax-guide/`
 - Production status: **RELEASED**
 - Production Messenger now uses the official/public-service CX configuration.
@@ -23,13 +26,20 @@ Last updated: 2026-09-27
   - project-id: `serviceagent-1150909`
   - agent-id: `799426c1-ba69-49dc-85e4-5065985706e2`
 
+## Latest production task — QA-10C Generic Runtime Context v1 (2026-09-27)
+
+- Status: **CLOSED — REVIEWED PASS**.
+- Frontend implementation: `e1d8642a88b26e42fce0f3100a4f51fc96d9fde9`; framework implementation: `8389b8b54ad7ee8e0cd6e103228aab5b7a234aff`.
+- Production Pages deployment run #90 succeeded; Messenger E01–E08 8/8, targeted CX regression 4/4, frontend tests 19/19, and build check passed.
+- Runtime date/timezone/entry section remain generic integration context; tax-year knowledge remains in CX knowledge and is not hard-coded in frontend JS.
+
 ## Active task
 
 - Status: **REVIEW_APPROVED_READY_FOR_PR**
 - Task: Impeccable UX refinement PoC — keep approved quick-guide hierarchy only
 - Task file: `TASK_2026-09-27_IMPECCABLE_UX_AUDIT.md`
 - Execution agent: local Codex Desktop
-- Baseline: production `main` at `9d4865963c736ce2428a8cfbd95c3d1f40022623`
+- Baseline: production `main` at `73d0bbbb242e66080cc316a6bd38cfebfaa1853c` (source release `e1d8642a88b26e42fce0f3100a4f51fc96d9fde9`; Pages run #90 passed)
 - Work branch: `ux/impeccable-refinement-poc`
 - Human visual review decision:
   1. **APPROVE** the quick-guide hierarchy refinement: `不確定適用方案？使用快速判斷找方向 →`
