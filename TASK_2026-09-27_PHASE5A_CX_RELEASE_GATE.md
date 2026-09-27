@@ -1,5 +1,9 @@
 # TASK_2026-09-27_PHASE5A_CX_RELEASE_GATE
 
+Status: **IMPLEMENTED_AWAITING_REVIEW**
+
+Implementation commit: `5a16eeb3feb6d53be791f756fcd9df7d9141a46c`
+
 ## Goal
 
 修正 `phase5a-official-cx` 目前兩個 P1 release blockers，使「公務 CX 候選版」可被可靠重建、可在 Windows / Linux 通過一致的 release gate，之後再交由 ChatGPT Review。

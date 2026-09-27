@@ -24,7 +24,7 @@ Last updated: 2026-09-27
 
 ## Active task
 
-- Status: **READY_FOR_IMPLEMENTATION**
+- Status: **IMPLEMENTED_AWAITING_REVIEW**
 - Task: Phase 5A 公務 CX source 一致性與跨平台 release gate
 - Task file: `TASK_2026-09-27_PHASE5A_CX_RELEASE_GATE.md`
 - Execution agent: local Codex Desktop
@@ -36,10 +36,10 @@ Last updated: 2026-09-27
 
 Codex completed a read-only technical audit of `main` and `phase5a-official-cx`.
 
-### Release readiness
+### Release readiness at initial audit
 
 - `main`: remains the production baseline.
-- `phase5a-official-cx`: **NOT READY** for merge.
+- `phase5a-official-cx`: **NOT READY** for merge before implementation.
 - P0 findings: 0.
 - P1 release blockers: 2.
 
@@ -66,6 +66,41 @@ Verified behavior on Windows:
 - build can leave a content-equivalent dirty `index.html`
 
 This must be resolved so Windows and Linux builds/tests agree.
+
+## Implementation result (2026-09-27)
+
+- Status: **IMPLEMENTED_AWAITING_REVIEW**
+- Implementation commit: `5a16eeb3feb6d53be791f756fcd9df7d9141a46c`
+- Work branch: `phase5a-official-cx`
+- PR / merge: not opened; `main` unchanged.
+
+### Implementation files (implementation commit)
+
+- `.gitattributes` — explicit LF policy for HTML, CSS, JS, MJS and JSON.
+- `scripts/text.mjs` — shared CRLF-to-LF normalization and content hash.
+- `scripts/build.mjs` — normalizes text reads and uses the shared hash.
+- `tests/build.test.mjs` — LF/CRLF hash test and Messenger source/generated configuration guard.
+- `site/messenger.html` — official CX source IDs and preserved Phase 5A title / placeholder.
+- `index.html` — rebuilt generated output; Messenger UI cache hash refreshed.
+- `docs/dialogflow-cx-operation-guide.md` — distinguishes production/private and candidate/official CX, source and build process.
+
+### State tracking files
+
+- `PROJECT_STATE.md` and `TASK_2026-09-27_PHASE5A_CX_RELEASE_GATE.md` — status and verification record for review.
+
+### Release-gate validation
+
+- Windows: clean detached checkout at the implementation commit; pre-build status clean.
+- Build: `node scripts/build.mjs` PASS; `node scripts/build.mjs --check` PASS.
+- Node tests: `node --test` — 19 passed, 0 failed.
+- Performance budget: `node scripts/performance-budget.mjs` PASS.
+- `git diff --check` PASS.
+- npm is not available on this machine, so equivalent repository scripts were invoked directly with Node v24.19.0.
+- EOL: clean checkout reports `i/lf w/lf` for `index.html`, HTML source, build/hash scripts and test; after build the generated `index.html` has no dirty diff. LF and CRLF produce the same normalized content hash. Linux was not available for an OS-level run.
+- CX source/generated: source and rebuilt output both use location `asia-northeast1`, project `serviceagent-1150909`, agent `799426c1-ba69-49dc-85e4-5065985706e2`. Private CX IDs are absent from generated output; regression guard passes.
+- Chrome smoke: candidate page loaded with no horizontal overflow at 1440×900 and 390×844. Messenger opened, closed and reopened. No console warnings/errors were observed. The widget displayed a generic `Something went wrong` message immediately on open; no query was entered or sent. No `pageerror` event listener was available. Cloud runtime behavior remains for review; no CX/GCP setting was changed.
+
+The original P1 findings above describe the verified pre-fix audit state. The implementation above addresses their source/build and Windows EOL causes. The candidate is awaiting review, not released.
 
 ## Known audit findings intentionally deferred
 
