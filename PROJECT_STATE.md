@@ -35,23 +35,28 @@ Last updated: 2026-09-27
 
 ## Active task
 
-- Status: **RELEASED**
-- Task: Impeccable UX refinement PoC — keep approved quick-guide hierarchy only
-- Task file: `TASK_2026-09-27_IMPECCABLE_UX_AUDIT.md`
-- Execution agent: local Codex Desktop
-- Baseline: production `main` at `73d0bbbb242e66080cc316a6bd38cfebfaa1853c` (source release `e1d8642a88b26e42fce0f3100a4f51fc96d9fde9`; Pages run #90 passed)
-- Work branch: `ux/impeccable-refinement-poc`
-- Human visual review decision:
-  1. **APPROVE** the quick-guide hierarchy refinement: `不確定適用方案？使用快速判斷找方向 →`
-  2. **REJECT / REVERT** the added owner-plan-area `租稅來源核對` line; the existing footer source-check date is sufficient
-  3. keep the first-viewport compression candidate deferred
-- Required final source result:
-  - keep the quick-guide shortcut layout/style/wording
-  - remove the new plan-area source-check markup and its dedicated CSS
-  - return source-check display count to the original footer-only behavior
-  - update the Stage 2 regression test so it protects the approved quick-guide hierarchy without requiring the rejected date duplication
-- Release authorization: completed as recorded in the Impeccable UX release result below (PR #11, Standard Merge Commit only).
-- The separate free-design Impeccable experiment remains out of scope for this release.
+- Status: **READY_FOR_EXPERIMENT**
+- Task: Impeccable free-design experiment
+- Task file: `TASK_2026-09-27_IMPECCABLE_FREE_DESIGN_EXPERIMENT.md`
+- Execution agent: local Codex Desktop with Impeccable already installed
+- Production baseline: `main` at `1ae269999bc3048320ac471f7e21ffccc925ae72`
+- Latest production release merge: `3bac3930aee9643a35d7e41ac375a581ab0b68b9` (PR #11)
+- Work branch: `experiment/impeccable-free-design`
+- Purpose: test Impeccable's upper-bound UX/UI value when given substantially more design freedom than the prior conservative PoC
+- Hard constraints: preserve policy/tax meaning, core functions, accessibility baseline, production CX config, and production main
+- Allowed: substantial IA/layout/visual hierarchy/responsive/presentation changes; Impeccable may use critique/layout/clarify/adapt/polish/distill/colorize/bolder/delight/animate as appropriate
+- This is a pure experiment, not a release candidate
+- Completion: update STATE/TASK to `EXPERIMENT_COMPLETE_AWAITING_HUMAN_REVIEW`, commit/push branch, provide local baseline-vs-experiment preview, then stop
+- No PR, no merge, no Pages switch
+
+## Impeccable free-design experiment handoff (2026-09-27)
+
+- PR #11 is released; production `main` is the baseline for this experiment.
+- The previous conservative Impeccable PoC is complete and historical.
+- This branch intentionally gives Impeccable much more design freedom so its real ceiling can be evaluated.
+- The experiment should not merely repeat the prior audit shortlist.
+- The key question is whether a freer Impeccable pass can produce a clearly superior public-service UX, not whether it can make more changes.
+- Repository STATE/TASK remain the source of truth for agent handoff.
 
 ## Human visual review decision (2026-09-27)
 
