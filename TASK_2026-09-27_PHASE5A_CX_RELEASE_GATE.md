@@ -1,6 +1,6 @@
 # TASK_2026-09-27_PHASE5A_CX_RELEASE_GATE
 
-Status: **REVIEW_APPROVED_READY_FOR_PR**
+Status: **RELEASED**
 
 Implementation commit: `5a16eeb3feb6d53be791f756fcd9df7d9141a46c`
 
@@ -311,3 +311,25 @@ Proceed with:
 7. update `PROJECT_STATE.md` on `main` to `RELEASED`
 
 Do not squash, rebase, delete historical branches, or include deferred P2/P3 work.
+
+
+---
+
+## 9. Final release result
+
+Status: **RELEASED**
+
+- PR: #9 — `phase5a-official-cx` → `main`
+- Merge method: Standard Merge Commit
+- Release merge SHA: `251884ee3d133d4f2e5723b3d25ccdfc8a1bf642`
+- Final state update on `main`: `d5b5bff00e235edd93c6e84a37e500853bb2591d`
+- GitHub Pages source returned to `main`
+- Pages deployment runs #83 and #84: success
+- Production Messenger verified on `taipei-tax-lab.github.io`
+- Official CX project/agent verified in production
+- One basic public-rental-landlord query returned a response
+- Close/reopen and desktop/mobile overflow smoke checks passed
+- 19/19 Node tests, build, build --check, performance budget and `git diff --check`: PASS
+- Historical branch retained
+
+Phase 5A is closed. Any later maintenance work must use a new task file.
