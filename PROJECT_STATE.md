@@ -25,19 +25,31 @@ Last updated: 2026-09-27
 
 ## Active task
 
-- Status: **STAGE2_IMPLEMENTED_AWAITING_HUMAN_REVIEW**
-- Task: Impeccable UX refinement PoC — Stage 2 targeted implementation
+- Status: **READY_FOR_FINAL_REVISION_AND_RELEASE**
+- Task: Impeccable UX refinement PoC — keep approved quick-guide hierarchy only
 - Task file: `TASK_2026-09-27_IMPECCABLE_UX_AUDIT.md`
-- Execution agent: local Codex Desktop with Impeccable already installed
+- Execution agent: local Codex Desktop
 - Baseline: production `main` at `9d4865963c736ce2428a8cfbd95c3d1f40022623`
 - Work branch: `ux/impeccable-refinement-poc`
-- Human-approved Stage 2 scope:
-  1. distinguish the quick guide as decision support rather than a fifth rental plan
-  2. surface the existing `meta.checked` source-check date near owner plan / comparison information using a secondary visual treatment
-- Deferred: do not compress the page merely to force benefit figures into the first desktop viewport
-- Preferred Impeccable refinement command: `layout`
-- Not allowed: redesign, broad polish pass, policy/tax/CX changes, PR, merge, Pages source switch
-- Completion: update STATE/TASK to `STAGE2_IMPLEMENTED_AWAITING_HUMAN_REVIEW`, record implementation/validation/before-after evidence, commit/push branch, then stop
+- Human visual review decision:
+  1. **APPROVE** the quick-guide hierarchy refinement: `不確定適用方案？使用快速判斷找方向 →`
+  2. **REJECT / REVERT** the added owner-plan-area `租稅來源核對` line; the existing footer source-check date is sufficient
+  3. keep the first-viewport compression candidate deferred
+- Required final source result:
+  - keep the quick-guide shortcut layout/style/wording
+  - remove the new plan-area source-check markup and its dedicated CSS
+  - return source-check display count to the original footer-only behavior
+  - update the Stage 2 regression test so it protects the approved quick-guide hierarchy without requiring the rejected date duplication
+- Release authorization: after the revision passes all gates, open a PR to `main`, use **Standard Merge Commit** only, wait for Pages, verify production, and update STATE/TASK to `RELEASED`
+- Do not start the next free-design Impeccable experiment until this release is complete
+
+## Human visual review decision (2026-09-27)
+
+- The user compared local baseline and candidate side by side.
+- **Accepted:** moving the quick-guide shortcut under the owner-plan heading and clarifying it as a fallback/decision-support path. The visual hierarchy is improved enough to keep.
+- **Rejected:** duplicating `租稅來源核對：{{CHECKED}}` directly below the four plan cards. In real visual review it felt unnecessary and added clutter; the existing footer date is sufficient.
+- Therefore the production-bound change is intentionally smaller than the Stage 2 candidate: **quick-guide hierarchy only**.
+- This is a UX judgment from direct side-by-side human review and supersedes the earlier Stage 2 approval of the source-check-date candidate.
 
 ## Impeccable Stage 2 decision
 
