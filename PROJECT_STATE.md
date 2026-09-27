@@ -35,23 +35,63 @@ Last updated: 2026-09-27
 
 ## Active task
 
-- Status: **RELEASED**
-- Task: Impeccable UX refinement PoC — keep approved quick-guide hierarchy only
-- Task file: `TASK_2026-09-27_IMPECCABLE_UX_AUDIT.md`
+- Status: **READY_FOR_IMPLEMENTATION**
+- Task: Messenger multi-site config v1
+- Task file: `TASK_2026-09-27_MESSENGER_MULTISITE_CONFIG.md`
 - Execution agent: local Codex Desktop
-- Baseline: production `main` at `73d0bbbb242e66080cc316a6bd38cfebfaa1853c` (source release `e1d8642a88b26e42fce0f3100a4f51fc96d9fde9`; Pages run #90 passed)
-- Work branch: `ux/impeccable-refinement-poc`
-- Human visual review decision:
-  1. **APPROVE** the quick-guide hierarchy refinement: `不確定適用方案？使用快速判斷找方向 →`
-  2. **REJECT / REVERT** the added owner-plan-area `租稅來源核對` line; the existing footer source-check date is sufficient
-  3. keep the first-viewport compression candidate deferred
-- Required final source result:
-  - keep the quick-guide shortcut layout/style/wording
-  - remove the new plan-area source-check markup and its dedicated CSS
-  - return source-check display count to the original footer-only behavior
-  - update the Stage 2 regression test so it protects the approved quick-guide hierarchy without requiring the rejected date duplication
-- Release authorization: completed as recorded in the Impeccable UX release result below (PR #11, Standard Merge Commit only).
-- The separate free-design Impeccable experiment remains out of scope for this release.
+- Baseline: production `main` at `1ae269999bc3048320ac471f7e21ffccc925ae72`
+- Work branch: `refactor/messenger-multisite-config`
+- Purpose: refactor the existing QA-10C one-shot direct-entry so each website explicitly declares its own initial Playbook instead of shared JS hard-coding Rental Tax Guide
+- Current site decision: Rental site explicitly declares Rental Tax Guide as its initial Playbook
+- Initial Playbook semantics: first-turn priority only; not a permanent lock and not a replacement for CX routing
+- Keep unchanged:
+  - `runtime_entry_section` remains current page section (hash / `data-page`)
+  - `runtime_current_date` remains frontend-provided runtime date
+  - request timezone remains `Asia/Taipei`
+  - frontend does not calculate/send `current_house_tax_year`
+  - QA-10C first-turn arm / post-request disarm / session re-arm lifecycle
+- Generic fallback: if a future site has no initial Playbook config, omit `currentPlaybook` and let the Agent default Router handle entry; never fall back to Rental
+- Cross-repo coordination: read `taipei-tax-lab/dialogflow-cx-qa-framework` STATE/TASKS at start and before completion; do not modify that repo from this task
+- Current QA-side expected work: QA-12A Instructions-only behavior repair; it explicitly forbids frontend/runtime transport changes
+- Multi-agent rule: each agent owns one repo/scope; at milestones sessions read the other repo's STATE/TASK; if contradiction exists, authorize one agent only to mutate the affected side
+- This task does not add 1999/納保 Playbooks or IDs; it only makes the current frontend ready for site-specific initial Playbook configuration
+- Completion: update STATE/TASK to `IMPLEMENTED_AWAITING_REVIEW`, commit/push branch, then stop
+- No PR, no merge, no Pages switch, no CX/GCP mutation
+
+## Messenger multi-site architecture decision (2026-09-27)
+
+### How initial Playbook is determined
+
+The website determines it explicitly through site-specific Messenger configuration.
+
+Do not infer it from the user's wording, current page hash, model judgment, or a hard-coded global Rental fallback.
+
+Conceptually:
+
+```text
+出租專區 site config
+  → initialPlaybook = Rental Tax Guide
+  → new session first turn uses currentPlaybook
+  → first request sent
+  → currentPlaybook removed
+  → normal CX session/routing continues
+```
+
+Future 1999 and taxpayer-rights sites will declare their own initial Playbooks in their own site config. Their resource IDs are not part of this task.
+
+This means “from a given service section, prioritize that service's Playbook” while still allowing CX to handle later explicit cross-domain intent.
+
+### Cross-repo working model
+
+No additional synchronization service is needed.
+
+- Frontend repo records frontend/runtime truth in its STATE/TASK.
+- QA repo records CX/QA truth in its STATE/TASKS.
+- At a milestone, either existing Web ChatGPT session may read the other repo.
+- A new integration session may also read both repos and reconcile them.
+- If there is a conflict, only one local agent should be instructed to make the corrective mutation.
+
+This keeps the user's existing GitHub handoff workflow and avoids both local agents changing the same interface at the same time.
 
 ## Human visual review decision (2026-09-27)
 
