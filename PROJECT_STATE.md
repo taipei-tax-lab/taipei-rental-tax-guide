@@ -270,3 +270,22 @@ This protocol was completed on 2026-09-27; the results are recorded in **Phase 5
 10. Preserve historical branches.
 
 Do not include deferred P2/P3 cleanup in this release.
+
+## QA-10C Generic Runtime Context v1 Implementation (2026-09-27)
+
+- Status: **IMPLEMENTED & VERIFIED**
+- Target Playbook: `Rental Tax Guide` (`7861bc8f-d2fb-43d3-8ca1-651415eb4205`)
+- Implementation Details:
+  - Source of Truth: `assets/js/messenger-ui.js`
+  - Generic Runtime Context:
+    - `getTaipeiCurrentDate()`: `Asia/Taipei` timezone in `YYYY-MM-DD` format.
+    - `getCurrentPageSection()`: Extracted dynamically from `location.hash` / `data-page`.
+    - `buildRuntimeParameters()`: Sets `runtime_current_date` and `runtime_entry_section`.
+  - One-shot Direct Entry Lifecycle:
+    - Armed on `initialize()`, `df-messenger-loaded`, `df-session-expired`, `df-session-ended`, `startNewSession()`, and `clearStorage()`.
+    - Disarmed on `df-request-sent`: Subsequent query turns retain `timeZone` and `parameters` while stripping `currentPlaybook` to prevent session state resets.
+    - Section context dynamically refreshed on `hashchange` without re-arming `currentPlaybook`.
+- Acceptance Verification:
+  - Real Messenger Wire & Behavior (E01–E08): **8/8 PASSED**.
+  - Frontend Test Suite: **19/19 PASSED**.
+  - Frontend Build Check: Reproducible build verified.
