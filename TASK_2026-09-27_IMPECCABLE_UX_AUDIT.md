@@ -1,6 +1,6 @@
 # TASK_2026-09-27_IMPECCABLE_UX_AUDIT
 
-Status: **AUDIT_COMPLETE_AWAITING_HUMAN_SELECTION**
+Status: **READY_FOR_STAGE2_IMPLEMENTATION**
 
 ## Goal
 
@@ -318,3 +318,151 @@ These are candidates, not approved implementation work. No Stage 2 change was ma
 - Critique snapshot write succeeded at `.impeccable/critique/2026-09-27T03-59-45Z__index-html.md`; trend read succeeded and contained only this first run at 31/40. The body temp file and this snapshot were then removed per this task's cleanup requirement; no Impeccable artifacts remain.
 
 Questions skipped: this task requires stopping at `AUDIT_COMPLETE_AWAITING_HUMAN_SELECTION`; no follow-up questions were asked.
+
+
+---
+
+## Stage 2 — Human-approved implementation
+
+Status: **READY_FOR_STAGE2_IMPLEMENTATION**
+
+Human review selected **2 of the 3** Stage 1 candidates for implementation on the existing branch.
+
+### Approved candidate A — Make the quick guide clearly read as help, not a fifth plan
+
+**Decision:** IMPLEMENT
+
+Use Impeccable `layout` as a refinement aid.
+
+Goal:
+- keep the four rental plans as the primary choices
+- keep the quick guide easy to discover
+- make it visually clear that the guide is a fallback/help path for people who are unsure, rather than another rental plan
+
+Constraints:
+- preserve the four plan cards and their order
+- preserve the existing guide logic and behavior
+- do not change eligibility logic, tax content, figures, legal meaning, or CX
+- avoid adding visual decoration for its own sake
+- do not hide the guide or make it materially harder to find
+- prefer the smallest layout/hierarchy change that solves the distinction
+- citizen-facing helper wording may be minimally adjusted only if needed to clarify its role; do not alter policy wording
+
+Target outcome:
+> 四個方案 = primary choices  
+> quick guide = clearly secondary decision support
+
+### Approved candidate B — Surface the existing source-check date near tax figures
+
+**Decision:** IMPLEMENT
+
+Use Impeccable `layout` as a refinement aid.
+
+Goal:
+- let users see the existing source freshness information close to the owner plan / comparison information, instead of only in the footer
+- reuse the existing `meta.checked` value; do not introduce a second manually maintained date
+
+Constraints:
+- source of truth remains `site/content.json -> meta.checked`
+- keep the existing footer date
+- do not duplicate the literal date in source code
+- use a visually secondary treatment
+- do not place the date inside every plan card
+- do not imply that the date is a legal effective date or tax-year date
+- preserve the existing meaning of the source-check label
+
+### Deferred candidate — Bring benefit figures into the first desktop viewport
+
+**Decision:** DEFER
+
+Reason:
+- the Stage 1 evidence came mainly from one desktop viewport
+- scrolling before seeing benefit figures is not by itself a demonstrated usability defect
+- compressing hero / route / section spacing merely to satisfy “above the fold” could reduce clarity and breathing room
+
+Do **not** implement this candidate in Stage 2.
+
+Do not intentionally compress the page to force tax figures into the first viewport.
+
+## Stage 2 implementation scope
+
+Allowed:
+- `site/template.html`
+- `assets/css/guide-v2.css`
+- generated `index.html` via the normal build
+- a minimal test update only if needed to protect the new source-date rendering or hierarchy from regression
+- STATE / TASK documentation
+
+Avoid touching other source files unless there is a concrete implementation need. If another file is needed, explain it in the completion record.
+
+Use only the Impeccable refinement capability needed for these two approved items. Start with `layout`.
+
+Do **not** run:
+- `polish`
+- `bolder`
+- `overdrive`
+- `delight`
+- `animate`
+- `colorize`
+- `craft`
+- a new broad `audit` / `critique`
+
+This is not a redesign pass.
+
+## Before / after review target
+
+Compare the Stage 2 branch against production `main` / the recorded baseline.
+
+At minimum inspect:
+- desktop around 1440–1520px width
+- tablet / intermediate layout if available
+- mobile 390×844
+- 320px width
+- 200% text / zoom behavior if existing tooling makes this practical
+
+Review specifically:
+1. Does the quick guide now look like decision support rather than a fifth plan?
+2. Is it still easy to find?
+3. Is the source-check date visible near relevant figures without adding clutter?
+4. Does the source-check label remain clearly different from tax-year / effective-date information?
+5. Are mobile wrapping, touch targets, focus behavior and reading order still sound?
+6. Did any change make the page feel denser or more decorative?
+
+## Required validation
+
+Run:
+- normal build
+- build `--check`
+- full Node tests
+- performance budget
+- `git diff --check`
+
+Run available browser checks without adding large dependencies.
+
+If Playwright is unavailable, perform a targeted browser smoke and record the limitation.
+
+No live CX query is required unless the implementation unexpectedly affects Messenger behavior.
+
+## Stage 2 completion protocol
+
+When implementation is complete:
+
+1. Update this TASK and `PROJECT_STATE.md`.
+2. Set status to:
+   - `STAGE2_IMPLEMENTED_AWAITING_HUMAN_REVIEW`
+3. Record:
+   - implementation commit SHA
+   - changed files
+   - exact design/layout changes
+   - Impeccable command/approach used
+   - build/test/performance results
+   - desktop/mobile before-vs-after observations
+   - browser/tool limitations
+   - confirmation that the deferred first-viewport candidate was not implemented
+   - confirmation that policy/tax/CX content was not altered
+4. Commit and push `ux/impeccable-refinement-poc`.
+5. Stop and hand back to ChatGPT / user for visual review.
+
+**Do not open PR.**  
+**Do not merge main.**  
+**Do not switch GitHub Pages away from main.**
