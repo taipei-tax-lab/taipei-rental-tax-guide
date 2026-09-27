@@ -1,6 +1,6 @@
 # TASK_2026-09-27_MESSENGER_MULTISITE_CONFIG
 
-Status: **IMPLEMENTED_AWAITING_REVIEW**
+Status: **REVIEW_APPROVED_READY_FOR_PR**
 
 ## 目標
 
@@ -309,3 +309,55 @@ Release will happen only after cross-repo and Web ChatGPT review.
 - Browser smoke: Chrome open/close/reopen passed without sending a query. No horizontal overflow at 1536px, 390px, or 320px. Captured screenshots showed no visible error text. The accessibility tree exposed the generic `Something went wrong` string on both localhost and the existing production page; no CX response was tested, so live-answer behavior remains unverified.
 - Cross-repo checkpoint: latest read was QA framework `main` / `origin/main` at `6af5e207e3283cc5f49415cbb879ef31cad2de30`; clean working tree. Active QA-12B is READY TO EXECUTE and modifies only Example 2 while freezing Instructions and frontend/runtime transport. Rental Playbook resource ID, input names `runtime_current_date` / `runtime_entry_section`, and QA-10C contract are unchanged. No frontend change or CX mutation is needed for this task. Include QA-12B's eventual result in integration review before any release. QA repo remained untouched.
 - No PR was opened, no merge was made, and GitHub Pages configuration was not changed.
+
+
+## Web ChatGPT review (2026-09-27)
+
+Status: **REVIEW_APPROVED_READY_FOR_PR**
+
+### Review result
+
+**PASS.**
+
+Verified directly from the branch:
+
+- implementation commit: `df23991e52258c8e14ae2b26fe5f02158f2f544c`
+- `site/messenger.html` owns the Rental `data-initial-playbook`
+- shared `assets/js/messenger-ui.js` contains neither `RENTAL_TAX_GUIDE_PLAYBOOK` nor the Rental Playbook resource ID
+- missing/blank site config omits `currentPlaybook` instead of guessing Rental
+- one-shot first-turn arm / request disarm / reset re-arm behavior is preserved
+- `runtime_current_date`, `runtime_entry_section`, and `Asia/Taipei` remain unchanged
+- no `runtime_site` or `current_house_tax_year` was added
+- generated output preserves the site config
+- runtime regression tests cover the intended contract
+- implementation scope contains no CX/GCP/Router/Tool/Data Store mutation
+
+Reported gates are green: build, build --check, Node 28/28, performance budget, and `git diff --check`.
+
+### Cross-repo integration review
+
+Latest QA repo state was re-read after implementation:
+
+- QA-12B is completed and awaiting Web ChatGPT review.
+- Its attempted Example 2 change was rejected and fully restored.
+- Live Rental Tax Guide remains at the authoritative baseline.
+- Rental Playbook resource ID is unchanged.
+- Input parameter names `runtime_current_date` / `runtime_entry_section` are unchanged.
+- QA-10C runtime contract is unchanged.
+
+**No frontend/CX contract drift exists.**
+
+### Authorized release
+
+Proceed with:
+
+1. Sync latest refs and confirm branch not behind `main`.
+2. Re-run release gates.
+3. Open PR from `refactor/messenger-multisite-config` to `main`.
+4. Standard Merge Commit only; no squash/rebase.
+5. Wait for Pages success.
+6. Run focused production Messenger smoke on the allowed Pages origin, including one basic rental query.
+7. Update STATE/TASK on `main` to `RELEASED` with PR URL/number, merge SHA, Pages run, and smoke results.
+8. Preserve branch history.
+
+No further design or CX change is authorized in this release.
