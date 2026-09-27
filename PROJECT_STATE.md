@@ -25,16 +25,28 @@ Last updated: 2026-09-27
 
 ## Active task
 
-- Status: **AUDIT_COMPLETE_AWAITING_HUMAN_SELECTION**
-- Task: Impeccable UX refinement PoC — Stage 1 read-only audit + critique
+- Status: **READY_FOR_STAGE2_IMPLEMENTATION**
+- Task: Impeccable UX refinement PoC — Stage 2 targeted implementation
 - Task file: `TASK_2026-09-27_IMPECCABLE_UX_AUDIT.md`
 - Execution agent: local Codex Desktop with Impeccable already installed
 - Baseline: production `main` at `9d4865963c736ce2428a8cfbd95c3d1f40022623`
 - Work branch: `ux/impeccable-refinement-poc`
-- Objective: evaluate whether Impeccable can identify small, evidence-based UX improvements without redesigning the site
-- Allowed in Stage 1: Impeccable `audit` + `critique`, repository/source inspection, local preview if useful, STATE/TASK documentation updates
-- Not allowed in Stage 1: website source changes, UI redesign, policy wording changes, CX/GCP changes, PR, merge
-- Completion: Stage 1 findings recorded in STATE and TASK; website source unchanged; branch committed and pushed; no PR or merge
+- Human-approved Stage 2 scope:
+  1. distinguish the quick guide as decision support rather than a fifth rental plan
+  2. surface the existing `meta.checked` source-check date near owner plan / comparison information using a secondary visual treatment
+- Deferred: do not compress the page merely to force benefit figures into the first desktop viewport
+- Preferred Impeccable refinement command: `layout`
+- Not allowed: redesign, broad polish pass, policy/tax/CX changes, PR, merge, Pages source switch
+- Completion: update STATE/TASK to `STAGE2_IMPLEMENTED_AWAITING_HUMAN_REVIEW`, record implementation/validation/before-after evidence, commit/push branch, then stop
+
+## Impeccable Stage 2 decision
+
+- Human review approved Stage 1 candidates #2 and #3 for a small implementation experiment.
+- Candidate #2: clarify the hierarchy between four rental plans and the “不知道怎麼選？” guide.
+- Candidate #3: show the existing source-check date closer to the tax-plan/comparison information while keeping `site/content.json -> meta.checked` as the single source of truth.
+- Candidate #1 (force benefit summaries into the first desktop viewport) is deferred.
+- Stage 2 remains an isolated PoC on the same branch; production `main` is unchanged.
+- Human review is required again before any PR or merge.
 
 ## Impeccable PoC handoff
 
