@@ -1,6 +1,6 @@
 # TASK_2026-09-27_IMPECCABLE_UX_AUDIT
 
-Status: **STAGE2_IMPLEMENTED_AWAITING_HUMAN_REVIEW**
+Status: **STAGE2_CHANGES_REQUESTED**
 
 Stage 1 audit is complete; Stage 2 implementation and review evidence are recorded below.
 
@@ -513,3 +513,38 @@ When implementation is complete:
 **Do not open PR.**  
 **Do not merge main.**  
 **Do not switch GitHub Pages away from main.**
+
+
+---
+
+## Stage 2 review — typography correction
+
+Status: **STAGE2_CHANGES_REQUESTED**
+
+ChatGPT reviewed implementation commit `4c65a700dc870f06c3eb1150cb32a9682f920cc0`.
+
+The two approved UX changes are accepted in structure and scope, but one small regression must be corrected before human visual review.
+
+### Required fix
+
+The repository's established typography rule in `assets/css/guide-v2.css` says:
+
+> Reading hierarchy: body 18px, supporting text at least 16px.
+
+Stage 2 added:
+- `.v2-guide-shortcut { font-size: .9375rem; }` — 15px at the default root size
+- `.v2-source-check { font-size: .875rem; }` — 14px
+
+These are below the project's supporting-text minimum.
+
+Please:
+1. keep the new hierarchy, wording, placement, and behavior
+2. remove the smaller shortcut font override or use at least `1rem`
+3. set the source-check line to at least `1rem`
+4. keep secondary hierarchy through muted color, weight, spacing, alignment, and placement—not smaller-than-16px text
+5. rerun build, build --check, full Node tests, performance budget, and `git diff --check`
+6. update this TASK and `PROJECT_STATE.md` with the corrective commit and results
+7. restore status to `STAGE2_IMPLEMENTED_AWAITING_HUMAN_REVIEW`
+8. commit/push the same branch and stop
+
+Do not change anything else. No PR, merge, Pages switch, policy/tax/CX change, or additional Impeccable refinement pass.
