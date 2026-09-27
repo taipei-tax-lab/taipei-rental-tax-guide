@@ -25,7 +25,7 @@ Last updated: 2026-09-27
 
 ## Active task
 
-- Status: **READY_FOR_AUDIT**
+- Status: **AUDIT_COMPLETE_AWAITING_HUMAN_SELECTION**
 - Task: Impeccable UX refinement PoC — Stage 1 read-only audit + critique
 - Task file: `TASK_2026-09-27_IMPECCABLE_UX_AUDIT.md`
 - Execution agent: local Codex Desktop with Impeccable already installed
@@ -34,7 +34,7 @@ Last updated: 2026-09-27
 - Objective: evaluate whether Impeccable can identify small, evidence-based UX improvements without redesigning the site
 - Allowed in Stage 1: Impeccable `audit` + `critique`, repository/source inspection, local preview if useful, STATE/TASK documentation updates
 - Not allowed in Stage 1: website source changes, UI redesign, policy wording changes, CX/GCP changes, PR, merge
-- Completion: update STATE and TASK to `AUDIT_COMPLETE_AWAITING_HUMAN_SELECTION`, record findings and at most 3 Stage 2 candidates, commit/push branch, then stop
+- Completion: Stage 1 findings recorded in STATE and TASK; website source unchanged; branch committed and pushed; no PR or merge
 
 ## Impeccable PoC handoff
 
@@ -43,6 +43,16 @@ Last updated: 2026-09-27
 - Impeccable is already installed in Codex; do not project-local install, run `init`, or run `document`.
 - Stage 1 is intentionally read-only for website source. The purpose is to test the quality of Impeccable's UX judgment before approving any refinement.
 - The repository STATE/TASK remain the handoff source between agents.
+
+## Impeccable UX audit result (Stage 1, 2026-09-27)
+
+- Status: **AUDIT_COMPLETE_AWAITING_HUMAN_SELECTION**; next step is human selection of any Stage 2 candidate.
+- Target: production page `https://taipei-tax-lab.github.io/taipei-rental-tax-guide/`, source target `index.html`, slug `index-html`.
+- Technical audit health: **14/20 (Good)**. Critique: **31/40 (Good, 77.5%)**; all 10 Read-mode heuristics applied.
+- The TASK file contains the evidence, detector rule-by-rule review, heuristic scores, limitations, and 3 Stage 2 candidates. The detector emitted 107 warnings across 6 rules; source review classified these as a mix of false positives, intentional patterns, and one low-impact partial padding observation—not 107 defects.
+- Three medium-priority critique observations: first tax benefit summaries start below the inspected desktop first viewport; four owner plans plus the guide appear as five paths; the existing source-check date is only in the footer. One low-priority observation concerns the guide combining subsidy qualification with subsidy already received.
+- Browser evidence includes desktop screenshots and a 390×844 emulated viewport. No physical-device, synthesized-touch, full keyboard/screen-reader, zoom, or network-waterfall validation was performed. Browser DOM/script mutation was unavailable, so no detector overlay was claimed.
+- Only `PROJECT_STATE.md` and this TASK are intended for the Stage 1 commit. Website HTML/CSS/JS/content source was not modified. No tests/build were run. No PR was opened and no merge was performed.
 
 ## Post-release maintenance release result (2026-09-27)
 

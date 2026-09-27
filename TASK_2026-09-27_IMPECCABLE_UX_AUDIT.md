@@ -1,6 +1,6 @@
 # TASK_2026-09-27_IMPECCABLE_UX_AUDIT
 
-Status: **READY_FOR_AUDIT**
+Status: **AUDIT_COMPLETE_AWAITING_HUMAN_SELECTION**
 
 ## Goal
 
@@ -169,3 +169,152 @@ If browser tooling is unavailable, record the limitation instead of installing l
 - only STATE / TASK (and no temporary Impeccable artifacts) are committed for this stage
 - branch pushed
 - status is `AUDIT_COMPLETE_AWAITING_HUMAN_SELECTION`
+
+## Audit / Critique Findings
+
+### Run provenance
+
+- **Target:** production page `https://taipei-tax-lab.github.io/taipei-rental-tax-guide/`; source target `index.html`; resolved critique slug `index-html`.
+- **Branch / source baseline:** `ux/impeccable-refinement-poc`; `index.html`, `site/`, and `assets/` match `origin/main` at `9d4865963c736ce2428a8cfbd95c3d1f40022623`.
+- **Approach:** followed the installed Impeccable `audit` and `critique` playbooks. Two user-approved, isolated assessments were used: Assessment A completed before Assessment B detector findings entered synthesis. Assessment B ran `impeccable.cmd detect --json index.html`, then checked each rule against generated HTML, source CSS/templates/build code, and live browser evidence. Repository docs and source were inspected; no build or test suite was run.
+- **Product mode:** Read. All 10 critique heuristics apply.
+- **Constraints honored:** no website source, UI, policy wording, CX, or GCP changes; no PR or merge.
+
+### A. Audit findings
+
+#### Audit health score
+
+| Dimension | Score | Evidence and limit |
+|---|---:|---|
+| Accessibility | 3/4 | Source has a skip link, semantic landmarks/headings, visible focus, reduced-motion handling, labeled controls and guide state announcements. Six sampled foreground/background pairs exceeded WCAG AA text contrast; this was not a full contrast sweep or a keyboard/screen-reader audit. |
+| Performance | 3/4 | Static page/source review found no verified blocking performance defect. Asset inventory totals about 4.54 MB across repository image variants; this is not a runtime transfer measurement. No network waterfall or device performance profile was run. |
+| Responsive design | 3/4 | CSS has narrow-screen breakpoints and the live page was viewed at desktop and emulated 390×844. No physical-device, synthesized-touch, tablet, or 200% zoom validation was done. |
+| Theming | 2/4 | Several shared color tokens and a consistent public-service palette exist, but token use is partial and no dark theme was evaluated. |
+| Implementation integrity | 3/4 | The page has a coherent Taipei public-service identity and consistent plan/card patterns. Detector warnings were checked in source context; they do not amount to 107 verified defects. |
+| **Total** | **14/20 — Good** | Evidence-based source and browser review; see the limitations above. |
+
+**Verified technical severity:** P0 0, P1 0. This read-only pass did not verify a technical blocker or major accessibility violation. Scores are bounded by the listed inspection limits.
+
+#### Detector results and review
+
+The detector returned **107 JSON warnings across 6 rules**, all pointing to generated `index.html` with line number `0`, so its locations are not actionable. The process exit code was `0`, although the critique playbook says findings should normally return `2`; the JSON warning list was used as the count. Counts describe detector output, not defect totals.
+
+| Rule / count | Review, impact, and disposition | Severity / confidence | Stage 2 |
+|---|---|---|---|
+| `border-accent-on-rounded` — 16 | Correctly matches 3px top accents plus rounded corners on plan/comparison/tax cards (`assets/css/guide-v2.css:138,157`). This is a stylistic rule; the accents distinguish content and match the established card language. No user harm was verified. | LOW / HIGH that the pattern exists; LOW that it is a defect | NO |
+| `cramped-padding` — 5 | Partly supported. FAQ rows have 19px vertical and 4px horizontal padding (`guide-v2.css:100-105`); `.v2-source` has no horizontal padding of its own (`:152`), though it sits in a padded parent. The FAQ screenshot did not show the all-sides flush condition described by the detector. A small source-area edge-spacing concern remains, with no demonstrated task failure. | LOW / MEDIUM | NO |
+| `dark-glow` — 1 | False positive in context: `site.css:14` uses `#0d393f1a` as a low-opacity shadow token on a light page, not a colored glow on a dark page. | None (not a defect) / HIGH | NO |
+| `icon-tile-stack` — 3 | Correctly identifies the three tenant-category icon tiles above headings (`scripts/build.mjs:84-86`). This intentional, repeated category pattern did not obscure the labels. | None (not a defect) / HIGH | NO |
+| `side-tab` — 5 | Matches a 3px left accent on the informational notice (`guide-v2.css:154`, `site/template.html:101`, `scripts/build.mjs:77-78`); it is a notice, not a side-tab control. No interaction confusion was seen. | None (not a defect) / HIGH | NO |
+| `wide-tracking` — 77 | Strong likely false positive. Source sets `.v2-site` letter spacing to `.015em` (`guide-v2.css:297`); reported values 1.45em/1.61em/1.81em align with source line-height values 1.45/1.65/1.8 (`:297-302`). Screenshots did not show conspicuously wide text. This is an inference from source and warning snippets; computed browser styles were not collected. | None (likely false positive) / MEDIUM | NO |
+
+**Only partial audit observation:** the detector's padding concern is limited to a source-information area and does not justify a Stage 2 change by itself. The warnings for the other five rules were either intentional styling or false positives after contextual review.
+
+#### Positive technical evidence
+
+- `site/template.html` provides `lang="zh-Hant-TW"`, viewport metadata, a skip link, main landmark, labeled sections, and footer source-check date.
+- The design supports visible keyboard focus and reduced-motion preferences; guide controls expose selected/expanded state and live updates.
+- CSS changes route, plan, and comparison layouts at narrow breakpoints. Sampled text color pairs passed 4.5:1; no full-page accessibility conformance claim is made.
+
+### B. Critique findings
+
+#### Design specificity
+
+The experience reads as a Taipei rental-tax public-service guide rather than a generic tax landing page: the official Taipei Tax identity, four rental situations, three tax categories, and links to official services anchor the composition. The residential illustration and helper mascot are more generic, but support the subject without displacing the service identity. Preserve this restrained visual language.
+
+#### Heuristic scores
+
+| # | Heuristic | Score | Site-specific evidence |
+|---:|---|---:|---|
+| 1 | Visibility of system status | 3/4 | Audience routes, expanded cards, guide progress/answers, and helper loading/unavailable states are visible. |
+| 2 | Match with real world | 3/4 | Cards start with familiar situations; “相當稅率” and “116年期” still require tax context. |
+| 3 | User control and freedom | 4/4 | Guide has back/reset; plan details collapse; comparison, deep links, and return routes are available. |
+| 4 | Consistency and standards | 3/4 | Plan and tenant cards share patterns; a direct rent-standard filing service is grouped beside audience routes despite being a different destination type. |
+| 5 | Error prevention | 3/4 | Guide cautions that it does not determine eligibility; one question combines subsidy qualification and already receiving a subsidy. |
+| 6 | Recognition rather than recall | 3/4 | Plan/tax categories are labeled and guide results repeat answers; core benefit summaries fall below the inspected desktop first viewport. |
+| 7 | Flexibility and efficiency | 3/4 | Visitors can select a plan, use the guide, compare, or deep-link. |
+| 8 | Aesthetic and minimalist design | 3/4 | Official colors and restrained cards work; the top route row groups several kinds of destination. |
+| 9 | Error recognition and recovery | 3/4 | Guide answers can be revised/reset; helper failure has a fallback. External service outcomes are outside this page's control. |
+| 10 | Help and documentation | 3/4 | Guide, FAQs, details, and official links help; some technical terms lack nearby explanation. |
+| **Total** |  | **31/40 — Good (77.5%)** | All 10 Read-mode heuristics scored; none marked n/a. |
+
+#### Cognitive load and emotional journey
+
+**Cognitive load: moderate; 2 of 8 checklist failures.** At the inspected 1519×719 desktop viewport, the owner decision has five visible paths (four plans plus the “不知道怎麼選？” guide). The top “選擇查詢方式” row also groups owner, tenant, helper, and a direct rent-standard service, though this is an interpretive consistency concern rather than a confirmed obstacle. No top-route or guide question showed more than four choices. Guide questions are grouped in threes, tenant categories and FAQs in small groups, and plan details progressively disclose conditions.
+
+The page opens calmly with official identity, restrained colors, and recognizable owner/tenant choices. The guide provides reassurance with progress, back/reset controls, and a clear qualification disclaimer. The main emotional valley is reaching the plan section before seeing its tax benefit summaries, which makes visitors scroll for the information central to the page's promise.
+
+#### Site-specific issues
+
+1. **[P2 / MEDIUM] Benefit figures begin below the first desktop viewport.**
+   - **Location:** owner plan section in `site/template.html:62-77`; live page at 1519×719.
+   - **Observation / impact:** header, hero, routes, and plan heading occupy the initial view; plan cards begin near its bottom and their tax summaries require scrolling. A visitor seeking the benefit figures cannot compare them immediately.
+   - **Evidence / confidence:** visible in the desktop capture and consistent with source section order. HIGH.
+   - **Smallest direction:** reduce only excess vertical space above the plan summaries enough to expose an initial benefit line; keep all policy text and identity intact.
+   - **Risk / trade-off:** less open spacing above the cards.
+   - **Stage 2:** YES — `layout`.
+
+2. **[P2 / MEDIUM] Four owner plans plus the guide look like five peer paths.**
+   - **Location:** owner plan cards and “不知道怎麼選？” guide link, `site/template.html:62-77`.
+   - **Observation / impact:** a first-time owner may hesitate or scan the fallback guide as a fifth scheme choice.
+   - **Evidence / confidence:** all five appear together at the owner decision point in the desktop inspection. HIGH.
+   - **Smallest direction:** preserve the guide and distinguish it visually as help for visitors who are unsure, without hiding it.
+   - **Risk / trade-off:** a subtler guide could be missed by people who need help.
+   - **Stage 2:** YES — `layout`.
+
+3. **[P2 / MEDIUM] Source-check date is only in the footer.**
+   - **Location:** footer in `site/template.html:104-108`; date supplied by `site/content.json` (`2026-09-08`).
+   - **Observation / impact:** users see time-sensitive tax figures before seeing when the sources were checked, which may leave freshness unclear.
+   - **Evidence / confidence:** date is in the footer; plan summaries occur earlier. HIGH.
+   - **Smallest direction:** show the existing date near plan summaries or comparison; retain its exact value and wording pending review.
+   - **Risk / trade-off:** more content around the plan cards.
+   - **Stage 2:** YES — `layout`.
+
+4. **[P3 / LOW] Guide question combines subsidy qualification and receipt.**
+   - **Location:** quick guide choice in `assets/js/guide-rules.js:22-25,32-35`.
+   - **Observation / impact:** “符合資格，或已取得補貼” combines two states while plan details distinguish tax-specific conditions; a renter's landlord may not know which answer fits.
+   - **Evidence / confidence:** source wording and plan conditions; the guide also offers “不確定” and says the result is not an eligibility review. MEDIUM.
+   - **Smallest direction:** if selected later, make the existing tax-by-tax distinction easier to consult at the result step without changing approved wording or eligibility logic.
+   - **Risk / trade-off:** extra detail could lengthen a short guide and could be mistaken for new policy guidance.
+   - **Stage 2:** MAYBE — not in the current shortlist.
+
+#### What works well
+
+- Owner cards lead with recognizable situations such as “我自己出租、自己管理” before program names.
+- Plan details follow a useful sequence: fit, conditions, three tax types, next action, and official links. The 公益出租人 details distinguish local-tax handling from income-tax filing.
+- The three-question guide shows progress, repeats prior answers, provides back/reset, and states it does not determine eligibility.
+- Core categories pair color with text and numbers; focus styling and semantic/ARIA state support are visible in source.
+
+#### Persona red flags and observations
+
+- **Jordan, first-time owner:** scenario-first labels help; “相當稅率” and the subsidy question can still cause hesitation. “不確定” and the disclaimer mitigate it.
+- **Sam, accessibility-dependent user:** source includes skip link, visible focus, headings, expanded state, live guide updates, and labeled controls. No complete keyboard, screen-reader, zoom, or full contrast audit was conducted.
+- **Casey, mobile user:** Assessment B captured 390×844 emulated layout with two-column top routes and continuing plan content. The short guide's answers live in page memory and reset on reload. No physical device or synthesized touch interaction was tested. Assessment A could not independently inspect mobile appearance.
+- **Rent-standard entry:** grouped with the three audience/helper routes, but it was not proven to visually overpower them. Treat this as a MEDIUM-confidence question for first-click validation, not a confirmed defect or redesign mandate. It is not in the Stage 2 shortlist.
+
+#### Questions for later validation
+
+- At the owner decision point, do first-time users understand the guide as an optional fallback for uncertainty rather than a fifth plan?
+- When a landlord selects “符合資格，或已取得補貼,” do they understand the result is reading guidance and that conditions differ by tax type?
+
+#### Stage 2 shortlist — human selection only
+
+| Candidate | Smallest reviewable change | Later command | Before/after measure | Main trade-off |
+|---|---|---|---|---|
+| Bring the first plan benefit summary into the desktop initial view | Adjust spacing above plan cards only; preserve text and identity | `layout` | Same viewport screenshot: whether first benefit summary is visible without scrolling | Less vertical breathing room |
+| Make the guide read as a fallback for unsure owners | Keep the link, visually clarify its helper role | `layout` | First-time-user choice rate/time and screenshot hierarchy at the owner decision | Help path could become less noticeable |
+| Surface the existing source-check date near figures | Reuse `2026-09-08` near plans/comparison without changing claim | `layout` | Screenshot and user check of whether source freshness is noticed | Adds content near cards |
+
+These are candidates, not approved implementation work. No Stage 2 change was made.
+
+### Run notes and limitations
+
+- Target slug resolved to `index-html`; `.impeccable/critique/ignore.md` was absent.
+- Assessment A and B were separate, user-approved agents. A completed before detector output entered parent synthesis.
+- Detector JSON: 107 warnings / 6 rules; exit code 0 despite findings; all warning locations use line 0.
+- Browser: fresh Chrome tabs, desktop captures around 1519–1520px wide, FAQ/official-information view, and a 390×844 emulated viewport. The mobile viewport was reset after capture.
+- Browser page evaluation was read-only; no injected detector, user-visible overlay, or Impeccable console report is claimed. Following the critique playbook fallback, no local server was started.
+- No test/build was run. The only repository changes for this stage are this file and `PROJECT_STATE.md`; website HTML/CSS/JS/content source remains unchanged.
+- Critique snapshot write succeeded at `.impeccable/critique/2026-09-27T03-59-45Z__index-html.md`; trend read succeeded and contained only this first run at 31/40. The body temp file and this snapshot were then removed per this task's cleanup requirement; no Impeccable artifacts remain.
+
+Questions skipped: this task requires stopping at `AUDIT_COMPLETE_AWAITING_HUMAN_SELECTION`; no follow-up questions were asked.
