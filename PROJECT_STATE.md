@@ -10,8 +10,8 @@ Last updated: 2026-09-27
 - Earlier production release merge: `251884ee3d133d4f2e5723b3d25ccdfc8a1bf642` (PR #9)
 - Previous production release merge before PR #11: `20c915066c87fc4308c89dc601d324803b3bc0ef` (PR #10)
 - Latest production release merge: `3bac3930aee9643a35d7e41ac375a581ab0b68b9` (PR #11; Standard Merge Commit)
-- Latest production commit: `3bac3930aee9643a35d7e41ac375a581ab0b68b9`.
-- Latest GitHub Pages deployment: run #92, source commit `3bac393`, completed successfully: https://github.com/taipei-tax-lab/taipei-rental-tax-guide/actions/runs/36307128126.
+- Latest production application commit: `3bac3930aee9643a35d7e41ac375a581ab0b68b9`.
+- PR #11 GitHub Pages release deployment: run #92, source commit `3bac393`, completed successfully: https://github.com/taipei-tax-lab/taipei-rental-tax-guide/actions/runs/36307128126.
 - GitHub Pages: `https://taipei-tax-lab.github.io/taipei-rental-tax-guide/`
 - Production status: **RELEASED**
 - Production Messenger now uses the official/public-service CX configuration.
