@@ -1,6 +1,6 @@
 # TASK_2026-09-27_PHASE5A_CX_RELEASE_GATE
 
-Status: **IMPLEMENTED_AWAITING_REVIEW**
+Status: **REVIEW_APPROVED_READY_FOR_PR**
 
 Implementation commit: `5a16eeb3feb6d53be791f756fcd9df7d9141a46c`
 
@@ -275,3 +275,39 @@ This task is complete only if all of the following are true:
 - no unrelated P2/P3 refactor is mixed in
 - branch is pushed and state is updated to `IMPLEMENTED_AWAITING_REVIEW`
 - no PR / merge has occurred
+
+
+---
+
+## 8. Review result and release approval (2026-09-27)
+
+Status: **PASS / APPROVED FOR PR**
+
+ChatGPT independently reviewed the GitHub implementation and verified:
+- official CX now lives in rebuildable source
+- rebuilt output remains on the official CX
+- source/generated consistency guard exists
+- Windows EOL/hash defect is addressed with explicit LF policy and shared normalization
+- implementation scope stayed within the approved P1 release-gate task
+
+GitHub Pages was switched to `phase5a-official-cx`, and deployment of candidate HEAD `f47095fb12c53ce91bf77d8241a7bc09f16383b2` succeeded.
+
+The user then manually verified the live Pages deployment on the allowed domain `taipei-tax-lab.github.io`:
+- Messenger works normally
+- no `Something went wrong`
+- official CX responds correctly
+
+The prior localhost error is treated as expected domain-restriction behavior and is not a blocker.
+
+### Next action
+
+Proceed with:
+1. final release-gate rerun
+2. PR `phase5a-official-cx` → `main`
+3. Standard Merge Commit
+4. switch GitHub Pages back to `main`
+5. wait for deployment
+6. final production smoke test
+7. update `PROJECT_STATE.md` on `main` to `RELEASED`
+
+Do not squash, rebase, delete historical branches, or include deferred P2/P3 work.
