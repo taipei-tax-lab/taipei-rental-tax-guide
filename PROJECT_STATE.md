@@ -25,7 +25,7 @@ Last updated: 2026-09-27
 
 ## Active task
 
-- Status: **READY_FOR_STAGE2_IMPLEMENTATION**
+- Status: **STAGE2_IMPLEMENTED_AWAITING_HUMAN_REVIEW**
 - Task: Impeccable UX refinement PoC — Stage 2 targeted implementation
 - Task file: `TASK_2026-09-27_IMPECCABLE_UX_AUDIT.md`
 - Execution agent: local Codex Desktop with Impeccable already installed
@@ -47,6 +47,37 @@ Last updated: 2026-09-27
 - Candidate #1 (force benefit summaries into the first desktop viewport) is deferred.
 - Stage 2 remains an isolated PoC on the same branch; production `main` is unchanged.
 - Human review is required again before any PR or merge.
+
+## Stage 2 implementation result (2026-09-27)
+
+- Status: **STAGE2_IMPLEMENTED_AWAITING_HUMAN_REVIEW**
+- Work branch: ux/impeccable-refinement-poc
+- Implementation commit: 4c65a700dc870f06c3eb1150cb32a9682f920cc0 (feat: refine owner plan guidance layout).
+- Production main remains at the recorded baseline; no PR, merge, or GitHub Pages source change was made.
+
+### Approved changes
+
+- The quick-guide shortcut now sits under the owner-plan heading with helper wording that presents it as decision support. The four plans and their order remain unchanged; the guide disclosure and behavior remain available below the plans.
+- A secondary 租稅來源核對 line now follows the four plan cards and precedes their caveat. Both the new line and existing footer use the generated meta.checked value; the footer remains.
+- On screens at or below 700px, the new date line is left aligned so the label and date remain visible. At wider widths it is right aligned.
+- The deferred first-viewport compression was not implemented. No policy, tax wording, figures, eligibility rules, guide logic, Messenger, or CX content changed.
+
+### Impeccable approach and validation
+
+- Used the installed Impeccable layout workflow and spatial-hierarchy review. Two independent layout assessments informed the direction. The layout-only detector reported 8 warnings on unrelated existing patterns (3 icon-tile-stack and 5 cramped-padding); neither approved target was flagged. No new broad audit or critique, or prohibited refinement mode, was run.
+- node scripts/build.mjs: PASS.
+- node scripts/build.mjs --check: PASS.
+- node --test: PASS, 20 tests; 0 failures.
+- node scripts/performance-budget.mjs: PASS for all three static assets and guards.
+- git diff --check: PASS.
+
+### Browser review
+
+- Compared the production baseline with the local build in Chrome at 1440px desktop, 720px intermediate, 390×844, and 320×844 viewports.
+- At 1440px, the helper remains subordinate under the heading, all four plans stay in one row, and the source-check date appears below the cards before the caveat. The separate quick-guide panel remains easy to find.
+- At 720px, the plans form two columns; the source-check line remains immediately after them and right aligned.
+- At 390px and 320px, plan cards stack in reading order, the helper link wraps naturally, and the source-check date is visible and left aligned. Browser measurements showed no horizontal overflow in either candidate viewport; the production baseline also showed no horizontal overflow.
+- The local Playwright package is unavailable, so no repository Playwright suite ran. Targeted checks used the Codex Chrome browser viewport and read-only page inspection; no dependency was added. 200% browser zoom was not verified. Physical-device, synthesized-touch, and full keyboard/screen-reader checks were not performed.
 
 ## Impeccable PoC handoff
 
@@ -182,7 +213,7 @@ The stale tenant-count assertion/documentation and README release-state mismatch
 4. `index.html` is generated output and must not be hand-edited as the primary fix.
 5. A candidate is not release-ready unless rebuilding reproduces the intended official CX configuration.
 6. GitHub repo state outranks an individual agent/conversation.
-7. For the active task, follow `TASK_2026-09-27_POST_RELEASE_MAINTENANCE.md`.
+7. The active task is listed at the top of this file; post-release maintenance is historical reference.
 
 ## Post-release maintenance review (2026-09-27)
 

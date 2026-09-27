@@ -1,6 +1,8 @@
 # TASK_2026-09-27_IMPECCABLE_UX_AUDIT
 
-Status: **READY_FOR_STAGE2_IMPLEMENTATION**
+Status: **STAGE2_IMPLEMENTED_AWAITING_HUMAN_REVIEW**
+
+Stage 1 audit is complete; Stage 2 implementation and review evidence are recorded below.
 
 ## Goal
 
@@ -324,7 +326,7 @@ Questions skipped: this task requires stopping at `AUDIT_COMPLETE_AWAITING_HUMAN
 
 ## Stage 2 — Human-approved implementation
 
-Status: **READY_FOR_STAGE2_IMPLEMENTATION**
+Status: **STAGE2_IMPLEMENTED_AWAITING_HUMAN_REVIEW**
 
 Human review selected **2 of the 3** Stage 1 candidates for implementation on the existing branch.
 
@@ -442,6 +444,51 @@ Run available browser checks without adding large dependencies.
 If Playwright is unavailable, perform a targeted browser smoke and record the limitation.
 
 No live CX query is required unless the implementation unexpectedly affects Messenger behavior.
+
+## Stage 2 implementation result (2026-09-27)
+
+### Status and commits
+
+- Status: **STAGE2_IMPLEMENTED_AWAITING_HUMAN_REVIEW**
+- Branch: ux/impeccable-refinement-poc
+- Implementation commit: 4c65a700dc870f06c3eb1150cb32a9682f920cc0 (feat: refine owner plan guidance layout).
+- State tracking was updated in PROJECT_STATE.md in the follow-up documentation commit.
+- No PR was opened, no merge was made, and GitHub Pages publishing source was not changed.
+
+### Files changed
+
+- site/template.html — moved and clarified the quick-guide helper; added a plan-area source-check line using the CHECKED placeholder.
+- assets/css/guide-v2.css — added secondary helper/date styles and mobile left alignment for the date.
+- index.html — regenerated using node scripts/build.mjs.
+- tests/build.test.mjs — added a regression guard for helper hierarchy, date position/source, footer reuse, and narrow-screen date alignment.
+- PROJECT_STATE.md and this TASK — recorded the implementation and evidence.
+
+### Exact refinement
+
+- The four rental plans remain the primary choices, with their content and order intact. The quick-guide shortcut now sits directly under the owner-plan title and reads 不確定適用方案？使用快速判斷找方向 →; the full-width guide panel remains below the plan caveat and unchanged.
+- The new source-check line, 租稅來源核對：{{CHECKED}}, appears after the plan grid and before the caveat. It uses the same site/content.json meta.checked placeholder as the footer, keeps the footer line, and uses muted secondary text. It is right aligned above 700px and left aligned at or below 700px.
+- The first-viewport spacing candidate remains deferred. No tax/policy wording, figures, eligibility logic, guide behavior, Messenger, or CX configuration was changed.
+
+### Impeccable method
+
+- Used the installed Impeccable layout workflow and spatial-hierarchy direction. Two independent layout assessments were synthesized before implementation. A layout-only detector run produced 8 warnings on unrelated existing patterns (3 icon-tile-stack, 5 cramped-padding); neither approved target was flagged. No new broad audit or critique, polish, bolder, overdrive, delight, animate, colorize, or craft mode was run.
+
+### Validation
+
+- node scripts/build.mjs — PASS.
+- node scripts/build.mjs --check — PASS (Generated page matches source.).
+- node --test — PASS (20 passed, 0 failed).
+- node scripts/performance-budget.mjs — PASS (three static assets and guards).
+- git diff --check — PASS.
+
+### Browser evidence and limits
+
+- Production baseline and local build were inspected in Chrome at 1440px desktop, 720px intermediate, 390×844 mobile, and 320×844 narrow mobile viewports.
+- At 1440px, the helper link is grouped with the owner heading as a smaller secondary action; four cards remain in one row. The source-check line is legible under the cards and before the caveat. The separate green guide panel remains visually distinct and discoverable.
+- At 720px, the four plans use a two-column layout; the source-check line remains below the plans and before the caveat.
+- At 390px and 320px, the plans stack one per row, link text wraps without changing reading order, and the source-check line stays fully visible. Read-only browser metrics showed candidate document width equal to its viewport width at both sizes. Production baseline checks likewise showed no horizontal overflow.
+- The local Playwright package is unavailable. Targeted Chrome browser checks used the Codex browser viewport capability and read-only page evaluation; no large dependency was added. A 200% browser zoom result was not verified. Physical-device/touch, complete keyboard, screen-reader, and full accessibility audits were not performed.
+- No live CX query was needed because Messenger behavior was untouched.
 
 ## Stage 2 completion protocol
 
