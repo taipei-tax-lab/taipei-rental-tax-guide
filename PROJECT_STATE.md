@@ -25,20 +25,21 @@ Last updated: 2026-09-27
 
 ## Active task
 
-- Status: **READY_FOR_IMPLEMENTATION**
+- Status: **IMPLEMENTED_AWAITING_REVIEW**
 - Task: Post-release maintenance / audit follow-up
 - Task file: `TASK_2026-09-27_POST_RELEASE_MAINTENANCE.md`
 - Execution agent: local Codex Desktop
-- Start branch: latest `main`
-- Work branch to create: `maintenance/2026-09-27-post-release`
-- Scope:
-  - fix stale tenant-count tests/docs
-  - update outdated README release wording
-  - clean stale regression-script descriptions
-  - classify remaining audit findings into a technical-debt backlog
+- Start point: latest `main`, `3ac78dc13ac89ea07458a04270028b7147ccb590`
+- Work branch: `maintenance/2026-09-27-post-release`
+- Implementation commit: `17a12dd5725dc17abcc92ece06fbf340fe8ec0e1`
+- Scope: stale tenant count test/docs, README release state, stale Messenger regression descriptions, and classification of remaining audit findings.
 - Review gate: ChatGPT review after implementation
-- PR / merge: **not allowed yet**
-- Completion requirement: Codex must update both `PROJECT_STATE.md` and the active TASK with implementation SHA, changed files, validation results, backlog classification, limitations/ambiguities, then push the work branch and stop.
+- PR / merge: **not opened; not merged**
+- Implementation files: `scripts/browser-check.cjs`, `scripts/messenger-regression.py`, `README.md`, `docs/v2-development.md`.
+- Validation: build, build `--check`, Node tests (19/19), performance budget, syntax checks, and `git diff --check` passed. Build left generated `index.html` unchanged.
+- Browser smoke: local page loaded in the Codex in-app browser; ready state, title, 13 tenant links in 3 groups, Messenger element, retired-launcher absence, no horizontal overflow at the observed 526px viewport, and zero browser console errors verified. No Messenger interaction or query was sent.
+- Automated Playwright regression scripts were unavailable because Playwright is not installed; only the browser smoke above ran.
+- D backlog classifications and evidence are recorded in the task Completion Record.
 
 ## Post-release handoff
 
@@ -134,22 +135,9 @@ This must be resolved so Windows and Linux builds/tests agree.
 
 The original P1 findings above describe the verified pre-fix audit state. The implementation above addresses their source/build and Windows EOL causes. At this handoff point, the candidate was awaiting review and had not been released.
 
-## Known audit findings intentionally deferred
+## Remaining audit findings / maintenance backlog
 
-These are real findings, but are **out of scope for the active Phase 5A release-gate task**:
-
-- stale tenant-count assertion/documentation
-- tenant grouping by array index
-- FAQ hard-coded in `scripts/build.mjs`
-- `resources.slice(3)` maintenance fragility
-- assistant idle image initial request
-- Messenger titlebar/shadow-root workaround robustness
-- README general release-state modernization
-- content metadata date/version cleanup
-- broader SEO/CSP/URL-validation improvements
-- general performance or accessibility refactors
-
-Do not mix these into the current fix unless explicitly approved later.
+The stale tenant-count assertion/documentation and README release-state mismatch were corrected in the post-release maintenance branch. Remaining audit items are classified in `TASK_2026-09-27_POST_RELEASE_MAINTENANCE.md`; they were not implemented in that task. General performance or accessibility refactors remain outside its scope.
 
 ## Source-of-truth rules
 
@@ -159,7 +147,7 @@ Do not mix these into the current fix unless explicitly approved later.
 4. `index.html` is generated output and must not be hand-edited as the primary fix.
 5. A candidate is not release-ready unless rebuilding reproduces the intended official CX configuration.
 6. GitHub repo state outranks an individual agent/conversation.
-7. For the active task, follow `TASK_2026-09-27_PHASE5A_CX_RELEASE_GATE.md`.
+7. For the active task, follow `TASK_2026-09-27_POST_RELEASE_MAINTENANCE.md`.
 
 ## Implementation constraints
 
