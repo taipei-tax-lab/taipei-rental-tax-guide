@@ -525,8 +525,8 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
 .v2-unit { white-space:nowrap; display:inline; }
 .v2-guide-result-list .v2-unit { color:inherit; font:inherit; display:inline; }
 .v2-inner-page > h1 { font-size:28px; }
-.v2-guide-shortcut { display:inline-block; margin-top:8px; font-size:.9375rem; font-weight:600; }
-.v2-site .v2-source-check { color:var(--v2-muted); font-size:.875rem; line-height:1.5; margin:6px 0 0; text-align:right; }
+.v2-guide-shortcut { display:inline-block; margin-top:8px; font-size:1rem; font-weight:600; }
+.v2-site .v2-source-check { color:var(--v2-muted); font-size:1rem; line-height:1.5; margin:6px 0 0; text-align:right; }
 @media (max-width:700px) {
   .v2-site .v2-source-check { text-align:left; }
 }
