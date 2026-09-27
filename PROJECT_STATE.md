@@ -9,6 +9,8 @@ Last updated: 2026-09-27
 - Previous production baseline before Phase 5A: `ab1cb35b53763a6e6341b2041125894defaf8b27`
 - Previous production release merge: `251884ee3d133d4f2e5723b3d25ccdfc8a1bf642` (PR #9)
 - Latest production release merge: `20c915066c87fc4308c89dc601d324803b3bc0ef` (PR #10)
+- Latest production commit: `e1d8642a88b26e42fce0f3100a4f51fc96d9fde9` — QA-10C Generic Runtime Context v1
+- Latest GitHub Pages deployment: run #90, commit `e1d8642`, completed successfully
 - GitHub Pages: `https://taipei-tax-lab.github.io/taipei-rental-tax-guide/`
 - Production status: **RELEASED**
 - Production Messenger now uses the official/public-service CX configuration.
@@ -25,23 +27,17 @@ Last updated: 2026-09-27
 
 ## Active task
 
-- Status: **RELEASED**
-- Task: Post-release maintenance / audit follow-up
-- Task file: `TASK_2026-09-27_POST_RELEASE_MAINTENANCE.md`
-- Execution agent: local Codex Desktop
-- Start point: latest `main`, `3ac78dc13ac89ea07458a04270028b7147ccb590`
-- Work branch: `maintenance/2026-09-27-post-release`
-- Implementation commit: `17a12dd5725dc17abcc92ece06fbf340fe8ec0e1`
-- Scope: stale tenant count test/docs, README release state, stale Messenger regression descriptions, and classification of remaining audit findings.
-- Review gate: **PASSED**
-- PR: #10 — https://github.com/taipei-tax-lab/taipei-rental-tax-guide/pull/10
-- PR / merge: **merged with Standard Merge Commit**; release merge `20c915066c87fc4308c89dc601d324803b3bc0ef`
-- GitHub Pages: main deployment run #88 completed successfully for the release merge: https://github.com/taipei-tax-lab/taipei-rental-tax-guide/actions/runs/36290049347
-- Implementation files: `scripts/browser-check.cjs`, `scripts/messenger-regression.py`, `README.md`, `docs/v2-development.md`.
-- Validation: build, build `--check`, Node tests (19/19), performance budget, syntax checks, and `git diff --check` passed. Build left generated `index.html` unchanged.
-- Browser smoke: local page loaded in the Codex in-app browser; ready state, title, 13 tenant links in 3 groups, Messenger element, retired-launcher absence, no horizontal overflow at the observed 526px viewport, and zero browser console errors verified. No Messenger interaction or query was sent.
-- Automated Playwright regression scripts were unavailable because Playwright is not installed; only the browser smoke above ran.
-- D backlog classifications and evidence are recorded in the task Completion Record.
+- Status: **CLOSED — REVIEWED PASS**
+- Task: QA-10C Generic Runtime Context v1 / First Production Consumer: Rental Tax Guide
+- QA framework: `taipei-tax-lab/dialogflow-cx-qa-framework`
+- QA framework implementation commit: `8389b8b54ad7ee8e0cd6e103228aab5b7a234aff`
+- Frontend implementation commit: `e1d8642a88b26e42fce0f3100a4f51fc96d9fde9`
+- GitHub Pages deployment: run #90 — **success**
+- Validation: Messenger E01–E08 8/8 PASS; targeted CX regression 4/4 PASS; frontend tests 19/19 PASS; build check PASS.
+- Review: Web ChatGPT **PASS** on 2026-09-27.
+- Architectural boundary: runtime date/timezone/entry section are generic integration context;房屋稅年期 remains Common Property Tax Knowledge and is not hard-coded into frontend JS.
+- Final full approved v1.2 regression remains a future QA release gate.
+- No subsequent production task is authorized by this state update.
 
 ## Post-release maintenance release result (2026-09-27)
 
