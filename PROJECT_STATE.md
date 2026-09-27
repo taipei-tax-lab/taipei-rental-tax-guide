@@ -25,7 +25,7 @@ Last updated: 2026-09-27
 
 ## Active task
 
-- Status: **READY_FOR_FINAL_REVISION_AND_RELEASE**
+- Status: **REVIEW_APPROVED_READY_FOR_PR**
 - Task: Impeccable UX refinement PoC — keep approved quick-guide hierarchy only
 - Task file: `TASK_2026-09-27_IMPECCABLE_UX_AUDIT.md`
 - Execution agent: local Codex Desktop
@@ -376,3 +376,16 @@ This protocol was completed on 2026-09-27; the results are recorded in **Phase 5
 10. Preserve historical branches.
 
 Do not include deferred P2/P3 cleanup in this release.
+
+## Impeccable final revision — pre-PR gate (2026-09-27)
+
+- Status: **REVIEW_APPROVED_READY_FOR_PR**
+- Candidate implementation commit: 7845717df16f4c78ab830a08cc122910fa1d42bb.
+- The quick-guide shortcut remains under the owner-plan heading with the approved wording and 16px minimum size.
+- Removed the duplicated plan-area source-check line and its desktop/mobile CSS; the existing footer remains the sole display of meta.checked.
+- Regenerated index.html; revised tests/build.test.mjs to protect the helper hierarchy and footer-only source date.
+- Compared with current main, the only production-visible change is the approved quick-guide hierarchy. No other UX/UI, policy, tax, eligibility, Messenger, or CX content changed.
+- Validation: build PASS; build --check PASS; full Node tests 20/20 PASS; performance budget PASS; git diff --check PASS.
+- Browser smoke: desktop Chrome showed the owner heading, shortcut, and four plan cards; 390×844 emulated Chrome reported documentWidth=390, bodyWidth=390, no horizontal overflow, no plan-area date, and the footer source date present.
+- Impeccable layout detector ran once. It returned seven existing warnings (three icon-tile-stack, four cramped-padding); none identified the changed helper. It could not resolve the generated page's relative CSS paths from its target context, so color/custom-property checks were incomplete. No unrelated changes were made.
+- Browser limits: Playwright is unavailable; no physical-device, touch, complete keyboard/screen-reader, or 200% zoom checks were run.

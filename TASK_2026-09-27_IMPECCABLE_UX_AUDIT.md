@@ -1,6 +1,6 @@
 # TASK_2026-09-27_IMPECCABLE_UX_AUDIT
 
-Status: **READY_FOR_FINAL_REVISION_AND_RELEASE**
+Status: **REVIEW_APPROVED_READY_FOR_PR**
 
 Stage 1 audit is complete; Stage 2 implementation and review evidence are recorded below.
 
@@ -564,7 +564,7 @@ Do not change anything else. No PR, merge, Pages switch, policy/tax/CX change, o
 
 ## Human visual review and final release decision
 
-Status: **READY_FOR_FINAL_REVISION_AND_RELEASE**
+Status: **REVIEW_APPROVED_READY_FOR_PR**
 
 The user completed a side-by-side local visual comparison of:
 - production baseline `main`
@@ -653,3 +653,21 @@ The user has approved this release path. No additional human design decision is 
 After this release is complete, a **new branch from the new production main** will be created for a separate Impeccable free-design experiment.
 
 Do not create or implement that experiment in this release task.
+
+## Final revision result — ready for PR (2026-09-27)
+
+Status: **REVIEW_APPROVED_READY_FOR_PR**
+
+- Implementation commit: 7845717df16f4c78ab830a08cc122910fa1d42bb.
+- site/template.html: kept the approved .v2-guide-shortcut; removed the owner-plan .v2-source-check paragraph.
+- assets/css/guide-v2.css: kept the 16px shortcut treatment; removed the source-check rule and its mobile alignment override.
+- index.html: regenerated through node scripts/build.mjs.
+- tests/build.test.mjs: replaced the date-duplication assertion with checks for the approved shortcut position and wording, absence of plan-area date markup/CSS, and the single footer source date.
+- Candidate-vs-main review confirmed the only production-visible difference is the approved quick-guide hierarchy. The deferred first-viewport compression remains untouched. No unrelated UX/UI, policy, tax, eligibility, Messenger, or CX change was included.
+- Release-gate validation: build PASS; build --check PASS; full node --test PASS (20/20); performance budget PASS; git diff --check PASS.
+- Desktop smoke: local Chrome loaded http://127.0.0.1:4175/#plans; the owner heading, approved shortcut, and four plan cards rendered, with the source date remaining in the footer.
+- Mobile smoke: isolated Chrome at 390×844 reported innerWidth=390, documentWidth=390, bodyWidth=390, horizontalOverflow=false, the approved shortcut present, zero .v2-source-check elements, and the footer source date present.
+- Impeccable context and layout reference were used. One layout detector run returned seven existing warnings (three icon-tile-stack and four cramped-padding); no warning targeted the changed hierarchy. The detector could not resolve stylesheet paths from the generated-page target context, limiting color/custom-property checks. No other cleanup was undertaken.
+- Limits: Playwright is unavailable; physical-device/touch, full keyboard/screen-reader, and 200% zoom checks were not run.
+
+The final release protocol below is authorized and will be recorded after PR merge, Pages success, and production smoke.
