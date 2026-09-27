@@ -1,6 +1,6 @@
 # TASK_2026-09-27_IMPECCABLE_UX_AUDIT
 
-Status: **STAGE2_CHANGES_REQUESTED**
+Status: **STAGE2_IMPLEMENTED_AWAITING_HUMAN_REVIEW**
 
 Stage 1 audit is complete; Stage 2 implementation and review evidence are recorded below.
 
@@ -548,3 +548,13 @@ Please:
 8. commit/push the same branch and stop
 
 Do not change anything else. No PR, merge, Pages switch, policy/tax/CX change, or additional Impeccable refinement pass.
+
+### Correction result (2026-09-27)
+
+- Current status: **STAGE2_IMPLEMENTED_AWAITING_HUMAN_REVIEW**.
+- Corrective implementation commit: 7adadd5a09c153202aec4a6a7b79fdce3a6ca68e.
+- The only source correction was to set .v2-guide-shortcut and .v2-source-check font-size to 1rem (16px), meeting the established supporting-text minimum. Other properties and content were preserved.
+- index.html was regenerated and only its CSS cache hash changed.
+- Browser computed styles: root 16px; shortcut 16px and source-check 16px at desktop and 390px mobile viewport.
+- Validation: node scripts/build.mjs PASS; node scripts/build.mjs --check PASS; node --test PASS (20 passed, 0 failed); node scripts/performance-budget.mjs PASS; git diff --check PASS.
+- No additional Impeccable pass or other UX/UI, policy, tax, Messenger, or CX change was made.

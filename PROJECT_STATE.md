@@ -25,7 +25,7 @@ Last updated: 2026-09-27
 
 ## Active task
 
-- Status: **STAGE2_CHANGES_REQUESTED**
+- Status: **STAGE2_IMPLEMENTED_AWAITING_HUMAN_REVIEW**
 - Task: Impeccable UX refinement PoC — Stage 2 targeted implementation
 - Task file: `TASK_2026-09-27_IMPECCABLE_UX_AUDIT.md`
 - Execution agent: local Codex Desktop with Impeccable already installed
@@ -108,6 +108,16 @@ Required correction:
 - then return status to `STAGE2_IMPLEMENTED_AWAITING_HUMAN_REVIEW`
 
 No other Stage 2 redesign or refinement is requested.
+
+## Stage 2 typography correction (2026-09-27)
+
+- Status: **STAGE2_IMPLEMENTED_AWAITING_HUMAN_REVIEW**
+- Corrective implementation commit: 7adadd5a09c153202aec4a6a7b79fdce3a6ca68e.
+- In assets/css/guide-v2.css, only the two reviewed font sizes changed: the quick-guide shortcut and source-check line are now 1rem (16px). Their color, weight, spacing, alignment, placement, wording, and behavior remain unchanged.
+- index.html was regenerated; its only change is the stylesheet cache hash.
+- Browser computed styles confirmed both texts render at 16px with a 16px root size at the default desktop viewport and a 390px viewport.
+- Validation: node scripts/build.mjs PASS; node scripts/build.mjs --check PASS; node --test PASS (20/20); node scripts/performance-budget.mjs PASS; git diff --check PASS.
+- No additional Impeccable refinement, other UI/UX changes, policy/tax/CX changes, PR, merge, or Pages switch was made.
 
 ## Impeccable PoC handoff
 
