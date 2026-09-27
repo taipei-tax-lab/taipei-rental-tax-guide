@@ -35,7 +35,7 @@ Last updated: 2026-09-27
 
 ## Active task
 
-- Status: **IMPLEMENTED_AWAITING_REVIEW**
+- Status: **REVIEW_APPROVED_READY_FOR_PR**
 - Task: Messenger multi-site config v1
 - Task file: `TASK_2026-09-27_MESSENGER_MULTISITE_CONFIG.md`
 - Execution agent: local Codex Desktop
@@ -106,6 +106,52 @@ No additional synchronization service is needed.
 - If there is a conflict, only one local agent should be instructed to make the corrective mutation.
 
 This keeps the user's existing GitHub handoff workflow and avoids both local agents changing the same interface at the same time.
+
+## Messenger multi-site config review (2026-09-27)
+
+- Result: **PASS — REVIEW_APPROVED_READY_FOR_PR**
+- Reviewed implementation commit: `df23991e52258c8e14ae2b26fe5f02158f2f544c`.
+- Verified directly on GitHub:
+  - Rental Playbook resource moved out of shared `assets/js/messenger-ui.js` and is declared by the rental site's `site/messenger.html` as `data-initial-playbook`.
+  - Shared JS resolves the configured Playbook dynamically and has no hard-coded Rental fallback/resource ID.
+  - Missing/blank config sends timezone/runtime parameters without `currentPlaybook`, allowing the Agent default entry/Router to take over.
+  - Existing QA-10C one-shot lifecycle is preserved: first-turn arm, `df-request-sent` disarm, new-session/session-expiry/storage-reset re-arm.
+  - `runtime_current_date`, `runtime_entry_section`, and `Asia/Taipei` semantics remain unchanged.
+  - `runtime_entry_section` remains page-section context; no `runtime_site` or `current_house_tax_year` was added.
+  - Generated `index.html` contains the site-specific config and cache hash update.
+  - New `tests/messenger-runtime.test.mjs` exercises configured entry, post-first-turn behavior, reset/re-arm, missing-config fallback, hash/page-section behavior, and UI-copy preservation.
+- Reported validation remains green: build PASS; build --check PASS; Node tests 28/28 PASS; performance budget PASS; `git diff --check` PASS.
+- Browser smoke limitations are acceptable for this refactor; live CX query is deferred to post-merge production smoke on the allowed Pages domain.
+
+### Latest cross-repo checkpoint
+
+The QA repo was re-read after Codex completion:
+
+- `taipei-tax-lab/dialogflow-cx-qa-framework` is now at **QA-12B completed, awaiting Web ChatGPT review**.
+- QA-12B final verdict: `QA12B_EXAMPLE2_PATCH_REJECTED`.
+- The attempted Example 2 change was fully rolled back; live Rental Tax Guide returned to the authoritative pre-change baseline.
+- Rental Playbook resource ID remains `7861bc8f-d2fb-43d3-8ca1-651415eb4205`.
+- Runtime input parameter names remain `runtime_current_date` and `runtime_entry_section`.
+- QA-10C runtime transport contract is unchanged.
+- Therefore there is **no contract drift and no frontend correction is required** before release.
+
+### Release protocol
+
+1. Sync latest refs and confirm this branch is not behind `main`.
+2. Re-run build, build --check, full Node tests, performance budget, and `git diff --check`.
+3. Open PR:
+   - base: `main`
+   - head: `refactor/messenger-multisite-config`
+4. Use **Standard Merge Commit** only; no squash/rebase.
+5. Wait for GitHub Pages deployment from `main` to succeed.
+6. Run focused production smoke on the allowed Pages domain:
+   - Messenger opens/closes/reopens
+   - one basic rental question receives a response
+   - no visible `Something went wrong`
+   - no horizontal overflow at desktop/mobile
+   - source/generated page still carries the configured Rental initial Playbook
+7. Update `PROJECT_STATE.md` and this TASK on `main` to `RELEASED`, recording PR, merge SHA, Pages run, validation, and production smoke.
+8. Preserve the historical branch.
 
 ## Human visual review decision (2026-09-27)
 
