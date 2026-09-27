@@ -147,13 +147,15 @@
   }
 
   // --- Generic Runtime Context & Direct Playbook Entry Lifecycle (QA-10C) ---
-  var RENTAL_TAX_GUIDE_PLAYBOOK =
-    "projects/serviceagent-1150909/locations/asia-northeast1/agents/799426c1-ba69-49dc-85e4-5065985706e2/playbooks/7861bc8f-d2fb-43d3-8ca1-651415eb4205";
-
   var runtimeContextState = {
-    isDirectEntryArmed: false,
-    targetPlaybook: RENTAL_TAX_GUIDE_PLAYBOOK
+    isDirectEntryArmed: false
   };
+
+  function getConfiguredInitialPlaybook(messenger) {
+    if (!messenger || typeof messenger.getAttribute !== "function") return "";
+    var initialPlaybook = messenger.getAttribute("data-initial-playbook");
+    return typeof initialPlaybook === "string" ? initialPlaybook.trim() : "";
+  }
 
   function getTaipeiCurrentDate() {
     try {
@@ -221,12 +223,14 @@
   function armDirectEntry(messenger) {
     if (!messenger || typeof messenger.setQueryParameters !== "function") return;
     wrapMessengerSessionMethods(messenger);
-    messenger.setQueryParameters({
-      currentPlaybook: runtimeContextState.targetPlaybook,
+    var queryParameters = {
       timeZone: "Asia/Taipei",
       parameters: buildRuntimeParameters()
-    });
-    runtimeContextState.isDirectEntryArmed = true;
+    };
+    var initialPlaybook = getConfiguredInitialPlaybook(messenger);
+    if (initialPlaybook) queryParameters.currentPlaybook = initialPlaybook;
+    messenger.setQueryParameters(queryParameters);
+    runtimeContextState.isDirectEntryArmed = Boolean(initialPlaybook);
   }
 
   function disarmDirectEntry(messenger) {
