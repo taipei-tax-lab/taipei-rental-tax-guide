@@ -1,6 +1,6 @@
 # PROJECT_STATE
 
-Last updated: 2026-09-27
+Last updated: 2026-09-29
 
 ## Production baseline
 
@@ -9,9 +9,9 @@ Last updated: 2026-09-27
 - Previous production baseline before Phase 5A: `ab1cb35b53763a6e6341b2041125894defaf8b27`
 - Earlier production release merge: `251884ee3d133d4f2e5723b3d25ccdfc8a1bf642` (PR #9)
 - Previous production release merge before PR #11: `20c915066c87fc4308c89dc601d324803b3bc0ef` (PR #10)
-- Latest production release merge: `3bac3930aee9643a35d7e41ac375a581ab0b68b9` (PR #11; Standard Merge Commit)
-- Latest production application commit: `3bac3930aee9643a35d7e41ac375a581ab0b68b9`.
-- PR #11 GitHub Pages release deployment: run #92, source commit `3bac393`, completed successfully: https://github.com/taipei-tax-lab/taipei-rental-tax-guide/actions/runs/36307128126.
+- Latest production release merge: `684bb9aa67a0783dbec686ae2d9d59e4a578fa46` (PR #12; Standard Merge Commit).
+- Latest production application commit: `684bb9aa67a0783dbec686ae2d9d59e4a578fa46`.
+- PR #12 GitHub Pages release deployment: run #95, source commit `684bb9a`, completed successfully.
 - GitHub Pages: `https://taipei-tax-lab.github.io/taipei-rental-tax-guide/`
 - Production status: **RELEASED**
 - Production Messenger now uses the official/public-service CX configuration.
@@ -35,28 +35,20 @@ Last updated: 2026-09-27
 
 ## Active task
 
-- Status: **RELEASED**
-- Task: Messenger multi-site config v1
-- Task file: `TASK_2026-09-27_MESSENGER_MULTISITE_CONFIG.md`
-- Execution agent: local Codex Desktop
-- Baseline: production `main` at `1ae269999bc3048320ac471f7e21ffccc925ae72`
-- Work branch: `refactor/messenger-multisite-config`
-- Purpose: refactor the existing QA-10C one-shot direct-entry so each website explicitly declares its own initial Playbook instead of shared JS hard-coding Rental Tax Guide
-- Current site decision: Rental site explicitly declares Rental Tax Guide as its initial Playbook
-- Initial Playbook semantics: first-turn priority only; not a permanent lock and not a replacement for CX routing
-- Keep unchanged:
-  - `runtime_entry_section` remains current page section (hash / `data-page`)
-  - `runtime_current_date` remains frontend-provided runtime date
-  - request timezone remains `Asia/Taipei`
-  - frontend does not calculate/send `current_house_tax_year`
-  - QA-10C first-turn arm / post-request disarm / session re-arm lifecycle
-- Generic fallback: if a future site has no initial Playbook config, omit `currentPlaybook` and let the Agent default Router handle entry; never fall back to Rental
-- Cross-repo coordination: read `taipei-tax-lab/dialogflow-cx-qa-framework` STATE/TASKS at start and before completion; do not modify that repo from this task
-- Current QA-side expected work: QA-12B Example 2 causality experiment; Instructions and frontend/runtime transport are frozen
-- Multi-agent rule: each agent owns one repo/scope; at milestones sessions read the other repo's STATE/TASK; if contradiction exists, authorize one agent only to mutate the affected side
-- This task does not add 1999/納保 Playbooks or IDs; it only makes the current frontend ready for site-specific initial Playbook configuration
-- Completion: update STATE/TASK to `IMPLEMENTED_AWAITING_REVIEW`, commit/push branch, then stop
-- No PR, no merge, no Pages switch, no CX/GCP mutation
+- Status: **PLANNED — READY FOR FRONTEND CODEX**
+- Task: House-tax period runtime context v1
+- Task file: `TASK_2026-09-29_HOUSE_TAX_PERIOD_CONTEXT_V1.md`
+- Scope owner: frontend repo only
+- Canonical cross-repo design:
+  - `taipei-tax-lab/dialogflow-cx-qa-framework/docs/house_tax_period_frontend_context_plan_2026-09-29.md`
+  - `taipei-tax-lab/dialogflow-cx-qa-framework/docs/frontend_cx_integration_contract.md`
+- Purpose: extend the already released Messenger runtime-context pipeline with deterministic house-tax current-period / current-year-May / current-turn explicit-date context.
+- Production Agent and Rental Playbook IDs remain unchanged.
+- CX/GCP is frozen during this frontend task.
+- Frontend owns only fixed calendar/date-to-period conversion; no eligibility, rate, reduction, cap, filing-deadline, benefit-combination, subsidy-status, or other tax/legal logic moves to frontend.
+- Preserve the released one-shot direct-entry lifecycle, `Asia/Taipei`, `runtime_current_date`, `runtime_entry_section`, site-specific initial Playbook configuration, responsive Messenger UI, and existing UX.
+- Required outcome: implementation + deterministic tests + existing build/test/performance gates, then `IMPLEMENTED_AWAITING_WEB_CHATGPT_REVIEW`.
+- No PR/merge/Pages release and no CX/GCP mutation in this task.
 
 ## Messenger multi-site config v1 implementation (2026-09-27)
 
@@ -366,6 +358,16 @@ The original P1 findings above describe the verified pre-fix audit state. The im
 ## Remaining audit findings / maintenance backlog
 
 The stale tenant-count assertion/documentation and README release-state mismatch were corrected in the post-release maintenance branch. Remaining audit items are classified in `TASK_2026-09-27_POST_RELEASE_MAINTENANCE.md`; they were not implemented in that task. General performance or accessibility refactors remain outside its scope.
+
+## House-tax period runtime context v1 source-of-truth
+
+For the 2026-09-29 cross-repo workstream:
+
+1. This repo owns browser date parsing/calculation and Messenger transport implementation.
+2. The QA repo owns the cross-repo contract and later CX consumption patch.
+3. Canonical design is `dialogflow-cx-qa-framework/docs/house_tax_period_frontend_context_plan_2026-09-29.md`.
+4. The frontend task must finish and be reviewed before any Production Rental mutation.
+5. No new Agent/Playbook/Tool/Data Store/backend service is part of this architecture.
 
 ## Source-of-truth rules
 
