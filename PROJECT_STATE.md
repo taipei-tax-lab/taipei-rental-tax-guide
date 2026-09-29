@@ -35,7 +35,10 @@ Last updated: 2026-09-29
 
 ## Active task
 
-- Status: **IMPLEMENTED_AWAITING_WEB_CHATGPT_REVIEW**
+- Status: **CHANGES_REQUESTED — REMOVE REGEX LOOKBEHIND BEFORE PR**
+- Web ChatGPT review: implementation architecture/logic accepted; one compatibility correction required before approval.
+- Review blocker: the new explicit-date parser introduces regex negative lookbehind `(?<!...)`. The static site ships raw JS without transpilation, so older Safari/iOS Safari versions that do not support lookbehind can fail to parse the entire Messenger script. Replace lookbehind with equivalent capture/boundary logic; do not redesign the parser or runtime contract.
+- Required correction gate: add regression coverage proving embedded-digit substrings are still rejected; rerun build, build --check, full Node tests, performance budget, and git diff --check; then return to Web ChatGPT review.
 - Implementation branch: codex/house-tax-period-context-v1
 - Result: deterministic v1 current-period, current-year-May, and current-turn explicit-date context is attached through the existing Messenger request path; existing one-shot direct-entry and timezone context remain intact.
 - Validation: normal build PASS; build --check PASS; full Node tests **33/33 PASS**; performance budget PASS; git diff --check PASS.
