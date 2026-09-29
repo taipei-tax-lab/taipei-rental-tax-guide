@@ -1,6 +1,6 @@
 # TASK — House-tax period runtime context v1
 
-**Status:** PLANNED — READY FOR FRONTEND CODEX  
+**Status:** REVIEW_APPROVED_READY_FOR_PR<br>
 **Date:** 2026-09-29  
 **Scope:** frontend only  
 **Cross-repo contract change:** YES
@@ -236,11 +236,119 @@ Do not:
 - resume E05 prompt tuning;
 - create a second runtime transport path.
 
+## Frontend implementation result (2026-09-29)
+
+- Status: **IMPLEMENTED_AWAITING_WEB_CHATGPT_REVIEW**.
+- Branch: codex/house-tax-period-context-v1, based on the post-pull main commit 77f8bee5bcb8ccf3b20d2ca0366fbb27ea3350ac.
+- buildRuntimeParameters() now supplies v1 context version, the current Taipei-date house-tax period, the current calendar year's May-bill period, and explicit-date defaults (none plus null values). The date argument is injectable for deterministic tests.
+- Pure helpers validate Gregorian calendar dates, normalize ROC/Gregorian supported forms, calculate formatted period labels, and classify current-turn input as none, valid, invalid, or ambiguous.
+- The existing df-request-sent hook refreshes runtime date/section/period fields and sets or clears explicit-date fields on requestBody.queryParams.parameters before the request proceeds. It preserves existing queryParams, including the configured first-turn Playbook and Asia/Taipei.
+- Changed files: assets/js/messenger-ui.js, tests/messenger-runtime.test.mjs, generated index.html, PROJECT_STATE.md, and this task file.
+- Validation: node scripts/build.mjs PASS; node scripts/build.mjs --check PASS; node --test tests/*.test.mjs PASS (33/33); node scripts/performance-budget.mjs PASS; git diff --check PASS.
+- Local browser smoke: the preview page and Messenger opened/closed. No query was submitted; the captured Messenger view had no visible error text. The accessibility tree retained the widget's generic fallback string. No CX response behavior was tested.
+- No production Agent/Playbook ID, site configuration, quick-topic copy, UI, CX/GCP resource, or backend service changed. No PR, merge, or Pages release was made.
+- Next step: Web ChatGPT review, followed by the later CX implementation and semantic gates described in the canonical cross-repo plan.
+
+## Web ChatGPT review — 2026-09-29
+
+Result: **CHANGES REQUESTED — one narrow compatibility correction**.
+
+Accepted:
+
+- deterministic current-period and May-bill calculations match the approved contract;
+- explicit-date parsing uses the current request only;
+- invalid/ambiguous/no-date cases clear explicit session values with `null`;
+- existing `df-request-sent` transport path is reused;
+- first-turn Playbook/timezone and existing one-shot lifecycle are preserved;
+- implementation scope is limited to the expected frontend files;
+- branch is one commit ahead of `main`, not behind;
+- reported validation is green (33/33 tests, build, build --check, performance budget, diff check).
+
+Required correction before PR:
+
+- remove all regex negative lookbehind syntax `(?<!...)` from `assets/js/messenger-ui.js`;
+- preserve the same date recognition/boundary behavior using compatible capture/boundary logic;
+- add regression tests proving a date-looking substring embedded inside a longer digit sequence is not accepted;
+- do not broaden supported date formats or refactor unrelated runtime/Messenger code;
+- regenerate `index.html`;
+- rerun the full existing validation gate;
+- update this task / `PROJECT_STATE.md` to `IMPLEMENTED_AWAITING_WEB_CHATGPT_REVIEW`, commit/push the same branch, and STOP.
+
+Reason: this static site ships raw JavaScript without a transpilation step. Lookbehind is unsupported in Safari/iOS Safari 16.3 and earlier, and unsupported regex syntax can prevent the script from parsing at all. The compatibility risk is unnecessary because the same boundary rule can be implemented without lookbehind.
+
+## Regex lookbehind compatibility correction — 2026-09-29
+
+- Replaced the four negative lookbehind boundaries in the explicit-date parser with a compatible capture for start-of-input or a preceding non-digit. The existing trailing digit guard and recognized date formats remain unchanged; ROC Chinese-unit parsing and the Messenger runtime flow were not refactored.
+- Added leading- and trailing-embedded-digit regression cases across Gregorian Chinese-unit, Gregorian hyphen/slash, and ROC slash forms. All reject the embedded date-looking sequences while the supported-date tests remain green.
+- Regenerated `index.html` from source.
+- Validation: `node scripts/build.mjs` PASS; `node scripts/build.mjs --check` PASS; `node --test tests/*.test.mjs` PASS (35/35); `node scripts/performance-budget.mjs` PASS; `git diff --check` PASS; search confirmed no negative lookbehind remains in the Messenger parser or generated output.
+- Scope: frontend only; no date formats added, no unrelated Messenger refactor, and no CX/GCP changes.
+- Branch: `codex/house-tax-period-context-v1`; status: `IMPLEMENTED_AWAITING_WEB_CHATGPT_REVIEW`.
+
+## Astra review finding follow-up — 2026-09-29
+
+- Finding addressed: `2026年6月30日2026年7月1日` previously became a single valid date because the first Chinese full date failed its trailing digit guard and the next match consumed the preceding `日` as a boundary capture.
+- Parser correction: all date patterns now match from the date token itself and check the preceding character without consuming it. The Chinese full-date pattern permits following digits only when they begin another complete Chinese full date whose own trailing digit guard passes. This preserves embedded-digit rejection and adds no date format; lookbehind remains absent.
+- Added parser regression: the adjacent Chinese dates return `ambiguous` with date and period `null`; appending an embedded digit after the second date still returns `none`.
+- Added outgoing-request regression: the same adjacent-date input sets status `ambiguous` and clears explicit date and period to `null`.
+- Regenerated `index.html` from source.
+- Validation: `node scripts/build.mjs` PASS; `node scripts/build.mjs --check` PASS; `node --test tests/*.test.mjs` PASS (37/37); `node scripts/performance-budget.mjs` PASS; `git diff --check` PASS.
+- Scope: frontend parser/tests/generated page/state only; no date formats added, no Messenger refactor, and no CX/GCP changes.
+- Branch: `codex/house-tax-period-context-v1`; status: `REVIEW_APPROVED_READY_FOR_PR`.
+
+## Final Web ChatGPT review and release authorization — 2026-09-29
+
+Result: **PASS — REVIEW_APPROVED_READY_FOR_PR**.
+
+The frontend application candidate is frozen at implementation commit:
+
+`16f53825c4245fc231a98e9faa061cf80708b9a2`
+
+The later documentation commits do not alter the approved application runtime behavior.
+
+Release sequencing decision:
+
+**Frontend production release must happen before the Production Rental Playbook consumption patch.**
+
+Reason:
+
+- the new frontend adds session/runtime parameters while preserving the existing two;
+- the current Rental Playbook does not yet define the six new fields as Playbook inputs, so it is not expected to consume them yet;
+- releasing frontend first avoids a compatibility window in which the Playbook expects new inputs that the public site does not send.
+
+### Release protocol
+
+1. Sync refs and confirm this branch is not behind `main`.
+2. Rerun:
+   - normal build;
+   - build `--check`;
+   - full Node tests;
+   - performance budget;
+   - `git diff --check`.
+3. Confirm expected diff only; no CX/GCP mutation.
+4. Open PR:
+   - base: `main`
+   - head: `codex/house-tax-period-context-v1`
+5. Use **Standard Merge Commit** only.
+   - no squash
+   - no rebase
+6. Wait for GitHub Pages deployment from `main`.
+7. Production smoke:
+   - Messenger opens/closes/reopens;
+   - one ordinary Rental question receives a normal answer;
+   - no visible `Something went wrong`;
+   - no desktop/mobile horizontal overflow;
+   - deployed source still targets canonical Production Agent and Rental initial Playbook;
+   - deployed JS contains `runtime_house_tax_context_version = "v1"` runtime-context implementation.
+8. Update `PROJECT_STATE.md` and this task on `main` to `RELEASED`; record PR, merge SHA, Pages run/result, final validation, and smoke.
+9. Commit/push release record and STOP.
+10. Do not modify CX/GCP. CX Stage C resumes only after frontend production release is verified.
+
 ## Completion state
 
-When implementation and local validation are complete:
+Implementation and local validation are complete; current status:
 
-`IMPLEMENTED_AWAITING_WEB_CHATGPT_REVIEW`
+`IMPLEMENTED_AWAITING_ASTRA_REVIEW`
 
 Update this task and `PROJECT_STATE.md`, commit/push the implementation branch, and STOP.
 

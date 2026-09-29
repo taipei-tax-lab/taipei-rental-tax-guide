@@ -35,7 +35,15 @@ Last updated: 2026-09-29
 
 ## Active task
 
-- Status: **PLANNED — READY FOR FRONTEND CODEX**
+- Status: **REVIEW_APPROVED_READY_FOR_PR**
+- Review status: final Web ChatGPT review PASS. Astra's adjacent-date finding is fixed and regression-covered. Frontend runtime contract is frozen for release.
+- Review corrections completed: removed lookbehind and non-consuming boundary captures; regex matches now validate the preceding character without consuming it, and adjacent complete Chinese dates are both scanned. Existing embedded-digit guards and formats remain in place; runtime contract and Messenger lifecycle were not broadened or refactored.
+- Correction gate: adjacent-date parser and outgoing-request regressions added; existing embedded-digit regressions remain green. Rebuild, build --check, full Node tests, performance budget, and git diff --check pass.
+- Implementation branch: codex/house-tax-period-context-v1
+- Result: deterministic v1 current-period, current-year-May, and current-turn explicit-date context is attached through the existing Messenger request path; existing one-shot direct-entry and timezone context remain intact.
+- Validation: normal build PASS; build --check PASS; full Node tests **37/37 PASS**; performance budget PASS; git diff --check PASS; no regex negative lookbehind remains in the Messenger parser.
+- Local browser smoke: Messenger opened and closed without sending a query. No visible error text in the captured view; the accessibility tree retained the widget's generic fallback text.
+- No CX/GCP mutation yet. Next step is frontend PR / main / Pages release before any Production Rental patch.
 - Task: House-tax period runtime context v1
 - Task file: `TASK_2026-09-29_HOUSE_TAX_PERIOD_CONTEXT_V1.md`
 - Scope owner: frontend repo only
@@ -48,7 +56,7 @@ Last updated: 2026-09-29
 - Frontend owns only fixed calendar/date-to-period conversion; no eligibility, rate, reduction, cap, filing-deadline, benefit-combination, subsidy-status, or other tax/legal logic moves to frontend.
 - Preserve the released one-shot direct-entry lifecycle, `Asia/Taipei`, `runtime_current_date`, `runtime_entry_section`, site-specific initial Playbook configuration, responsive Messenger UI, and existing UX.
 - Required outcome: implementation + deterministic tests + existing build/test/performance gates, then `IMPLEMENTED_AWAITING_WEB_CHATGPT_REVIEW`.
-- No PR/merge/Pages release and no CX/GCP mutation in this task.
+- Frontend release is now authorized; CX/GCP remains frozen until Pages release + smoke PASS.
 
 ## Messenger multi-site config v1 implementation (2026-09-27)
 
