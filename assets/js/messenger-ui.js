@@ -242,10 +242,10 @@
     var text = normalizeHouseTaxDateText(input);
     var patterns = [
       {calendar: "roc", regex: /民國\s*(\d{1,3})\s*年\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日/g},
-      {calendar: "gregorian", regex: /(?<!\d)(\d{4})\s*年\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日(?!\d)/g},
-      {calendar: "gregorian", regex: /(?<!\d)(\d{4})\s*-\s*(\d{1,2})\s*-\s*(\d{1,2})(?!\d)/g},
-      {calendar: "gregorian", regex: /(?<!\d)(\d{4})\s*\/\s*(\d{1,2})\s*\/\s*(\d{1,2})(?!\d)/g},
-      {calendar: "roc", regex: /(?<!\d)(\d{1,3})\s*\/\s*(\d{1,2})\s*\/\s*(\d{1,2})(?!\d)/g}
+      {calendar: "gregorian", boundaryGroup: 1, yearGroup: 2, monthGroup: 3, dayGroup: 4, regex: /(^|[^\d])(\d{4})\s*年\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日(?!\d)/g},
+      {calendar: "gregorian", boundaryGroup: 1, yearGroup: 2, monthGroup: 3, dayGroup: 4, regex: /(^|[^\d])(\d{4})\s*-\s*(\d{1,2})\s*-\s*(\d{1,2})(?!\d)/g},
+      {calendar: "gregorian", boundaryGroup: 1, yearGroup: 2, monthGroup: 3, dayGroup: 4, regex: /(^|[^\d])(\d{4})\s*\/\s*(\d{1,2})\s*\/\s*(\d{1,2})(?!\d)/g},
+      {calendar: "roc", boundaryGroup: 1, yearGroup: 2, monthGroup: 3, dayGroup: 4, regex: /(^|[^\d])(\d{1,3})\s*\/\s*(\d{1,2})\s*\/\s*(\d{1,2})(?!\d)/g}
     ];
     var matches = [];
 
@@ -253,13 +253,14 @@
       pattern.regex.lastIndex = 0;
       var match;
       while ((match = pattern.regex.exec(text))) {
-        var start = match.index;
-        var end = start + match[0].length;
+        var boundaryLength = pattern.boundaryGroup ? match[pattern.boundaryGroup].length : 0;
+        var start = match.index + boundaryLength;
+        var end = match.index + match[0].length;
         if (matches.some(function (existing) { return start < existing.end && end > existing.start; })) continue;
 
-        var year = Number(match[1]);
-        var month = Number(match[2]);
-        var day = Number(match[3]);
+        var year = Number(match[pattern.yearGroup || 1]);
+        var month = Number(match[pattern.monthGroup || 2]);
+        var day = Number(match[pattern.dayGroup || 3]);
         if (pattern.calendar === "roc") year += 1911;
         matches.push({
           start: start,

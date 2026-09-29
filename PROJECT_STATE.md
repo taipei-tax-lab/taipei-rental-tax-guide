@@ -35,13 +35,13 @@ Last updated: 2026-09-29
 
 ## Active task
 
-- Status: **CHANGES_REQUESTED — REMOVE REGEX LOOKBEHIND BEFORE PR**
-- Web ChatGPT review: implementation architecture/logic accepted; one compatibility correction required before approval.
-- Review blocker: the new explicit-date parser introduces regex negative lookbehind `(?<!...)`. The static site ships raw JS without transpilation, so older Safari/iOS Safari versions that do not support lookbehind can fail to parse the entire Messenger script. Replace lookbehind with equivalent capture/boundary logic; do not redesign the parser or runtime contract.
-- Required correction gate: add regression coverage proving embedded-digit substrings are still rejected; rerun build, build --check, full Node tests, performance budget, and git diff --check; then return to Web ChatGPT review.
+- Status: **IMPLEMENTED_AWAITING_WEB_CHATGPT_REVIEW**
+- Web ChatGPT review: implementation architecture/logic accepted; the narrow regex compatibility correction and regression coverage are complete, awaiting re-review.
+- Review correction completed: replaced negative lookbehind with an equivalent start-or-non-digit capture boundary and retained the trailing digit guard. Parser formats, runtime contract, and Messenger lifecycle were not broadened or refactored.
+- Correction gate: embedded-digit boundary regression tests added; rebuild, build --check, full Node tests, performance budget, and git diff --check pass. Returned to Web ChatGPT review.
 - Implementation branch: codex/house-tax-period-context-v1
 - Result: deterministic v1 current-period, current-year-May, and current-turn explicit-date context is attached through the existing Messenger request path; existing one-shot direct-entry and timezone context remain intact.
-- Validation: normal build PASS; build --check PASS; full Node tests **33/33 PASS**; performance budget PASS; git diff --check PASS.
+- Validation: normal build PASS; build --check PASS; full Node tests **35/35 PASS**; performance budget PASS; git diff --check PASS; no regex negative lookbehind remains in the Messenger parser.
 - Local browser smoke: Messenger opened and closed without sending a query. No visible error text in the captured view; the accessibility tree retained the widget's generic fallback text.
 - No CX/GCP mutation, PR, merge, or Pages release.
 - Task: House-tax period runtime context v1

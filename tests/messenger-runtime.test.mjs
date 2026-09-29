@@ -200,6 +200,26 @@ test('explicit date parser accepts only the supported full-date forms and normal
   assert.equal(harness.runtime.parseExplicitHouseTaxDate('去年七月初').status, 'none');
 });
 
+test('explicit date parser rejects a date preceded by an embedded digit', () => {
+  const harness = createHarness(rentalPlaybook);
+  for (const input of ['12026-07-01', '12026/7/1', '12026年7月1日', '11115/7/1']) {
+    const parsed = harness.runtime.parseExplicitHouseTaxDate(input);
+    assert.equal(parsed.status, 'none', input);
+    assert.equal(parsed.date, null, input);
+    assert.equal(parsed.period, null, input);
+  }
+});
+
+test('explicit date parser rejects a date followed by an embedded digit', () => {
+  const harness = createHarness(rentalPlaybook);
+  for (const input of ['2026-07-011', '2026/7/100', '2026年7月100日', '115/7/100']) {
+    const parsed = harness.runtime.parseExplicitHouseTaxDate(input);
+    assert.equal(parsed.status, 'none', input);
+    assert.equal(parsed.date, null, input);
+    assert.equal(parsed.period, null, input);
+  }
+});
+
 test('calendar validity rejects impossible dates and detects multiple dates', () => {
   const harness = createHarness(rentalPlaybook);
 

@@ -1,6 +1,6 @@
 # TASK — House-tax period runtime context v1
 
-**Status:** CHANGES_REQUESTED — REMOVE REGEX LOOKBEHIND BEFORE PR<br>
+**Status:** IMPLEMENTED_AWAITING_WEB_CHATGPT_REVIEW<br>
 **Date:** 2026-09-29  
 **Scope:** frontend only  
 **Cross-repo contract change:** YES
@@ -276,9 +276,17 @@ Required correction before PR:
 
 Reason: this static site ships raw JavaScript without a transpilation step. Lookbehind is unsupported in Safari/iOS Safari 16.3 and earlier, and unsupported regex syntax can prevent the script from parsing at all. The compatibility risk is unnecessary because the same boundary rule can be implemented without lookbehind.
 
+## Regex lookbehind compatibility correction — 2026-09-29
+
+- Replaced the four negative lookbehind boundaries in the explicit-date parser with a compatible capture for start-of-input or a preceding non-digit. The existing trailing digit guard and recognized date formats remain unchanged; ROC Chinese-unit parsing and the Messenger runtime flow were not refactored.
+- Added leading- and trailing-embedded-digit regression cases across Gregorian Chinese-unit, Gregorian hyphen/slash, and ROC slash forms. All reject the embedded date-looking sequences while the supported-date tests remain green.
+- Regenerated `index.html` from source.
+- Validation: `node scripts/build.mjs` PASS; `node scripts/build.mjs --check` PASS; `node --test tests/*.test.mjs` PASS (35/35); `node scripts/performance-budget.mjs` PASS; `git diff --check` PASS; search confirmed no negative lookbehind remains in the Messenger parser or generated output.
+- Scope: frontend only; no date formats added, no unrelated Messenger refactor, and no CX/GCP changes.
+- Branch: `codex/house-tax-period-context-v1`; status: `IMPLEMENTED_AWAITING_WEB_CHATGPT_REVIEW`.
 ## Completion state
 
-When implementation and local validation are complete:
+Implementation and local validation are complete; current status:
 
 `IMPLEMENTED_AWAITING_WEB_CHATGPT_REVIEW`
 
