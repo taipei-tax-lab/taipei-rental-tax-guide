@@ -1,6 +1,6 @@
 # TASK — House-tax period runtime context v1
 
-**Status:** IMPLEMENTED_AWAITING_WEB_CHATGPT_REVIEW<br>
+**Status:** CHANGES_REQUESTED — REMOVE REGEX LOOKBEHIND BEFORE PR<br>
 **Date:** 2026-09-29  
 **Scope:** frontend only  
 **Cross-repo contract change:** YES
@@ -248,6 +248,33 @@ Do not:
 - Local browser smoke: the preview page and Messenger opened/closed. No query was submitted; the captured Messenger view had no visible error text. The accessibility tree retained the widget's generic fallback string. No CX response behavior was tested.
 - No production Agent/Playbook ID, site configuration, quick-topic copy, UI, CX/GCP resource, or backend service changed. No PR, merge, or Pages release was made.
 - Next step: Web ChatGPT review, followed by the later CX implementation and semantic gates described in the canonical cross-repo plan.
+
+## Web ChatGPT review — 2026-09-29
+
+Result: **CHANGES REQUESTED — one narrow compatibility correction**.
+
+Accepted:
+
+- deterministic current-period and May-bill calculations match the approved contract;
+- explicit-date parsing uses the current request only;
+- invalid/ambiguous/no-date cases clear explicit session values with `null`;
+- existing `df-request-sent` transport path is reused;
+- first-turn Playbook/timezone and existing one-shot lifecycle are preserved;
+- implementation scope is limited to the expected frontend files;
+- branch is one commit ahead of `main`, not behind;
+- reported validation is green (33/33 tests, build, build --check, performance budget, diff check).
+
+Required correction before PR:
+
+- remove all regex negative lookbehind syntax `(?<!...)` from `assets/js/messenger-ui.js`;
+- preserve the same date recognition/boundary behavior using compatible capture/boundary logic;
+- add regression tests proving a date-looking substring embedded inside a longer digit sequence is not accepted;
+- do not broaden supported date formats or refactor unrelated runtime/Messenger code;
+- regenerate `index.html`;
+- rerun the full existing validation gate;
+- update this task / `PROJECT_STATE.md` to `IMPLEMENTED_AWAITING_WEB_CHATGPT_REVIEW`, commit/push the same branch, and STOP.
+
+Reason: this static site ships raw JavaScript without a transpilation step. Lookbehind is unsupported in Safari/iOS Safari 16.3 and earlier, and unsupported regex syntax can prevent the script from parsing at all. The compatibility risk is unnecessary because the same boundary rule can be implemented without lookbehind.
 
 ## Completion state
 
