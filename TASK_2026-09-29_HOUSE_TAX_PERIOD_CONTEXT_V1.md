@@ -1,6 +1,6 @@
 # TASK — House-tax period runtime context v1
 
-**Status:** REVIEW_APPROVED_READY_FOR_PR<br>
+**Status:** RELEASED<br>
 **Date:** 2026-09-29  
 **Scope:** frontend only  
 **Cross-repo contract change:** YES
@@ -344,12 +344,17 @@ Reason:
 9. Commit/push release record and STOP.
 10. Do not modify CX/GCP. CX Stage C resumes only after frontend production release is verified.
 
+## Release record — merged 2026-09-29; verified 2026-09-30
+
+- PR: [#13 — feat: add house-tax period context to Messenger](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/pull/13), base `main`, head `codex/house-tax-period-context-v1`.
+- Merge: Standard Merge Commit `ee711c6fb97bacd098c981913b8a214346aa434a`.
+- GitHub Pages: [run #99](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/actions/runs/36592095322), source commit `ee711c6`, completed successfully.
+- Final validation: `node scripts/build.mjs` PASS; `node scripts/build.mjs --check` PASS; `node --test tests/*.test.mjs` PASS (37/37); `node scripts/performance-budget.mjs` PASS; `git diff --check` PASS.
+- Production smoke: Messenger opened, closed, and reopened; an ordinary Rental question returned a normal response. `Something went wrong` was not visible in the UI screenshot; the accessibility tree retained the generic fallback string. Desktop 1366x768 and mobile 390x844 showed no horizontal overflow. Production HTML still targeted Agent `799426c1-ba69-49dc-85e4-5065985706e2` and Rental initial Playbook `projects/serviceagent-1150909/locations/asia-northeast1/agents/799426c1-ba69-49dc-85e4-5065985706e2/playbooks/7861bc8f-d2fb-43d3-8ca1-651415eb4205`. The deployed page's `messenger-ui.js?v=98db594a89` matches the `main` index; the successful Pages source defines `HOUSE_TAX_CONTEXT_VERSION = "v1"` and sends `runtime_house_tax_context_version` from it.
+- Scope: frontend release only. No date formats were expanded; no Messenger runtime refactor; no CX/GCP resource or setting changed.
+
 ## Completion state
 
-Implementation and local validation are complete; current status:
+Implementation, review, release, and production smoke are complete; current status:
 
-`IMPLEMENTED_AWAITING_ASTRA_REVIEW`
-
-Update this task and `PROJECT_STATE.md`, commit/push the implementation branch, and STOP.
-
-Do not open/merge a PR unless separately authorized after review.
+`RELEASED`

@@ -1,6 +1,6 @@
 # PROJECT_STATE
 
-Last updated: 2026-09-29
+Last updated: 2026-09-30
 
 ## Production baseline
 
@@ -9,9 +9,10 @@ Last updated: 2026-09-29
 - Previous production baseline before Phase 5A: `ab1cb35b53763a6e6341b2041125894defaf8b27`
 - Earlier production release merge: `251884ee3d133d4f2e5723b3d25ccdfc8a1bf642` (PR #9)
 - Previous production release merge before PR #11: `20c915066c87fc4308c89dc601d324803b3bc0ef` (PR #10)
-- Latest production release merge: `684bb9aa67a0783dbec686ae2d9d59e4a578fa46` (PR #12; Standard Merge Commit).
-- Latest production application commit: `684bb9aa67a0783dbec686ae2d9d59e4a578fa46`.
-- PR #12 GitHub Pages release deployment: run #95, source commit `684bb9a`, completed successfully.
+- Previous production release merge: `684bb9aa67a0783dbec686ae2d9d59e4a578fa46` (PR #12; Standard Merge Commit).
+- Latest production release merge: `ee711c6fb97bacd098c981913b8a214346aa434a` (PR #13; Standard Merge Commit).
+- Latest production application commit: `ee711c6fb97bacd098c981913b8a214346aa434a`.
+- PR #13 GitHub Pages release deployment: run #99 (`36592095322`), source commit `ee711c6`, completed successfully.
 - GitHub Pages: `https://taipei-tax-lab.github.io/taipei-rental-tax-guide/`
 - Production status: **RELEASED**
 - Production Messenger now uses the official/public-service CX configuration.
@@ -35,15 +36,16 @@ Last updated: 2026-09-29
 
 ## Active task
 
-- Status: **REVIEW_APPROVED_READY_FOR_PR**
-- Review status: final Web ChatGPT review PASS. Astra's adjacent-date finding is fixed and regression-covered. Frontend runtime contract is frozen for release.
+- Status: **RELEASED**
+- Review status: final Web ChatGPT review PASS. Astra's adjacent-date finding is fixed and regression-covered. Frontend runtime contract is frozen and released.
 - Review corrections completed: removed lookbehind and non-consuming boundary captures; regex matches now validate the preceding character without consuming it, and adjacent complete Chinese dates are both scanned. Existing embedded-digit guards and formats remain in place; runtime contract and Messenger lifecycle were not broadened or refactored.
 - Correction gate: adjacent-date parser and outgoing-request regressions added; existing embedded-digit regressions remain green. Rebuild, build --check, full Node tests, performance budget, and git diff --check pass.
 - Implementation branch: codex/house-tax-period-context-v1
 - Result: deterministic v1 current-period, current-year-May, and current-turn explicit-date context is attached through the existing Messenger request path; existing one-shot direct-entry and timezone context remain intact.
 - Validation: normal build PASS; build --check PASS; full Node tests **37/37 PASS**; performance budget PASS; git diff --check PASS; no regex negative lookbehind remains in the Messenger parser.
-- Local browser smoke: Messenger opened and closed without sending a query. No visible error text in the captured view; the accessibility tree retained the widget's generic fallback text.
-- No CX/GCP mutation yet. Next step is frontend PR / main / Pages release before any Production Rental patch.
+- Release: PR #13 [feat: add house-tax period context to Messenger](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/pull/13), merged to `main` with Standard Merge Commit `ee711c6fb97bacd098c981913b8a214346aa434a`; Pages run #99 succeeded from that commit.
+- Production smoke: Messenger opened, closed, and reopened; an ordinary Rental question returned a normal response. `Something went wrong` was not visible in the UI screenshot (the accessibility tree retained the generic fallback string). Desktop 1366x768 and mobile 390x844 showed no horizontal overflow. Production HTML still targets Agent `799426c1-ba69-49dc-85e4-5065985706e2` and Rental initial Playbook `projects/serviceagent-1150909/locations/asia-northeast1/agents/799426c1-ba69-49dc-85e4-5065985706e2/playbooks/7861bc8f-d2fb-43d3-8ca1-651415eb4205`; the deployed release source defines `HOUSE_TAX_CONTEXT_VERSION = "v1"` and sends `runtime_house_tax_context_version` from it.
+- No CX/GCP resources or settings were changed. CX Stage C remains a separate authorized task after this frontend release.
 - Task: House-tax period runtime context v1
 - Task file: `TASK_2026-09-29_HOUSE_TAX_PERIOD_CONTEXT_V1.md`
 - Scope owner: frontend repo only
