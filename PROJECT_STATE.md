@@ -35,7 +35,12 @@ Last updated: 2026-09-29
 
 ## Active task
 
-- Status: **PLANNED — READY FOR FRONTEND CODEX**
+- Status: **IMPLEMENTED_AWAITING_WEB_CHATGPT_REVIEW**
+- Implementation branch: codex/house-tax-period-context-v1
+- Result: deterministic v1 current-period, current-year-May, and current-turn explicit-date context is attached through the existing Messenger request path; existing one-shot direct-entry and timezone context remain intact.
+- Validation: normal build PASS; build --check PASS; full Node tests **33/33 PASS**; performance budget PASS; git diff --check PASS.
+- Local browser smoke: Messenger opened and closed without sending a query. No visible error text in the captured view; the accessibility tree retained the widget's generic fallback text.
+- No CX/GCP mutation, PR, merge, or Pages release.
 - Task: House-tax period runtime context v1
 - Task file: `TASK_2026-09-29_HOUSE_TAX_PERIOD_CONTEXT_V1.md`
 - Scope owner: frontend repo only

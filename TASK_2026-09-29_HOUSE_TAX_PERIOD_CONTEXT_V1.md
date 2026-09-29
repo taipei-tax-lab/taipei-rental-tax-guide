@@ -1,6 +1,6 @@
 # TASK — House-tax period runtime context v1
 
-**Status:** PLANNED — READY FOR FRONTEND CODEX  
+**Status:** IMPLEMENTED_AWAITING_WEB_CHATGPT_REVIEW<br>
 **Date:** 2026-09-29  
 **Scope:** frontend only  
 **Cross-repo contract change:** YES
@@ -235,6 +235,19 @@ Do not:
 - alter quick-topic wording;
 - resume E05 prompt tuning;
 - create a second runtime transport path.
+
+## Frontend implementation result (2026-09-29)
+
+- Status: **IMPLEMENTED_AWAITING_WEB_CHATGPT_REVIEW**.
+- Branch: codex/house-tax-period-context-v1, based on the post-pull main commit 77f8bee5bcb8ccf3b20d2ca0366fbb27ea3350ac.
+- buildRuntimeParameters() now supplies v1 context version, the current Taipei-date house-tax period, the current calendar year's May-bill period, and explicit-date defaults (none plus null values). The date argument is injectable for deterministic tests.
+- Pure helpers validate Gregorian calendar dates, normalize ROC/Gregorian supported forms, calculate formatted period labels, and classify current-turn input as none, valid, invalid, or ambiguous.
+- The existing df-request-sent hook refreshes runtime date/section/period fields and sets or clears explicit-date fields on requestBody.queryParams.parameters before the request proceeds. It preserves existing queryParams, including the configured first-turn Playbook and Asia/Taipei.
+- Changed files: assets/js/messenger-ui.js, tests/messenger-runtime.test.mjs, generated index.html, PROJECT_STATE.md, and this task file.
+- Validation: node scripts/build.mjs PASS; node scripts/build.mjs --check PASS; node --test tests/*.test.mjs PASS (33/33); node scripts/performance-budget.mjs PASS; git diff --check PASS.
+- Local browser smoke: the preview page and Messenger opened/closed. No query was submitted; the captured Messenger view had no visible error text. The accessibility tree retained the widget's generic fallback string. No CX response behavior was tested.
+- No production Agent/Playbook ID, site configuration, quick-topic copy, UI, CX/GCP resource, or backend service changed. No PR, merge, or Pages release was made.
+- Next step: Web ChatGPT review, followed by the later CX implementation and semantic gates described in the canonical cross-repo plan.
 
 ## Completion state
 

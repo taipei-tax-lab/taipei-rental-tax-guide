@@ -147,6 +147,7 @@
   }
 
   // --- Generic Runtime Context & Direct Playbook Entry Lifecycle (QA-10C) ---
+  var HOUSE_TAX_CONTEXT_VERSION = "v1";
   var runtimeContextState = {
     isDirectEntryArmed: false
   };
@@ -192,11 +193,137 @@
     return "home";
   }
 
-  function buildRuntimeParameters() {
+  function isValidGregorianDate(year, month, day) {
+    if (!Number.isInteger(year) || year < 1 || year > 9999) return false;
+    if (!Number.isInteger(month) || month < 1 || month > 12) return false;
+    if (!Number.isInteger(day) || day < 1) return false;
+
+    var daysInMonth = [31, year % 4 === 0 && (year % 100 !== 0 || year % 400 === 0) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    return day <= daysInMonth[month - 1];
+  }
+
+  function parseGregorianDate(dateString) {
+    if (typeof dateString !== "string") return null;
+    var match = dateString.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if (!match) return null;
+
+    var year = Number(match[1]);
+    var month = Number(match[2]);
+    var day = Number(match[3]);
+    return isValidGregorianDate(year, month, day) ? {year: year, month: month, day: day} : null;
+  }
+
+  function formatGregorianDate(year, month, day) {
+    return String(year).padStart(4, "0") + "-" + String(month).padStart(2, "0") + "-" + String(day).padStart(2, "0");
+  }
+
+  function formatHouseTaxPeriod(rocYear) {
+    return rocYear + "年期（課稅期間：民國" + (rocYear - 1) + "年7月1日至" + rocYear + "年6月30日）";
+  }
+
+  function getHouseTaxPeriodForDate(dateString) {
+    var date = parseGregorianDate(dateString);
+    if (!date) return null;
+    var rocYear = date.month <= 6 ? date.year - 1911 : date.year - 1910;
+    return formatHouseTaxPeriod(rocYear);
+  }
+
+  function getMayBillHouseTaxPeriod(gregorianYear) {
+    if (!Number.isInteger(gregorianYear) || gregorianYear < 1 || gregorianYear > 9999) return null;
+    return formatHouseTaxPeriod(gregorianYear - 1911);
+  }
+
+  function normalizeHouseTaxDateText(value) {
+    if (typeof value !== "string") return "";
+    return typeof value.normalize === "function" ? value.normalize("NFKC") : value;
+  }
+
+  function parseExplicitHouseTaxDate(input) {
+    var text = normalizeHouseTaxDateText(input);
+    var patterns = [
+      {calendar: "roc", regex: /民國\s*(\d{1,3})\s*年\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日/g},
+      {calendar: "gregorian", regex: /(?<!\d)(\d{4})\s*年\s*(\d{1,2})\s*月\s*(\d{1,2})\s*日(?!\d)/g},
+      {calendar: "gregorian", regex: /(?<!\d)(\d{4})\s*-\s*(\d{1,2})\s*-\s*(\d{1,2})(?!\d)/g},
+      {calendar: "gregorian", regex: /(?<!\d)(\d{4})\s*\/\s*(\d{1,2})\s*\/\s*(\d{1,2})(?!\d)/g},
+      {calendar: "roc", regex: /(?<!\d)(\d{1,3})\s*\/\s*(\d{1,2})\s*\/\s*(\d{1,2})(?!\d)/g}
+    ];
+    var matches = [];
+
+    patterns.forEach(function (pattern) {
+      pattern.regex.lastIndex = 0;
+      var match;
+      while ((match = pattern.regex.exec(text))) {
+        var start = match.index;
+        var end = start + match[0].length;
+        if (matches.some(function (existing) { return start < existing.end && end > existing.start; })) continue;
+
+        var year = Number(match[1]);
+        var month = Number(match[2]);
+        var day = Number(match[3]);
+        if (pattern.calendar === "roc") year += 1911;
+        matches.push({
+          start: start,
+          end: end,
+          valid: isValidGregorianDate(year, month, day),
+          date: formatGregorianDate(year, month, day)
+        });
+      }
+    });
+
+    if (matches.length === 0) return {status: "none", date: null, period: null};
+    if (matches.length > 1) return {status: "ambiguous", date: null, period: null};
+    if (!matches[0].valid) return {status: "invalid", date: null, period: null};
     return {
-      runtime_current_date: getTaipeiCurrentDate(),
-      runtime_entry_section: getCurrentPageSection()
+      status: "valid",
+      date: matches[0].date,
+      period: getHouseTaxPeriodForDate(matches[0].date)
     };
+  }
+
+  function buildRuntimeParameters(currentDateOverride) {
+    var currentDate = typeof currentDateOverride === "string" ? currentDateOverride : getTaipeiCurrentDate();
+    var dateParts = parseGregorianDate(currentDate);
+    return {
+      runtime_current_date: currentDate,
+      runtime_entry_section: getCurrentPageSection(),
+      runtime_house_tax_context_version: HOUSE_TAX_CONTEXT_VERSION,
+      runtime_house_tax_current_period: getHouseTaxPeriodForDate(currentDate),
+      runtime_house_tax_may_bill_period: dateParts ? getMayBillHouseTaxPeriod(dateParts.year) : null,
+      runtime_house_tax_explicit_date_status: "none",
+      runtime_house_tax_explicit_date: null,
+      runtime_house_tax_explicit_period: null
+    };
+  }
+
+  function getOutgoingUserText(requestBody) {
+    var queryInput = requestBody && requestBody.queryInput;
+    var textInput = queryInput && queryInput.text;
+    return textInput && typeof textInput.text === "string" ? textInput.text : "";
+  }
+
+  function updateOutgoingRequestContext(event) {
+    var requestBody = event && event.detail && event.detail.data && event.detail.data.requestBody;
+    if (!requestBody || typeof requestBody !== "object") return false;
+
+    if (!requestBody.queryParams || typeof requestBody.queryParams !== "object") {
+      requestBody.queryParams = {};
+    }
+    if (!requestBody.queryParams.parameters || typeof requestBody.queryParams.parameters !== "object" || Array.isArray(requestBody.queryParams.parameters)) {
+      requestBody.queryParams.parameters = {};
+    }
+
+    var parameters = requestBody.queryParams.parameters;
+    var runtimeParameters = buildRuntimeParameters();
+    var explicitDate = parseExplicitHouseTaxDate(getOutgoingUserText(requestBody));
+    parameters.runtime_current_date = runtimeParameters.runtime_current_date;
+    parameters.runtime_entry_section = runtimeParameters.runtime_entry_section;
+    parameters.runtime_house_tax_context_version = runtimeParameters.runtime_house_tax_context_version;
+    parameters.runtime_house_tax_current_period = runtimeParameters.runtime_house_tax_current_period;
+    parameters.runtime_house_tax_may_bill_period = runtimeParameters.runtime_house_tax_may_bill_period;
+    parameters.runtime_house_tax_explicit_date_status = explicitDate.status;
+    parameters.runtime_house_tax_explicit_date = explicitDate.date;
+    parameters.runtime_house_tax_explicit_period = explicitDate.period;
+    return true;
   }
 
   function wrapMessengerSessionMethods(messenger) {
@@ -544,8 +671,9 @@
       else resetAssistantState();
     });
     document.addEventListener("df-user-input-entered", beginThinking);
-    document.addEventListener("df-request-sent", beginThinking);
-    document.addEventListener("df-request-sent", function () {
+    document.addEventListener("df-request-sent", function (event) {
+      updateOutgoingRequestContext(event);
+      beginThinking();
       disarmDirectEntry(elements.messenger || getMessengerElements().messenger);
     });
     document.addEventListener("df-response-received", function () {

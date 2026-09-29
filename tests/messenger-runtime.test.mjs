@@ -21,7 +21,7 @@ const bindStart = messengerUi.indexOf('  function bindAssistantEvents(elements) 
 const bindEnd = messengerUi.indexOf('  function bindTopics(root)', bindStart);
 assert.ok(bindStart >= 0 && bindEnd > bindStart, 'QA-10C Messenger lifecycle event bindings must remain identifiable');
 const eventBindingBlock = messengerUi.slice(bindStart, bindEnd);
-const createRuntime = vm.runInNewContext(`(function(window, document, Date, Intl, runtimeMessenger) {\n${runtimeBlock}\nfunction getMessengerElements() { return {messenger: runtimeMessenger}; }\nfunction beginThinking() {}\n${eventBindingBlock}\nreturn { armDirectEntry, disarmDirectEntry, updateRuntimeSectionContext, buildRuntimeParameters, bindAssistantEvents };\n})`);
+const createRuntime = vm.runInNewContext(`(function(window, document, Date, Intl, runtimeMessenger) {\n${runtimeBlock}\nfunction getMessengerElements() { return {messenger: runtimeMessenger}; }\nfunction beginThinking() {}\n${eventBindingBlock}\nreturn { armDirectEntry, disarmDirectEntry, updateRuntimeSectionContext, buildRuntimeParameters, bindAssistantEvents, isValidGregorianDate, getHouseTaxPeriodForDate, getMayBillHouseTaxPeriod, parseExplicitHouseTaxDate, updateOutgoingRequestContext };\n})`);
 
 function createHarness(initialPlaybook) {
   const calls = [];
@@ -65,6 +65,19 @@ function createHarness(initialPlaybook) {
   return {calls, dateFormatCalls, document, documentListeners, main, messenger, runtime, window};
 }
 
+function expectedRuntimeParameters(currentDate = '2026-09-27', section = 'owners') {
+  return {
+    runtime_current_date: currentDate,
+    runtime_entry_section: section,
+    runtime_house_tax_context_version: 'v1',
+    runtime_house_tax_current_period: '116年期（課稅期間：民國115年7月1日至116年6月30日）',
+    runtime_house_tax_may_bill_period: '115年期（課稅期間：民國114年7月1日至115年6月30日）',
+    runtime_house_tax_explicit_date_status: 'none',
+    runtime_house_tax_explicit_date: null,
+    runtime_house_tax_explicit_period: null
+  };
+}
+
 test('Rental site explicitly configures its initial Playbook and generated output preserves it', () => {
   const tag = messengerSource.match(/<df-messenger\b[^>]*>/)?.[0];
   assert.ok(tag, 'site Messenger element must exist');
@@ -83,7 +96,7 @@ test('configured initial Playbook is sent on the first request with unchanged ru
 
   assert.equal(first.currentPlaybook, rentalPlaybook);
   assert.equal(first.timeZone, 'Asia/Taipei');
-  assert.deepEqual(first.parameters, {runtime_current_date: '2026-09-27', runtime_entry_section: 'owners'});
+  assert.deepEqual(first.parameters, expectedRuntimeParameters('2026-09-27', 'owners'));
   assert.deepEqual(JSON.parse(JSON.stringify(harness.dateFormatCalls[0])), {
     locale: 'en-CA',
     options: {timeZone: 'Asia/Taipei', year: 'numeric', month: '2-digit', day: '2-digit'}
@@ -98,7 +111,7 @@ test('first request disarms currentPlaybook while retaining runtime context', ()
 
   assert.equal(Object.hasOwn(next, 'currentPlaybook'), false);
   assert.equal(next.timeZone, 'Asia/Taipei');
-  assert.deepEqual(next.parameters, {runtime_current_date: '2026-09-27', runtime_entry_section: 'owners'});
+  assert.deepEqual(next.parameters, expectedRuntimeParameters('2026-09-27', 'owners'));
 });
 
 test('new session, session expiration/end, and storage reset re-arm the configured initial Playbook', () => {
@@ -128,7 +141,7 @@ test('missing or blank site config sends runtime context without guessing a Play
     const first = harness.calls.at(-1);
     assert.equal(Object.hasOwn(first, 'currentPlaybook'), false);
     assert.equal(first.timeZone, 'Asia/Taipei');
-    assert.deepEqual(first.parameters, {runtime_current_date: '2026-09-27', runtime_entry_section: 'owners'});
+    assert.deepEqual(first.parameters, expectedRuntimeParameters('2026-09-27', 'owners'));
   }
 });
 
@@ -152,6 +165,118 @@ test('hash changes update page section without changing initial-Playbook policy'
   assert.equal(harness.calls.at(-1).parameters.runtime_entry_section, 'comparison');
 });
 
+test('house-tax current period follows the July boundary and Taipei runtime date injection', () => {
+  const harness = createHarness(rentalPlaybook);
+  const june30 = harness.runtime.buildRuntimeParameters('2026-06-30');
+  const july1 = harness.runtime.buildRuntimeParameters('2026-07-01');
+  const september29 = harness.runtime.buildRuntimeParameters('2026-09-29');
+
+  assert.equal(june30.runtime_house_tax_current_period, '115年期（課稅期間：民國114年7月1日至115年6月30日）');
+  assert.equal(july1.runtime_house_tax_current_period, '116年期（課稅期間：民國115年7月1日至116年6月30日）');
+  assert.equal(september29.runtime_house_tax_current_period, '116年期（課稅期間：民國115年7月1日至116年6月30日）');
+  assert.equal(september29.runtime_house_tax_may_bill_period, '115年期（課稅期間：民國114年7月1日至115年6月30日）');
+  assert.equal(harness.runtime.getMayBillHouseTaxPeriod(2026), '115年期（課稅期間：民國114年7月1日至115年6月30日）');
+});
+
+test('explicit date parser accepts only the supported full-date forms and normalizes ROC dates', () => {
+  const harness = createHarness(rentalPlaybook);
+  const cases = [
+    ['2026-07-01', '2026-07-01', '116年期（課稅期間：民國115年7月1日至116年6月30日）'],
+    ['2026/7/1', '2026-07-01', '116年期（課稅期間：民國115年7月1日至116年6月30日）'],
+    ['2026年7月1日', '2026-07-01', '116年期（課稅期間：民國115年7月1日至116年6月30日）'],
+    ['民國115年7月1日', '2026-07-01', '116年期（課稅期間：民國115年7月1日至116年6月30日）'],
+    ['115/7/1', '2026-07-01', '116年期（課稅期間：民國115年7月1日至116年6月30日）'],
+    ['２０２６／７／１', '2026-07-01', '116年期（課稅期間：民國115年7月1日至116年6月30日）'],
+    ['114/7/1', '2025-07-01', '115年期（課稅期間：民國114年7月1日至115年6月30日）'],
+    ['2025-07-01', '2025-07-01', '115年期（課稅期間：民國114年7月1日至115年6月30日）']
+  ];
+
+  for (const [input, expectedDate, expectedPeriod] of cases) {
+    const parsed = harness.runtime.parseExplicitHouseTaxDate(input);
+    assert.equal(parsed.status, 'valid', input);
+    assert.equal(parsed.date, expectedDate, input);
+    assert.equal(parsed.period, expectedPeriod, input);
+  }
+  assert.equal(harness.runtime.parseExplicitHouseTaxDate('去年七月初').status, 'none');
+});
+
+test('calendar validity rejects impossible dates and detects multiple dates', () => {
+  const harness = createHarness(rentalPlaybook);
+
+  assert.equal(harness.runtime.isValidGregorianDate(2024, 2, 29), true);
+  assert.equal(harness.runtime.isValidGregorianDate(2026, 2, 29), false);
+  assert.equal(harness.runtime.parseExplicitHouseTaxDate('2026-02-29').status, 'invalid');
+  assert.equal(harness.runtime.parseExplicitHouseTaxDate('2026-02-30').status, 'invalid');
+  const ambiguous = harness.runtime.parseExplicitHouseTaxDate('比較 2025/7/1 和 2026/7/1');
+  assert.equal(ambiguous.status, 'ambiguous');
+  assert.equal(ambiguous.date, null);
+  assert.equal(ambiguous.period, null);
+});
+
+test('invalid or ambiguous outgoing dates clear normalized date and period values', () => {
+  const harness = createHarness(rentalPlaybook);
+  for (const [text, expectedStatus] of [
+    ['2026-02-30', 'invalid'],
+    ['2025/7/1 or 2026/7/1', 'ambiguous']
+  ]) {
+    const requestBody = {
+      queryInput: {text: {text}},
+      queryParams: {
+        parameters: {
+          runtime_house_tax_explicit_date: 'stale-date',
+          runtime_house_tax_explicit_period: 'stale-period'
+        }
+      }
+    };
+    const updated = harness.runtime.updateOutgoingRequestContext({detail: {data: {requestBody}}});
+    assert.equal(updated, true);
+    assert.equal(requestBody.queryParams.parameters.runtime_house_tax_explicit_date_status, expectedStatus);
+    assert.equal(requestBody.queryParams.parameters.runtime_house_tax_explicit_date, null);
+    assert.equal(requestBody.queryParams.parameters.runtime_house_tax_explicit_period, null);
+  }
+});
+test('each outgoing Messenger request refreshes context and clears stale explicit dates', () => {
+  const harness = createHarness(rentalPlaybook);
+  harness.runtime.armDirectEntry(harness.messenger);
+  harness.runtime.bindAssistantEvents({assistantPanel: {dataset: {}}, messenger: harness.messenger});
+  const onRequestSent = harness.documentListeners.get('df-request-sent');
+
+  function send(text, previousParameters = {}) {
+    const requestBody = {
+      queryInput: {text: {text}},
+      queryParams: {
+        currentPlaybook: rentalPlaybook,
+        timeZone: 'Asia/Taipei',
+        parameters: {
+          ...previousParameters,
+          runtime_house_tax_explicit_date: 'stale-date',
+          runtime_house_tax_explicit_period: 'stale-period'
+        }
+      }
+    };
+    onRequestSent({detail: {data: {requestBody}}});
+    return requestBody;
+  }
+
+  const first = send('民國114年7月1日是哪一期？');
+  assert.equal(first.queryParams.currentPlaybook, rentalPlaybook);
+  assert.equal(first.queryParams.timeZone, 'Asia/Taipei');
+  assert.equal(first.queryParams.parameters.runtime_house_tax_explicit_date_status, 'valid');
+  assert.equal(first.queryParams.parameters.runtime_house_tax_explicit_date, '2025-07-01');
+  assert.equal(first.queryParams.parameters.runtime_house_tax_explicit_period, '115年期（課稅期間：民國114年7月1日至115年6月30日）');
+
+  const second = send('改成民國115年7月1日', first.queryParams.parameters);
+  assert.equal(second.queryParams.parameters.runtime_house_tax_explicit_date_status, 'valid');
+  assert.equal(second.queryParams.parameters.runtime_house_tax_explicit_date, '2026-07-01');
+  assert.equal(second.queryParams.parameters.runtime_house_tax_explicit_period, '116年期（課稅期間：民國115年7月1日至116年6月30日）');
+
+  const third = send('那公益出租人的所得稅呢？', second.queryParams.parameters);
+  assert.equal(third.queryParams.parameters.runtime_house_tax_explicit_date_status, 'none');
+  assert.equal(third.queryParams.parameters.runtime_house_tax_explicit_date, null);
+  assert.equal(third.queryParams.parameters.runtime_house_tax_explicit_period, null);
+  assert.equal(third.queryParams.parameters.runtime_current_date, '2026-09-27');
+  assert.equal(third.queryParams.parameters.runtime_house_tax_current_period, '116年期（課稅期間：民國115年7月1日至116年6月30日）');
+});
 test('Messenger title, placeholder, assistant copy, and rental hot topics remain present', () => {
   assert.match(messengerSource, /chat-title="租稅小幫手"/);
   assert.match(messengerSource, /chat-subtitle="臺北市稅捐稽徵處"/);
