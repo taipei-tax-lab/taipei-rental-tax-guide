@@ -1,6 +1,6 @@
 # TASK — House-tax period runtime context v1
 
-**Status:** IMPLEMENTED_AWAITING_ASTRA_REVIEW<br>
+**Status:** REVIEW_APPROVED_READY_FOR_PR<br>
 **Date:** 2026-09-29  
 **Scope:** frontend only  
 **Cross-repo contract change:** YES
@@ -294,7 +294,55 @@ Reason: this static site ships raw JavaScript without a transpilation step. Look
 - Regenerated `index.html` from source.
 - Validation: `node scripts/build.mjs` PASS; `node scripts/build.mjs --check` PASS; `node --test tests/*.test.mjs` PASS (37/37); `node scripts/performance-budget.mjs` PASS; `git diff --check` PASS.
 - Scope: frontend parser/tests/generated page/state only; no date formats added, no Messenger refactor, and no CX/GCP changes.
-- Branch: `codex/house-tax-period-context-v1`; status: `IMPLEMENTED_AWAITING_ASTRA_REVIEW`.
+- Branch: `codex/house-tax-period-context-v1`; status: `REVIEW_APPROVED_READY_FOR_PR`.
+
+## Final Web ChatGPT review and release authorization — 2026-09-29
+
+Result: **PASS — REVIEW_APPROVED_READY_FOR_PR**.
+
+The frontend application candidate is frozen at implementation commit:
+
+`16f53825c4245fc231a98e9faa061cf80708b9a2`
+
+The later documentation commits do not alter the approved application runtime behavior.
+
+Release sequencing decision:
+
+**Frontend production release must happen before the Production Rental Playbook consumption patch.**
+
+Reason:
+
+- the new frontend adds session/runtime parameters while preserving the existing two;
+- the current Rental Playbook does not yet define the six new fields as Playbook inputs, so it is not expected to consume them yet;
+- releasing frontend first avoids a compatibility window in which the Playbook expects new inputs that the public site does not send.
+
+### Release protocol
+
+1. Sync refs and confirm this branch is not behind `main`.
+2. Rerun:
+   - normal build;
+   - build `--check`;
+   - full Node tests;
+   - performance budget;
+   - `git diff --check`.
+3. Confirm expected diff only; no CX/GCP mutation.
+4. Open PR:
+   - base: `main`
+   - head: `codex/house-tax-period-context-v1`
+5. Use **Standard Merge Commit** only.
+   - no squash
+   - no rebase
+6. Wait for GitHub Pages deployment from `main`.
+7. Production smoke:
+   - Messenger opens/closes/reopens;
+   - one ordinary Rental question receives a normal answer;
+   - no visible `Something went wrong`;
+   - no desktop/mobile horizontal overflow;
+   - deployed source still targets canonical Production Agent and Rental initial Playbook;
+   - deployed JS contains `runtime_house_tax_context_version = "v1"` runtime-context implementation.
+8. Update `PROJECT_STATE.md` and this task on `main` to `RELEASED`; record PR, merge SHA, Pages run/result, final validation, and smoke.
+9. Commit/push release record and STOP.
+10. Do not modify CX/GCP. CX Stage C resumes only after frontend production release is verified.
 
 ## Completion state
 
