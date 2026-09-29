@@ -1,6 +1,6 @@
 # TASK — House-tax period runtime context v1
 
-**Status:** IMPLEMENTED_AWAITING_WEB_CHATGPT_REVIEW<br>
+**Status:** IMPLEMENTED_AWAITING_ASTRA_REVIEW<br>
 **Date:** 2026-09-29  
 **Scope:** frontend only  
 **Cross-repo contract change:** YES
@@ -284,11 +284,23 @@ Reason: this static site ships raw JavaScript without a transpilation step. Look
 - Validation: `node scripts/build.mjs` PASS; `node scripts/build.mjs --check` PASS; `node --test tests/*.test.mjs` PASS (35/35); `node scripts/performance-budget.mjs` PASS; `git diff --check` PASS; search confirmed no negative lookbehind remains in the Messenger parser or generated output.
 - Scope: frontend only; no date formats added, no unrelated Messenger refactor, and no CX/GCP changes.
 - Branch: `codex/house-tax-period-context-v1`; status: `IMPLEMENTED_AWAITING_WEB_CHATGPT_REVIEW`.
+
+## Astra review finding follow-up — 2026-09-29
+
+- Finding addressed: `2026年6月30日2026年7月1日` previously became a single valid date because the first Chinese full date failed its trailing digit guard and the next match consumed the preceding `日` as a boundary capture.
+- Parser correction: all date patterns now match from the date token itself and check the preceding character without consuming it. The Chinese full-date pattern permits following digits only when they begin another complete Chinese full date whose own trailing digit guard passes. This preserves embedded-digit rejection and adds no date format; lookbehind remains absent.
+- Added parser regression: the adjacent Chinese dates return `ambiguous` with date and period `null`; appending an embedded digit after the second date still returns `none`.
+- Added outgoing-request regression: the same adjacent-date input sets status `ambiguous` and clears explicit date and period to `null`.
+- Regenerated `index.html` from source.
+- Validation: `node scripts/build.mjs` PASS; `node scripts/build.mjs --check` PASS; `node --test tests/*.test.mjs` PASS (37/37); `node scripts/performance-budget.mjs` PASS; `git diff --check` PASS.
+- Scope: frontend parser/tests/generated page/state only; no date formats added, no Messenger refactor, and no CX/GCP changes.
+- Branch: `codex/house-tax-period-context-v1`; status: `IMPLEMENTED_AWAITING_ASTRA_REVIEW`.
+
 ## Completion state
 
 Implementation and local validation are complete; current status:
 
-`IMPLEMENTED_AWAITING_WEB_CHATGPT_REVIEW`
+`IMPLEMENTED_AWAITING_ASTRA_REVIEW`
 
 Update this task and `PROJECT_STATE.md`, commit/push the implementation branch, and STOP.
 

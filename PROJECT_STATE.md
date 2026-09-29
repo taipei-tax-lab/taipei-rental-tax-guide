@@ -35,13 +35,13 @@ Last updated: 2026-09-29
 
 ## Active task
 
-- Status: **IMPLEMENTED_AWAITING_WEB_CHATGPT_REVIEW**
-- Web ChatGPT review: implementation architecture/logic accepted; the narrow regex compatibility correction and regression coverage are complete, awaiting re-review.
-- Review correction completed: replaced negative lookbehind with an equivalent start-or-non-digit capture boundary and retained the trailing digit guard. Parser formats, runtime contract, and Messenger lifecycle were not broadened or refactored.
-- Correction gate: embedded-digit boundary regression tests added; rebuild, build --check, full Node tests, performance budget, and git diff --check pass. Returned to Web ChatGPT review.
+- Status: **IMPLEMENTED_AWAITING_ASTRA_REVIEW**
+- Review status: the Web ChatGPT compatibility correction is complete. Astra identified an adjacent-date parsing defect; the narrow correction and regression coverage are complete, awaiting Astra re-review.
+- Review corrections completed: removed lookbehind and non-consuming boundary captures; regex matches now validate the preceding character without consuming it, and adjacent complete Chinese dates are both scanned. Existing embedded-digit guards and formats remain in place; runtime contract and Messenger lifecycle were not broadened or refactored.
+- Correction gate: adjacent-date parser and outgoing-request regressions added; existing embedded-digit regressions remain green. Rebuild, build --check, full Node tests, performance budget, and git diff --check pass. Returned to Astra for re-review.
 - Implementation branch: codex/house-tax-period-context-v1
 - Result: deterministic v1 current-period, current-year-May, and current-turn explicit-date context is attached through the existing Messenger request path; existing one-shot direct-entry and timezone context remain intact.
-- Validation: normal build PASS; build --check PASS; full Node tests **35/35 PASS**; performance budget PASS; git diff --check PASS; no regex negative lookbehind remains in the Messenger parser.
+- Validation: normal build PASS; build --check PASS; full Node tests **37/37 PASS**; performance budget PASS; git diff --check PASS; no regex negative lookbehind remains in the Messenger parser.
 - Local browser smoke: Messenger opened and closed without sending a query. No visible error text in the captured view; the accessibility tree retained the widget's generic fallback text.
 - No CX/GCP mutation, PR, merge, or Pages release.
 - Task: House-tax period runtime context v1

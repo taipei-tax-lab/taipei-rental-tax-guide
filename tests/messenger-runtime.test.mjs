@@ -220,6 +220,16 @@ test('explicit date parser rejects a date followed by an embedded digit', () => 
   }
 });
 
+test('adjacent Chinese full dates are ambiguous', () => {
+  const harness = createHarness(rentalPlaybook);
+  const parsed = harness.runtime.parseExplicitHouseTaxDate('2026年6月30日2026年7月1日');
+
+  assert.equal(parsed.status, 'ambiguous');
+  assert.equal(parsed.date, null);
+  assert.equal(parsed.period, null);
+  assert.equal(harness.runtime.parseExplicitHouseTaxDate('2026年6月30日2026年7月1日2').status, 'none');
+});
+
 test('calendar validity rejects impossible dates and detects multiple dates', () => {
   const harness = createHarness(rentalPlaybook);
 
@@ -255,6 +265,26 @@ test('invalid or ambiguous outgoing dates clear normalized date and period value
     assert.equal(requestBody.queryParams.parameters.runtime_house_tax_explicit_period, null);
   }
 });
+
+test('adjacent Chinese full dates clear outgoing explicit date and period', () => {
+  const harness = createHarness(rentalPlaybook);
+  const text = '2026年6月30日2026年7月1日';
+  const requestBody = {
+    queryInput: {text: {text}},
+    queryParams: {
+      parameters: {
+        runtime_house_tax_explicit_date: 'stale-date',
+        runtime_house_tax_explicit_period: 'stale-period'
+      }
+    }
+  };
+
+  assert.equal(harness.runtime.updateOutgoingRequestContext({detail: {data: {requestBody}}}), true);
+  assert.equal(requestBody.queryParams.parameters.runtime_house_tax_explicit_date_status, 'ambiguous');
+  assert.equal(requestBody.queryParams.parameters.runtime_house_tax_explicit_date, null);
+  assert.equal(requestBody.queryParams.parameters.runtime_house_tax_explicit_period, null);
+});
+
 test('each outgoing Messenger request refreshes context and clears stale explicit dates', () => {
   const harness = createHarness(rentalPlaybook);
   harness.runtime.armDirectEntry(harness.messenger);
