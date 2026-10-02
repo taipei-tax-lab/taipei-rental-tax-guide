@@ -1,6 +1,6 @@
 # TASK_2026-10-02_GA4_EVENT_TRACKING_V1
 
-Status: **RELEASED_AWAITING_GA4_RUNTIME_VALIDATION**
+Status: **COMPLETE**
 
 Planning owner: ChatGPT  
 Implementation owner: Codex Cloud  
@@ -395,3 +395,38 @@ No additional V1 event expansion is approved in this review.
 
 Remaining done-definition item:
 - manually validate representative V1 events in GA4 Realtime / DebugView before closing this task.
+
+
+---
+
+## Runtime validation / closeout — 2026-10-02
+
+Representative production validation in GA4 Realtime confirmed live custom-event ingestion from the GitHub Pages site.
+
+Observed events included:
+- `plan_select`
+- `audience_select`
+- `cx_open`
+- `page_view`
+
+This satisfies the V1 representative runtime-validation gate. Full exhaustive event-by-event QA is not required for Phase 6 closeout and can be revisited during operational reporting.
+
+GA4 custom definitions were configured for:
+- `destination_host`
+- `entry_point`
+- `input_method`
+- `error_code`
+- `error_status`
+- `audience`
+- `result_plan`
+- `service_id`
+- `plan_id`
+- `topic_id`
+
+GA4 custom metric configured:
+- `recommendation_count`
+
+Deferred, non-blocking follow-up:
+- build the Chinese-language Explore / management-report views after enough production data has accumulated.
+
+Phase 6D implementation is complete.
