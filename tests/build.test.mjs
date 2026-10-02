@@ -29,6 +29,17 @@ test('text hashing treats CRLF and LF as the same source content', () => {
 test('checked-in GitHub Pages output is reproducible', () => {
   execFileSync(process.execPath, ['scripts/build.mjs','--check'], {cwd: root});
 });
+test('GA4 base tag is included exactly once without custom events', () => {
+  const measurementId = 'G-S891SFSMBH';
+  for (const file of ['site/template.html', 'index.html']) {
+    const markup = read(file);
+    assert.equal((markup.match(/googletagmanager\.com\/gtag\/js/g) || []).length, 1, `${file} must load gtag.js once`);
+    assert.equal((markup.match(new RegExp(`gtag\\('config', '${measurementId}'\\)`, 'g')) || []).length, 1, `${file} must configure GA4 once`);
+    assert.equal((markup.match(new RegExp(measurementId, 'g')) || []).length, 2, `${file} must use only the loader and config measurement IDs`);
+    assert.doesNotMatch(markup, /gtag\('event'/, `${file} must not send custom analytics events`);
+    assert.doesNotMatch(markup, /googletagmanager\.com\/gtm\.js/, `${file} must not load Google Tag Manager`);
+  }
+});
 test('approved owner-guide hierarchy stays clear and the source-check date appears only in the footer', () => {
   const template = read('site/template.html');
   const owner = template.slice(template.indexOf('<section id="owners"'), template.indexOf('<section id="tenants"'));
@@ -182,4 +193,3 @@ test('income-standard audience entry card is declared and built with responsive 
   assert.match(css, /\.v2-income-standard-card-image/);
   assert.match(css, /\.v2-income-standard-fallback/);
 });
-
