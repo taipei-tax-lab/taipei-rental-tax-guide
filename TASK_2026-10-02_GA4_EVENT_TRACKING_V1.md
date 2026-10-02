@@ -1,6 +1,6 @@
 # TASK_2026-10-02_GA4_EVENT_TRACKING_V1
 
-Status: **REVISION_REQUIRED_AFTER_CHATGPT_REVIEW**
+Status: **REVIEW_PASS_AWAITING_RELEASE**
 
 Planning owner: ChatGPT  
 Implementation owner: Codex Cloud  
@@ -353,3 +353,31 @@ After R1/R2 corrections:
 - do not create PR
 - do not merge `main`
 - stop for ChatGPT re-review
+
+
+---
+
+## ChatGPT re-review — 2026-10-02
+
+Reviewed branch: `feat/ga4-events-v1`  
+Reviewed fix commit: `72554872c0be1a194b905f958d52dc5e8451375f`
+
+### Result
+
+**PASS — approved for PR / merge.**
+
+R1 and R2 are corrected:
+
+- quick-topic de-duplication now compares only against the pending predefined quick-topic input and does not suppress unrelated manual input;
+- no user query text is forwarded to GA4;
+- helper-button attribution is armed only for an actual closed-state programmatic open attempt;
+- an already-open helper click no longer leaves stale hero attribution;
+- closed→open transitions are emitted once and classified as `hero_button` or `floating_bubble`;
+- deterministic regression coverage was added for both cases.
+
+Official Dialogflow CX Messenger documentation confirms:
+- `df-user-input-entered` exposes `event.detail.input`;
+- `df-chat-open-changed` exposes `event.detail.isOpen`;
+- `openChat()` does nothing when the chat is already open.
+
+No additional V1 event expansion is approved in this review.

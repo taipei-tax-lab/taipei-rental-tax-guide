@@ -12,6 +12,9 @@
   let currentPage = 'home';
   let homePosition = 0;
   let returningPlan = null;
+  let guideStarted = false;
+  let guideCompleted = false;
+  const analytics = window.RentalAnalytics;
   const desktop = window.matchMedia('(min-width: 1101px)');
   const planPages = pages.filter(page => page.dataset.page.startsWith('plan-'));
   const slots = new Map(planPages.map(page => {
@@ -63,13 +66,26 @@
         const button = el('button', 'v2-option', item.label);
         button.type = 'button';
         button.setAttribute('aria-label', item.label);
-        button.addEventListener('click', () => { answers.push(item.value); renderGuide(true); });
+        button.addEventListener('click', () => {
+          if (!guideStarted) { analytics?.track('guide_start', {audience: 'owner'}); guideStarted = true; }
+          answers.push(item.value);
+          renderGuide(true);
+        });
         options.append(button);
       }
       fieldset.append(legend, el('p', 'v2-caption', '請選擇最接近您的情況，點選後會直接繼續。'), options);
       stage.append(fieldset);
       if (moveFocus) { focus(legend); stage.scrollIntoView({block: "nearest"}); }
     } else {
+      if (!guideCompleted) {
+        const ids = state.recommendations.map(recommendation => recommendation.id);
+        analytics?.track('guide_complete', {
+          result_type: ids.length === 1 ? 'single' : 'multiple',
+          result_plan: ids.length === 1 ? ids[0] : 'multiple',
+          recommendation_count: ids.length
+        });
+        guideCompleted = true;
+      }
       const result = el('div', 'v2-guide-result');
       const heading = el('h3', '', state.title);
       heading.tabIndex = -1;
@@ -97,7 +113,7 @@
       previous.addEventListener('click', () => { answers.pop(); renderGuide(true); });
       const reset = el('button', 'v2-text-link', '重新開始');
       reset.type = 'button';
-      reset.addEventListener('click', () => { answers = []; renderGuide(true); });
+      reset.addEventListener('click', () => { answers = []; guideStarted = false; guideCompleted = false; renderGuide(true); });
       nav.append(previous, reset);
       stage.append(nav);
     }
@@ -178,6 +194,15 @@
   }
 
   site.addEventListener('click', event => {
+    const audienceControl = event.target.closest('[data-audience]');
+    if (audienceControl) analytics?.track('audience_select', {audience: audienceControl.dataset.audience});
+    const planCard = event.target.closest('.v2-plan-card');
+    if (planCard) analytics?.track('plan_select', {plan_id: planCard.id.replace('card-', '')});
+    const serviceEntry = event.target.closest('[data-service-entry="income_standard"]');
+    if (serviceEntry) {
+      const host = analytics?.destinationHost(serviceEntry.href);
+      if (host) analytics.track('service_entry_click', {service_id: 'income_standard', destination_host: host});
+    }
     const link = event.target.closest('a[href^="#"]');
     if (!link || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || event.button !== 0) return;
     if (link.dataset.returnPlan) returningPlan = link.dataset.returnPlan;
@@ -206,6 +231,7 @@
   function openHelper() {
     const bubble = document.querySelector('df-messenger-chat-bubble');
     if (!messengerReady || typeof bubble?.openChat !== 'function') return false;
+    window.RentalAnalyticsArmHeroOpen?.();
     bubble.openChat();
     requestAnimationFrame(focusChatInput);
     return true;

@@ -29,16 +29,27 @@ test('text hashing treats CRLF and LF as the same source content', () => {
 test('checked-in GitHub Pages output is reproducible', () => {
   execFileSync(process.execPath, ['scripts/build.mjs','--check'], {cwd: root});
 });
-test('GA4 base tag is included exactly once without custom events', () => {
+test('GA4 loader/config and the frozen V1 event contract are present without GTM', () => {
   const measurementId = 'G-S891SFSMBH';
   for (const file of ['site/template.html', 'index.html']) {
     const markup = read(file);
     assert.equal((markup.match(/googletagmanager\.com\/gtag\/js/g) || []).length, 1, `${file} must load gtag.js once`);
     assert.equal((markup.match(new RegExp(`gtag\\('config', '${measurementId}'\\)`, 'g')) || []).length, 1, `${file} must configure GA4 once`);
     assert.equal((markup.match(new RegExp(measurementId, 'g')) || []).length, 2, `${file} must use only the loader and config measurement IDs`);
-    assert.doesNotMatch(markup, /gtag\('event'/, `${file} must not send custom analytics events`);
     assert.doesNotMatch(markup, /googletagmanager\.com\/gtm\.js/, `${file} must not load Google Tag Manager`);
+    assert.match(markup, file === 'index.html'
+      ? /assets\/js\/analytics\.js\?v=[a-f0-9]{10}/
+      : /assets\/js\/analytics\.js\?v=\{\{ANALYTICS_VERSION\}\}/);
   }
+  const analytics = read('assets/js/analytics.js');
+  const approved = ['audience_select', 'plan_select', 'guide_start', 'guide_complete', 'cx_open', 'cx_query_submit', 'cx_source_click', 'cx_error', 'service_entry_click'];
+  const declared = [...analytics.matchAll(/^    ([a-z_]+): \{/gm)].map(match => match[1]);
+  assert.deepEqual(declared, approved);
+  assert.equal((analytics.match(/root\.gtag\('event'/g) || []).length, 1, 'all events pass through the centralized helper');
+  const messengerUi = read('assets/js/messenger-ui.js');
+  assert.match(messengerUi, /input === pendingQuickTopicInput/, 'quick topics suppress only their matching input event');
+  assert.match(messengerUi, /df-citation-clicked/);
+  assert.doesNotMatch(messengerUi, /track\([^\n]*(?:messengerQuery|requestBody|queryInput|response|message|stack)/i, 'conversation content must not reach analytics');
 });
 test('approved owner-guide hierarchy stays clear and the source-check date appears only in the footer', () => {
   const template = read('site/template.html');

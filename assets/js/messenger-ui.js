@@ -73,6 +73,60 @@
   var assistantStateTimer = null;
   var assistantSwapToken = 0;
   var guidingUntil = 0;
+  var analytics = window.RentalAnalytics;
+  // --- GA4 Messenger Event Tracking V1 ---
+  var pendingQuickTopicInput = null;
+  var pendingQuickTopicTimer = null;
+  var pendingHeroOpen = false;
+  var pendingHeroOpenTimer = null;
+
+  function clearPendingQuickTopic() {
+    pendingQuickTopicInput = null;
+    window.clearTimeout(pendingQuickTopicTimer);
+    pendingQuickTopicTimer = null;
+  }
+
+  function recordQuickTopicSubmission(query, topicId) {
+    pendingQuickTopicInput = query;
+    window.clearTimeout(pendingQuickTopicTimer);
+    pendingQuickTopicTimer = window.setTimeout(clearPendingQuickTopic, 2000);
+    analytics && analytics.track('cx_query_submit', {input_method: 'quick_topic', topic_id: topicId});
+  }
+
+  function handleUserInputEntered(event) {
+    beginThinking();
+    var input = event && event.detail && event.detail.input;
+    if (pendingQuickTopicInput !== null && input === pendingQuickTopicInput) {
+      clearPendingQuickTopic();
+      return;
+    }
+    analytics && analytics.track('cx_query_submit', {input_method: 'manual'});
+  }
+
+  function clearPendingHeroOpen() {
+    pendingHeroOpen = false;
+    window.clearTimeout(pendingHeroOpenTimer);
+    pendingHeroOpenTimer = null;
+  }
+
+  function armHeroOpen() {
+    clearPendingHeroOpen();
+    if (chatIsOpen) return false;
+    pendingHeroOpen = true;
+    pendingHeroOpenTimer = window.setTimeout(clearPendingHeroOpen, 2000);
+    return true;
+  }
+
+  function handleChatOpenChange(isOpen) {
+    var wasOpen = chatIsOpen;
+    chatIsOpen = isOpen === true;
+    if (!chatIsOpen || wasOpen) return;
+    analytics && analytics.track('cx_open', {entry_point: pendingHeroOpen ? 'hero_button' : 'floating_bubble'});
+    clearPendingHeroOpen();
+  }
+
+  window.RentalAnalyticsArmHeroOpen = armHeroOpen;
+  // --- End GA4 Messenger Event Tracking V1 ---
 
   function ensureAssistantPanel() {
     if (document.querySelector(".assistant-panel")) {
@@ -652,7 +706,7 @@
     if (!elements.assistantPanel || elements.assistantPanel.dataset.eventsBound === "true") return;
     document.addEventListener("df-chat-open-changed", function (event) {
       var detail = event.detail || {};
-      chatIsOpen = detail.isOpen === true;
+      handleChatOpenChange(detail.isOpen);
       resizeMessenger();
       updateAssistantPanel();
       installInputExtras();
@@ -671,7 +725,13 @@
       }
       else resetAssistantState();
     });
-    document.addEventListener("df-user-input-entered", beginThinking);
+    document.addEventListener("df-user-input-entered", handleUserInputEntered);
+    document.addEventListener("df-citation-clicked", function (event) {
+      var detail = event.detail || {};
+      var destination = detail.actionLink || detail.url || detail.href || '';
+      var host = analytics && analytics.destinationHost(destination);
+      if (host) analytics.track('cx_source_click', {destination_host: host});
+    });
     document.addEventListener("df-request-sent", function (event) {
       updateOutgoingRequestContext(event);
       beginThinking();
@@ -681,9 +741,15 @@
       guidingUntil = 0;
       showTemporaryAssistantState("responding", ASSISTANT_TIMING.responding);
     });
-    document.addEventListener("df-messenger-error", function () {
+    document.addEventListener("df-messenger-error", function (event) {
       guidingUntil = 0;
       showTemporaryAssistantState("error", ASSISTANT_TIMING.error);
+      var detail = event.detail || {};
+      var source = detail.error && typeof detail.error === 'object' ? detail.error : detail;
+      var parameters = {};
+      if (typeof source.code === 'string' || typeof source.code === 'number') parameters.error_code = source.code;
+      if (typeof source.status === 'string' || typeof source.status === 'number') parameters.error_status = source.status;
+      analytics && analytics.track('cx_error', parameters);
     });
     document.addEventListener("df-session-expired", function () {
       armDirectEntry(elements.messenger || getMessengerElements().messenger);
@@ -702,6 +768,7 @@
       button.addEventListener('click', function () {
         var messenger = getMessengerElements().messenger;
         if (!messenger || typeof messenger.sendQuery !== 'function') return;
+        recordQuickTopicSubmission(button.dataset.messengerQuery, button.dataset.topicId);
         beginGuiding();
         var details = button.closest('details');
         if (details) details.open = false;
