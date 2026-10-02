@@ -37,11 +37,14 @@ Last updated: 2026-10-02
 
 ## Active task — GA4 event tracking v1 (2026-10-02)
 
-- Status: **REVIEW_PASS_AWAITING_RELEASE**
+- Status: **RELEASED_AWAITING_GA4_RUNTIME_VALIDATION**
 - Review branch: `feat/ga4-events-v1`
 - Initial implementation commit: `bb0e7f1e9db43c032bb84bf7a550b4bcd47e0748`
 - Corrective implementation commit: `72554872c0be1a194b905f958d52dc5e8451375f`
-- Review result: **PASS**. R1/R2 corrected; event/privacy contract approved for PR and merge.
+- Review result: **PASS**. R1/R2 corrected; event/privacy contract approved and released.
+- PR #15 merged by squash to production commit `986b292a4bb7a300292f3a270f6d6da5925912bd`.
+- GitHub Pages deployment run #106 (`36974580801`) completed successfully.
+- Remaining gate: manually validate representative GA4 V1 events in Realtime / DebugView.
 - Task file: `TASK_2026-10-02_GA4_EVENT_TRACKING_V1.md`
 - Planning owner: ChatGPT; implementation owner: Codex Cloud; review owner: ChatGPT.
 - Baseline: latest `main`; GA4 base tracking is already released and Realtime-verified.
