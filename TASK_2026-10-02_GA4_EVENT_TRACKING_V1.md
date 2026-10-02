@@ -1,6 +1,6 @@
 # TASK_2026-10-02_GA4_EVENT_TRACKING_V1
 
-Status: **READY_TO_EXECUTE**
+Status: **REVISION_REQUIRED_AFTER_CHATGPT_REVIEW**
 
 Planning owner: ChatGPT  
 Implementation owner: Codex Cloud  
@@ -266,3 +266,90 @@ This task is complete only after:
 5. `PROJECT_STATE.md` records the released result
 
 No additional analytics event expansion is part of V1.
+
+
+---
+
+## ChatGPT review — 2026-10-02
+
+Reviewed branch: `feat/ga4-events-v1`  
+Reviewed commit: `bb0e7f1e9db43c032bb84bf7a550b4bcd47e0748`  
+Branch relation at review: ahead of `main` by 1, behind by 0.
+
+### Review result
+
+**REVISION REQUIRED — do not open PR / do not merge yet.**
+
+The overall architecture is sound:
+
+- centralized `assets/js/analytics.js`
+- frozen event allowlist and enum validation
+- unknown/free-text parameters are dropped before `gtag`
+- no GTM / no third-party analytics library
+- GA loader/config remain single-instance
+- guide, audience, plan, service-entry and CX event wiring are scoped to the approved V1 contract
+- citation tracking reduces URLs to hostname
+- error tracking avoids message/object serialization
+- generated output remains source-driven
+
+Two correctness issues must be fixed before release.
+
+### R1 — quick-topic suppression can hide a legitimate manual query
+
+Current implementation uses:
+
+- a global `suppressManualInputCount`
+- a blind 2-second timeout
+
+after a quick-topic `sendQuery()`.
+
+This assumes the programmatic `sendQuery()` will generate a matching `df-user-input-entered` event within that window. That timing/behavior is not part of the frozen contract and the current test only checks source text with a regex.
+
+Failure mode:
+- if the programmatic query does not emit that event, or emits outside the assumed timing, the next genuine user input inside the suppression window can be incorrectly discarded from GA4.
+
+Required correction:
+- replace blind counter/time-window suppression with deterministic matching to the pending quick-topic submission.
+- It is acceptable to inspect `event.detail.input` locally only for equality against the known predefined quick-topic string, but that text must never be forwarded to analytics.
+- Clear the pending marker after the matching event or a short safety expiry.
+- A real manual query that is not the pending predefined quick-topic text must always produce `cx_query_submit {input_method: manual}`.
+
+Add a deterministic regression test for:
+1. quick-topic submission emits exactly one quick-topic analytics event;
+2. a matching programmatic input event is suppressed;
+3. an unrelated manual input immediately afterward is still counted;
+4. no input text reaches `RentalAnalytics.track`.
+
+### R2 — hero entry-point marker can become stale when chat is already open
+
+Current `guide-ui.js` sets `window.RentalAnalyticsCxEntryPoint` before calling `openChat()`.
+
+The Messenger API specifies that `openChat()` does nothing if the chat is already open. In that case no closed→open transition occurs, but the hero marker remains valid for 15 seconds. If the user closes and reopens via the native bubble within that interval, the later native open can be incorrectly recorded as `hero_button`.
+
+Required correction:
+- arm the hero entry marker only immediately before a real programmatic open attempt, not simply on every helper-button click.
+- ensure a marker that is not consumed by the corresponding closed→open event is cleared promptly.
+- preserve delayed opening when Messenger is still loading.
+- add a deterministic regression test proving:
+  - helper-triggered closed→open = `hero_button`
+  - native reopen after an already-open helper click = `floating_bubble`
+  - no duplicate `cx_open` is emitted for the same open transition.
+
+### Non-blocking runtime item
+
+`cx_error` may legitimately emit with no code/status if the runtime error object does not expose stable scalar fields. The V1 contract allows this; no change is required unless runtime verification later shows a better stable shape.
+
+### Revision gate
+
+After R1/R2 corrections:
+
+- keep all nine V1 event names and enum values unchanged
+- rerun normal build
+- rerun build `--check`
+- rerun full Node tests
+- rerun performance budget if present
+- run `git diff --check`
+- commit and push to the same `feat/ga4-events-v1` branch
+- do not create PR
+- do not merge `main`
+- stop for ChatGPT re-review
