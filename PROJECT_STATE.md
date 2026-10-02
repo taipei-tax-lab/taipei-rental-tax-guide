@@ -1,6 +1,6 @@
 # PROJECT_STATE
 
-Last updated: 2026-09-30
+Last updated: 2026-10-02
 
 ## Production baseline
 
@@ -9,10 +9,11 @@ Last updated: 2026-09-30
 - Previous production baseline before Phase 5A: `ab1cb35b53763a6e6341b2041125894defaf8b27`
 - Earlier production release merge: `251884ee3d133d4f2e5723b3d25ccdfc8a1bf642` (PR #9)
 - Previous production release merge before PR #11: `20c915066c87fc4308c89dc601d324803b3bc0ef` (PR #10)
-- Previous production release merge: `684bb9aa67a0783dbec686ae2d9d59e4a578fa46` (PR #12; Standard Merge Commit).
-- Latest production release merge: `ee711c6fb97bacd098c981913b8a214346aa434a` (PR #13; Standard Merge Commit).
-- Latest production application commit: `ee711c6fb97bacd098c981913b8a214346aa434a`.
-- PR #13 GitHub Pages release deployment: run #99 (`36592095322`), source commit `ee711c6`, completed successfully.
+- Previous production release merge: `ee711c6fb97bacd098c981913b8a214346aa434a` (PR #13; Standard Merge Commit).
+- Latest production release merge: `f82fb93294d0c921e42c0a0a68b1c878e45821ba` (PR #14; squash merge; GA4 base tracking).
+- Latest production application commit: `f82fb93294d0c921e42c0a0a68b1c878e45821ba`.
+- PR #14 GitHub Pages release deployment: run #101 (`36970041557`), source commit `f82fb932`, completed successfully.
+- GA4 base tracking: Measurement ID `G-S891SFSMBH`; GA4 Realtime manually verified on 2026-10-02 with live GitHub Pages traffic.
 - GitHub Pages: `https://taipei-tax-lab.github.io/taipei-rental-tax-guide/`
 - Production status: **RELEASED**
 - Production Messenger now uses the official/public-service CX configuration.
@@ -34,7 +35,21 @@ Last updated: 2026-09-30
 - Production Pages deployment run #90 succeeded; Messenger E01–E08 8/8, targeted CX regression 4/4, frontend tests 19/19, and build check passed.
 - Runtime date/timezone/entry section remain generic integration context; tax-year knowledge remains in CX knowledge and is not hard-coded in frontend JS.
 
-## Active task
+## Active task — GA4 event tracking v1 (2026-10-02)
+
+- Status: **READY_TO_EXECUTE**
+- Task file: `TASK_2026-10-02_GA4_EVENT_TRACKING_V1.md`
+- Planning owner: ChatGPT; implementation owner: Codex Cloud; review owner: ChatGPT.
+- Baseline: latest `main`; GA4 base tracking is already released and Realtime-verified.
+- Purpose: add the frozen V1 website/CX behavior events needed for business-performance reporting while keeping conversation-content analysis in CX Conversation History.
+- Frozen events: `audience_select`, `plan_select`, `guide_start`, `guide_complete`, `cx_open`, `cx_query_submit`, `cx_source_click`, `cx_error`, `service_entry_click`.
+- Privacy boundary: never send user query text/free text, Dialogflow request/response payloads, full citation URLs/titles, or full error messages/objects to GA4.
+- Architecture: use a centralized analytics helper; preserve one GA loader/config; no GTM; no third-party analytics library; analytics failure must not affect site/CX behavior.
+- CX content analytics remains owned by the existing CX Conversation History (180-day retention); GA4 measures behavior, not conversation text.
+- Codex execution protocol: create a new branch from latest `main`, implement/test/commit/push, then stop. Do not create PR or merge. ChatGPT reviews code, privacy, and double-count behavior before release.
+- Suggested work branch: `feat/ga4-events-v1`.
+
+## Previous active task — House-tax period runtime context v1 (released)
 
 - Status: **RELEASED**
 - Review status: final Web ChatGPT review PASS. Astra's adjacent-date finding is fixed and regression-covered. Frontend runtime contract is frozen and released.
