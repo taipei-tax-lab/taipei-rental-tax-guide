@@ -37,10 +37,11 @@ Last updated: 2026-10-02
 
 ## Active task — GA4 event tracking v1 (2026-10-02)
 
-- Status: **REVISION_REQUIRED_AFTER_CHATGPT_REVIEW**
+- Status: **REVIEW_PASS_AWAITING_RELEASE**
 - Review branch: `feat/ga4-events-v1`
-- Reviewed implementation commit: `bb0e7f1e9db43c032bb84bf7a550b4bcd47e0748`
-- Review result: architecture/privacy boundary PASS, but two correctness corrections are required before release: deterministic quick-topic/manual de-duplication and stale hero-entry attribution cleanup.
+- Initial implementation commit: `bb0e7f1e9db43c032bb84bf7a550b4bcd47e0748`
+- Corrective implementation commit: `72554872c0be1a194b905f958d52dc5e8451375f`
+- Review result: **PASS**. R1/R2 corrected; event/privacy contract approved for PR and merge.
 - Task file: `TASK_2026-10-02_GA4_EVENT_TRACKING_V1.md`
 - Planning owner: ChatGPT; implementation owner: Codex Cloud; review owner: ChatGPT.
 - Baseline: latest `main`; GA4 base tracking is already released and Realtime-verified.
