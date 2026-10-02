@@ -73,6 +73,9 @@
   var assistantStateTimer = null;
   var assistantSwapToken = 0;
   var guidingUntil = 0;
+  var analytics = window.RentalAnalytics;
+  var suppressManualInputCount = 0;
+  var suppressManualTimer = null;
 
   function ensureAssistantPanel() {
     if (document.querySelector(".assistant-panel")) {
@@ -652,7 +655,14 @@
     if (!elements.assistantPanel || elements.assistantPanel.dataset.eventsBound === "true") return;
     document.addEventListener("df-chat-open-changed", function (event) {
       var detail = event.detail || {};
+      var wasOpen = chatIsOpen;
       chatIsOpen = detail.isOpen === true;
+      if (chatIsOpen && !wasOpen) {
+        var requestedEntry = window.RentalAnalyticsCxEntryPoint;
+        var isCurrentHeroEntry = requestedEntry && requestedEntry.value === 'hero_button' && requestedEntry.expires >= Date.now();
+        analytics && analytics.track('cx_open', {entry_point: isCurrentHeroEntry ? 'hero_button' : 'floating_bubble'});
+        window.RentalAnalyticsCxEntryPoint = null;
+      }
       resizeMessenger();
       updateAssistantPanel();
       installInputExtras();
@@ -671,7 +681,17 @@
       }
       else resetAssistantState();
     });
-    document.addEventListener("df-user-input-entered", beginThinking);
+    document.addEventListener("df-user-input-entered", function () {
+      beginThinking();
+      if (suppressManualInputCount > 0) { suppressManualInputCount -= 1; return; }
+      analytics && analytics.track('cx_query_submit', {input_method: 'manual'});
+    });
+    document.addEventListener("df-citation-clicked", function (event) {
+      var detail = event.detail || {};
+      var destination = detail.actionLink || detail.url || detail.href || '';
+      var host = analytics && analytics.destinationHost(destination);
+      if (host) analytics.track('cx_source_click', {destination_host: host});
+    });
     document.addEventListener("df-request-sent", function (event) {
       updateOutgoingRequestContext(event);
       beginThinking();
@@ -681,9 +701,15 @@
       guidingUntil = 0;
       showTemporaryAssistantState("responding", ASSISTANT_TIMING.responding);
     });
-    document.addEventListener("df-messenger-error", function () {
+    document.addEventListener("df-messenger-error", function (event) {
       guidingUntil = 0;
       showTemporaryAssistantState("error", ASSISTANT_TIMING.error);
+      var detail = event.detail || {};
+      var source = detail.error && typeof detail.error === 'object' ? detail.error : detail;
+      var parameters = {};
+      if (typeof source.code === 'string' || typeof source.code === 'number') parameters.error_code = source.code;
+      if (typeof source.status === 'string' || typeof source.status === 'number') parameters.error_status = source.status;
+      analytics && analytics.track('cx_error', parameters);
     });
     document.addEventListener("df-session-expired", function () {
       armDirectEntry(elements.messenger || getMessengerElements().messenger);
@@ -702,6 +728,10 @@
       button.addEventListener('click', function () {
         var messenger = getMessengerElements().messenger;
         if (!messenger || typeof messenger.sendQuery !== 'function') return;
+        suppressManualInputCount += 1;
+        window.clearTimeout(suppressManualTimer);
+        suppressManualTimer = window.setTimeout(function () { suppressManualInputCount = 0; }, 2000);
+        analytics && analytics.track('cx_query_submit', {input_method: 'quick_topic', topic_id: button.dataset.topicId});
         beginGuiding();
         var details = button.closest('details');
         if (details) details.open = false;
