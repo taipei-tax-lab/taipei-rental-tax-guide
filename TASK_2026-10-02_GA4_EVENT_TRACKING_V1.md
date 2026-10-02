@@ -1,6 +1,6 @@
 # TASK_2026-10-02_GA4_EVENT_TRACKING_V1
 
-Status: **REVIEW_PASS_AWAITING_RELEASE**
+Status: **RELEASED_AWAITING_GA4_RUNTIME_VALIDATION**
 
 Planning owner: ChatGPT  
 Implementation owner: Codex Cloud  
@@ -381,3 +381,17 @@ Official Dialogflow CX Messenger documentation confirms:
 - `openChat()` does nothing when the chat is already open.
 
 No additional V1 event expansion is approved in this review.
+
+
+---
+
+## Release — 2026-10-02
+
+- PR: #15 `Add GA4 event tracking v1`
+- Merge method: squash
+- Production merge commit: `986b292a4bb7a300292f3a270f6d6da5925912bd`
+- GitHub Pages deployment run: #106 (`36974580801`)
+- Deployment result: **SUCCESS**
+
+Remaining done-definition item:
+- manually validate representative V1 events in GA4 Realtime / DebugView before closing this task.
