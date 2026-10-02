@@ -13,6 +13,29 @@ const messengerSource = read('site/messenger.html');
 const messengerUi = read('assets/js/messenger-ui.js');
 const generatedHtml = read('index.html');
 
+const analyticsStart = messengerUi.indexOf('  // --- GA4 Messenger Event Tracking V1 ---');
+const analyticsEnd = messengerUi.indexOf('  // --- End GA4 Messenger Event Tracking V1 ---', analyticsStart);
+assert.ok(analyticsStart >= 0 && analyticsEnd > analyticsStart, 'GA4 Messenger event block must remain identifiable');
+const analyticsBlock = messengerUi.slice(analyticsStart, analyticsEnd);
+const createAnalyticsRuntime = vm.runInNewContext(`(function(window, analytics) {
+var chatIsOpen = false;
+function beginThinking() {}
+${analyticsBlock}
+return {recordQuickTopicSubmission, handleUserInputEntered, handleChatOpenChange, armHeroOpen};
+})`);
+
+function createAnalyticsHarness() {
+  const calls = [];
+  const timers = new Map();
+  let nextTimer = 1;
+  const window = {
+    setTimeout(callback) { const id = nextTimer++; timers.set(id, callback); return id; },
+    clearTimeout(id) { timers.delete(id); }
+  };
+  const analytics = {track(name, parameters) { calls.push({name, parameters: JSON.parse(JSON.stringify(parameters))}); }};
+  return {calls, timers, window, runtime: createAnalyticsRuntime(window, analytics)};
+}
+
 const runtimeStart = messengerUi.indexOf('// --- Generic Runtime Context & Direct Playbook Entry Lifecycle (QA-10C) ---');
 const runtimeEnd = messengerUi.indexOf('  function getViewportSize()', runtimeStart);
 assert.ok(runtimeStart >= 0 && runtimeEnd > runtimeStart, 'QA-10C runtime block must remain identifiable');
@@ -21,7 +44,7 @@ const bindStart = messengerUi.indexOf('  function bindAssistantEvents(elements) 
 const bindEnd = messengerUi.indexOf('  function bindTopics(root)', bindStart);
 assert.ok(bindStart >= 0 && bindEnd > bindStart, 'QA-10C Messenger lifecycle event bindings must remain identifiable');
 const eventBindingBlock = messengerUi.slice(bindStart, bindEnd);
-const createRuntime = vm.runInNewContext(`(function(window, document, Date, Intl, runtimeMessenger) {\n${runtimeBlock}\nfunction getMessengerElements() { return {messenger: runtimeMessenger}; }\nfunction beginThinking() {}\n${eventBindingBlock}\nreturn { armDirectEntry, disarmDirectEntry, updateRuntimeSectionContext, buildRuntimeParameters, bindAssistantEvents, isValidGregorianDate, getHouseTaxPeriodForDate, getMayBillHouseTaxPeriod, parseExplicitHouseTaxDate, updateOutgoingRequestContext };\n})`);
+const createRuntime = vm.runInNewContext(`(function(window, document, Date, Intl, runtimeMessenger) {\nvar analytics = null;\nvar chatIsOpen = false;\n${analyticsBlock}\n${runtimeBlock}\nfunction getMessengerElements() { return {messenger: runtimeMessenger}; }\nfunction beginThinking() {}\n${eventBindingBlock}\nreturn { armDirectEntry, disarmDirectEntry, updateRuntimeSectionContext, buildRuntimeParameters, bindAssistantEvents, isValidGregorianDate, getHouseTaxPeriodForDate, getMayBillHouseTaxPeriod, parseExplicitHouseTaxDate, updateOutgoingRequestContext };\n})`);
 
 function createHarness(initialPlaybook) {
   const calls = [];
@@ -77,6 +100,35 @@ function expectedRuntimeParameters(currentDate = '2026-09-27', section = 'owners
     runtime_house_tax_explicit_period: null
   };
 }
+
+test('quick-topic de-duplication matches only the predefined input and never forwards text', () => {
+  const harness = createAnalyticsHarness();
+  const predefined = '我想查租金補貼的申請資格';
+  harness.runtime.recordQuickTopicSubmission(predefined, 'rent_subsidy');
+  harness.runtime.handleUserInputEntered({detail: {input: predefined}});
+  harness.runtime.handleUserInputEntered({detail: {input: '我的手動問題含私人文字'}});
+
+  assert.deepEqual(harness.calls, [
+    {name: 'cx_query_submit', parameters: {input_method: 'quick_topic', topic_id: 'rent_subsidy'}},
+    {name: 'cx_query_submit', parameters: {input_method: 'manual'}}
+  ]);
+  assert.doesNotMatch(JSON.stringify(harness.calls), /我想查|私人文字/);
+});
+
+test('CX open attribution consumes only a real hero closed-to-open transition', () => {
+  const harness = createAnalyticsHarness();
+  assert.equal(harness.runtime.armHeroOpen(), true);
+  harness.runtime.handleChatOpenChange(true);
+  harness.runtime.handleChatOpenChange(true);
+  assert.equal(harness.runtime.armHeroOpen(), false, 'already-open helper click must not arm attribution');
+  harness.runtime.handleChatOpenChange(false);
+  harness.runtime.handleChatOpenChange(true);
+
+  assert.deepEqual(harness.calls, [
+    {name: 'cx_open', parameters: {entry_point: 'hero_button'}},
+    {name: 'cx_open', parameters: {entry_point: 'floating_bubble'}}
+  ]);
+});
 
 test('Rental site explicitly configures its initial Playbook and generated output preserves it', () => {
   const tag = messengerSource.match(/<df-messenger\b[^>]*>/)?.[0];

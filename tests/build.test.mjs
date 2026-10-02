@@ -47,7 +47,7 @@ test('GA4 loader/config and the frozen V1 event contract are present without GTM
   assert.deepEqual(declared, approved);
   assert.equal((analytics.match(/root\.gtag\('event'/g) || []).length, 1, 'all events pass through the centralized helper');
   const messengerUi = read('assets/js/messenger-ui.js');
-  assert.match(messengerUi, /suppressManualInputCount > 0[^}]+return;/, 'quick topics suppress their matching manual-input event');
+  assert.match(messengerUi, /input === pendingQuickTopicInput/, 'quick topics suppress only their matching input event');
   assert.match(messengerUi, /df-citation-clicked/);
   assert.doesNotMatch(messengerUi, /track\([^\n]*(?:messengerQuery|requestBody|queryInput|response|message|stack)/i, 'conversation content must not reach analytics');
 });

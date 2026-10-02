@@ -231,6 +231,7 @@
   function openHelper() {
     const bubble = document.querySelector('df-messenger-chat-bubble');
     if (!messengerReady || typeof bubble?.openChat !== 'function') return false;
+    window.RentalAnalyticsArmHeroOpen?.();
     bubble.openChat();
     requestAnimationFrame(focusChatInput);
     return true;
@@ -240,7 +241,6 @@
     if (pendingOpen) { pendingOpen = false; clearTimeout(loadTimer); helperStatus.hidden = true; openHelper(); }
   });
   helperButton.addEventListener('click', () => {
-    window.RentalAnalyticsCxEntryPoint = {value: 'hero_button', expires: Date.now() + 15000};
     if (openHelper()) { helperStatus.hidden = true; return; }
     pendingOpen = true;
     helperStatus.hidden = false;
