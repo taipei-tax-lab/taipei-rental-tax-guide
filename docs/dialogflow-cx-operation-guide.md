@@ -4,7 +4,7 @@
 >
 > **現行可追溯基準：** [前端正式來源 `site/messenger.html`](../site/messenger.html) 綁定 `serviceagent-1150909`／Tokyo Agent `799426c1-ba69-49dc-85e4-5065985706e2`，由 `scripts/build.mjs` 產生 `index.html`；[網站發布狀態](../PROJECT_STATE.md) 曾確認正式部署。後端 [2026-10-10 保留服務驗收](https://github.com/taipei-tax-lab/dialogflow-cx-qa-framework/blob/0426acd0efbfc8a67b0e1ae24760c5b456d11898/docs/GCP_CX_POST_CLEANUP_ACCEPTANCE_2026-10-10.md) 確認 Production 為 Rental Playbook v3、Rental Tool v1，並與 1999 FAQ Flow v1 等版本共用 Tokyo Agent。此為日期明確的驗收快照，不是即時 GCP 查詢。
 >
-> **前後端完整對照：** [CX Framework — 跨 Repo 入口稽核](https://github.com/taipei-tax-lab/cx-service-framework/blob/docs/cross-repo-contract-audit-20261010/docs/01_foundation/CROSS_REPO_AUDIT_2026-10-10.md)。僅涉及文件更新；若未來要改寫 GCP 設定，需重新盤點最新實際環境並經另行授權。
+> **前後端完整對照：** [CX Framework — 跨 Repo 入口稽核](https://github.com/taipei-tax-lab/cx-service-framework/pull/1)。僅涉及文件更新；若未來要改寫 GCP 設定，需重新盤點最新實際環境並經另行授權。
 
 本文件是「臺北市出租房屋租稅優惠智慧服務 PoC」的 Dialogflow CX 操作指南。
 
