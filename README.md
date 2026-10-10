@@ -69,7 +69,7 @@ node scripts/browser-check.cjs
 - [Dialogflow CX 操作與驗證](docs/dialogflow-cx-operation-guide.md)
 - [Messenger 介面規格](docs/messenger-ui-spec.md)
 
-CX 文件是既有規劃或操作紀錄，不表示所列功能均已實作。網站政策資料不會自動同步到 Data Store；新題庫、知識版本與設定留待下一階段。
+CX 文件包含 PoC 與歷史操作紀錄，部分 Agent／Environment 敘述已過期；請先看 [操作指南頂部的 2026-10-10 現況校正](docs/dialogflow-cx-operation-guide.md) 與 [後端正式保留服務驗收](https://github.com/taipei-tax-lab/dialogflow-cx-qa-framework/blob/0426acd0efbfc8a67b0e1ae24760c5b456d11898/docs/GCP_CX_POST_CLEANUP_ACCEPTANCE_2026-10-10.md)。網站政策資料不會自動同步到 Data Store；新題庫、知識版本與設定留待下一階段。
 
 ## 本輪閱讀與互動改善
 

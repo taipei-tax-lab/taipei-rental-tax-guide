@@ -1,5 +1,11 @@
 # Dialogflow CX 操作與驗證說明
 
+> **文件校正（2026-10-10，Docs-only）：** 本文最初記錄 PoC／Phase 5A 建置時的操作，後續章節部分仍描述舊測試 Agent 與「尚未切換」的歷史狀態，**不得依舊段落判斷目前 Production 或直接操作 GCP**。目前網站程式已使用機關 CX；本次僅修正文件，沒有變更網站、CX 或正式環境。
+>
+> **現行可追溯基準：** [前端正式來源 `site/messenger.html`](../site/messenger.html) 綁定 `serviceagent-1150909`／Tokyo Agent `799426c1-ba69-49dc-85e4-5065985706e2`，由 `scripts/build.mjs` 產生 `index.html`；[網站發布狀態](../PROJECT_STATE.md) 曾確認正式部署。後端 [2026-10-10 保留服務驗收](https://github.com/taipei-tax-lab/dialogflow-cx-qa-framework/blob/0426acd0efbfc8a67b0e1ae24760c5b456d11898/docs/GCP_CX_POST_CLEANUP_ACCEPTANCE_2026-10-10.md) 確認 Production 為 Rental Playbook v3、Rental Tool v1，並與 1999 FAQ Flow v1 等版本共用 Tokyo Agent。此為日期明確的驗收快照，不是即時 GCP 查詢。
+>
+> **前後端完整對照：** [CX Framework — 跨 Repo 入口稽核](https://github.com/taipei-tax-lab/cx-service-framework/pull/1)。僅涉及文件更新；若未來要改寫 GCP 設定，需重新盤點最新實際環境並經另行授權。
+
 本文件是「臺北市出租房屋租稅優惠智慧服務 PoC」的 Dialogflow CX 操作指南。
 
 文件用途：
@@ -14,7 +20,7 @@
 
 ## 1. 專案架構
 
-目前整體鏈路如下：
+以下是**原 PoC 時期的架構示意（歷史參考）**，其中「Default Playbook」名稱與舊環境設定不代表 2026-10-10 正式 Production 的完整映射：
 
 ```text
 民眾瀏覽器
@@ -44,9 +50,21 @@ Vertex AI Search / Discovery Engine Data Store
 
 ## 2. Agent 基本設定
 
-網站目前有 production 與 Phase 5A candidate 兩套前端 CX 指向，操作雲端資源前先確認目標環境：
+以 2026-10-10 前後端固定 Commit 交叉核對，目前網站 `main` 的 `site/messenger.html` **已指向機關正式 CX**，而不是下列 PoC Project。網站與 CX 分別管理，操作雲端資源前仍須另查當時的實際 GCP Environment。
 
-### Production：`main` 現行設定
+### 現行已驗證的前端 CX 指向（2026-10-10 文件核對）
+
+```text
+Google Cloud Project ID: serviceagent-1150909
+Agent ID: 799426c1-ba69-49dc-85e4-5065985706e2
+Agent Region: asia-northeast1
+Rental Playbook ID (frontend initial target): 7861bc8f-d2fb-43d3-8ca1-651415eb4205
+CX Production accepted version: Rental Playbook v3
+```
+
+其中 **Playbook ID 是前端程式指定的入口**，v3 則是 10/10 CX Production 後端驗收記錄，兩者用途不同；不是將版本號寫入前端路徑。
+
+### 歷史 PoC Production（已被 Phase 5A 正式切換取代，禁止作為現行設定）
 
 ```text
 Google Cloud Project ID: aerial-day-496714-v6
@@ -59,7 +77,7 @@ Default Language: zh-tw
 Time Zone: Asia/Hong_Kong
 ```
 
-### Phase 5A candidate：預定切換的公務 CX
+### 歷史 Phase 5A candidate（現已切換，保留供追溯）
 
 ```text
 Google Cloud Project ID: serviceagent-1150909
@@ -68,7 +86,7 @@ Agent Region: asia-northeast1
 Default Language: zh-tw
 ```
 
-Phase 5A candidate 尚未代表 production 已切換。網站前端設定的 source of truth 是 `site/messenger.html`；根目錄 `index.html` 是由 `scripts/build.mjs` 產生的 output，不要直接手改。修改 candidate 的 CX 指向後，必須重新 build 並確認 source 與 generated `index.html` 的 location、project ID、agent ID 一致，再進入發布審查。這只更新網站端 Messenger 指向，不會修改 Dialogflow CX / GCP 雲端設定。
+上述「candidate 尚未切換」是當時的歷史建置狀態，**已被後續網站發布及 2026-10-10 後端驗收取代**。網站前端設定的 source of truth 是 `site/messenger.html`；根目錄 `index.html` 是由 `scripts/build.mjs` 產生的 output，不要直接手改。修改 candidate 的 CX 指向後，必須重新 build 並確認 source 與 generated `index.html` 的 location、project ID、agent ID 一致，再進入發布審查。這只更新網站端 Messenger 指向，不會修改 Dialogflow CX / GCP 雲端設定。
 
 目前不要因為文件中的時區名稱而自行修改任何 Agent 設定；若未來要改時區，應先說明原因、影響與驗證方式。
 
@@ -78,11 +96,13 @@ Phase 5A candidate 尚未代表 production 已切換。網站前端設定的 sou
 
 任何 Agent、Playbook、Tool 或 Flow 的重大修改前，先建立備份。
 
-操作順序：
+以下備份操作程序保留自原 PoC 時期，**不表示已對現行 CX 版本重新驗證**。現階段不進行任何 CX 修改；未來如獲批准執行，需先唯讀核對當日 Production 與資源依賴、再另訂備份和回滾方案。
+
+歷史操作順序：
 
 1. 開啟 Conversational Agents Console。
-2. 確認目前操作的是正確 Project：production `main` 為 `aerial-day-496714-v6`；Phase 5A candidate 預定指向 `serviceagent-1150909`。不要只依賴目前開啟的 Console project。
-3. 選擇 Agent「出租房屋租稅優惠測試」。
+2. **歷史指示（不得照做）**：原文將 `aerial-day-496714-v6` 當作舊 Production，將 `serviceagent-1150909` 當作待切換候選。現今機關 CX 指向與當時不同；任何新操作都必須先重新確認 GCP Project、Agent、Environment 與版本。
+3. **歷史 Agent 名稱**：「出租房屋租稅優惠測試」僅供查閱當時 PoC，不得當作現行機關 Agent 直接選取。
 4. 進入 `Manage`。
 5. 開啟 `Change History`。
 6. 進入 `Backup`。
