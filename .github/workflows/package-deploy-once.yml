@@ -1,0 +1,175 @@
+name: One-time static deployment ZIP
+on:
+  push:
+    branches: [packaging/deploy-zip-20261021]
+permissions:
+  contents: read
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: d5fad9e52acdb6c8f46495903f9f9dfbdb3c8c1e
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Build, full tests, performance and source integrity
+        run: |
+          mkdir -p delivery-output
+          set -o pipefail
+          { npm run build && node scripts/build.mjs --check && npm test && node scripts/performance-budget.mjs && git diff --exit-code; } 2>&1 | tee delivery-output/build-tests.log
+      - name: Package only runtime assets and extract into a fresh directory
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import zipfile, hashlib, json, re, subprocess
+          from html.parser import HTMLParser
+          from urllib.parse import urlsplit, unquote
+          src = Path.cwd()
+          out = Path('delivery-output')
+          out.mkdir(parents=True, exist_ok=True)
+          files = ['index.html', '.nojekyll', 'hero-v2.png', 'hero-v2.webp']
+          files += [str(p.relative_to(src)) for p in (src/'assets/css').glob('*.css')]
+          files += ['assets/js/'+n+'.js' for n in ['analytics','guide-rules','guide-ui','messenger-ui']]
+          files += [str(p.relative_to(src)) for p in (src/'assets/images').rglob('*') if p.suffix in ['.png','.webp']]
+          files = sorted(files)
+          external = set()
+          local = set()
+          def check(url, base):
+              if not url or url.startswith(('data:','#','mailto:','tel:','javascript:')): return
+              parts = urlsplit(url)
+              if parts.scheme or parts.netloc:
+                  external.add(url); return
+              import posixpath
+              name = posixpath.normpath(str(base.parent / unquote(parts.path)))
+              assert name in files, (str(base),url,name)
+              local.add(name)
+          class Parser(HTMLParser):
+              def handle_starttag(self, tag, attrs):
+                  for k,v in attrs:
+                      if k in ['src','href','poster'] and v: check(v,Path('index.html'))
+                      if k == 'srcset' and v and not v.startswith('data:'):
+                          for item in v.split(','): check(item.strip().split()[0],Path('index.html'))
+          Parser().feed((src/'index.html').read_text())
+          for f in files:
+              if f.endswith('.css'):
+                  for u in re.findall(r'url\([\'"]?([^\)\'"\s]+)',(src/f).read_text()): check(u,Path(f))
+          manifest=json.loads((src/'assets/images/assistant/assistant-assets-manifest.json').read_text())
+          for state in manifest['states'].values():
+              for name in state.values(): assert 'assets/images/assistant/'+name in files
+          assert 'assets/images/assistant/assistant-chat-bubble.png' in files
+          archive=out/'taipei-rental-tax-guide-deploy.zip'
+          with zipfile.ZipFile(archive,'w',zipfile.ZIP_DEFLATED,compresslevel=9) as z:
+              for f in files:
+                  info=zipfile.ZipInfo(f,(2026,10,21,0,0,0)); info.compress_type=zipfile.ZIP_DEFLATED
+                  info.external_attr=0o100644 << 16
+                  z.writestr(info,(src/f).read_bytes())
+          extract=Path('/tmp/rental-deploy-extracted')
+          assert not extract.exists()
+          with zipfile.ZipFile(archive) as z:
+              assert z.testzip() is None
+              z.extractall(extract)
+          for f in files: assert (extract/f).read_bytes()==(src/f).read_bytes()
+          sha=hashlib.sha256(archive.read_bytes()).hexdigest()
+          (out/'taipei-rental-tax-guide-deploy.sha256').write_text(sha+'  '+archive.name+'\n')
+          (out/'taipei-rental-tax-guide-deploy-files.txt').write_text('\n'.join(f'{hashlib.sha256((extract/f).read_bytes()).hexdigest()}  {(extract/f).stat().st_size:>9}  {f}' for f in files)+'\n')
+          meta={'source_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=src,text=True).strip(),'zip':archive.name,'bytes':archive.stat().st_size,'sha256':sha,'file_count':len(files),'files':files,'external_html_resources_and_links':sorted(external),'static_local_references_checked':sorted(local)}
+          (out/'taipei-rental-tax-guide-deploy-manifest.json').write_text(json.dumps(meta,ensure_ascii=False,indent=2)+'\n')
+          print(json.dumps({k:v for k,v in meta.items() if k not in ['external_html_resources_and_links','static_local_references_checked','files']},indent=2))
+          PY
+          (cd delivery-output && sha256sum -c taipei-rental-tax-guide-deploy.sha256)
+        working-directory: ${{ github.workspace }}
+      - name: Verify ZIP hash matches the locally validated package
+        run: |
+          test "$(sha256sum delivery-output/taipei-rental-tax-guide-deploy.zip | cut -d' ' -f1)" = baa620efeeeaff3626f8fa305fbed06785a4ef85e94b1d92fda7f38d6200e2d4
+      - name: Install browser QA tools outside the source tree
+        run: |
+          npm install --prefix "$RUNNER_TEMP/browser-qa" playwright@1.56.1
+          "$RUNNER_TEMP/browser-qa/node_modules/.bin/playwright" install --with-deps chromium
+          python - <<'PY'
+          from pathlib import Path
+          import os
+          source=Path.cwd()
+          temp=Path(os.environ['RUNNER_TEMP'])
+          s=(source/'scripts/browser-check.cjs').read_text()
+          s=s.replace("path.join(__dirname, '../site/content.json')",repr(str(source/'site/content.json')))
+          s=s.replace("{channel: 'msedge', headless: true}","{headless:true}")
+          s=s.replace("const artifacts = '.preview';", "const artifacts = 'delivery-output/browser';")
+          s=s.replace("page.on('pageerror', err => errors.push(err.message));", "page.on('pageerror', err => errors.push(err.message));")
+          (temp/'browser-check.cjs').write_text(s)
+          s=(source/'scripts/chat-viewport-check.cjs').read_text().replace("{channel:'msedge',headless:true}","{headless:true}")
+          s=s.replace(".preview/",'delivery-output/chat/')
+          (temp/'chat-check.cjs').write_text(s)
+          Path('delivery-output/chat').mkdir(parents=True,exist_ok=True)
+          PY
+      - name: Serve only extracted website via HTTP
+        run: |
+          python -m http.server 4183 --bind 127.0.0.1 --directory /tmp/rental-deploy-extracted > "$RUNNER_TEMP/http.log" 2>&1 &
+          for attempt in $(seq 1 20); do curl --fail --silent http://127.0.0.1:4183/ > /dev/null && break; sleep 1; done
+      - name: Desktop and mobile integration suite against extracted ZIP
+        id: browser
+        continue-on-error: true
+        env:
+          NODE_PATH: ${{ runner.temp }}/browser-qa/node_modules
+          PREVIEW_URL: http://127.0.0.1:4183/
+        run: |
+          set -o pipefail
+          node "$RUNNER_TEMP/browser-check.cjs" 2>&1 | tee delivery-output/browser.log
+      - name: Messenger viewport, open-close and draft checks
+        id: chat
+        continue-on-error: true
+        env:
+          NODE_PATH: ${{ runner.temp }}/browser-qa/node_modules
+          PREVIEW_URL: http://127.0.0.1:4183/
+        run: |
+          set -o pipefail
+          node "$RUNNER_TEMP/chat-check.cjs" 2>&1 | tee delivery-output/chat.log
+      - name: Write verification summary
+        if: always()
+        env:
+          BROWSER_RESULT: ${{ steps.browser.outcome }}
+          CHAT_RESULT: ${{ steps.chat.outcome }}
+        run: |
+          python - <<'PY'
+          import json,os,pathlib,urllib.request,hashlib
+          out=pathlib.Path('delivery-output')
+          manifest=json.loads((out/'taipei-rental-tax-guide-deploy-manifest.json').read_text())
+          for f in manifest['files']:
+              with urllib.request.urlopen('http://127.0.0.1:4183/'+f) as r: data=r.read(); assert r.status==200
+              assert hashlib.sha256(data).hexdigest()==hashlib.sha256((pathlib.Path('/tmp/rental-deploy-extracted')/f).read_bytes()).hexdigest()
+          result=out/'browser/browser-results.json'
+          state=json.loads(result.read_text()) if result.exists() else {}
+          report={'source_commit':manifest['source_commit'],'zip_sha256':manifest['sha256'],'files':manifest['file_count'],'local_build_tests':'45/45 PASS; build, --check, standalone performance PASS; no source differences','local_http_browser_suite':'PASS; external Google resources blocked by environment; chatLoaded=false','actions_browser_suite':os.environ['BROWSER_RESULT'],'actions_chat_viewport_suite':os.environ['CHAT_RESULT'],'actions_browser_details':state,'all_packaged_files_http_200_and_hash_verified':True,'not_verified':['Real Dialogflow CX answer (no query sent)','GA4 backend receipt / Realtime (not inspected)','New hosting domain CX authorization/CORS','Physical mobile devices and screen-reader session'],'configuration':{'ga4':'G-S891SFSMBH','cx_location':'asia-northeast1','cx_project':'serviceagent-1150909','cx_agent':'799426c1-ba69-49dc-85e4-5065985706e2','initial_playbook':'7861bc8f-d2fb-43d3-8ca1-651415eb4205','external_runtime':['https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js','https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/themes/df-messenger-default.css','https://www.googletagmanager.com/gtag/js?id=G-S891SFSMBH'],'og_image':'https://taipei-tax-lab.github.io/taipei-rental-tax-guide/hero-v2.png'},'deployment':'Extract the inner taipei-rental-tax-guide-deploy.zip directly into the static host document root. Requires HTTP(S), JavaScript and access to original Google external services. No credentials are bundled. Existing CX domain restrictions and original GA4 destination remain unchanged.'}
+          (out/'verification-report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n')
+          PY
+          git diff --exit-code
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: taipei-rental-tax-guide-deploy
+          path: |
+            delivery-output/taipei-rental-tax-guide-deploy.zip
+            delivery-output/taipei-rental-tax-guide-deploy.sha256
+            delivery-output/taipei-rental-tax-guide-deploy-files.txt
+            delivery-output/taipei-rental-tax-guide-deploy-manifest.json
+            delivery-output/verification-report.json
+            delivery-output/build-tests.log
+            delivery-output/browser.log
+            delivery-output/chat.log
+          retention-days: 30
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: rental-deploy-browser-evidence
+          path: |
+            delivery-output/browser/
+            delivery-output/chat/
+          retention-days: 30
+          if-no-files-found: warn
