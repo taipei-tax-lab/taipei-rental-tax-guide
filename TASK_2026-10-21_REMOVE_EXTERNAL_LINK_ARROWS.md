@@ -2,10 +2,10 @@
 
 Status: **IMPLEMENTED_AWAITING_REVIEW — NOT RELEASED**
 
-Planning owner: ChatGPT  
-Implementation owner: Codex Cloud  
-Review/release owner: ChatGPT  
-Target repo: `taipei-tax-lab/taipei-rental-tax-guide`  
+Planning owner: ChatGPT
+Implementation owner: Codex Cloud
+Review/release owner: ChatGPT
+Target repo: `taipei-tax-lab/taipei-rental-tax-guide`
 Implementation: new branch from latest `main` (suggested `fix/remove-external-link-arrows`). Do not implement on this documentation branch.
 
 ## Goal
