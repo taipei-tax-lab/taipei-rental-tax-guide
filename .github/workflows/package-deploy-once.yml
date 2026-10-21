@@ -102,6 +102,7 @@ jobs:
           s=s.replace("{channel: 'msedge', headless: true}","{headless:true}")
           s=s.replace("const artifacts = '.preview';", "const artifacts = 'delivery-output/browser';")
           s=s.replace("page.on('pageerror', err => errors.push(err.message));", "page.on('pageerror', err => errors.push(err.message));")
+          s=s.replace("    assert.ok(await offlinePage.locator('[data-page=\"plan-public\"] .v2-next-step').isVisible());", "    await offlinePage.locator('[data-page=\"plan-public\"] .v2-next-step').waitFor();\n    assert.ok(await offlinePage.locator('[data-page=\"plan-public\"] .v2-next-step').isVisible());")
           (temp/'browser-check.cjs').write_text(s)
           s=(source/'scripts/chat-viewport-check.cjs').read_text().replace("{channel:'msedge',headless:true}","{headless:true}")
           s=s.replace(".preview/",'delivery-output/chat/')
@@ -114,7 +115,6 @@ jobs:
           for attempt in $(seq 1 20); do curl --fail --silent http://127.0.0.1:4183/ > /dev/null && break; sleep 1; done
       - name: Desktop and mobile integration suite against extracted ZIP
         id: browser
-        continue-on-error: true
         env:
           NODE_PATH: ${{ runner.temp }}/browser-qa/node_modules
           PREVIEW_URL: http://127.0.0.1:4183/
@@ -122,8 +122,8 @@ jobs:
           set -o pipefail
           node "$RUNNER_TEMP/browser-check.cjs" 2>&1 | tee delivery-output/browser.log
       - name: Messenger viewport, open-close and draft checks
+        if: always()
         id: chat
-        continue-on-error: true
         env:
           NODE_PATH: ${{ runner.temp }}/browser-qa/node_modules
           PREVIEW_URL: http://127.0.0.1:4183/
