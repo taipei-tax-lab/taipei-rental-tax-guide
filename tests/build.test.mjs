@@ -79,6 +79,19 @@ test('static anchors are unique and every internal link resolves', () => {
   assert.equal(new Set(allIds).size, allIds.length);
   for (const [, id] of html.matchAll(/href="#([^"]+)"/g)) assert.ok(allIds.includes(id), `Missing #${id}`);
 });
+test('external links omit decorative arrows and preserve new-window accessibility', () => {
+  const externalLinks = [...html.matchAll(/<a\b[^>]*href="https?:\/\/[^\"]*"[^>]*>[\s\S]*?<\/a>/g)];
+  assert.ok(externalLinks.length > 0, 'external links must be rendered');
+  for (const [anchor] of externalLinks) {
+    assert.doesNotMatch(anchor, /↗|&#(?:x2197|8599);/i);
+    assert.match(anchor, /target="_blank"/);
+    assert.match(anchor, /rel="noopener noreferrer"/);
+    assert.ok(anchor.includes('<span class="sr-only">（另開新視窗）</span>') ||
+      /aria-label="[^"]*（另開新視窗）"/.test(anchor), 'new-window context must remain accessible');
+  }
+  assert.match(html, /查看條件與辦理方式 <span aria-hidden="true">→<\/span>/);
+  assert.match(html, /<span class="v2-expand" aria-hidden="true">＋<\/span>/);
+});
 test('all plans expose complete tax information and official next steps without client-side rendering', () => {
   for (const plan of data.plans) {
     assert.ok(html.includes(`data-page="plan-${plan.id}"`));

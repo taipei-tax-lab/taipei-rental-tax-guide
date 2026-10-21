@@ -7,7 +7,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const read = name => normalizeEol(fs.readFileSync(path.join(root, name), 'utf8'));
 const data = JSON.parse(read('site/content.json'));
 const esc = value => String(value).replace(/[&<>"']/g, char => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'}[char]));
-const link = (item, cls = '') => `<a class="${cls}" href="${esc(item.href)}" target="_blank" rel="noopener noreferrer">${esc(item.label)} <span aria-hidden="true">↗</span><span class="sr-only">（另開新視窗）</span></a>`;
+const link = (item, cls = '') => `<a class="${cls}" href="${esc(item.href)}" target="_blank" rel="noopener noreferrer">${esc(item.label)}<span class="sr-only">（另開新視窗）</span></a>`;
 const list = items => `<ul>${items.map(item => `<li>${esc(item)}</li>`).join('')}</ul>`;
 const icon = name => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${name === 'person' ? '<circle cx="12" cy="7" r="3"/><path d="M5 21v-3a7 7 0 0 1 14 0v3"/>' : name === 'building' ? '<path d="M4 21V3h10v18M14 9h6v12M7 7h3M7 11h3M7 15h3M17 13h1M17 17h1M9 21v-3h2v3"/>' : name === 'operator' ? '<path d="M3 21V7l9-4 9 4v17M7 10h3M14 10h3M7 14h3M14 14h3M10 21v-4h4v4"/>' : name === 'subsidy' ? '<path d="m3 10 9-7 9 7M5 9v12h14V9"/><path d="m8 15 3 3 5-6"/>' : '<path d="m3 10 9-7 9 7M5 9v12h14V9M9 21v-7h6v7"/>'}</svg>`;
 const planIcon = id => {
