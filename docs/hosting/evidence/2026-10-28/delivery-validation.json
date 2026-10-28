@@ -1,5 +1,5 @@
 {
-  "files_scanned": 27,
+  "files_scanned": 30,
   "credential_and_session_patterns": [
     "private_key",
     "google_access_token",

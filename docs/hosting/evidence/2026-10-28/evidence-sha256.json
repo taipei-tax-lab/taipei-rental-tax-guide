@@ -37,7 +37,7 @@
   {
     "path": "delivery-validation.json",
     "bytes": 424,
-    "sha256": "7c31d1f79b54f86368aa47a54333f2cb57e014d9df79c5781e3be874206ec57a"
+    "sha256": "0a6a12f937067e2a357786f75a28fc4957ed959bcc273a752c440af001fb45d3"
   },
   {
     "path": "deployment-manifest.json",
@@ -111,8 +111,8 @@
   },
   {
     "path": "README.md",
-    "bytes": 3527,
-    "sha256": "9f730c41aa5b40507023f2020b0a1e01b1b795b17f9fc649d7de52db9a772fc8"
+    "bytes": 3680,
+    "sha256": "d65aea9c0662fef81ec413d1a4cfbb8bce98292026f0fcb6b40b27afbe4f61cb"
   },
   {
     "path": "resource-summary.json",

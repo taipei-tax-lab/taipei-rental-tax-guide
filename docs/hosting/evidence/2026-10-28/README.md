@@ -1,6 +1,6 @@
 # 診斷證據索引
 
-全部為 2026-10-28 當日結果；UTC 時間換算臺北需 +8 小時。此目錄只收去識別化證據，沒有 OAuth、ADC、Cookie、token、session、完整 HAR、私有 Integration 配置或完整 Google 回應。
+全部為 2026-10-28 當日結果；UTC 時間換算臺北需 +8 小時。此目錄只收去識別化證據，沒有 OAuth、ADC、Cookie、token、session、完整 HAR、私有 Integration 配置或完整 Google 回應。上一層 `.gitattributes` 限定本日期證據不作文字行尾轉換，讓 Git blob、重新 checkout 與 evidence-sha256.json 的原 bytes 一致。
 
 | 檔案 | 用途／限制 |
 |---|---|
