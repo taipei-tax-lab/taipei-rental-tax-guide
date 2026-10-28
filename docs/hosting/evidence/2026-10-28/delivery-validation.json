@@ -1,0 +1,13 @@
+{
+  "files_scanned": 27,
+  "credential_and_session_patterns": [
+    "private_key",
+    "google_access_token",
+    "oauth_refresh",
+    "bearer_value",
+    "live_session",
+    "credential_json"
+  ],
+  "findings": [],
+  "policy": "Only public HTTP headers allowlist; URLs/session values redacted; no HAR, ADC, OAuth, cookies or full private configs; fresh anonymous screenshots inspected for intended content."
+}

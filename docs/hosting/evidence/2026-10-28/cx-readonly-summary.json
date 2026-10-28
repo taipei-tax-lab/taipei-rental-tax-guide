@@ -1,0 +1,20 @@
+{
+  "time": "2026-10-28T11:22:55.623814+00:00",
+  "scope": "Production Environment and Rental Playbook GET only; no runtime calls or mutations; private Integration settings not obtained",
+  "checks": [
+    {
+      "target": "production",
+      "status": 200,
+      "display_name_is_Production": true,
+      "mapping_count": 4,
+      "rental_v3_mapped": true,
+      "exact_versions_equal_20261013_baseline": true
+    },
+    {
+      "target": "rental",
+      "status": 200,
+      "public_embed_resource_matches": true,
+      "display_name_is_Rental_Tax_Guide": true
+    }
+  ]
+}

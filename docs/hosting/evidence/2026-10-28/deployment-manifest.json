@@ -1,0 +1,299 @@
+[
+  {
+    "path": "index.html",
+    "bytes": 55841,
+    "sha256": "766c46a77d10ee7b12959b6e935fd809917c5a600445cf302696cc6b83ab0193",
+    "type": "text/html",
+    "referenced": true,
+    "reference_basis": "HTML/CSS/JS literal or constructed assistant state; candidates include unused fallback assets",
+    "in_original_deployment_zip": true
+  },
+  {
+    "path": "favicon.svg",
+    "bytes": 718,
+    "sha256": "3e8863288c2d43dd33d2a71de317dcf9198f09932ea8d61e0def1b846a865435",
+    "type": "image/svg+xml",
+    "referenced": false,
+    "reference_basis": "HTML/CSS/JS literal or constructed assistant state; candidates include unused fallback assets",
+    "in_original_deployment_zip": false
+  },
+  {
+    "path": "hero-v2.png",
+    "bytes": 2255231,
+    "sha256": "d86431a9f10d61eee5ba1e12a101ed1b22f70d7e1d577728c875b2743acfa831",
+    "type": "image/png",
+    "referenced": true,
+    "reference_basis": "HTML/CSS/JS literal or constructed assistant state; candidates include unused fallback assets",
+    "in_original_deployment_zip": true
+  },
+  {
+    "path": "hero-v2.webp",
+    "bytes": 116434,
+    "sha256": "32b09535d7eabd8e5ee980efca6862e511b7ae022954dba381d02c103bfe4411",
+    "type": "application/octet-stream",
+    "referenced": true,
+    "reference_basis": "HTML/CSS/JS literal or constructed assistant state; candidates include unused fallback assets",
+    "in_original_deployment_zip": true
+  },
+  {
+    "path": ".nojekyll",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "type": "application/octet-stream",
+    "referenced": false,
+    "reference_basis": "HTML/CSS/JS literal or constructed assistant state; candidates include unused fallback assets",
+    "in_original_deployment_zip": true
+  },
+  {
+    "path": "assets/css/guide-v2.css",
+    "bytes": 35796,
+    "sha256": "b94a2f5b5763a3c4ce0daf337f39bb85c393ab2abfdf79902aa2445346822a41",
+    "type": "text/css",
+    "referenced": true,
+    "reference_basis": "HTML/CSS/JS literal or constructed assistant state; candidates include unused fallback assets",
+    "in_original_deployment_zip": true
+  },
+  {
+    "path": "assets/css/messenger.css",
+    "bytes": 9883,
+    "sha256": "3a502568c74942d3ac2d77c7bd100e8689af806884cf08c45cb742fc03da1a87",
+    "type": "text/css",
+    "referenced": true,
+    "reference_basis": "HTML/CSS/JS literal or constructed assistant state; candidates include unused fallback assets",
+    "in_original_deployment_zip": true
+  },
+  {
+    "path": "assets/css/site.css",
+    "bytes": 53213,
+    "sha256": "a00e880ef949cf979af6379c830742d7d906687001b812261bfb3179cf844c51",
+    "type": "text/css",
+    "referenced": true,
+    "reference_basis": "HTML/CSS/JS literal or constructed assistant state; candidates include unused fallback assets",
+    "in_original_deployment_zip": true
+  },
+  {
+    "path": "assets/images/assistant/assistant-assets-manifest.json",
+    "bytes": 744,
+    "sha256": "cae954a5d0c5019877ffa71aee7929aa118fe453b64f3484f361bba0d3dc41d7",
+    "type": "application/json",
+    "referenced": false,
+    "reference_basis": "HTML/CSS/JS literal or constructed assistant state; candidates include unused fallback assets",
+    "in_original_deployment_zip": false
+  },
+  {
+    "path": "assets/images/assistant/assistant-chat-bubble.png",
+    "bytes": 117537,
+    "sha256": "61ab3a6b9aa7252b15dcbcdefee839a7be0514f2ae6eee36c4b78181c8385e2e",
+    "type": "image/png",
+    "referenced": true,
+    "reference_basis": "HTML/CSS/JS literal or constructed assistant state; candidates include unused fallback assets",
+    "in_original_deployment_zip": true
+  },
+  {
+    "path": "assets/images/assistant/assistant-error.png",
+    "bytes": 289001,
+    "sha256": "a650a64f6c0672f14466409c28dc776d834f9cc2a63fb7cd7e6c69cb02c493ae",
+    "type": "image/png",
+    "referenced": true,
+    "reference_basis": "HTML/CSS/JS literal or constructed assistant state; candidates include unused fallback assets",
+    "in_original_deployment_zip": true
+  },
+  {
+    "path": "assets/images/assistant/assistant-error.webp",
+    "bytes": 199748,
+    "sha256": "ae10a90394656db4d020e0ee1eed9017df4581ccd54bdd854695ef7a2a682354",
+    "type": "application/octet-stream",
+    "referenced": true,
+    "reference_basis": "HTML/CSS/JS literal or constructed assistant state; candidates include unused fallback assets",
+    "in_original_deployment_zip": true
+  },
+  {
+    "path": "assets/images/assistant/assistant-guiding.png",
+    "bytes": 286650,
+    "sha256": "73a89dfc13456756f7d8b14c1e0b7a70a5cf03dcf84b2eb0d2d16e817df14356",
+    "type": "image/png",
+    "referenced": true,
+    "reference_basis": "HTML/CSS/JS literal or constructed assistant state; candidates include unused fallback assets",
+    "in_original_deployment_zip": true
+  },
+  {
+    "path": "assets/images/assistant/assistant-guiding.webp",
+    "bytes": 197076,
+    "sha256": "ce269cdc7577c3680387d95c6aab005aa4975fcb6c90cfa299ba0344e64ce42e",
+    "type": "application/octet-stream",
+    "referenced": true,
+    "reference_basis": "HTML/CSS/JS literal or constructed assistant state; candidates include unused fallback assets",
+    "in_original_deployment_zip": true
+  },
+  {
+    "path": "assets/images/assistant/assistant-idle.png",
+    "bytes": 302114,
+    "sha256": "559994a04786512545babe0ec4d61f3afa2beb9a2f6e2212cd4379604f3ad789",
+    "type": "image/png",
+    "referenced": true,
+    "reference_basis": "HTML/CSS/JS literal or constructed assistant state; candidates include unused fallback assets",
+    "in_original_deployment_zip": true
+  },
+  {
+    "path": "assets/images/assistant/assistant-idle.webp",
+    "bytes": 252328,
+    "sha256": "aafa0679a39a913cfc2b6dc58ee7af8ecd7adfd8d3cce92f890f55c8c177db5f",
+    "type": "application/octet-stream",
+    "referenced": true,
+    "reference_basis": "HTML/CSS/JS literal or constructed assistant state; candidates include unused fallback assets",
+    "in_original_deployment_zip": true
+  },
+  {
+    "path": "assets/images/assistant/assistant-responding.png",
+    "bytes": 310627,
+    "sha256": "2580ae0592fa7cdd768b8c6ff1c6900849d3c34559449dda1deeb8ab14764473",
+    "type": "image/png",
+    "referenced": true,
+    "reference_basis": "HTML/CSS/JS literal or constructed assistant state; candidates include unused fallback assets",
+    "in_original_deployment_zip": true
+  },
+  {
+    "path": "assets/images/assistant/assistant-responding.webp",
+    "bytes": 320616,
+    "sha256": "b34da392c893d293916a822e5d9888953aed8c5d2c0aeac908e6fccddebcf7f2",
+    "type": "application/octet-stream",
+    "referenced": true,
+    "reference_basis": "HTML/CSS/JS literal or constructed assistant state; candidates include unused fallback assets",
+    "in_original_deployment_zip": true
+  },
+  {
+    "path": "assets/images/assistant/assistant-thinking.png",
+    "bytes": 300602,
+    "sha256": "81e91674223f9f532cd9c09ab829bd6205ebcf011e0e20b55a9ff505d3b80fc4",
+    "type": "image/png",
+    "referenced": true,
+    "reference_basis": "HTML/CSS/JS literal or constructed assistant state; candidates include unused fallback assets",
+    "in_original_deployment_zip": true
+  },
+  {
+    "path": "assets/images/assistant/assistant-thinking.webp",
+    "bytes": 206924,
+    "sha256": "04b28df68087527ec427dc2134cc50ee6af9fc33d12328fd5c9bc1af54160794",
+    "type": "application/octet-stream",
+    "referenced": true,
+    "reference_basis": "HTML/CSS/JS literal or constructed assistant state; candidates include unused fallback assets",
+    "in_original_deployment_zip": true
+  },
+  {
+    "path": "assets/images/assistant/assistant-welcome.png",
+    "bytes": 328404,
+    "sha256": "048cf07cb47e750a2f355a1ef98d27a213687c4d07a26e9fd6e534aa02932dfe",
+    "type": "image/png",
+    "referenced": true,
+    "reference_basis": "HTML/CSS/JS literal or constructed assistant state; candidates include unused fallback assets",
+    "in_original_deployment_zip": true
+  },
+  {
+    "path": "assets/images/assistant/assistant-welcome.webp",
+    "bytes": 320616,
+    "sha256": "b34da392c893d293916a822e5d9888953aed8c5d2c0aeac908e6fccddebcf7f2",
+    "type": "application/octet-stream",
+    "referenced": true,
+    "reference_basis": "HTML/CSS/JS literal or constructed assistant state; candidates include unused fallback assets",
+    "in_original_deployment_zip": true
+  },
+  {
+    "path": "assets/images/income-standard-card.png",
+    "bytes": 463340,
+    "sha256": "1382e6fbd1c16b8e197629e1b0bbc59f842cfc68d4aa134411bcda55dbbd7915",
+    "type": "image/png",
+    "referenced": true,
+    "reference_basis": "HTML/CSS/JS literal or constructed assistant state; candidates include unused fallback assets",
+    "in_original_deployment_zip": true
+  },
+  {
+    "path": "assets/images/income-standard-card.webp",
+    "bytes": 359782,
+    "sha256": "b69513ef4320641c5c815facf2ff13027bdd05e59f1fcf7a252eb8fad727e19a",
+    "type": "application/octet-stream",
+    "referenced": true,
+    "reference_basis": "HTML/CSS/JS literal or constructed assistant state; candidates include unused fallback assets",
+    "in_original_deployment_zip": true
+  },
+  {
+    "path": "assets/images/income-standard-illustration.png",
+    "bytes": 123715,
+    "sha256": "a098f44c3674fcd1200d7c969f852ffec6c87e75f88f7c2a995ad85c22c97792",
+    "type": "image/png",
+    "referenced": true,
+    "reference_basis": "HTML/CSS/JS literal or constructed assistant state; candidates include unused fallback assets",
+    "in_original_deployment_zip": true
+  },
+  {
+    "path": "assets/images/income-standard-illustration.webp",
+    "bytes": 92282,
+    "sha256": "0c1aacf499022ff9136e680167aa532d6842bfdfd3b7626cdd05628765b9450e",
+    "type": "application/octet-stream",
+    "referenced": true,
+    "reference_basis": "HTML/CSS/JS literal or constructed assistant state; candidates include unused fallback assets",
+    "in_original_deployment_zip": true
+  },
+  {
+    "path": "assets/images/tpctax-logo.png",
+    "bytes": 46195,
+    "sha256": "a29a14aaa5d99bf73597d367853bae8b101a2ee1f3cfe8e50a3e85de285914c5",
+    "type": "image/png",
+    "referenced": true,
+    "reference_basis": "HTML/CSS/JS literal or constructed assistant state; candidates include unused fallback assets",
+    "in_original_deployment_zip": true
+  },
+  {
+    "path": "assets/images/tpctax-mark.png",
+    "bytes": 19775,
+    "sha256": "f9a9bb323235c10c6cf1933a495bfca29de5d5975e50820dc9dc6448168f6134",
+    "type": "image/png",
+    "referenced": true,
+    "reference_basis": "HTML/CSS/JS literal or constructed assistant state; candidates include unused fallback assets",
+    "in_original_deployment_zip": true
+  },
+  {
+    "path": "assets/js/analytics.js",
+    "bytes": 2623,
+    "sha256": "a9ee7a2b9e18945ec868af71b8b4f5dd4190029fe3a9cf9a89bb139317d55801",
+    "type": "text/javascript",
+    "referenced": true,
+    "reference_basis": "HTML/CSS/JS literal or constructed assistant state; candidates include unused fallback assets",
+    "in_original_deployment_zip": true
+  },
+  {
+    "path": "assets/js/guide-rules.js",
+    "bytes": 5260,
+    "sha256": "41c1a336def08a0e03b9c8ea8cc3cdd17f28a7c4fd631350d54747f7ef6902bb",
+    "type": "text/javascript",
+    "referenced": true,
+    "reference_basis": "HTML/CSS/JS literal or constructed assistant state; candidates include unused fallback assets",
+    "in_original_deployment_zip": true
+  },
+  {
+    "path": "assets/js/guide-ui.js",
+    "bytes": 14922,
+    "sha256": "861585b4a46204b0e60ce8bd202827f7fa90f02ee6b6b63e9b27233dafe175b2",
+    "type": "text/javascript",
+    "referenced": true,
+    "reference_basis": "HTML/CSS/JS literal or constructed assistant state; candidates include unused fallback assets",
+    "in_original_deployment_zip": true
+  },
+  {
+    "path": "assets/js/messenger-ui.js",
+    "bytes": 41116,
+    "sha256": "2d74b32c60e585459f06f3d47c0a9d09219781ee7d53268210fa00889a5e4407",
+    "type": "text/javascript",
+    "referenced": true,
+    "reference_basis": "HTML/CSS/JS literal or constructed assistant state; candidates include unused fallback assets",
+    "in_original_deployment_zip": true
+  },
+  {
+    "path": "assets/js/site-enhancements.js",
+    "bytes": 3230,
+    "sha256": "f545490472e7ff22b4a70d95089e0df6fcc2251579dea4761578bff5c14d809a",
+    "type": "text/javascript",
+    "referenced": false,
+    "reference_basis": "HTML/CSS/JS literal or constructed assistant state; candidates include unused fallback assets",
+    "in_original_deployment_zip": false
+  }
+]

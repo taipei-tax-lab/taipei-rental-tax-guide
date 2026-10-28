@@ -1,0 +1,81 @@
+{
+  "sites": [
+    {
+      "site": "pages",
+      "runtime_referenced_files": 29,
+      "runtime_404": [],
+      "all_non200_candidates": []
+    },
+    {
+      "site": "official",
+      "runtime_referenced_files": 29,
+      "runtime_404": [
+        "hero-v2.webp",
+        "assets/images/assistant/assistant-error.webp",
+        "assets/images/assistant/assistant-guiding.webp",
+        "assets/images/assistant/assistant-idle.webp",
+        "assets/images/assistant/assistant-responding.webp",
+        "assets/images/assistant/assistant-thinking.webp",
+        "assets/images/assistant/assistant-welcome.webp",
+        "assets/images/income-standard-card.webp",
+        "assets/images/income-standard-illustration.webp"
+      ],
+      "all_non200_candidates": [
+        {
+          "path": ".nojekyll",
+          "status": 404
+        },
+        {
+          "path": "assets/images/assistant/assistant-assets-manifest.json",
+          "status": 404
+        },
+        {
+          "path": "assets/images/assistant/assistant-error.webp",
+          "status": 404
+        },
+        {
+          "path": "assets/images/assistant/assistant-guiding.webp",
+          "status": 404
+        },
+        {
+          "path": "assets/images/assistant/assistant-idle.webp",
+          "status": 404
+        },
+        {
+          "path": "assets/images/assistant/assistant-responding.webp",
+          "status": 404
+        },
+        {
+          "path": "assets/images/assistant/assistant-thinking.webp",
+          "status": 404
+        },
+        {
+          "path": "assets/images/assistant/assistant-welcome.webp",
+          "status": 404
+        },
+        {
+          "path": "assets/images/income-standard-card.webp",
+          "status": 404
+        },
+        {
+          "path": "assets/images/income-standard-illustration.webp",
+          "status": 404
+        },
+        {
+          "path": "assets/js/site-enhancements.js",
+          "status": 404
+        },
+        {
+          "path": "favicon.svg",
+          "status": 404
+        },
+        {
+          "path": "hero-v2.webp",
+          "status": 404
+        }
+      ]
+    }
+  ],
+  "record_count": 87,
+  "note": "Per-site counts include no-query and cache-version query URLs; shared external Google scripts/styles are deduplicated across sites. SHA256 values are decoded HTTP bodies, not gzip transport hashes."
+}

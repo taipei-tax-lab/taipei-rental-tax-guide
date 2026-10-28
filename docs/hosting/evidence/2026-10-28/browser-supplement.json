@@ -1,0 +1,242 @@
+{
+  "started_at": "2026-10-28T11:21:08.796Z",
+  "runs": [
+    {
+      "site": "pages",
+      "width": 1440,
+      "navigation": [
+        {
+          "action": "[data-audience=\"tenant\"]",
+          "target_visible": true,
+          "hash": "#tenants"
+        },
+        {
+          "action": "[data-audience=\"owner\"]",
+          "target_visible": true,
+          "hash": "#owners"
+        },
+        {
+          "action": "a[href=\"#resources\"]",
+          "target_visible": true,
+          "hash": "#resources"
+        },
+        {
+          "action": "a[href=\"#plans\"]",
+          "target_visible": true,
+          "hash": "#plans"
+        }
+      ],
+      "resource_failures": [],
+      "guide": {
+        "result_links": 2,
+        "summary": [
+          "我自己處理",
+          "不確定房客的補貼資格"
+        ]
+      },
+      "launcher": {
+        "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-chat-bubble.png?v=assistant-chat-button-20260902-r3",
+        "width": 360
+      },
+      "response": {
+        "status": 200,
+        "content_type": "application/json; charset=utf-8",
+        "access_control_allow_origin": "https://taipei-tax-lab.github.io"
+      },
+      "response_event": {
+        "root_keys": [
+          "messages",
+          "data",
+          "raw"
+        ],
+        "answer_texts": [
+          "公益出租人的房屋稅優惠內容如下：\n\n*   **稅率**：減徵為 1.2%。\n*   **稅基折減**：原稅基折減 50%，自 113 年 7 月起分 4 年緩步恢復。針對 114 年期至 116 年期，房屋稅基分別折減 37.5%、25%、12.5%，對應的相當稅率如下：\n    *   114 年期：相當稅率 0.75%\n    *   115 年期：相當稅率 0.9%\n    *   116 年期：相當稅率 1.05%\n    *   117 年期起：稅基不再折減，恢復稅率 1.2%。\n*   **其他說明**：不計入全國歸戶；稅捐稽徵處會依都市發展局造冊資料主動辦理，無需自行申請。",
+          "公益出租人的房屋稅優惠內容如下：\n\n*   **稅率**：減徵為 1.2%。\n*   **稅基折減**：原稅基折減 50%，自 113 年 7 月起分 4 年緩步恢復。針對 114 年期至 116 年期，房屋稅基分別折減 37.5%、25%、12.5%，對應的相當稅率如下：\n    *   114 年期：相當稅率 0.75%\n    *   115 年期：相當稅率 0.9%\n    *   116 年期：相當稅率 1.05%\n    *   117 年期起：稅基不再折減，恢復稅率 1.2%。\n*   **其他說明**：不計入全國歸戶；稅捐稽徵處會依都市發展局造冊資料主動辦理，無需自行申請。",
+          "公益出租人的房屋稅優惠是什麼？"
+        ]
+      },
+      "visible_links": [],
+      "reply_elements": [
+        {
+          "tag": "DF-MESSENGER-MESSAGE-LIST",
+          "text": ""
+        },
+        {
+          "tag": "DF-TEXT-MESSAGE",
+          "text": ""
+        },
+        {
+          "tag": "DF-MARKDOWN-MESSAGE",
+          "text": ""
+        }
+      ],
+      "image_errors": []
+    },
+    {
+      "site": "pages",
+      "width": 390,
+      "navigation": [
+        {
+          "action": "[data-audience=\"tenant\"]",
+          "target_visible": true,
+          "hash": "#tenants"
+        },
+        {
+          "action": "[data-audience=\"owner\"]",
+          "target_visible": true,
+          "hash": "#owners"
+        },
+        {
+          "action": "a[href=\"#resources\"]",
+          "target_visible": true,
+          "hash": "#resources"
+        },
+        {
+          "action": "a[href=\"#plans\"]",
+          "target_visible": true,
+          "hash": "#plans"
+        }
+      ],
+      "resource_failures": [],
+      "guide": {
+        "result_links": 2,
+        "summary": [
+          "我自己處理",
+          "不確定房客的補貼資格"
+        ]
+      },
+      "launcher": {
+        "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-chat-bubble.png?v=assistant-chat-button-20260902-r3",
+        "width": 360
+      },
+      "image_errors": []
+    },
+    {
+      "site": "official",
+      "width": 1440,
+      "navigation": [
+        {
+          "action": "[data-audience=\"tenant\"]",
+          "target_visible": true,
+          "hash": "#tenants"
+        },
+        {
+          "action": "[data-audience=\"owner\"]",
+          "target_visible": true,
+          "hash": "#owners"
+        },
+        {
+          "action": "a[href=\"#resources\"]",
+          "target_visible": true,
+          "hash": "#resources"
+        },
+        {
+          "action": "a[href=\"#plans\"]",
+          "target_visible": true,
+          "hash": "#plans"
+        }
+      ],
+      "resource_failures": [
+        {
+          "url": "https://fonts.googleapis.com/icon?family=Material+Icons",
+          "reason": "csp"
+        },
+        {
+          "url": "https://fonts.googleapis.com/css?family=Google+Sans",
+          "reason": "csp"
+        },
+        {
+          "url": "https://fonts.googleapis.com/icon?family=Material+Icons",
+          "reason": "csp"
+        },
+        {
+          "url": "https://fonts.googleapis.com/icon?family=Material+Icons",
+          "reason": "csp"
+        },
+        {
+          "url": "https://fonts.googleapis.com/icon?family=Material+Icons",
+          "reason": "csp"
+        }
+      ],
+      "guide": {
+        "result_links": 2,
+        "summary": [
+          "我自己處理",
+          "不確定房客的補貼資格"
+        ]
+      },
+      "launcher": {
+        "src": "https://services.arpa.tpctax.dof.gov.taipei/rentaltax/assets/images/assistant/assistant-chat-bubble.png?v=assistant-chat-button-20260902-r3",
+        "width": 360
+      },
+      "image_errors": [
+        "https://services.arpa.tpctax.dof.gov.taipei/rentaltax/assets/images/income-standard-card.webp",
+        "https://services.arpa.tpctax.dof.gov.taipei/rentaltax/assets/images/assistant/assistant-idle.webp"
+      ]
+    },
+    {
+      "site": "official",
+      "width": 390,
+      "navigation": [
+        {
+          "action": "[data-audience=\"tenant\"]",
+          "target_visible": true,
+          "hash": "#tenants"
+        },
+        {
+          "action": "[data-audience=\"owner\"]",
+          "target_visible": true,
+          "hash": "#owners"
+        },
+        {
+          "action": "a[href=\"#resources\"]",
+          "target_visible": true,
+          "hash": "#resources"
+        },
+        {
+          "action": "a[href=\"#plans\"]",
+          "target_visible": true,
+          "hash": "#plans"
+        }
+      ],
+      "resource_failures": [
+        {
+          "url": "https://fonts.googleapis.com/icon?family=Material+Icons",
+          "reason": "csp"
+        },
+        {
+          "url": "https://fonts.googleapis.com/css?family=Google+Sans",
+          "reason": "csp"
+        },
+        {
+          "url": "https://fonts.googleapis.com/icon?family=Material+Icons",
+          "reason": "csp"
+        },
+        {
+          "url": "https://fonts.googleapis.com/icon?family=Material+Icons",
+          "reason": "csp"
+        },
+        {
+          "url": "https://fonts.googleapis.com/icon?family=Material+Icons",
+          "reason": "csp"
+        }
+      ],
+      "guide": {
+        "result_links": 2,
+        "summary": [
+          "我自己處理",
+          "不確定房客的補貼資格"
+        ]
+      },
+      "launcher": {
+        "src": "https://services.arpa.tpctax.dof.gov.taipei/rentaltax/assets/images/assistant/assistant-chat-bubble.png?v=assistant-chat-button-20260902-r3",
+        "width": 360
+      },
+      "image_errors": [
+        "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
+        "https://services.arpa.tpctax.dof.gov.taipei/rentaltax/assets/images/assistant/assistant-idle.webp"
+      ]
+    }
+  ],
+  "completed_at": "2026-10-28T11:21:52.957Z"
+}

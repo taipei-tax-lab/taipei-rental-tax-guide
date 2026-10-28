@@ -1,0 +1,47 @@
+{
+  "checked_at": "2026-10-28T11:26:10.618264+00:00",
+  "git": [
+    {
+      "repo": "taipei-tax-lab/taipei-rental-tax-guide",
+      "path": "E:/出租房屋優惠專區Dialogflow CX",
+      "before": "c7e45e59661b7309b5c69111d16da618ef1e8fa0",
+      "after": "d5fad9e52acdb6c8f46495903f9f9dfbdb3c8c1e",
+      "before_state": "clean main, aligned with old origin/main",
+      "after_state": "clean main=origin/main; fetch + pull --ff-only; isolated diagnostic worktree"
+    },
+    {
+      "repo": "taipei-tax-lab/dialogflow-cx-qa-framework",
+      "path": "E:/CX_QA_Framwork/github",
+      "before": "82229fb3a484585ffc6965efcc9a2dbd9b111791",
+      "after": "0b70dff918eaae0fed34c3fe79cfd576168dcd89",
+      "before_state": "clean main, aligned with old origin/main",
+      "after_state": "clean main=origin/main; fetch + pull --ff-only"
+    }
+  ],
+  "drive": {
+    "status": "BLOCKED_SAFE_SYNC_PROCEDURE_NOT_IDENTIFIED",
+    "local": "E:/CX_QA_Framwork/google_drive",
+    "cloud_root_verified_from": "QA README and successful connected Drive metadata listing",
+    "cloud_root_children": [
+      "runs",
+      "references",
+      "approved_suites"
+    ],
+    "local_root_children": [
+      "runs",
+      "references",
+      "approved_suites",
+      "source"
+    ],
+    "scope": "QA non-Git artifacts only; no code/repo/STATE/TASKS mirroring",
+    "existing_process": "Manual per-artifact download/upload and checksum readback documented; no verified project-wide conflict-safe status/dry-run sync program or baseline located in inspected repos. Existing root directory mismatch cannot justify overwrite.",
+    "performed": "Read-only root/runs listing and local inventory; no file upload/download/overwrite/delete performed in Drive. No project-wide dry-run available, no success claimed.",
+    "frontend_mapping": "No confirmed separate frontend Drive mapping; title search did not establish one; no new folders created.",
+    "new_non_git_artifacts": "No new QA run/corpus package requiring Drive upload; requested deidentified diagnostics archived in frontend Git only."
+  },
+  "adc": {
+    "initial": "RefreshError; no resource GET issued",
+    "recovered": "User completed existing tools/login.py official gcloud ADC login; local quota project configured; fresh GET200 checks in cx-readonly-summary.json",
+    "credential_outputs_committed": false
+  }
+}

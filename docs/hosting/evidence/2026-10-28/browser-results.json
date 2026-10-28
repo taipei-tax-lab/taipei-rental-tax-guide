@@ -1,0 +1,2723 @@
+{
+  "started_at": "2026-10-28T11:16:38.069Z",
+  "browser": "156.0.4314.42",
+  "tls_verification": true,
+  "method": "Normal CSP; no bypass; real sendQuery wrapper delegates original; no stubbed responses",
+  "runs": [
+    {
+      "site": "pages",
+      "width": 1440,
+      "console": [],
+      "pageerrors": [],
+      "network": [
+        {
+          "url": "https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/themes/df-messenger-default.css",
+          "method": "GET"
+        },
+        {
+          "url": "https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js",
+          "method": "GET"
+        },
+        {
+          "url": "https://www.google-analytics.com/g/collect",
+          "method": "POST",
+          "failed": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://www.google-analytics.com/g/collect",
+          "method": "POST",
+          "failed": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://www.google-analytics.com/g/collect",
+          "method": "POST",
+          "failed": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED]",
+          "method": "POST",
+          "request_context": {
+            "currentPlaybook": "projects/serviceagent-1150909/locations/asia-northeast1/agents/799426c1-ba69-49dc-85e4-5065985706e2/playbooks/7861bc8f-d2fb-43d3-8ca1-651415eb4205",
+            "timeZone": "Asia/Taipei",
+            "parameters": {
+              "runtime_current_date": "2026-10-28",
+              "runtime_entry_section": "plans",
+              "runtime_house_tax_context_version": "v1",
+              "runtime_house_tax_current_period": "116年期（課稅期間：民國115年7月1日至116年6月30日）",
+              "runtime_house_tax_may_bill_period": "115年期（課稅期間：民國114年7月1日至115年6月30日）",
+              "runtime_house_tax_explicit_date_status": "none",
+              "runtime_house_tax_explicit_date": null,
+              "runtime_house_tax_explicit_period": null
+            },
+            "hasQuery": true
+          }
+        },
+        {
+          "url": "https://www.google-analytics.com/g/collect",
+          "method": "POST",
+          "failed": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED]",
+          "method": "POST",
+          "request_context": {
+            "timeZone": "Asia/Taipei",
+            "parameters": {
+              "runtime_current_date": "2026-10-28",
+              "runtime_entry_section": "plans",
+              "runtime_house_tax_context_version": "v1",
+              "runtime_house_tax_current_period": "116年期（課稅期間：民國115年7月1日至116年6月30日）",
+              "runtime_house_tax_may_bill_period": "115年期（課稅期間：民國114年7月1日至115年6月30日）",
+              "runtime_house_tax_explicit_date_status": "none",
+              "runtime_house_tax_explicit_date": null,
+              "runtime_house_tax_explicit_period": null
+            },
+            "hasQuery": true
+          }
+        },
+        {
+          "url": "https://www.google-analytics.com/g/collect",
+          "method": "POST",
+          "failed": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED]",
+          "method": "POST",
+          "request_context": {
+            "timeZone": "Asia/Taipei",
+            "parameters": {
+              "runtime_current_date": "2026-10-28",
+              "runtime_entry_section": "plans",
+              "runtime_house_tax_context_version": "v1",
+              "runtime_house_tax_current_period": "116年期（課稅期間：民國115年7月1日至116年6月30日）",
+              "runtime_house_tax_may_bill_period": "115年期（課稅期間：民國114年7月1日至115年6月30日）",
+              "runtime_house_tax_explicit_date_status": "none",
+              "runtime_house_tax_explicit_date": null,
+              "runtime_house_tax_explicit_period": null
+            },
+            "hasQuery": true
+          }
+        },
+        {
+          "url": "https://www.google-analytics.com/g/collect",
+          "method": "POST",
+          "failed": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED]",
+          "method": "POST",
+          "request_context": {
+            "timeZone": "Asia/Taipei",
+            "parameters": {
+              "runtime_current_date": "2026-10-28",
+              "runtime_entry_section": "plans",
+              "runtime_house_tax_context_version": "v1",
+              "runtime_house_tax_current_period": "116年期（課稅期間：民國115年7月1日至116年6月30日）",
+              "runtime_house_tax_may_bill_period": "115年期（課稅期間：民國114年7月1日至115年6月30日）",
+              "runtime_house_tax_explicit_date_status": "none",
+              "runtime_house_tax_explicit_date": null,
+              "runtime_house_tax_explicit_period": null
+            },
+            "hasQuery": true
+          }
+        },
+        {
+          "url": "https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED]",
+          "method": "POST",
+          "request_context": {
+            "timeZone": "Asia/Taipei",
+            "parameters": {
+              "runtime_current_date": "2026-10-28",
+              "runtime_entry_section": "plans",
+              "runtime_house_tax_context_version": "v1",
+              "runtime_house_tax_current_period": "116年期（課稅期間：民國115年7月1日至116年6月30日）",
+              "runtime_house_tax_may_bill_period": "115年期（課稅期間：民國114年7月1日至115年6月30日）",
+              "runtime_house_tax_explicit_date_status": "none",
+              "runtime_house_tax_explicit_date": null,
+              "runtime_house_tax_explicit_period": null
+            },
+            "hasQuery": true
+          }
+        },
+        {
+          "url": "https://www.google-analytics.com/g/collect",
+          "method": "POST",
+          "failed": "net::ERR_ABORTED"
+        }
+      ],
+      "responses": [
+        {
+          "url": "https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/themes/df-messenger-default.css",
+          "status": 200
+        },
+        {
+          "url": "https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js",
+          "status": 200
+        },
+        {
+          "url": "https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED]",
+          "status": 200,
+          "body_capture": "NOT_CAPTURED_BY_PRIMARY_LISTENER"
+        },
+        {
+          "url": "https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED]",
+          "status": 200,
+          "body_capture": "NOT_CAPTURED_BY_PRIMARY_LISTENER"
+        },
+        {
+          "url": "https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED]",
+          "status": 200,
+          "body_capture": "NOT_CAPTURED_BY_PRIMARY_LISTENER"
+        },
+        {
+          "url": "https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED]",
+          "status": 200,
+          "body_capture": "NOT_CAPTURED_BY_PRIMARY_LISTENER"
+        },
+        {
+          "url": "https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED]",
+          "status": 200,
+          "body_capture": "NOT_CAPTURED_BY_PRIMARY_LISTENER"
+        }
+      ],
+      "actions": [
+        {
+          "action": "plan-ordinary",
+          "visible": true,
+          "taxes": 3
+        },
+        {
+          "action": "plan-public",
+          "visible": true,
+          "taxes": 3
+        },
+        {
+          "action": "plan-social",
+          "visible": true,
+          "taxes": 3
+        },
+        {
+          "action": "plan-personal",
+          "visible": true,
+          "taxes": 3
+        },
+        {
+          "action": "nav-comparison",
+          "visible": true
+        },
+        {
+          "action": "nav-resources",
+          "visible": false
+        },
+        {
+          "action": "open",
+          "expanded": "true"
+        },
+        {
+          "action": "quick-0",
+          "response_records": [
+            {
+              "url": "https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED]",
+              "status": 200,
+              "body_capture": "NOT_CAPTURED_BY_PRIMARY_LISTENER"
+            }
+          ],
+          "snapshot": {
+            "state": "idle",
+            "img": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-idle.webp",
+            "imgOK": true,
+            "events": [
+              {
+                "event": "df-messenger-loaded",
+                "t": 6902
+              },
+              {
+                "event": "df-chat-open-changed",
+                "t": 6909
+              },
+              {
+                "event": "df-chat-open-changed",
+                "t": 14565
+              },
+              {
+                "event": "df-request-sent",
+                "t": 16390
+              },
+              {
+                "event": "df-response-received",
+                "t": 25571
+              }
+            ]
+          }
+        },
+        {
+          "action": "quick-1",
+          "response_records": [
+            {
+              "url": "https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED]",
+              "status": 200,
+              "body_capture": "NOT_CAPTURED_BY_PRIMARY_LISTENER"
+            }
+          ],
+          "snapshot": {
+            "state": "idle",
+            "img": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-idle.webp",
+            "imgOK": true,
+            "events": [
+              {
+                "event": "df-chat-open-changed",
+                "t": 14565
+              },
+              {
+                "event": "df-request-sent",
+                "t": 16390
+              },
+              {
+                "event": "df-response-received",
+                "t": 25571
+              },
+              {
+                "event": "df-request-sent",
+                "t": 27484
+              },
+              {
+                "event": "df-response-received",
+                "t": 31491
+              }
+            ]
+          }
+        },
+        {
+          "action": "quick-2",
+          "response_records": [
+            {
+              "url": "https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED]",
+              "status": 200,
+              "body_capture": "NOT_CAPTURED_BY_PRIMARY_LISTENER"
+            }
+          ],
+          "snapshot": {
+            "state": "idle",
+            "img": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-idle.webp",
+            "imgOK": true,
+            "events": [
+              {
+                "event": "df-response-received",
+                "t": 25571
+              },
+              {
+                "event": "df-request-sent",
+                "t": 27484
+              },
+              {
+                "event": "df-response-received",
+                "t": 31491
+              },
+              {
+                "event": "df-request-sent",
+                "t": 33172
+              },
+              {
+                "event": "df-response-received",
+                "t": 39806
+              }
+            ]
+          }
+        },
+        {
+          "action": "quick-3",
+          "response_records": [
+            {
+              "url": "https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED]",
+              "status": 200,
+              "body_capture": "NOT_CAPTURED_BY_PRIMARY_LISTENER"
+            }
+          ],
+          "snapshot": {
+            "state": "idle",
+            "img": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-idle.webp",
+            "imgOK": true,
+            "events": [
+              {
+                "event": "df-response-received",
+                "t": 31491
+              },
+              {
+                "event": "df-request-sent",
+                "t": 33172
+              },
+              {
+                "event": "df-response-received",
+                "t": 39806
+              },
+              {
+                "event": "df-request-sent",
+                "t": 41482
+              },
+              {
+                "event": "df-response-received",
+                "t": 43356
+              }
+            ]
+          }
+        },
+        {
+          "action": "manual",
+          "response_records": [
+            {
+              "url": "https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED]",
+              "status": 200,
+              "body_capture": "NOT_CAPTURED_BY_PRIMARY_LISTENER"
+            }
+          ],
+          "snapshot": {
+            "state": "idle",
+            "img": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-idle.webp",
+            "imgOK": true,
+            "events": [
+              {
+                "event": "df-request-sent",
+                "t": 41482
+              },
+              {
+                "event": "df-response-received",
+                "t": 43356
+              },
+              {
+                "event": "df-user-input-entered",
+                "t": 45023
+              },
+              {
+                "event": "df-request-sent",
+                "t": 45032
+              },
+              {
+                "event": "df-response-received",
+                "t": 50481
+              }
+            ]
+          }
+        },
+        {
+          "action": "close",
+          "expanded": "false"
+        },
+        {
+          "action": "reopen",
+          "expanded": "true"
+        }
+      ],
+      "initial": {
+        "ready": false,
+        "messenger": "function",
+        "images": [
+          {
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/tpctax-logo.png",
+            "complete": true,
+            "width": 893
+          },
+          {
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/income-standard-card.webp",
+            "complete": true,
+            "width": 1040
+          },
+          {
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-idle.webp",
+            "complete": true,
+            "width": 400
+          }
+        ],
+        "embed": [
+          {
+            "name": "location",
+            "value": "asia-northeast1"
+          },
+          {
+            "name": "project-id",
+            "value": "serviceagent-1150909"
+          },
+          {
+            "name": "agent-id",
+            "value": "799426c1-ba69-49dc-85e4-5065985706e2"
+          },
+          {
+            "name": "data-initial-playbook",
+            "value": "projects/serviceagent-1150909/locations/asia-northeast1/agents/799426c1-ba69-49dc-85e4-5065985706e2/playbooks/7861bc8f-d2fb-43d3-8ca1-651415eb4205"
+          },
+          {
+            "name": "language-code",
+            "value": "zh-tw"
+          },
+          {
+            "name": "max-query-length",
+            "value": "-1"
+          },
+          {
+            "name": "style",
+            "value": "--rental-chat-top: 210px; --rental-chat-left: 996px; --df-messenger-chat-window-width: 430px; --df-messenger-chat-window-height: 680px;"
+          }
+        ]
+      },
+      "input_count": 1,
+      "final": {
+        "overflow": false,
+        "extras": 0,
+        "events": [
+          {
+            "event": "df-messenger-loaded",
+            "t": 6902
+          },
+          {
+            "event": "df-chat-open-changed",
+            "t": 6909
+          },
+          {
+            "event": "df-chat-open-changed",
+            "t": 14565
+          },
+          {
+            "event": "df-request-sent",
+            "t": 16390
+          },
+          {
+            "event": "df-response-received",
+            "t": 25571
+          },
+          {
+            "event": "df-request-sent",
+            "t": 27484
+          },
+          {
+            "event": "df-response-received",
+            "t": 31491
+          },
+          {
+            "event": "df-request-sent",
+            "t": 33172
+          },
+          {
+            "event": "df-response-received",
+            "t": 39806
+          },
+          {
+            "event": "df-request-sent",
+            "t": 41482
+          },
+          {
+            "event": "df-response-received",
+            "t": 43356
+          },
+          {
+            "event": "df-user-input-entered",
+            "t": 45023
+          },
+          {
+            "event": "df-request-sent",
+            "t": 45032
+          },
+          {
+            "event": "df-response-received",
+            "t": 50481
+          },
+          {
+            "event": "df-chat-open-changed",
+            "t": 52142
+          },
+          {
+            "event": "df-chat-open-changed",
+            "t": 52525
+          }
+        ],
+        "states": [
+          {
+            "state": "idle",
+            "t": 10162,
+            "src": "",
+            "ok": false
+          },
+          {
+            "state": "welcome",
+            "t": 14618,
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-idle.webp",
+            "ok": true
+          },
+          {
+            "state": "idle",
+            "t": 16122,
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-welcome.webp",
+            "ok": true
+          },
+          {
+            "state": "guiding",
+            "t": 16389,
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-idle.webp",
+            "ok": true
+          },
+          {
+            "state": "thinking",
+            "t": 17045,
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-guiding.webp",
+            "ok": true
+          },
+          {
+            "state": "responding",
+            "t": 25572,
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-thinking.webp",
+            "ok": true
+          },
+          {
+            "state": "idle",
+            "t": 26833,
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-responding.webp",
+            "ok": true
+          },
+          {
+            "state": "guiding",
+            "t": 27484,
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-idle.webp",
+            "ok": true
+          },
+          {
+            "state": "thinking",
+            "t": 28139,
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-guiding.webp",
+            "ok": true
+          },
+          {
+            "state": "responding",
+            "t": 31492,
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-thinking.webp",
+            "ok": true
+          },
+          {
+            "state": "idle",
+            "t": 32744,
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-responding.webp",
+            "ok": true
+          },
+          {
+            "state": "guiding",
+            "t": 33172,
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-idle.webp",
+            "ok": true
+          },
+          {
+            "state": "thinking",
+            "t": 33828,
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-guiding.webp",
+            "ok": true
+          },
+          {
+            "state": "responding",
+            "t": 39807,
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-thinking.webp",
+            "ok": true
+          },
+          {
+            "state": "idle",
+            "t": 41062,
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-responding.webp",
+            "ok": true
+          },
+          {
+            "state": "guiding",
+            "t": 41482,
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-idle.webp",
+            "ok": true
+          },
+          {
+            "state": "thinking",
+            "t": 42135,
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-guiding.webp",
+            "ok": true
+          },
+          {
+            "state": "responding",
+            "t": 43357,
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-thinking.webp",
+            "ok": true
+          },
+          {
+            "state": "idle",
+            "t": 44617,
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-responding.webp",
+            "ok": true
+          },
+          {
+            "state": "thinking",
+            "t": 45032,
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-idle.webp",
+            "ok": true
+          },
+          {
+            "state": "responding",
+            "t": 50482,
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-thinking.webp",
+            "ok": true
+          },
+          {
+            "state": "idle",
+            "t": 51735,
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-responding.webp",
+            "ok": true
+          },
+          {
+            "state": "idle",
+            "t": 52148,
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-idle.webp",
+            "ok": true
+          },
+          {
+            "state": "welcome",
+            "t": 52538,
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-idle.webp",
+            "ok": true
+          }
+        ],
+        "sends": [
+          {
+            "t": 16388,
+            "predefined": true
+          },
+          {
+            "t": 27483,
+            "predefined": true
+          },
+          {
+            "t": 33171,
+            "predefined": true
+          },
+          {
+            "t": 41481,
+            "predefined": true
+          }
+        ]
+      }
+    },
+    {
+      "site": "pages",
+      "width": 390,
+      "console": [],
+      "pageerrors": [],
+      "network": [
+        {
+          "url": "https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/themes/df-messenger-default.css",
+          "method": "GET"
+        },
+        {
+          "url": "https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js",
+          "method": "GET"
+        },
+        {
+          "url": "https://www.google-analytics.com/g/collect",
+          "method": "POST",
+          "failed": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://www.google-analytics.com/g/collect",
+          "method": "POST",
+          "failed": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://www.google-analytics.com/g/collect",
+          "method": "POST",
+          "failed": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED]",
+          "method": "POST",
+          "request_context": {
+            "currentPlaybook": "projects/serviceagent-1150909/locations/asia-northeast1/agents/799426c1-ba69-49dc-85e4-5065985706e2/playbooks/7861bc8f-d2fb-43d3-8ca1-651415eb4205",
+            "timeZone": "Asia/Taipei",
+            "parameters": {
+              "runtime_current_date": "2026-10-28",
+              "runtime_entry_section": "plans",
+              "runtime_house_tax_context_version": "v1",
+              "runtime_house_tax_current_period": "116年期（課稅期間：民國115年7月1日至116年6月30日）",
+              "runtime_house_tax_may_bill_period": "115年期（課稅期間：民國114年7月1日至115年6月30日）",
+              "runtime_house_tax_explicit_date_status": "none",
+              "runtime_house_tax_explicit_date": null,
+              "runtime_house_tax_explicit_period": null
+            },
+            "hasQuery": true
+          }
+        },
+        {
+          "url": "https://www.google-analytics.com/g/collect",
+          "method": "POST",
+          "failed": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED]",
+          "method": "POST",
+          "request_context": {
+            "timeZone": "Asia/Taipei",
+            "parameters": {
+              "runtime_current_date": "2026-10-28",
+              "runtime_entry_section": "plans",
+              "runtime_house_tax_context_version": "v1",
+              "runtime_house_tax_current_period": "116年期（課稅期間：民國115年7月1日至116年6月30日）",
+              "runtime_house_tax_may_bill_period": "115年期（課稅期間：民國114年7月1日至115年6月30日）",
+              "runtime_house_tax_explicit_date_status": "none",
+              "runtime_house_tax_explicit_date": null,
+              "runtime_house_tax_explicit_period": null
+            },
+            "hasQuery": true
+          }
+        },
+        {
+          "url": "https://www.google-analytics.com/g/collect",
+          "method": "POST",
+          "failed": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED]",
+          "method": "POST",
+          "request_context": {
+            "timeZone": "Asia/Taipei",
+            "parameters": {
+              "runtime_current_date": "2026-10-28",
+              "runtime_entry_section": "plans",
+              "runtime_house_tax_context_version": "v1",
+              "runtime_house_tax_current_period": "116年期（課稅期間：民國115年7月1日至116年6月30日）",
+              "runtime_house_tax_may_bill_period": "115年期（課稅期間：民國114年7月1日至115年6月30日）",
+              "runtime_house_tax_explicit_date_status": "none",
+              "runtime_house_tax_explicit_date": null,
+              "runtime_house_tax_explicit_period": null
+            },
+            "hasQuery": true
+          }
+        },
+        {
+          "url": "https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED]",
+          "method": "POST",
+          "request_context": {
+            "timeZone": "Asia/Taipei",
+            "parameters": {
+              "runtime_current_date": "2026-10-28",
+              "runtime_entry_section": "plans",
+              "runtime_house_tax_context_version": "v1",
+              "runtime_house_tax_current_period": "116年期（課稅期間：民國115年7月1日至116年6月30日）",
+              "runtime_house_tax_may_bill_period": "115年期（課稅期間：民國114年7月1日至115年6月30日）",
+              "runtime_house_tax_explicit_date_status": "none",
+              "runtime_house_tax_explicit_date": null,
+              "runtime_house_tax_explicit_period": null
+            },
+            "hasQuery": true
+          }
+        },
+        {
+          "url": "https://www.google-analytics.com/g/collect",
+          "method": "POST",
+          "failed": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED]",
+          "method": "POST",
+          "request_context": {
+            "timeZone": "Asia/Taipei",
+            "parameters": {
+              "runtime_current_date": "2026-10-28",
+              "runtime_entry_section": "plans",
+              "runtime_house_tax_context_version": "v1",
+              "runtime_house_tax_current_period": "116年期（課稅期間：民國115年7月1日至116年6月30日）",
+              "runtime_house_tax_may_bill_period": "115年期（課稅期間：民國114年7月1日至115年6月30日）",
+              "runtime_house_tax_explicit_date_status": "none",
+              "runtime_house_tax_explicit_date": null,
+              "runtime_house_tax_explicit_period": null
+            },
+            "hasQuery": true
+          }
+        },
+        {
+          "url": "https://www.google-analytics.com/g/collect",
+          "method": "POST",
+          "failed": "net::ERR_ABORTED"
+        }
+      ],
+      "responses": [
+        {
+          "url": "https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/themes/df-messenger-default.css",
+          "status": 200
+        },
+        {
+          "url": "https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js",
+          "status": 200
+        },
+        {
+          "url": "https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED]",
+          "status": 200,
+          "body_capture": "NOT_CAPTURED_BY_PRIMARY_LISTENER"
+        },
+        {
+          "url": "https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED]",
+          "status": 200,
+          "body_capture": "NOT_CAPTURED_BY_PRIMARY_LISTENER"
+        },
+        {
+          "url": "https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED]",
+          "status": 200,
+          "body_capture": "NOT_CAPTURED_BY_PRIMARY_LISTENER"
+        },
+        {
+          "url": "https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED]",
+          "status": 200,
+          "body_capture": "NOT_CAPTURED_BY_PRIMARY_LISTENER"
+        },
+        {
+          "url": "https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED]",
+          "status": 200,
+          "body_capture": "NOT_CAPTURED_BY_PRIMARY_LISTENER"
+        }
+      ],
+      "actions": [
+        {
+          "action": "plan-ordinary",
+          "visible": true,
+          "taxes": 3
+        },
+        {
+          "action": "plan-public",
+          "visible": true,
+          "taxes": 3
+        },
+        {
+          "action": "plan-social",
+          "visible": true,
+          "taxes": 3
+        },
+        {
+          "action": "plan-personal",
+          "visible": true,
+          "taxes": 3
+        },
+        {
+          "action": "nav-comparison",
+          "visible": true
+        },
+        {
+          "action": "nav-resources",
+          "visible": false
+        },
+        {
+          "action": "open",
+          "expanded": "true"
+        },
+        {
+          "action": "quick-0",
+          "response_records": [
+            {
+              "url": "https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED]",
+              "status": 200,
+              "body_capture": "NOT_CAPTURED_BY_PRIMARY_LISTENER"
+            }
+          ],
+          "snapshot": {
+            "state": "idle",
+            "img": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-idle.webp",
+            "imgOK": true,
+            "events": [
+              {
+                "event": "df-messenger-loaded",
+                "t": 758
+              },
+              {
+                "event": "df-chat-open-changed",
+                "t": 795
+              },
+              {
+                "event": "df-chat-open-changed",
+                "t": 3995
+              },
+              {
+                "event": "df-request-sent",
+                "t": 5805
+              },
+              {
+                "event": "df-response-received",
+                "t": 7637
+              }
+            ]
+          }
+        },
+        {
+          "action": "quick-1",
+          "response_records": [
+            {
+              "url": "https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED]",
+              "status": 200,
+              "body_capture": "NOT_CAPTURED_BY_PRIMARY_LISTENER"
+            }
+          ],
+          "snapshot": {
+            "state": "idle",
+            "img": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-idle.webp",
+            "imgOK": true,
+            "events": [
+              {
+                "event": "df-chat-open-changed",
+                "t": 3995
+              },
+              {
+                "event": "df-request-sent",
+                "t": 5805
+              },
+              {
+                "event": "df-response-received",
+                "t": 7637
+              },
+              {
+                "event": "df-request-sent",
+                "t": 9427
+              },
+              {
+                "event": "df-response-received",
+                "t": 14772
+              }
+            ]
+          }
+        },
+        {
+          "action": "quick-2",
+          "response_records": [
+            {
+              "url": "https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED]",
+              "status": 200,
+              "body_capture": "NOT_CAPTURED_BY_PRIMARY_LISTENER"
+            }
+          ],
+          "snapshot": {
+            "state": "idle",
+            "img": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-idle.webp",
+            "imgOK": true,
+            "events": [
+              {
+                "event": "df-response-received",
+                "t": 7637
+              },
+              {
+                "event": "df-request-sent",
+                "t": 9427
+              },
+              {
+                "event": "df-response-received",
+                "t": 14772
+              },
+              {
+                "event": "df-request-sent",
+                "t": 16469
+              },
+              {
+                "event": "df-response-received",
+                "t": 18920
+              }
+            ]
+          }
+        },
+        {
+          "action": "quick-3",
+          "response_records": [
+            {
+              "url": "https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED]",
+              "status": 200,
+              "body_capture": "NOT_CAPTURED_BY_PRIMARY_LISTENER"
+            }
+          ],
+          "snapshot": {
+            "state": "idle",
+            "img": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-idle.webp",
+            "imgOK": true,
+            "events": [
+              {
+                "event": "df-response-received",
+                "t": 14772
+              },
+              {
+                "event": "df-request-sent",
+                "t": 16469
+              },
+              {
+                "event": "df-response-received",
+                "t": 18920
+              },
+              {
+                "event": "df-request-sent",
+                "t": 20600
+              },
+              {
+                "event": "df-response-received",
+                "t": 22339
+              }
+            ]
+          }
+        },
+        {
+          "action": "manual",
+          "response_records": [
+            {
+              "url": "https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED]",
+              "status": 200,
+              "body_capture": "NOT_CAPTURED_BY_PRIMARY_LISTENER"
+            }
+          ],
+          "snapshot": {
+            "state": "idle",
+            "img": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-idle.webp",
+            "imgOK": true,
+            "events": [
+              {
+                "event": "df-request-sent",
+                "t": 20600
+              },
+              {
+                "event": "df-response-received",
+                "t": 22339
+              },
+              {
+                "event": "df-user-input-entered",
+                "t": 23982
+              },
+              {
+                "event": "df-request-sent",
+                "t": 23988
+              },
+              {
+                "event": "df-response-received",
+                "t": 29935
+              }
+            ]
+          }
+        },
+        {
+          "action": "close",
+          "expanded": "false"
+        },
+        {
+          "action": "reopen",
+          "expanded": "true"
+        }
+      ],
+      "initial": {
+        "ready": false,
+        "messenger": "function",
+        "images": [
+          {
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/tpctax-logo.png",
+            "complete": true,
+            "width": 893
+          },
+          {
+            "src": "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
+            "complete": true,
+            "width": 1
+          },
+          {
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-idle.webp",
+            "complete": true,
+            "width": 400
+          }
+        ],
+        "embed": [
+          {
+            "name": "location",
+            "value": "asia-northeast1"
+          },
+          {
+            "name": "project-id",
+            "value": "serviceagent-1150909"
+          },
+          {
+            "name": "agent-id",
+            "value": "799426c1-ba69-49dc-85e4-5065985706e2"
+          },
+          {
+            "name": "data-initial-playbook",
+            "value": "projects/serviceagent-1150909/locations/asia-northeast1/agents/799426c1-ba69-49dc-85e4-5065985706e2/playbooks/7861bc8f-d2fb-43d3-8ca1-651415eb4205"
+          },
+          {
+            "name": "language-code",
+            "value": "zh-tw"
+          },
+          {
+            "name": "max-query-length",
+            "value": "-1"
+          },
+          {
+            "name": "style",
+            "value": "--rental-chat-top: 66px; --rental-chat-left: 14px; --df-messenger-chat-window-width: 362px; --df-messenger-chat-window-height: 680px;"
+          }
+        ]
+      },
+      "input_count": 1,
+      "final": {
+        "overflow": false,
+        "extras": 0,
+        "events": [
+          {
+            "event": "df-messenger-loaded",
+            "t": 758
+          },
+          {
+            "event": "df-chat-open-changed",
+            "t": 795
+          },
+          {
+            "event": "df-chat-open-changed",
+            "t": 3995
+          },
+          {
+            "event": "df-request-sent",
+            "t": 5805
+          },
+          {
+            "event": "df-response-received",
+            "t": 7637
+          },
+          {
+            "event": "df-request-sent",
+            "t": 9427
+          },
+          {
+            "event": "df-response-received",
+            "t": 14772
+          },
+          {
+            "event": "df-request-sent",
+            "t": 16469
+          },
+          {
+            "event": "df-response-received",
+            "t": 18920
+          },
+          {
+            "event": "df-request-sent",
+            "t": 20600
+          },
+          {
+            "event": "df-response-received",
+            "t": 22339
+          },
+          {
+            "event": "df-user-input-entered",
+            "t": 23982
+          },
+          {
+            "event": "df-request-sent",
+            "t": 23988
+          },
+          {
+            "event": "df-response-received",
+            "t": 29935
+          },
+          {
+            "event": "df-chat-open-changed",
+            "t": 31591
+          },
+          {
+            "event": "df-chat-open-changed",
+            "t": 31958
+          }
+        ],
+        "states": [
+          {
+            "state": "idle",
+            "t": 1135,
+            "src": "",
+            "ok": false
+          },
+          {
+            "state": "welcome",
+            "t": 4003,
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-idle.webp",
+            "ok": true
+          },
+          {
+            "state": "idle",
+            "t": 5513,
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-welcome.webp",
+            "ok": true
+          },
+          {
+            "state": "guiding",
+            "t": 5805,
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-idle.webp",
+            "ok": true
+          },
+          {
+            "state": "thinking",
+            "t": 6457,
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-guiding.webp",
+            "ok": true
+          },
+          {
+            "state": "responding",
+            "t": 7638,
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-thinking.webp",
+            "ok": true
+          },
+          {
+            "state": "idle",
+            "t": 8902,
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-responding.webp",
+            "ok": true
+          },
+          {
+            "state": "guiding",
+            "t": 9426,
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-idle.webp",
+            "ok": true
+          },
+          {
+            "state": "thinking",
+            "t": 10076,
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-guiding.webp",
+            "ok": true
+          },
+          {
+            "state": "responding",
+            "t": 14773,
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-thinking.webp",
+            "ok": true
+          },
+          {
+            "state": "idle",
+            "t": 16032,
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-responding.webp",
+            "ok": true
+          },
+          {
+            "state": "guiding",
+            "t": 16468,
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-idle.webp",
+            "ok": true
+          },
+          {
+            "state": "thinking",
+            "t": 17120,
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-guiding.webp",
+            "ok": true
+          },
+          {
+            "state": "responding",
+            "t": 18921,
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-thinking.webp",
+            "ok": true
+          },
+          {
+            "state": "idle",
+            "t": 20174,
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-responding.webp",
+            "ok": true
+          },
+          {
+            "state": "guiding",
+            "t": 20599,
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-idle.webp",
+            "ok": true
+          },
+          {
+            "state": "thinking",
+            "t": 21260,
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-guiding.webp",
+            "ok": true
+          },
+          {
+            "state": "responding",
+            "t": 22339,
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-thinking.webp",
+            "ok": true
+          },
+          {
+            "state": "idle",
+            "t": 23597,
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-responding.webp",
+            "ok": true
+          },
+          {
+            "state": "thinking",
+            "t": 23987,
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-idle.webp",
+            "ok": true
+          },
+          {
+            "state": "responding",
+            "t": 29936,
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-thinking.webp",
+            "ok": true
+          },
+          {
+            "state": "idle",
+            "t": 31190,
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-responding.webp",
+            "ok": true
+          },
+          {
+            "state": "idle",
+            "t": 31592,
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-idle.webp",
+            "ok": true
+          },
+          {
+            "state": "welcome",
+            "t": 31964,
+            "src": "https://taipei-tax-lab.github.io/taipei-rental-tax-guide/assets/images/assistant/assistant-idle.webp",
+            "ok": true
+          }
+        ],
+        "sends": [
+          {
+            "t": 5802,
+            "predefined": true
+          },
+          {
+            "t": 9426,
+            "predefined": true
+          },
+          {
+            "t": 16467,
+            "predefined": true
+          },
+          {
+            "t": 20599,
+            "predefined": true
+          }
+        ]
+      }
+    },
+    {
+      "site": "official",
+      "width": 1440,
+      "console": [
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Loading the stylesheet 'https://fonts.googleapis.com/icon?family=Material+Icons' violates the following Content Security Policy directive: \"default-src 'self' 'unsafe-inline' services.arpa.tpctax.dof.gov.taipei www.google.com www.gstatic.com www.youtube.com jitsi.arpa.tpctax.dof.gov.taipei meet.jit.si https://id.taipei https://schema.gov.tw/ https://generativelanguage.googleapis.com/ https://www.google-analytics.com https://oauth2.googleapis.com https://www.googletagmanager.com\". Note that 'style-src-elem' was not explicitly set, so 'default-src' is used as a fallback. The action has been blocked."
+        },
+        {
+          "type": "error",
+          "text": "Loading the stylesheet 'https://fonts.googleapis.com/css?family=Google+Sans' violates the following Content Security Policy directive: \"default-src 'self' 'unsafe-inline' services.arpa.tpctax.dof.gov.taipei www.google.com www.gstatic.com www.youtube.com jitsi.arpa.tpctax.dof.gov.taipei meet.jit.si https://id.taipei https://schema.gov.tw/ https://generativelanguage.googleapis.com/ https://www.google-analytics.com https://oauth2.googleapis.com https://www.googletagmanager.com\". Note that 'style-src-elem' was not explicitly set, so 'default-src' is used as a fallback. The action has been blocked."
+        },
+        {
+          "type": "error",
+          "text": "Loading the stylesheet 'https://fonts.googleapis.com/icon?family=Material+Icons' violates the following Content Security Policy directive: \"default-src 'self' 'unsafe-inline' services.arpa.tpctax.dof.gov.taipei www.google.com www.gstatic.com www.youtube.com jitsi.arpa.tpctax.dof.gov.taipei meet.jit.si https://id.taipei https://schema.gov.tw/ https://generativelanguage.googleapis.com/ https://www.google-analytics.com https://oauth2.googleapis.com https://www.googletagmanager.com\". Note that 'style-src-elem' was not explicitly set, so 'default-src' is used as a fallback. The action has been blocked."
+        },
+        {
+          "type": "error",
+          "text": "Loading the stylesheet 'https://fonts.googleapis.com/icon?family=Material+Icons' violates the following Content Security Policy directive: \"default-src 'self' 'unsafe-inline' services.arpa.tpctax.dof.gov.taipei www.google.com www.gstatic.com www.youtube.com jitsi.arpa.tpctax.dof.gov.taipei meet.jit.si https://id.taipei https://schema.gov.tw/ https://generativelanguage.googleapis.com/ https://www.google-analytics.com https://oauth2.googleapis.com https://www.googletagmanager.com\". Note that 'style-src-elem' was not explicitly set, so 'default-src' is used as a fallback. The action has been blocked."
+        },
+        {
+          "type": "error",
+          "text": "Loading the stylesheet 'https://fonts.googleapis.com/icon?family=Material+Icons' violates the following Content Security Policy directive: \"default-src 'self' 'unsafe-inline' services.arpa.tpctax.dof.gov.taipei www.google.com www.gstatic.com www.youtube.com jitsi.arpa.tpctax.dof.gov.taipei meet.jit.si https://id.taipei https://schema.gov.tw/ https://generativelanguage.googleapis.com/ https://www.google-analytics.com https://oauth2.googleapis.com https://www.googletagmanager.com\". Note that 'style-src-elem' was not explicitly set, so 'default-src' is used as a fallback. The action has been blocked."
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Connecting to 'https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED]' violates the following Content Security Policy directive: \"default-src 'self' 'unsafe-inline' services.arpa.tpctax.dof.gov.taipei www.google.com www.gstatic.com www.youtube.com jitsi.arpa.tpctax.dof.gov.taipei meet.jit.si https://id.taipei https://schema.gov.tw/ https://generativelanguage.googleapis.com/ https://www.google-analytics.com https://oauth2.googleapis.com https://www.googletagmanager.com\". Note that 'connect-src' was not explicitly set, so 'default-src' is used as a fallback. The action has been blocked."
+        },
+        {
+          "type": "error",
+          "text": "Fetch API cannot load https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED] Refused to connect because it violates the document's Content Security Policy."
+        },
+        {
+          "type": "error",
+          "text": "DF-MESSENGER fetch Error TypeError: Failed to fetch\n    at DF_Msa.h (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:844:267)\n    at DF_Mva (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:16:44)\n    at DF_Mwa.next (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:17:103)\n    at https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:18:197\n    at new Promise (<anonymous>)\n    at DF_Mxa (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:18:90)\n    at DF_Mh (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:18:232)\n    at DF_M4l (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:844:41)\n    at https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:842:674\n    at new Promise (<anonymous>)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Connecting to 'https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED]' violates the following Content Security Policy directive: \"default-src 'self' 'unsafe-inline' services.arpa.tpctax.dof.gov.taipei www.google.com www.gstatic.com www.youtube.com jitsi.arpa.tpctax.dof.gov.taipei meet.jit.si https://id.taipei https://schema.gov.tw/ https://generativelanguage.googleapis.com/ https://www.google-analytics.com https://oauth2.googleapis.com https://www.googletagmanager.com\". Note that 'connect-src' was not explicitly set, so 'default-src' is used as a fallback. The action has been blocked."
+        },
+        {
+          "type": "error",
+          "text": "Fetch API cannot load https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED] Refused to connect because it violates the document's Content Security Policy."
+        },
+        {
+          "type": "error",
+          "text": "DF-MESSENGER fetch Error TypeError: Failed to fetch\n    at DF_Msa.h (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:844:267)\n    at DF_Mva (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:16:44)\n    at DF_Mwa.next (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:17:103)\n    at https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:18:197\n    at new Promise (<anonymous>)\n    at DF_Mxa (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:18:90)\n    at DF_Mh (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:18:232)\n    at DF_M4l (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:844:41)\n    at https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:842:674\n    at new Promise (<anonymous>)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Connecting to 'https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED]' violates the following Content Security Policy directive: \"default-src 'self' 'unsafe-inline' services.arpa.tpctax.dof.gov.taipei www.google.com www.gstatic.com www.youtube.com jitsi.arpa.tpctax.dof.gov.taipei meet.jit.si https://id.taipei https://schema.gov.tw/ https://generativelanguage.googleapis.com/ https://www.google-analytics.com https://oauth2.googleapis.com https://www.googletagmanager.com\". Note that 'connect-src' was not explicitly set, so 'default-src' is used as a fallback. The action has been blocked."
+        },
+        {
+          "type": "error",
+          "text": "Fetch API cannot load https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED] Refused to connect because it violates the document's Content Security Policy."
+        },
+        {
+          "type": "error",
+          "text": "DF-MESSENGER fetch Error TypeError: Failed to fetch\n    at DF_Msa.h (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:844:267)\n    at DF_Mva (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:16:44)\n    at DF_Mwa.next (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:17:103)\n    at https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:18:197\n    at new Promise (<anonymous>)\n    at DF_Mxa (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:18:90)\n    at DF_Mh (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:18:232)\n    at DF_M4l (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:844:41)\n    at https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:842:674\n    at new Promise (<anonymous>)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Connecting to 'https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED]' violates the following Content Security Policy directive: \"default-src 'self' 'unsafe-inline' services.arpa.tpctax.dof.gov.taipei www.google.com www.gstatic.com www.youtube.com jitsi.arpa.tpctax.dof.gov.taipei meet.jit.si https://id.taipei https://schema.gov.tw/ https://generativelanguage.googleapis.com/ https://www.google-analytics.com https://oauth2.googleapis.com https://www.googletagmanager.com\". Note that 'connect-src' was not explicitly set, so 'default-src' is used as a fallback. The action has been blocked."
+        },
+        {
+          "type": "error",
+          "text": "Fetch API cannot load https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED] Refused to connect because it violates the document's Content Security Policy."
+        },
+        {
+          "type": "error",
+          "text": "DF-MESSENGER fetch Error TypeError: Failed to fetch\n    at DF_Msa.h (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:844:267)\n    at DF_Mva (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:16:44)\n    at DF_Mwa.next (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:17:103)\n    at https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:18:197\n    at new Promise (<anonymous>)\n    at DF_Mxa (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:18:90)\n    at DF_Mh (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:18:232)\n    at DF_M4l (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:844:41)\n    at https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:842:674\n    at new Promise (<anonymous>)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Connecting to 'https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED]' violates the following Content Security Policy directive: \"default-src 'self' 'unsafe-inline' services.arpa.tpctax.dof.gov.taipei www.google.com www.gstatic.com www.youtube.com jitsi.arpa.tpctax.dof.gov.taipei meet.jit.si https://id.taipei https://schema.gov.tw/ https://generativelanguage.googleapis.com/ https://www.google-analytics.com https://oauth2.googleapis.com https://www.googletagmanager.com\". Note that 'connect-src' was not explicitly set, so 'default-src' is used as a fallback. The action has been blocked."
+        },
+        {
+          "type": "error",
+          "text": "Fetch API cannot load https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED] Refused to connect because it violates the document's Content Security Policy."
+        },
+        {
+          "type": "error",
+          "text": "DF-MESSENGER fetch Error TypeError: Failed to fetch\n    at DF_Msa.h (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:844:267)\n    at DF_Mva (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:16:44)\n    at DF_Mwa.next (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:17:103)\n    at https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:18:197\n    at new Promise (<anonymous>)\n    at DF_Mxa (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:18:90)\n    at DF_Mh (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:18:232)\n    at DF_M4l (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:844:41)\n    at https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:842:674\n    at new Promise (<anonymous>)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "pageerrors": [
+        "Failed to fetch"
+      ],
+      "network": [
+        {
+          "url": "https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/themes/df-messenger-default.css",
+          "method": "GET"
+        },
+        {
+          "url": "https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js",
+          "method": "GET"
+        },
+        {
+          "url": "https://fonts.googleapis.com/icon",
+          "method": "GET",
+          "failed": "csp"
+        },
+        {
+          "url": "https://fonts.googleapis.com/css",
+          "method": "GET",
+          "failed": "csp"
+        },
+        {
+          "url": "https://fonts.googleapis.com/icon",
+          "method": "GET",
+          "failed": "csp"
+        },
+        {
+          "url": "https://fonts.googleapis.com/icon",
+          "method": "GET",
+          "failed": "csp"
+        },
+        {
+          "url": "https://fonts.googleapis.com/icon",
+          "method": "GET",
+          "failed": "csp"
+        },
+        {
+          "url": "https://www.google-analytics.com/g/collect",
+          "method": "POST",
+          "failed": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://www.google-analytics.com/g/collect",
+          "method": "POST",
+          "failed": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://www.google-analytics.com/g/collect",
+          "method": "POST",
+          "failed": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://www.google-analytics.com/g/collect",
+          "method": "POST",
+          "failed": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://www.google-analytics.com/g/collect",
+          "method": "POST",
+          "failed": "net::ERR_ABORTED"
+        }
+      ],
+      "responses": [
+        {
+          "url": "https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/themes/df-messenger-default.css",
+          "status": 200
+        },
+        {
+          "url": "https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js",
+          "status": 200
+        }
+      ],
+      "actions": [
+        {
+          "action": "plan-ordinary",
+          "visible": true,
+          "taxes": 3
+        },
+        {
+          "action": "plan-public",
+          "visible": true,
+          "taxes": 3
+        },
+        {
+          "action": "plan-social",
+          "visible": true,
+          "taxes": 3
+        },
+        {
+          "action": "plan-personal",
+          "visible": true,
+          "taxes": 3
+        },
+        {
+          "action": "nav-comparison",
+          "visible": true
+        },
+        {
+          "action": "nav-resources",
+          "visible": false
+        },
+        {
+          "action": "open",
+          "expanded": "true"
+        },
+        {
+          "action": "quick-0",
+          "response_records": [],
+          "snapshot": {
+            "state": "error",
+            "img": "https://services.arpa.tpctax.dof.gov.taipei/rentaltax/assets/images/assistant/assistant-error.webp",
+            "imgOK": false,
+            "events": [
+              {
+                "event": "df-messenger-loaded",
+                "t": 604
+              },
+              {
+                "event": "df-chat-open-changed",
+                "t": 613
+              },
+              {
+                "event": "df-chat-open-changed",
+                "t": 3814
+              },
+              {
+                "event": "df-request-sent",
+                "t": 5672
+              },
+              {
+                "event": "df-messenger-error",
+                "t": 5675
+              }
+            ]
+          }
+        },
+        {
+          "action": "quick-1",
+          "response_records": [],
+          "snapshot": {
+            "state": "error",
+            "img": "https://services.arpa.tpctax.dof.gov.taipei/rentaltax/assets/images/assistant/assistant-error.webp",
+            "imgOK": false,
+            "events": [
+              {
+                "event": "df-chat-open-changed",
+                "t": 3814
+              },
+              {
+                "event": "df-request-sent",
+                "t": 5672
+              },
+              {
+                "event": "df-messenger-error",
+                "t": 5675
+              },
+              {
+                "event": "df-request-sent",
+                "t": 7542
+              },
+              {
+                "event": "df-messenger-error",
+                "t": 7543
+              }
+            ]
+          }
+        },
+        {
+          "action": "quick-2",
+          "response_records": [],
+          "snapshot": {
+            "state": "error",
+            "img": "https://services.arpa.tpctax.dof.gov.taipei/rentaltax/assets/images/assistant/assistant-error.webp",
+            "imgOK": false,
+            "events": [
+              {
+                "event": "df-messenger-error",
+                "t": 5675
+              },
+              {
+                "event": "df-request-sent",
+                "t": 7542
+              },
+              {
+                "event": "df-messenger-error",
+                "t": 7543
+              },
+              {
+                "event": "df-request-sent",
+                "t": 9190
+              },
+              {
+                "event": "df-messenger-error",
+                "t": 9191
+              }
+            ]
+          }
+        },
+        {
+          "action": "quick-3",
+          "response_records": [],
+          "snapshot": {
+            "state": "error",
+            "img": "https://services.arpa.tpctax.dof.gov.taipei/rentaltax/assets/images/assistant/assistant-error.webp",
+            "imgOK": false,
+            "events": [
+              {
+                "event": "df-messenger-error",
+                "t": 7543
+              },
+              {
+                "event": "df-request-sent",
+                "t": 9190
+              },
+              {
+                "event": "df-messenger-error",
+                "t": 9191
+              },
+              {
+                "event": "df-request-sent",
+                "t": 10841
+              },
+              {
+                "event": "df-messenger-error",
+                "t": 10842
+              }
+            ]
+          }
+        },
+        {
+          "action": "manual",
+          "response_records": [],
+          "snapshot": {
+            "state": "error",
+            "img": "https://services.arpa.tpctax.dof.gov.taipei/rentaltax/assets/images/assistant/assistant-error.webp",
+            "imgOK": false,
+            "events": [
+              {
+                "event": "df-request-sent",
+                "t": 10841
+              },
+              {
+                "event": "df-messenger-error",
+                "t": 10842
+              },
+              {
+                "event": "df-user-input-entered",
+                "t": 12497
+              },
+              {
+                "event": "df-request-sent",
+                "t": 12503
+              },
+              {
+                "event": "df-messenger-error",
+                "t": 12505
+              }
+            ]
+          }
+        },
+        {
+          "action": "close",
+          "expanded": "false"
+        },
+        {
+          "action": "reopen",
+          "expanded": "true"
+        }
+      ],
+      "initial": {
+        "ready": false,
+        "messenger": "function",
+        "images": [
+          {
+            "src": "https://services.arpa.tpctax.dof.gov.taipei/rentaltax/assets/images/tpctax-logo.png",
+            "complete": true,
+            "width": 893
+          },
+          {
+            "src": "https://services.arpa.tpctax.dof.gov.taipei/rentaltax/assets/images/income-standard-card.webp",
+            "complete": true,
+            "width": 0
+          },
+          {
+            "src": "https://services.arpa.tpctax.dof.gov.taipei/rentaltax/assets/images/assistant/assistant-idle.webp",
+            "complete": true,
+            "width": 0
+          }
+        ],
+        "embed": [
+          {
+            "name": "location",
+            "value": "asia-northeast1"
+          },
+          {
+            "name": "project-id",
+            "value": "serviceagent-1150909"
+          },
+          {
+            "name": "agent-id",
+            "value": "799426c1-ba69-49dc-85e4-5065985706e2"
+          },
+          {
+            "name": "data-initial-playbook",
+            "value": "projects/serviceagent-1150909/locations/asia-northeast1/agents/799426c1-ba69-49dc-85e4-5065985706e2/playbooks/7861bc8f-d2fb-43d3-8ca1-651415eb4205"
+          },
+          {
+            "name": "language-code",
+            "value": "zh-tw"
+          },
+          {
+            "name": "max-query-length",
+            "value": "-1"
+          },
+          {
+            "name": "style",
+            "value": "--rental-chat-top: 210px; --rental-chat-left: 996px; --df-messenger-chat-window-width: 430px; --df-messenger-chat-window-height: 680px;"
+          }
+        ]
+      },
+      "input_count": 1,
+      "final": {
+        "overflow": false,
+        "extras": 0,
+        "events": [
+          {
+            "event": "df-messenger-loaded",
+            "t": 604
+          },
+          {
+            "event": "df-chat-open-changed",
+            "t": 613
+          },
+          {
+            "event": "df-chat-open-changed",
+            "t": 3814
+          },
+          {
+            "event": "df-request-sent",
+            "t": 5672
+          },
+          {
+            "event": "df-messenger-error",
+            "t": 5675
+          },
+          {
+            "event": "df-request-sent",
+            "t": 7542
+          },
+          {
+            "event": "df-messenger-error",
+            "t": 7543
+          },
+          {
+            "event": "df-request-sent",
+            "t": 9190
+          },
+          {
+            "event": "df-messenger-error",
+            "t": 9191
+          },
+          {
+            "event": "df-request-sent",
+            "t": 10841
+          },
+          {
+            "event": "df-messenger-error",
+            "t": 10842
+          },
+          {
+            "event": "df-user-input-entered",
+            "t": 12497
+          },
+          {
+            "event": "df-request-sent",
+            "t": 12503
+          },
+          {
+            "event": "df-messenger-error",
+            "t": 12505
+          },
+          {
+            "event": "df-chat-open-changed",
+            "t": 14159
+          },
+          {
+            "event": "df-chat-open-changed",
+            "t": 14506
+          }
+        ],
+        "states": [
+          {
+            "state": "idle",
+            "t": 965,
+            "src": "",
+            "ok": false
+          },
+          {
+            "state": "welcome",
+            "t": 3880,
+            "src": "https://services.arpa.tpctax.dof.gov.taipei/rentaltax/assets/images/assistant/assistant-idle.webp",
+            "ok": false
+          },
+          {
+            "state": "idle",
+            "t": 5389,
+            "src": "https://services.arpa.tpctax.dof.gov.taipei/rentaltax/assets/images/assistant/assistant-welcome.webp",
+            "ok": false
+          },
+          {
+            "state": "guiding",
+            "t": 5672,
+            "src": "",
+            "ok": false
+          },
+          {
+            "state": "error",
+            "t": 5680,
+            "src": "",
+            "ok": false
+          },
+          {
+            "state": "guiding",
+            "t": 7541,
+            "src": "https://services.arpa.tpctax.dof.gov.taipei/rentaltax/assets/images/assistant/assistant-error.webp",
+            "ok": false
+          },
+          {
+            "state": "error",
+            "t": 7548,
+            "src": "https://services.arpa.tpctax.dof.gov.taipei/rentaltax/assets/images/assistant/assistant-error.webp",
+            "ok": false
+          },
+          {
+            "state": "guiding",
+            "t": 9190,
+            "src": "https://services.arpa.tpctax.dof.gov.taipei/rentaltax/assets/images/assistant/assistant-error.webp",
+            "ok": false
+          },
+          {
+            "state": "error",
+            "t": 9194,
+            "src": "https://services.arpa.tpctax.dof.gov.taipei/rentaltax/assets/images/assistant/assistant-error.webp",
+            "ok": false
+          },
+          {
+            "state": "guiding",
+            "t": 10841,
+            "src": "https://services.arpa.tpctax.dof.gov.taipei/rentaltax/assets/images/assistant/assistant-error.webp",
+            "ok": false
+          },
+          {
+            "state": "error",
+            "t": 10845,
+            "src": "https://services.arpa.tpctax.dof.gov.taipei/rentaltax/assets/images/assistant/assistant-error.webp",
+            "ok": false
+          },
+          {
+            "state": "thinking",
+            "t": 12502,
+            "src": "https://services.arpa.tpctax.dof.gov.taipei/rentaltax/assets/images/assistant/assistant-error.webp",
+            "ok": false
+          },
+          {
+            "state": "error",
+            "t": 12509,
+            "src": "https://services.arpa.tpctax.dof.gov.taipei/rentaltax/assets/images/assistant/assistant-error.webp",
+            "ok": false
+          },
+          {
+            "state": "idle",
+            "t": 14162,
+            "src": "https://services.arpa.tpctax.dof.gov.taipei/rentaltax/assets/images/assistant/assistant-error.webp",
+            "ok": false
+          },
+          {
+            "state": "welcome",
+            "t": 14512,
+            "src": "https://services.arpa.tpctax.dof.gov.taipei/rentaltax/assets/images/assistant/assistant-idle.webp",
+            "ok": false
+          }
+        ],
+        "sends": [
+          {
+            "t": 5670,
+            "predefined": true
+          },
+          {
+            "t": 7541,
+            "predefined": true
+          },
+          {
+            "t": 9189,
+            "predefined": true
+          },
+          {
+            "t": 10840,
+            "predefined": true
+          }
+        ]
+      }
+    },
+    {
+      "site": "official",
+      "width": 390,
+      "console": [
+        {
+          "type": "error",
+          "text": "Loading the image 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' violates the following Content Security Policy directive: \"default-src 'self' 'unsafe-inline' services.arpa.tpctax.dof.gov.taipei www.google.com www.gstatic.com www.youtube.com jitsi.arpa.tpctax.dof.gov.taipei meet.jit.si https://id.taipei https://schema.gov.tw/ https://generativelanguage.googleapis.com/ https://www.google-analytics.com https://oauth2.googleapis.com https://www.googletagmanager.com\". Note that 'img-src' was not explicitly set, so 'default-src' is used as a fallback. The action has been blocked."
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Loading the stylesheet 'https://fonts.googleapis.com/icon?family=Material+Icons' violates the following Content Security Policy directive: \"default-src 'self' 'unsafe-inline' services.arpa.tpctax.dof.gov.taipei www.google.com www.gstatic.com www.youtube.com jitsi.arpa.tpctax.dof.gov.taipei meet.jit.si https://id.taipei https://schema.gov.tw/ https://generativelanguage.googleapis.com/ https://www.google-analytics.com https://oauth2.googleapis.com https://www.googletagmanager.com\". Note that 'style-src-elem' was not explicitly set, so 'default-src' is used as a fallback. The action has been blocked."
+        },
+        {
+          "type": "error",
+          "text": "Loading the stylesheet 'https://fonts.googleapis.com/css?family=Google+Sans' violates the following Content Security Policy directive: \"default-src 'self' 'unsafe-inline' services.arpa.tpctax.dof.gov.taipei www.google.com www.gstatic.com www.youtube.com jitsi.arpa.tpctax.dof.gov.taipei meet.jit.si https://id.taipei https://schema.gov.tw/ https://generativelanguage.googleapis.com/ https://www.google-analytics.com https://oauth2.googleapis.com https://www.googletagmanager.com\". Note that 'style-src-elem' was not explicitly set, so 'default-src' is used as a fallback. The action has been blocked."
+        },
+        {
+          "type": "error",
+          "text": "Loading the stylesheet 'https://fonts.googleapis.com/icon?family=Material+Icons' violates the following Content Security Policy directive: \"default-src 'self' 'unsafe-inline' services.arpa.tpctax.dof.gov.taipei www.google.com www.gstatic.com www.youtube.com jitsi.arpa.tpctax.dof.gov.taipei meet.jit.si https://id.taipei https://schema.gov.tw/ https://generativelanguage.googleapis.com/ https://www.google-analytics.com https://oauth2.googleapis.com https://www.googletagmanager.com\". Note that 'style-src-elem' was not explicitly set, so 'default-src' is used as a fallback. The action has been blocked."
+        },
+        {
+          "type": "error",
+          "text": "Loading the stylesheet 'https://fonts.googleapis.com/icon?family=Material+Icons' violates the following Content Security Policy directive: \"default-src 'self' 'unsafe-inline' services.arpa.tpctax.dof.gov.taipei www.google.com www.gstatic.com www.youtube.com jitsi.arpa.tpctax.dof.gov.taipei meet.jit.si https://id.taipei https://schema.gov.tw/ https://generativelanguage.googleapis.com/ https://www.google-analytics.com https://oauth2.googleapis.com https://www.googletagmanager.com\". Note that 'style-src-elem' was not explicitly set, so 'default-src' is used as a fallback. The action has been blocked."
+        },
+        {
+          "type": "error",
+          "text": "Loading the stylesheet 'https://fonts.googleapis.com/icon?family=Material+Icons' violates the following Content Security Policy directive: \"default-src 'self' 'unsafe-inline' services.arpa.tpctax.dof.gov.taipei www.google.com www.gstatic.com www.youtube.com jitsi.arpa.tpctax.dof.gov.taipei meet.jit.si https://id.taipei https://schema.gov.tw/ https://generativelanguage.googleapis.com/ https://www.google-analytics.com https://oauth2.googleapis.com https://www.googletagmanager.com\". Note that 'style-src-elem' was not explicitly set, so 'default-src' is used as a fallback. The action has been blocked."
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Connecting to 'https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED]' violates the following Content Security Policy directive: \"default-src 'self' 'unsafe-inline' services.arpa.tpctax.dof.gov.taipei www.google.com www.gstatic.com www.youtube.com jitsi.arpa.tpctax.dof.gov.taipei meet.jit.si https://id.taipei https://schema.gov.tw/ https://generativelanguage.googleapis.com/ https://www.google-analytics.com https://oauth2.googleapis.com https://www.googletagmanager.com\". Note that 'connect-src' was not explicitly set, so 'default-src' is used as a fallback. The action has been blocked."
+        },
+        {
+          "type": "error",
+          "text": "Fetch API cannot load https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED] Refused to connect because it violates the document's Content Security Policy."
+        },
+        {
+          "type": "error",
+          "text": "DF-MESSENGER fetch Error TypeError: Failed to fetch\n    at DF_Msa.h (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:844:267)\n    at DF_Mva (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:16:44)\n    at DF_Mwa.next (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:17:103)\n    at https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:18:197\n    at new Promise (<anonymous>)\n    at DF_Mxa (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:18:90)\n    at DF_Mh (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:18:232)\n    at DF_M4l (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:844:41)\n    at https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:842:674\n    at new Promise (<anonymous>)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Connecting to 'https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED]' violates the following Content Security Policy directive: \"default-src 'self' 'unsafe-inline' services.arpa.tpctax.dof.gov.taipei www.google.com www.gstatic.com www.youtube.com jitsi.arpa.tpctax.dof.gov.taipei meet.jit.si https://id.taipei https://schema.gov.tw/ https://generativelanguage.googleapis.com/ https://www.google-analytics.com https://oauth2.googleapis.com https://www.googletagmanager.com\". Note that 'connect-src' was not explicitly set, so 'default-src' is used as a fallback. The action has been blocked."
+        },
+        {
+          "type": "error",
+          "text": "Fetch API cannot load https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED] Refused to connect because it violates the document's Content Security Policy."
+        },
+        {
+          "type": "error",
+          "text": "DF-MESSENGER fetch Error TypeError: Failed to fetch\n    at DF_Msa.h (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:844:267)\n    at DF_Mva (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:16:44)\n    at DF_Mwa.next (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:17:103)\n    at https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:18:197\n    at new Promise (<anonymous>)\n    at DF_Mxa (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:18:90)\n    at DF_Mh (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:18:232)\n    at DF_M4l (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:844:41)\n    at https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:842:674\n    at new Promise (<anonymous>)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Connecting to 'https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED]' violates the following Content Security Policy directive: \"default-src 'self' 'unsafe-inline' services.arpa.tpctax.dof.gov.taipei www.google.com www.gstatic.com www.youtube.com jitsi.arpa.tpctax.dof.gov.taipei meet.jit.si https://id.taipei https://schema.gov.tw/ https://generativelanguage.googleapis.com/ https://www.google-analytics.com https://oauth2.googleapis.com https://www.googletagmanager.com\". Note that 'connect-src' was not explicitly set, so 'default-src' is used as a fallback. The action has been blocked."
+        },
+        {
+          "type": "error",
+          "text": "Fetch API cannot load https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED] Refused to connect because it violates the document's Content Security Policy."
+        },
+        {
+          "type": "error",
+          "text": "DF-MESSENGER fetch Error TypeError: Failed to fetch\n    at DF_Msa.h (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:844:267)\n    at DF_Mva (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:16:44)\n    at DF_Mwa.next (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:17:103)\n    at https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:18:197\n    at new Promise (<anonymous>)\n    at DF_Mxa (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:18:90)\n    at DF_Mh (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:18:232)\n    at DF_M4l (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:844:41)\n    at https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:842:674\n    at new Promise (<anonymous>)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Connecting to 'https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED]' violates the following Content Security Policy directive: \"default-src 'self' 'unsafe-inline' services.arpa.tpctax.dof.gov.taipei www.google.com www.gstatic.com www.youtube.com jitsi.arpa.tpctax.dof.gov.taipei meet.jit.si https://id.taipei https://schema.gov.tw/ https://generativelanguage.googleapis.com/ https://www.google-analytics.com https://oauth2.googleapis.com https://www.googletagmanager.com\". Note that 'connect-src' was not explicitly set, so 'default-src' is used as a fallback. The action has been blocked."
+        },
+        {
+          "type": "error",
+          "text": "Fetch API cannot load https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED] Refused to connect because it violates the document's Content Security Policy."
+        },
+        {
+          "type": "error",
+          "text": "DF-MESSENGER fetch Error TypeError: Failed to fetch\n    at DF_Msa.h (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:844:267)\n    at DF_Mva (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:16:44)\n    at DF_Mwa.next (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:17:103)\n    at https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:18:197\n    at new Promise (<anonymous>)\n    at DF_Mxa (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:18:90)\n    at DF_Mh (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:18:232)\n    at DF_M4l (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:844:41)\n    at https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:842:674\n    at new Promise (<anonymous>)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Connecting to 'https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED]' violates the following Content Security Policy directive: \"default-src 'self' 'unsafe-inline' services.arpa.tpctax.dof.gov.taipei www.google.com www.gstatic.com www.youtube.com jitsi.arpa.tpctax.dof.gov.taipei meet.jit.si https://id.taipei https://schema.gov.tw/ https://generativelanguage.googleapis.com/ https://www.google-analytics.com https://oauth2.googleapis.com https://www.googletagmanager.com\". Note that 'connect-src' was not explicitly set, so 'default-src' is used as a fallback. The action has been blocked."
+        },
+        {
+          "type": "error",
+          "text": "Fetch API cannot load https://dialogflow.cloud.google.com/v1/cx/locations/asia-northeast1/integrations/messenger/webhook/projects/serviceagent-1150909/agents/799426c1-ba69-49dc-85e4-5065985706e2/sessions/[REDACTED] Refused to connect because it violates the document's Content Security Policy."
+        },
+        {
+          "type": "error",
+          "text": "DF-MESSENGER fetch Error TypeError: Failed to fetch\n    at DF_Msa.h (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:844:267)\n    at DF_Mva (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:16:44)\n    at DF_Mwa.next (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:17:103)\n    at https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:18:197\n    at new Promise (<anonymous>)\n    at DF_Mxa (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:18:90)\n    at DF_Mh (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:18:232)\n    at DF_M4l (https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:844:41)\n    at https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js:842:674\n    at new Promise (<anonymous>)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        },
+        {
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (Not Found)"
+        }
+      ],
+      "pageerrors": [
+        "Failed to fetch"
+      ],
+      "network": [
+        {
+          "url": "https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/themes/df-messenger-default.css",
+          "method": "GET"
+        },
+        {
+          "url": "https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js",
+          "method": "GET"
+        },
+        {
+          "url": "https://fonts.googleapis.com/icon",
+          "method": "GET",
+          "failed": "csp"
+        },
+        {
+          "url": "https://fonts.googleapis.com/css",
+          "method": "GET",
+          "failed": "csp"
+        },
+        {
+          "url": "https://fonts.googleapis.com/icon",
+          "method": "GET",
+          "failed": "csp"
+        },
+        {
+          "url": "https://fonts.googleapis.com/icon",
+          "method": "GET",
+          "failed": "csp"
+        },
+        {
+          "url": "https://fonts.googleapis.com/icon",
+          "method": "GET",
+          "failed": "csp"
+        },
+        {
+          "url": "https://www.google-analytics.com/g/collect",
+          "method": "POST",
+          "failed": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://www.google-analytics.com/g/collect",
+          "method": "POST",
+          "failed": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://www.google-analytics.com/g/collect",
+          "method": "POST",
+          "failed": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://www.google-analytics.com/g/collect",
+          "method": "POST",
+          "failed": "net::ERR_ABORTED"
+        },
+        {
+          "url": "https://www.google-analytics.com/g/collect",
+          "method": "POST",
+          "failed": "net::ERR_ABORTED"
+        }
+      ],
+      "responses": [
+        {
+          "url": "https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/themes/df-messenger-default.css",
+          "status": 200
+        },
+        {
+          "url": "https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js",
+          "status": 200
+        }
+      ],
+      "actions": [
+        {
+          "action": "plan-ordinary",
+          "visible": true,
+          "taxes": 3
+        },
+        {
+          "action": "plan-public",
+          "visible": true,
+          "taxes": 3
+        },
+        {
+          "action": "plan-social",
+          "visible": true,
+          "taxes": 3
+        },
+        {
+          "action": "plan-personal",
+          "visible": true,
+          "taxes": 3
+        },
+        {
+          "action": "nav-comparison",
+          "visible": true
+        },
+        {
+          "action": "nav-resources",
+          "visible": false
+        },
+        {
+          "action": "open",
+          "expanded": "true"
+        },
+        {
+          "action": "quick-0",
+          "response_records": [],
+          "snapshot": {
+            "state": "error",
+            "img": "https://services.arpa.tpctax.dof.gov.taipei/rentaltax/assets/images/assistant/assistant-error.webp",
+            "imgOK": false,
+            "events": [
+              {
+                "event": "df-messenger-loaded",
+                "t": 555
+              },
+              {
+                "event": "df-chat-open-changed",
+                "t": 572
+              },
+              {
+                "event": "df-chat-open-changed",
+                "t": 3493
+              },
+              {
+                "event": "df-request-sent",
+                "t": 5284
+              },
+              {
+                "event": "df-messenger-error",
+                "t": 5287
+              }
+            ]
+          }
+        },
+        {
+          "action": "quick-1",
+          "response_records": [],
+          "snapshot": {
+            "state": "error",
+            "img": "https://services.arpa.tpctax.dof.gov.taipei/rentaltax/assets/images/assistant/assistant-error.webp",
+            "imgOK": false,
+            "events": [
+              {
+                "event": "df-chat-open-changed",
+                "t": 3493
+              },
+              {
+                "event": "df-request-sent",
+                "t": 5284
+              },
+              {
+                "event": "df-messenger-error",
+                "t": 5287
+              },
+              {
+                "event": "df-request-sent",
+                "t": 7050
+              },
+              {
+                "event": "df-messenger-error",
+                "t": 7052
+              }
+            ]
+          }
+        },
+        {
+          "action": "quick-2",
+          "response_records": [],
+          "snapshot": {
+            "state": "error",
+            "img": "https://services.arpa.tpctax.dof.gov.taipei/rentaltax/assets/images/assistant/assistant-error.webp",
+            "imgOK": false,
+            "events": [
+              {
+                "event": "df-messenger-error",
+                "t": 5287
+              },
+              {
+                "event": "df-request-sent",
+                "t": 7050
+              },
+              {
+                "event": "df-messenger-error",
+                "t": 7052
+              },
+              {
+                "event": "df-request-sent",
+                "t": 8735
+              },
+              {
+                "event": "df-messenger-error",
+                "t": 8736
+              }
+            ]
+          }
+        },
+        {
+          "action": "quick-3",
+          "response_records": [],
+          "snapshot": {
+            "state": "error",
+            "img": "https://services.arpa.tpctax.dof.gov.taipei/rentaltax/assets/images/assistant/assistant-error.webp",
+            "imgOK": false,
+            "events": [
+              {
+                "event": "df-messenger-error",
+                "t": 7052
+              },
+              {
+                "event": "df-request-sent",
+                "t": 8735
+              },
+              {
+                "event": "df-messenger-error",
+                "t": 8736
+              },
+              {
+                "event": "df-request-sent",
+                "t": 10420
+              },
+              {
+                "event": "df-messenger-error",
+                "t": 10421
+              }
+            ]
+          }
+        },
+        {
+          "action": "manual",
+          "response_records": [],
+          "snapshot": {
+            "state": "error",
+            "img": "https://services.arpa.tpctax.dof.gov.taipei/rentaltax/assets/images/assistant/assistant-error.webp",
+            "imgOK": false,
+            "events": [
+              {
+                "event": "df-request-sent",
+                "t": 10420
+              },
+              {
+                "event": "df-messenger-error",
+                "t": 10421
+              },
+              {
+                "event": "df-user-input-entered",
+                "t": 12060
+              },
+              {
+                "event": "df-request-sent",
+                "t": 12066
+              },
+              {
+                "event": "df-messenger-error",
+                "t": 12068
+              }
+            ]
+          }
+        },
+        {
+          "action": "close",
+          "expanded": "false"
+        },
+        {
+          "action": "reopen",
+          "expanded": "true"
+        }
+      ],
+      "initial": {
+        "ready": false,
+        "messenger": "function",
+        "images": [
+          {
+            "src": "https://services.arpa.tpctax.dof.gov.taipei/rentaltax/assets/images/tpctax-logo.png",
+            "complete": true,
+            "width": 893
+          },
+          {
+            "src": "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
+            "complete": true,
+            "width": 0
+          },
+          {
+            "src": "https://services.arpa.tpctax.dof.gov.taipei/rentaltax/assets/images/assistant/assistant-idle.webp",
+            "complete": true,
+            "width": 0
+          }
+        ],
+        "embed": [
+          {
+            "name": "location",
+            "value": "asia-northeast1"
+          },
+          {
+            "name": "project-id",
+            "value": "serviceagent-1150909"
+          },
+          {
+            "name": "agent-id",
+            "value": "799426c1-ba69-49dc-85e4-5065985706e2"
+          },
+          {
+            "name": "data-initial-playbook",
+            "value": "projects/serviceagent-1150909/locations/asia-northeast1/agents/799426c1-ba69-49dc-85e4-5065985706e2/playbooks/7861bc8f-d2fb-43d3-8ca1-651415eb4205"
+          },
+          {
+            "name": "language-code",
+            "value": "zh-tw"
+          },
+          {
+            "name": "max-query-length",
+            "value": "-1"
+          },
+          {
+            "name": "style",
+            "value": "--rental-chat-top: 66px; --rental-chat-left: 14px; --df-messenger-chat-window-width: 362px; --df-messenger-chat-window-height: 680px;"
+          }
+        ]
+      },
+      "input_count": 1,
+      "final": {
+        "overflow": false,
+        "extras": 0,
+        "events": [
+          {
+            "event": "df-messenger-loaded",
+            "t": 555
+          },
+          {
+            "event": "df-chat-open-changed",
+            "t": 572
+          },
+          {
+            "event": "df-chat-open-changed",
+            "t": 3493
+          },
+          {
+            "event": "df-request-sent",
+            "t": 5284
+          },
+          {
+            "event": "df-messenger-error",
+            "t": 5287
+          },
+          {
+            "event": "df-request-sent",
+            "t": 7050
+          },
+          {
+            "event": "df-messenger-error",
+            "t": 7052
+          },
+          {
+            "event": "df-request-sent",
+            "t": 8735
+          },
+          {
+            "event": "df-messenger-error",
+            "t": 8736
+          },
+          {
+            "event": "df-request-sent",
+            "t": 10420
+          },
+          {
+            "event": "df-messenger-error",
+            "t": 10421
+          },
+          {
+            "event": "df-user-input-entered",
+            "t": 12060
+          },
+          {
+            "event": "df-request-sent",
+            "t": 12066
+          },
+          {
+            "event": "df-messenger-error",
+            "t": 12068
+          },
+          {
+            "event": "df-chat-open-changed",
+            "t": 13721
+          },
+          {
+            "event": "df-chat-open-changed",
+            "t": 14070
+          }
+        ],
+        "states": [
+          {
+            "state": "idle",
+            "t": 922,
+            "src": "",
+            "ok": false
+          },
+          {
+            "state": "welcome",
+            "t": 3499,
+            "src": "https://services.arpa.tpctax.dof.gov.taipei/rentaltax/assets/images/assistant/assistant-idle.webp",
+            "ok": false
+          },
+          {
+            "state": "idle",
+            "t": 5010,
+            "src": "https://services.arpa.tpctax.dof.gov.taipei/rentaltax/assets/images/assistant/assistant-welcome.webp",
+            "ok": false
+          },
+          {
+            "state": "guiding",
+            "t": 5284,
+            "src": "https://services.arpa.tpctax.dof.gov.taipei/rentaltax/assets/images/assistant/assistant-idle.webp",
+            "ok": false
+          },
+          {
+            "state": "error",
+            "t": 5292,
+            "src": "https://services.arpa.tpctax.dof.gov.taipei/rentaltax/assets/images/assistant/assistant-idle.webp",
+            "ok": false
+          },
+          {
+            "state": "guiding",
+            "t": 7050,
+            "src": "https://services.arpa.tpctax.dof.gov.taipei/rentaltax/assets/images/assistant/assistant-error.webp",
+            "ok": false
+          },
+          {
+            "state": "error",
+            "t": 7055,
+            "src": "https://services.arpa.tpctax.dof.gov.taipei/rentaltax/assets/images/assistant/assistant-error.webp",
+            "ok": false
+          },
+          {
+            "state": "guiding",
+            "t": 8735,
+            "src": "https://services.arpa.tpctax.dof.gov.taipei/rentaltax/assets/images/assistant/assistant-error.webp",
+            "ok": false
+          },
+          {
+            "state": "error",
+            "t": 8739,
+            "src": "https://services.arpa.tpctax.dof.gov.taipei/rentaltax/assets/images/assistant/assistant-error.webp",
+            "ok": false
+          },
+          {
+            "state": "guiding",
+            "t": 10420,
+            "src": "https://services.arpa.tpctax.dof.gov.taipei/rentaltax/assets/images/assistant/assistant-error.webp",
+            "ok": false
+          },
+          {
+            "state": "error",
+            "t": 10424,
+            "src": "https://services.arpa.tpctax.dof.gov.taipei/rentaltax/assets/images/assistant/assistant-error.webp",
+            "ok": false
+          },
+          {
+            "state": "thinking",
+            "t": 12065,
+            "src": "https://services.arpa.tpctax.dof.gov.taipei/rentaltax/assets/images/assistant/assistant-error.webp",
+            "ok": false
+          },
+          {
+            "state": "error",
+            "t": 12071,
+            "src": "https://services.arpa.tpctax.dof.gov.taipei/rentaltax/assets/images/assistant/assistant-error.webp",
+            "ok": false
+          },
+          {
+            "state": "idle",
+            "t": 13721,
+            "src": "https://services.arpa.tpctax.dof.gov.taipei/rentaltax/assets/images/assistant/assistant-error.webp",
+            "ok": false
+          },
+          {
+            "state": "welcome",
+            "t": 14074,
+            "src": "https://services.arpa.tpctax.dof.gov.taipei/rentaltax/assets/images/assistant/assistant-idle.webp",
+            "ok": false
+          }
+        ],
+        "sends": [
+          {
+            "t": 5282,
+            "predefined": true
+          },
+          {
+            "t": 7049,
+            "predefined": true
+          },
+          {
+            "t": 8734,
+            "predefined": true
+          },
+          {
+            "t": 10419,
+            "predefined": true
+          }
+        ]
+      }
+    }
+  ],
+  "completed_at": "2026-10-28T11:18:34.642Z",
+  "capture_notes": [
+    "Primary response.json capture was unavailable despite HTTP200. This is not evidence of invalid Google JSON; supplemental df-response-received capture proves a nonempty answer and records response content type.",
+    "nav-resources uses an incorrect data-page selector in primary script; use supplemental #resources visibility checks (all four pass).",
+    "State observer captures src before the asynchronous 90ms image swap; do not interpret the previous src as the current state image. Use HTTP six-state resource checks and screenshots.",
+    "No synthetic session expiry/error events were injected. Production binding/domain allowlist not proven by widget attributes or HTTP200."
+  ]
+}
