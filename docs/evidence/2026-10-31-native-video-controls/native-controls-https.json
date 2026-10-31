@@ -1,0 +1,242 @@
+{
+  "base": "https://rental-tax-guide-test.pages.dev/",
+  "testedAt": "2026-10-31T13:16:35.060Z",
+  "engine": "Microsoft Edge Chromium",
+  "webkitInstalled": false,
+  "realIOSLINE": "NOT TESTED",
+  "cases": [
+    {
+      "name": "desktop Chromium",
+      "version": "pc",
+      "customSurfaceToggle": "PASS",
+      "hits": [
+        [
+          "VIDEO",
+          "VIDEO",
+          "VIDEO"
+        ],
+        [
+          "VIDEO",
+          "VIDEO",
+          "VIDEO"
+        ],
+        [
+          "VIDEO",
+          "VIDEO",
+          "VIDEO"
+        ]
+      ],
+      "nativePlayPause": true,
+      "nativeSeek": true,
+      "nativeMute": true,
+      "volume": "native slider",
+      "fullscreenPausedAndPlaying": true,
+      "pip": "native overflow PiP entry + API exit PASS",
+      "switchPause": true
+    },
+    {
+      "name": "desktop Chromium",
+      "version": "mobile",
+      "customSurfaceToggle": "PASS",
+      "hits": [
+        [
+          "VIDEO",
+          "VIDEO",
+          "VIDEO"
+        ],
+        [
+          "VIDEO",
+          "VIDEO",
+          "VIDEO"
+        ],
+        [
+          "VIDEO",
+          "VIDEO",
+          "VIDEO"
+        ]
+      ],
+      "nativePlayPause": true,
+      "nativeSeek": true,
+      "nativeMute": true,
+      "volume": "native slider",
+      "fullscreenPausedAndPlaying": true,
+      "pip": "native overflow PiP entry + API exit PASS",
+      "switchPause": true
+    },
+    {
+      "name": "Android Chromium touch emulation",
+      "version": "pc",
+      "customSurfaceToggle": "native-only; no custom listener",
+      "hits": [
+        [
+          "VIDEO",
+          "VIDEO",
+          "VIDEO"
+        ],
+        [
+          "VIDEO",
+          "VIDEO",
+          "VIDEO"
+        ],
+        [
+          "VIDEO",
+          "VIDEO",
+          "VIDEO"
+        ]
+      ],
+      "nativePlayPause": true,
+      "nativeSeek": true,
+      "nativeMute": true,
+      "volume": "native slider",
+      "fullscreenPausedAndPlaying": true,
+      "pip": "native overflow PiP entry + API exit PASS",
+      "switchPause": true
+    },
+    {
+      "name": "Android Chromium touch emulation",
+      "version": "mobile",
+      "customSurfaceToggle": "native-only; no custom listener",
+      "hits": [
+        [
+          "VIDEO",
+          "VIDEO",
+          "VIDEO"
+        ],
+        [
+          "VIDEO",
+          "VIDEO",
+          "VIDEO"
+        ],
+        [
+          "VIDEO",
+          "VIDEO",
+          "VIDEO"
+        ]
+      ],
+      "nativePlayPause": true,
+      "nativeSeek": true,
+      "nativeMute": true,
+      "volume": "native slider",
+      "fullscreenPausedAndPlaying": true,
+      "pip": "native overflow PiP entry + API exit PASS",
+      "switchPause": true
+    },
+    {
+      "name": "iPhone LINE UA fallback in Chromium",
+      "version": "pc",
+      "customSurfaceToggle": "native-only; no custom listener",
+      "hits": [
+        [
+          "VIDEO",
+          "VIDEO",
+          "VIDEO"
+        ],
+        [
+          "VIDEO",
+          "VIDEO",
+          "VIDEO"
+        ],
+        [
+          "VIDEO",
+          "VIDEO",
+          "VIDEO"
+        ]
+      ],
+      "nativePlayPause": true,
+      "nativeSeek": true,
+      "nativeMute": true,
+      "volume": "native slider",
+      "fullscreenPausedAndPlaying": true,
+      "pip": "native overflow PiP entry + API exit PASS",
+      "switchPause": true
+    },
+    {
+      "name": "iPhone LINE UA fallback in Chromium",
+      "version": "mobile",
+      "customSurfaceToggle": "native-only; no custom listener",
+      "hits": [
+        [
+          "VIDEO",
+          "VIDEO",
+          "VIDEO"
+        ],
+        [
+          "VIDEO",
+          "VIDEO",
+          "VIDEO"
+        ],
+        [
+          "VIDEO",
+          "VIDEO",
+          "VIDEO"
+        ]
+      ],
+      "nativePlayPause": true,
+      "nativeSeek": true,
+      "nativeMute": true,
+      "volume": "native slider",
+      "fullscreenPausedAndPlaying": true,
+      "pip": "native overflow PiP entry + API exit PASS",
+      "switchPause": true
+    },
+    {
+      "name": "iPhone Safari UA fallback in Chromium",
+      "version": "pc",
+      "customSurfaceToggle": "native-only; no custom listener",
+      "hits": [
+        [
+          "VIDEO",
+          "VIDEO",
+          "VIDEO"
+        ],
+        [
+          "VIDEO",
+          "VIDEO",
+          "VIDEO"
+        ],
+        [
+          "VIDEO",
+          "VIDEO",
+          "VIDEO"
+        ]
+      ],
+      "nativePlayPause": true,
+      "nativeSeek": true,
+      "nativeMute": true,
+      "volume": "native slider",
+      "fullscreenPausedAndPlaying": true,
+      "pip": "native overflow PiP entry + API exit PASS",
+      "switchPause": true
+    },
+    {
+      "name": "iPhone Safari UA fallback in Chromium",
+      "version": "mobile",
+      "customSurfaceToggle": "native-only; no custom listener",
+      "hits": [
+        [
+          "VIDEO",
+          "VIDEO",
+          "VIDEO"
+        ],
+        [
+          "VIDEO",
+          "VIDEO",
+          "VIDEO"
+        ],
+        [
+          "VIDEO",
+          "VIDEO",
+          "VIDEO"
+        ]
+      ],
+      "nativePlayPause": true,
+      "nativeSeek": true,
+      "nativeMute": true,
+      "volume": "native slider",
+      "fullscreenPausedAndPlaying": true,
+      "pip": "native overflow PiP entry + API exit PASS",
+      "switchPause": true
+    }
+  ],
+  "errors": []
+}

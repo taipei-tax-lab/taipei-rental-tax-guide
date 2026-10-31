@@ -1,0 +1,18 @@
+{
+  "url": "https://rental-tax-guide-test.pages.dev/#operation-guide",
+  "rows": [
+    {
+      "version": "guide-video-pc",
+      "upper": "BUTTON",
+      "center": "BUTTON",
+      "lower": "VIDEO"
+    },
+    {
+      "version": "guide-video-mobile",
+      "upper": "BUTTON",
+      "center": "BUTTON",
+      "lower": "VIDEO"
+    }
+  ],
+  "limitation": "DOM hit testing reproduces upper-overlay interception, not actual iOS LINE native controls. WebKit binary unavailable."
+}
