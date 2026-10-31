@@ -21,12 +21,13 @@ test('six entries preserve existing destinations and expose both new hash pages'
 
 test('application page shares complete process and official links for each plan', () => {
   const section = html.slice(html.indexOf('data-page="direct-apply"'), html.indexOf('data-page="operation-guide"'));
-  assert.equal((section.match(/class="v2-application-item"/g) || []).length, 4);
+  assert.equal((section.match(/class="v2-application-item /g) || []).length, 4);
   const esc = s => s.replaceAll('&','&amp;');
   for (const plan of data.plans) {
     assert.ok(section.includes(plan.applicationMode));
     for (const step of plan.process) assert.ok(section.includes(step));
-    for (const link of [...plan.links, ...(plan.applicationLink ? [plan.applicationLink] : [])]) assert.ok(section.includes(esc(link.href)));
+    assert.ok(section.includes(esc(plan.applicationAction.href)));
+    assert.ok(section.includes(plan.applicationAction.label));
   }
   assert.match(section, /地方稅主動辦理/);
   assert.match(section, /自行申請地方稅/);

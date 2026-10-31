@@ -3,6 +3,8 @@
   const site = document.querySelector('.v2-site');
   if (!site || !window.RentalGuideRules) return;
   const pages = Array.from(site.querySelectorAll('[data-page]'));
+  const entryShell = site.querySelector('[data-entry-shell]');
+  const sharedPages = ['home', 'direct-apply', 'operation-guide'];
   const panels = Array.from(site.querySelectorAll('[data-audience-panel]'));
   const stage = document.getElementById('guide-stage');
   const guide = document.getElementById('guide');
@@ -148,6 +150,7 @@
       back.textContent = isInline ? '收合內容 ↑' : '← 返回出租方案';
     }
     site.classList.toggle('v2-has-inline', inline);
+    entryShell.hidden = !sharedPages.includes(pageName) && !inline;
     for (const card of site.querySelectorAll('.v2-plan-card')) {
       const selected = inline && card.hash === '#' + pageName;
       card.classList.toggle('v2-selected', selected);
@@ -163,15 +166,33 @@
     const previousPage = currentPage;
     currentPage = pageName;
     const visiblePage = pages.find(page => page.dataset.page === pageName);
-    const title = visiblePage.querySelector('h1');
+    const title = pageName === 'home' ? document.getElementById('home-title') : visiblePage.querySelector('h1, h2');
     document.title = pageName === 'home' ? baseTitle : `${title.textContent}｜出租房屋租稅優惠專區`;
     const target = document.getElementById(hash);
     if (target?.tagName === 'DETAILS') target.open = true;
     if (pageName === 'home' && target?.closest('[data-audience-panel]')) {
       setAudience(target.closest('[data-audience-panel]').dataset.audiencePanel);
     }
+    // Entry selection follows the current content, without introducing new analytics events.
+    for (const control of site.querySelectorAll('[data-audience], [data-entry-page]')) {
+      const selected = control.dataset.entryPage ? control.dataset.entryPage === pageName : (pageName === 'home' || inline) && control.dataset.audience === audience;
+      if (selected) control.setAttribute('aria-current', 'true');
+      else control.removeAttribute('aria-current');
+      let mark = control.querySelector('.v2-audience-selected');
+      if (!mark && selected) { mark = el('span', 'v2-audience-selected', '目前選擇'); control.append(mark); }
+      if (mark) mark.hidden = !selected;
+    }
     requestAnimationFrame(() => {
-      if (inline) {
+      if (sharedPages.includes(pageName) && (pageName !== 'home' || (['owners', 'tenants'].includes(hash) && !returningPlan))) {
+        const content = pageName === 'home' ? document.getElementById(hash) : visiblePage;
+        const heading = content.querySelector('h1, h2');
+        const rect = heading.getBoundingClientRect();
+        if (rect.top < 24 || rect.bottom > innerHeight * .85) {
+          const top = content.getBoundingClientRect().top + window.scrollY;
+          window.scrollTo({top: Math.max(0, top - Math.min(240, innerHeight * .35)), behavior: 'instant'});
+        }
+        if (!initial) focus(heading);
+      } else if (inline) {
         const grid = site.querySelector('.v2-plan-grid');
         const gridBottom = grid.getBoundingClientRect().bottom + window.scrollY;
         window.scrollTo({top: Math.max(0, gridBottom - Math.min(240, innerHeight * .3)), behavior: 'instant'});
@@ -206,6 +227,13 @@
     }
     const link = event.target.closest('a[href^="#"]');
     if (!link || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || event.button !== 0) return;
+    if (link.matches('[data-audience], [data-entry-page]')) {
+      // Shared entry controls switch lower content without native anchor scrolling first.
+      event.preventDefault();
+      if (link.hash !== location.hash) history.pushState(null, '', link.hash);
+      route();
+      return;
+    }
     if (link.dataset.returnPlan) returningPlan = link.dataset.returnPlan;
     if (link.hash === location.hash) { event.preventDefault(); route(); }
   });

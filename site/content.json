@@ -105,6 +105,12 @@
       "applicationLink": {
         "label": "前往所得達租金標準申報優惠稅率專區",
         "href": "https://services.arpa.tpctax.dof.gov.taipei/incomeReachStandard/form.php"
+      },
+      "applicationAction": {
+        "kind": "online",
+        "label": "線上申報出租房屋",
+        "href": "https://services.arpa.tpctax.dof.gov.taipei/incomeReachStandard/form.php",
+        "note": "前往官方申報表，依頁面要求填寫並上傳租約。"
       }
     },
     {
@@ -212,7 +218,13 @@
           "url": "https://www.mof.gov.tw/singlehtml/384fb3077bb349ea973e7fc6f13b6974?cntId=1a2759d765cd4816a66bd1ead732ed5a"
         }
       ],
-      "applicationMode": "地方稅主動辦理・認定洽住宅主管機關"
+      "applicationMode": "地方稅主動辦理・認定洽住宅主管機關",
+      "applicationAction": {
+        "kind": "recognition",
+        "label": "前往稅捐處申辦與書表",
+        "href": "https://tpctax.gov.taipei/cp.aspx?n=F1C8047E644BDA72",
+        "note": "地方稅依都發局造冊資料主動辦理；如需自行申請，先查官方書表與承辦方式。此連結是申辦與書表總入口，不是專用線上認定表。"
+      }
     },
     {
       "id": "social",
@@ -321,7 +333,13 @@
           "url": "https://www.mof.gov.tw/singlehtml/384fb3077bb349ea973e7fc6f13b6974?cntId=1a2759d765cd4816a66bd1ead732ed5a"
         }
       ],
-      "applicationMode": "先洽計畫業者・地方稅主動辦理"
+      "applicationMode": "先洽計畫業者・地方稅主動辦理",
+      "applicationAction": {
+        "kind": "provider",
+        "label": "洽詢計畫合作業者",
+        "href": "https://leasing-and-management.udd.gov.taipei/news/70",
+        "note": "先與官方列示的計畫業者洽談加入；地方稅依造冊資料主動辦理。"
+      }
     },
     {
       "id": "personal",
@@ -433,7 +451,13 @@
           "url": "https://www.mof.gov.tw/singlehtml/384fb3077bb349ea973e7fc6f13b6974?cntId=1a2759d765cd4816a66bd1ead732ed5a"
         }
       ],
-      "applicationMode": "自行申請地方稅・業者查詢洽內政部"
+      "applicationMode": "自行申請地方稅・業者查詢洽內政部",
+      "applicationAction": {
+        "kind": "forms",
+        "label": "前往稅捐處申辦與書表",
+        "href": "https://tpctax.gov.taipei/cp.aspx?n=F1C8047E644BDA72",
+        "note": "查找個人租賃住宅委託包租代管減徵地價稅及房屋稅申請書，依官方管道辦理。此連結是書表總入口，不代表已確認專用線上合併申請。"
+      }
     }
   ],
   "tenants": [

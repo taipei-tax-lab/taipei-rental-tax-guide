@@ -30,9 +30,11 @@ const plans = data.plans;
 if (plans.length !== 4 || new Set(plans.map(p => p.id)).size !== 4) throw new Error('Four unique plans required');
 for (const plan of plans) {
   if (plan.taxes.length !== 3 || !plan.source?.checked || !plan.links.length) throw new Error(`Incomplete plan: ${plan.id}`);
+  if (!plan.applicationAction?.label || !plan.applicationAction?.note || !plan.applicationAction?.href) throw new Error(`Missing application action: ${plan.id}`);
   const planUrls = [
     ...plan.links.map(l => l.href),
     ...(plan.applicationLink ? [plan.applicationLink.href] : []),
+    ...(plan.applicationAction ? [plan.applicationAction.href] : []),
     plan.source.url,
     ...(plan.sourceLinks || []).map(l => l.url || l.href),
     ...(plan.documentSource?.href ? [plan.documentSource.href] : [])
@@ -134,12 +136,12 @@ const comparison = plans.map(plan => {
   return `<article data-compare-plan="${plan.id}" class="v2-compare-card v2-${plan.accent}"><h2>${esc(plan.eyebrow)}</h2><p class="v2-compare-situation">${esc(plan.compareSituation || plan.situation)}</p><dl><div><dt>管理方式</dt><dd>${esc(plan.management)}</dd></div><div><dt>主要門檻</dt><dd>${esc(plan.condition)}</dd></div>${compareTaxes}<div><dt>第一步</dt><dd>${esc(plan.firstStep)}</dd></div></dl><a href="#plan-${plan.id}" class="v2-button">查看優惠與辦理方式 →</a></article>`;
 }).join('\n');
 // Application instructions stay in the shared policy records; no separate tax rules.
-const directApply = plans.map(plan => `<article class="v2-application-item" aria-labelledby="apply-${plan.id}">
-  <h2 id="apply-${plan.id}">${esc(plan.eyebrow)}</h2>
+const directApply = plans.map(plan => `<article class="v2-application-item v2-${esc(plan.accent)}" data-application-plan="${plan.id}" aria-labelledby="apply-${plan.id}">
+  <h3 id="apply-${plan.id}">${esc(plan.eyebrow)}</h3>
   <p class="v2-application-mode">${esc(plan.applicationMode)}</p>
   <p>${esc(plan.nextStepCaption)}</p>
   <ol>${plan.process.map(step => `<li>${esc(step)}</li>`).join('')}</ol>
-  <div class="v2-source-links">${[...(plan.applicationLink ? [plan.applicationLink] : []), ...plan.links].map(item => link(item)).join('')}</div>
+  <div class="v2-application-action">${link(plan.applicationAction, 'v2-button v2-primary')}<p class="v2-caption">${esc(plan.applicationAction.note)}</p></div>
   <a class="v2-text-link" href="#plan-${plan.id}">查看完整條件與應備資料 →</a>
 </article>`).join('\n');
 const operationVideos = ['pc', 'mobile'].map(version => {

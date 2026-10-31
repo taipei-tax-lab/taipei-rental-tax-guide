@@ -34,8 +34,7 @@
       </a>
     </header>
     <main id="content" tabindex="-1">
-      <div data-page="home" id="top">
-        <section class="v2-hero" aria-labelledby="home-title">
+        <section id="top" data-entry-shell class="v2-hero" aria-labelledby="home-title">
           <div class="v2-hero-copy">
             <h1 id="home-title" tabindex="-1"><span>了解租稅優惠，</span><em>查詢適用方案</em></h1>
             <p>依您的出租情況，查詢適用條件、各項租稅優惠及申辦方式。</p>
@@ -43,7 +42,7 @@
             <div class="v2-audience" aria-label="選擇查詢方式">
               <a href="#owners" data-audience="owner" class="v2-audience-button" aria-current="true">{{HOUSE_ICON}}<span><strong>我是屋主</strong><small>查出租方案與租稅優惠</small></span></a>
               <a href="#tenants" data-audience="tenant" class="v2-audience-button">{{PERSON_ICON}}<span><strong>我是房客</strong><small>查補貼、房源與租屋權益</small></span></a>
-              <button type="button" class="v2-audience-button v2-chat-entry" id="open-helper"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a7 7 0 0 1-7 7H8l-5 4V6a3 3 0 0 1 3-3h11a3 3 0 0 1 3 3z"/><path d="M7 8h9M7 12h6"/></svg><span><strong>直接問小幫手</strong><small>直接描述您的問題</small></span></button>
+              <a href="#direct-apply" data-entry-page="direct-apply" class="v2-audience-button">{{APPLY_ICON}}<span><strong>直接申請</strong><small>已了解方案？前往申辦</small></span></a>
               <a
                 class="v2-audience-button v2-income-standard-entry"
                 data-service-entry="income_standard"
@@ -63,12 +62,13 @@
                   <span class="v2-income-standard-fallback"><strong>所得達租金標準</strong><small>申報優惠稅率專區</small></span>
                 </div>
               </a>
-              <a href="#direct-apply" class="v2-audience-button">{{APPLY_ICON}}<span><strong>直接申請</strong><small>已了解方案？前往申辦</small></span></a>
-              <a href="#operation-guide" class="v2-audience-button">{{VIDEO_ICON}}<span><strong>操作說明</strong><small>觀看 2 分鐘使用教學</small></span></a>
+              <button type="button" class="v2-audience-button v2-chat-entry" id="open-helper"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a7 7 0 0 1-7 7H8l-5 4V6a3 3 0 0 1 3-3h11a3 3 0 0 1 3 3z"/><path d="M7 8h9M7 12h6"/></svg><span><strong>直接問小幫手</strong><small>直接描述您的問題</small></span></button>
+              <a href="#operation-guide" data-entry-page="operation-guide" class="v2-audience-button">{{VIDEO_ICON}}<span><strong>操作說明</strong><small>觀看 2 分鐘使用教學</small></span></a>
             </div>
             <p id="helper-status" class="v2-caption" role="status" hidden></p>
           </div>
         </section>
+      <div data-page="home">
         <div class="v2-container">
           <section id="owners" class="v2-owner-section" data-audience-panel="owner" aria-labelledby="owner-title">
             <div class="v2-section-heading" id="plans">
@@ -100,14 +100,14 @@
           </section>
         </div>
       </div>
-      <section data-page="direct-apply" id="direct-apply" class="v2-container v2-inner-page" aria-labelledby="direct-apply-title">
-        <h1 id="direct-apply-title" tabindex="-1">直接申請</h1>
+      <section data-page="direct-apply" id="direct-apply" class="v2-container v2-inner-page v2-entry-content" aria-labelledby="direct-apply-title">
+        <h2 id="direct-apply-title" tabindex="-1">直接申請</h2>
         <p>已了解方案？依您的出租方式，查看辦理順序與官方入口。地方稅優惠、住宅計畫與所得稅申報，請分別依主管機關規定辦理。</p>
         <div class="v2-application-list">{{DIRECT_APPLY}}</div>
         <p class="v2-notice">{{NOTE}}</p>
       </section>
-      <section data-page="operation-guide" id="operation-guide" class="v2-container v2-inner-page" aria-labelledby="operation-guide-title">
-        <h1 id="operation-guide-title" tabindex="-1">操作說明</h1>
+      <section data-page="operation-guide" id="operation-guide" class="v2-container v2-inner-page v2-entry-content" aria-labelledby="operation-guide-title">
+        <h2 id="operation-guide-title" tabindex="-1">操作說明</h2>
         <p>選擇電腦版或手機版，觀看專區使用教學。按下播放後開始觀看，可使用播放器的全螢幕功能。</p>
         <fieldset class="v2-video-switch"><legend>選擇教學版本</legend>
           <label><input type="radio" name="guide-version" value="pc" checked aria-controls="guide-video-pc"> 電腦版</label>

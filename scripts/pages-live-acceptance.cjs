@@ -5,8 +5,10 @@ const fs = require('node:fs');
 const path = require('node:path');
 const base = process.env.PREVIEW_URL || 'http://127.0.0.1:4173/';
 const artifacts = '.preview/pages-live';
-assert.equal(new URL(base).protocol,'https:','Live acceptance requires actual HTTPS');
-assert.ok(new URL(base).hostname.endsWith('.pages.dev'),'Expected Pages HTTPS host');
+if (!process.env.ALLOW_LOCAL_PREVIEW) {
+  assert.equal(new URL(base).protocol,'https:','Live acceptance requires actual HTTPS');
+  assert.ok(new URL(base).hostname.endsWith('.pages.dev'),'Expected Pages HTTPS host');
+}
 const tenantItems = JSON.parse(fs.readFileSync(path.join(__dirname, '../site/content.json'), 'utf8')).tenants;
 assert.ok(Array.isArray(tenantItems) && tenantItems.length > 0, 'site/content.json must define tenant/service items');
 fs.mkdirSync(artifacts, {recursive:true});
@@ -175,7 +177,7 @@ fs.mkdirSync(artifacts, {recursive:true});
     await page.setViewportSize({width:768,height:1024});await page.goto(base+'#direct-apply');await page.screenshot({path:`${artifacts}/application-tablet.png`});
     await page.setViewportSize({width:390,height:844});await page.goto(base+'#operation-guide');await page.getByLabel('手機版',{exact:true}).check();await page.screenshot({path:`${artifacts}/video-mobile.png`});
     fs.writeFileSync(`${artifacts}/acceptance.json`,JSON.stringify({base,testedAt:new Date().toISOString(),cx:'excluded; third-party requests isolated; never opened or queried',errors,consoleErrors,gaRequests,assets,external,checks:['six home entries','all four desktop inline/detail views and responsive transition','guide previous/result/history','tenant groups and all links','two/four comparison and duplicate-selection guard','320-1440px overflow and 200% text','four application contents/links','32 public asset MIME/status checks','11 excluded paths 404']},null,2));
-    console.log('PASS: LIVE Pages non-CX frontend acceptance, 32 assets/MIME, excluded paths 404, zero GA4 requests.');
+    console.log(`PASS: ${new URL(base).protocol==='https:'?'LIVE Pages HTTPS':'LOCAL preview'} non-CX frontend acceptance, 32 assets/MIME, excluded paths 404, zero GA4 requests.`);
     console.log(JSON.stringify({external}));
   } finally {await browser.close();}
 })().catch(err=>{console.error(err);process.exitCode=1;});

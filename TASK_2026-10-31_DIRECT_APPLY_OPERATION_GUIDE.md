@@ -1,54 +1,39 @@
-# TASK — Pages deployment and non-CX HTTPS acceptance (2026-10-31)
+# TASK — UX round 2 (2026-10-31)
 
-Status: **PAGES_TEST_DEPLOYED — NON_CX_FRONTEND_ACCEPTANCE_PASS**
+Status: **IN_PROGRESS**
 
 ## Scope and progress
 
-- [x] Correct frontend repo, clean worktree; fetched/pulled same feature branch at `f9096fa44cf134bd85e672c356cc76aa56bca2dc`.
-- [x] Read latest State/Task/README/build and Cloudflare skill; no AGENTS.md found.
-- [x] Preserve prior State/Task in docs/history before starting this phase.
-- [x] Create/reuse `rental-tax-guide-test` with GitHub feature production branch and requested build/output/env settings.
-- [x] HTTPS non-CX acceptance: six cards, owner/tenant/plans/guide/comparison, four-plan application links, videos/device selection/history/fullscreen, assets/MIME/errors/overflow, GA4 silence, excluded files 404.
-- [x] Record results; commit/push this evidence on the same branch, then verify final Pages source against remote HEAD for final handoff.
+- [x] Clean repo, safe fetch/fast-forward pull same branch at f6c0ab4; read State/Task/README/frontend flow, no AGENTS.md found. First Git escalation review timed out; single retry succeeded.
+- [x] Preserve completed deployment stage and all original evidence under docs/history.
+- [x] Minimal shared hero/entry shell and hash/focus/history behavior.
+- [x] Swap only helper and direct-apply entries.
+- [x] Four application cards, blue/orange/green/purple, 2×2 desktop and 1 column mobile, shared policy records.
+- [x] Verify and label one primary action per plan; record unresolved direct channels honestly.
+- [ ] Build/tests, desktop/tablet/mobile non-CX regression; push same branch, align existing Pages latest deployment and run real HTTPS regression.
 
-CX operations/API are fully excluded, including opening the helper, sending queries and predefined topics. Browser automation isolates third-party CX requests only; website/Messenger/CX/GCP configuration remains unchanged. External application destinations receive GET only, never data submission. R2 videos remain read-only and use existing URLs. No PR/main merge/institutional deployment/ZIP/official media.
+## Application source work
+
+- Ordinary: existing official income-standard form includes fields, lease upload and submit; this is a real online declaration, not the calculator.
+- Social: official Taipei program page explicitly directs owners to cooperating providers; provider consultation is the correct first action, not an online tax application.
+- Public/personal: user supplied official tax application/forms portal https://tpctax.gov.taipei/cp.aspx?n=F1C8047E644BDA72 for both. Inspect portal and use truthful labels. Do not infer a dedicated combined house/land-tax online workflow.
+- Personal candidate discovered by clicking official “我要申請”: https://service.taipei/online-application/BX004/step1 . It is titled general land-tax exemption, and stops at terms before form fields. No terms accepted, no data submitted; exact applicability to combined house/land-tax reduction unverified.
+- Public: nprent is a recognition query; do not present it as submitting an application. Local taxes use the existing proactive roster process.
+
+CX tests/actions remain excluded. R2 files/player/source URLs and Messenger config unchanged. No policy-value changes, main merge, PR, institutional deployment, ZIP or official video.
 
 ## History
 
-- [Previous preparation phase and evidence](docs/history/TASK_2026-10-31_DIRECT_APPLY_OPERATION_GUIDE_BEFORE_PAGES_DEPLOY_2026-10-31.md).
-- [Previous State](docs/history/PROJECT_STATE_BEFORE_PAGES_DEPLOY_2026-10-31.md).
+[Previous Task and evidence](docs/history/TASK_2026-10-31_DIRECT_APPLY_OPERATION_GUIDE_BEFORE_UX2_2026-10-31.md), [previous State](docs/history/PROJECT_STATE_BEFORE_UX2_2026-10-31.md).
 
-## Deployment
+## Implementation / local checks
 
-- Existing account had zero Pages projects. Created only `rental-tax-guide-test` via the Cloudflare connector using existing GitHub authorization; repo and feature production branch verified. Preview branches disabled, PR comments disabled, no Functions or other service.
-- Build `node scripts/build-pages-test.mjs`, root blank, output `dist-pages-test`, NODE_VERSION=22 and SKIP_DEPENDENCY_INSTALL=1 in production/preview. Account source GitHub repo IDs and branch verified through API. No new keys or authorization expansion.
-- Explicit Git deployment started after project creation (creation itself did not start a build). Deployment `9dc325f4-40ec-435e-9aa6-602626cd89d0`, source `f9096fa44cf134bd85e672c356cc76aa56bca2dc` from the correct feature branch; queue/initialize/clone/build/deploy all SUCCESS. Public alias https://rental-tax-guide-test.pages.dev/ and deployment URL https://9dc325f4.rental-tax-guide-test.pages.dev . Canonical deployment verified via API.
-- Final test/docs push triggers Git deployment; the last canonical deployment is checked after push to ensure its source equals final remote branch HEAD. Final Deployment ID/SHA are reported in the handoff (self-referential commit IDs are not embedded in their own commit).
-
-## Actual HTTPS acceptance and evidence
-
-All browser suites below targeted **https://rental-tax-guide-test.pages.dev/**, not localhost, using installed Playwright + Edge. CX scripts/API/third-party requests were isolated by test routing; Messenger was never opened or queried. The CX-related hero button was inspected for presence only. No chat/browser-check or chat viewport suite that opens Messenger was run in this phase.
-
-- Build and isolated Pages build PASS; canonical build check PASS; complete unit suite **56/56 PASS**; standalone performance budget and diff checks PASS. Unit tests containing deterministic Messenger mocks are not live CX acceptance.
-- `scripts/pages-live-acceptance.cjs`: PASS. All four desktop inline plans, mobile detail and responsive transition; guide previous/result/history; tenant groups/all resource links; mobile two-plan comparison, duplicate selection guard, desktop four aligned columns; 320/390/768/1024/1440px checks and 200% text. New application page renders all four shared records/modes/processes/links. Three non-CX home links clicked through the suites; income-standard destination checked read-only; helper intentionally not clicked.
-- `scripts/extension-browser-check.cjs`: PASS. Six-entry 3×2 desktop layout; 1440/1100/768/390/320px home/application/video no overflow. Phone defaults mobile, desktop defaults PC even when narrow; manual override survives resize/landscape/routes/history, reload initializes by device. Both posters/16:9/no autoplay/native controls remain present. Actual R2 playback, native fullscreen entry/exit, switch/leave pause and return retention/no autoplay all PASS. R2 responses 206, Content-Type video/mp4, 1920×1080 decoded, currentTime advances, no media error. No R2 file upload/update/delete or URL changes.
-- `scripts/pages-test-browser-check.cjs`: PASS. gtag absent, analytics helper cannot emit, no GA4 request during interactions, four application items and retained video choice, expected private-path 404s.
-- All **32** allowlisted files HTTP 200 with correct HTML/CSS/JS/PNG/WebP/SVG MIME; all **11** sampled non-published paths HTTP 404 (State, Task, README, package.json, source, tests, Git config, history, manifest). Published output remains the same 32-file allowlist; docs/evidence never included.
-- Zero uncaught page errors/unexpected console errors in the non-CX suite; deliberately blocked third-party resource messages excluded. No site-owned asset 404, wrong MIME or unnecessary horizontal overflow observed.
-- Eleven unique application destinations checked GET only: ten HTTP 200; service.taipei/case-detail/BX004 returned HTTP 404 at document transport. Browser verification of that exact original URL completed JavaScript loading and showed “申請地價稅減免” plus the personal rental house/land-tax application forms. Retained original link; did not invent a replacement or submit data. Screenshot and report preserve this external-server caveat.
-
-Tracked evidence under [docs/evidence/2026-10-31-pages](docs/evidence/2026-10-31-pages): deployment.json, https-acceptance.json, https-video-acceptance.json, https-ga4-isolation.json; home-desktop.png, application-tablet.png, video-mobile.png and official-service-content.png. Additional detailed screenshots remain in ignored .preview/pages-live/ and .preview/extension-*.png.
-
-## Failures and actual corrections
-
-- Test harness: the old artifact smoke aborted all HTTPS requests, including its own site. Fixed routing to allow the tested origin while isolating third parties.
-- Test harness: first remote smoke counted application items before hashchange rendering completed (0 vs 4). Added explicit visible-panel waits; rerun PASS.
-- External transport 404 described above is not a frontend regression; correct browser content verified, no policy/URL/product change made.
-- No site implementation fix required. Player/CSS/template/policy/analytics/Messenger/media/config remain unchanged from the approved artifact. Added reproducible non-CX HTTPS suite only; no external dependency.
-
-## Limits and completion
-
-- **非 CX 前端功能驗收完成，可供使用者人工操作測試。** No formal whole-project launch claim.
-- CX opening/messages/topics/API explicitly excluded; no CX/GCP/Messenger change. Physical iOS/Android, screen-reader/full accessibility and complete audio/video editorial review remain untested.
-- service.taipei HTTP status caveat remains external; its browser content is reachable. No failed frontend acceptance item remains in tested scope.
-- Final push/Pages alignment and HTTPS smoke must be confirmed before final response. No main merge/PR/institutional site/ZIP/official video actions.
+- One shared hero/six-entry shell lifted out of the home content. Home/application/video routes keep it visible; legacy plan detail/inline/comparison lifecycle retained. Entry clicks use pushState and the existing route function, avoiding a native anchor jump before lower content is ready. Hash/history/deep links and heading focus are preserved; scroll moves only when the heading is outside the useful viewport. No new return-home button/framework/dependency.
+- Swapped only helper/application DOM positions. Tablet entry grid corrected to 2 columns for legibility; desktop remains 3×2. Application cards use existing four palette variables, 2 columns above 700px, one below, natural heights, one primary action and complete existing processes.
+- New `applicationAction` presentation metadata in content.json controls a single main action/note; all original policy/process/deadline/condition/reference-link fields deep-equal the f6c0ab4 baseline. Old calculator/query/FAQ links remain in plan details instead of competing primary actions.
+- User supplied the tax forms portal for public/personal. Verified as the official application/forms directory; use accurate portal labels. Dedicated public recognition and personal combined-tax online form endpoints remain unverified, and are not represented as confirmed direct-online applications. Candidate personal online path was found through the official button but stops at terms; no terms accepted/data submitted.
+- Build/Pages build/check PASS; complete Node suite **58/58 PASS**, performance budget PASS, diff check PASS. Exact Node package-script entrypoints used (npm absent in shell).
+- Local published-output non-CX regression PASS: existing four plans/guide/comparison/tenant links, primary links, 32 public asset MIME/status checks, excluded files 404, no GA4 calls/errors. Video regression PASS: both R2 media 206/video/mp4, decode/play/fullscreen/pause/history/device defaults. UX2 regression PASS at 1440/768/390/320px: order/shared shell, keyboard/focus, columns/colors, deep links/reload/history, no overflow and no unnecessary desktop jump.
+- Initial UX2 scroll assertion exposed native anchor scrolling before route; fixed by intercepting only shared-entry links. Initial generic local artifact check found preview server did not serve its public 404.html; extended preview's static filename allowlist. Neither change affects CX/R2 configuration.
+- Impeccable detector ran once; existing style/border heuristics plus aggregate-parser warnings are advisory, not new measured defects. Bounded desktop/mobile/tablet screenshot review confirmed current layout; no unrelated redesign.
+- Next: push implementation, let existing Pages project rebuild, run actual HTTPS tests, save final evidence and update State/Task.
