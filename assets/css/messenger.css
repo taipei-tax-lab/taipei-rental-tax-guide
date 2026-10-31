@@ -85,7 +85,7 @@ df-messenger {
   --df-messenger-chat-bubble-border: 1px solid rgba(255, 255, 255, 0.55);
 
   /* 滾到最底按鈕 */
-  --df-messenger-chat-scroll-button-enabled-display: flex;
+  --df-messenger-chat-scroll-button-enabled-display: none;
   --df-messenger-chat-scroll-button-align: center;
   --df-messenger-chat-scroll-button-container-padding: 8px;
   --df-messenger-chat-scroll-button-font-size: 16px;
