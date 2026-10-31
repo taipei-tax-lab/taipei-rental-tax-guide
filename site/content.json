@@ -107,10 +107,10 @@
         "href": "https://services.arpa.tpctax.dof.gov.taipei/incomeReachStandard/form.php"
       },
       "applicationAction": {
-        "kind": "online",
-        "label": "線上申報出租房屋",
-        "href": "https://services.arpa.tpctax.dof.gov.taipei/incomeReachStandard/form.php",
-        "note": "前往官方申報表，依頁面要求填寫並上傳租約。"
+        "kind": "forms",
+        "label": "前往申辦與書表下載",
+        "href": "https://tpctax.gov.taipei/cp.aspx?n=F1C8047E644BDA72",
+        "note": "此為稅捐處申辦與書表下載總入口，請查找適用書表及辦理方式；不是一般出租方案專屬的線上申請表。"
       }
     },
     {
@@ -335,10 +335,10 @@
       ],
       "applicationMode": "先洽計畫業者・地方稅主動辦理",
       "applicationAction": {
-        "kind": "provider",
-        "label": "洽詢計畫合作業者",
-        "href": "https://leasing-and-management.udd.gov.taipei/news/70",
-        "note": "先與官方列示的計畫業者洽談加入；地方稅依造冊資料主動辦理。"
+        "kind": "forms",
+        "label": "前往申辦與書表下載",
+        "href": "https://tpctax.gov.taipei/cp.aspx?n=F1C8047E644BDA72",
+        "note": "此為稅捐處申辦與書表下載總入口，供查找適用書表及辦理方式；不是加入社會住宅包租代管計畫的線上申請表。加入計畫仍須洽合作業者，地方稅依造冊資料主動辦理。"
       }
     },
     {

@@ -78,7 +78,7 @@ fs.mkdirSync(artifacts, {recursive:true});
       assert.equal(await page.locator(selector).evaluate(v=>v.volume),.4);
       await page.locator(selector).evaluate(v=>{v.volume=1;});
       // Exercise the native scrubber by dragging, then verify a decoded frame and resumed playback.
-      await page.locator(selector).hover();
+      await page.locator(selector).hover({position:{x:20,y:bounds.height-20}});
       const seekBox=await page.locator(selector).boundingBox();
       await page.mouse.move(seekBox.x+seekBox.width*.25,seekBox.y+seekBox.height-14);
       await page.mouse.down();await page.mouse.move(seekBox.x+seekBox.width*.65,seekBox.y+seekBox.height-14,{steps:8});await page.mouse.up();

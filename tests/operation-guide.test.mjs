@@ -52,7 +52,7 @@ function playerFixture(navigator = {userAgent: 'Mozilla/5.0 (Windows NT 10.0; Wi
   const events = {};
   const controls = ['pc','mobile'].map((value, i) => ({value, checked:i===0, addEventListener(type, fn) { this[type] = fn; }}));
   const videos = controls.map(() => ({paused:false, currentTime:12, pause() {this.paused=true;}, play() {throw new Error('must never autoplay');}}));
-  const panels = controls.map((c,i) => ({dataset:{videoVersion:c.value}, hidden:false, querySelector() {return videos[i];}}));
+  const panels = controls.map((c,i) => ({dataset:{videoVersion:c.value}, hidden:false, querySelector(selector) {return selector === 'video' ? videos[i] : null;}}));
   const document = {hidden:false, querySelectorAll(selector) {return selector === '[data-video-version]' ? panels : controls;}, addEventListener(type,fn) {events[type]=fn;}};
   const window = {addEventListener(type,fn) {events[type]=fn;}};
   vm.runInNewContext(read('assets/js/operation-guide.js'), {document,window,navigator});

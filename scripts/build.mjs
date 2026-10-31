@@ -152,10 +152,13 @@ const operationVideos = ['pc', 'mobile'].map(version => {
   const portrait = version === 'mobile';
   return `<div class="v2-video-panel" data-video-version="${version}">
     <h2 id="guide-video-${version}-title">${label}使用教學</h2>
+    <div class="v2-video-surface">
     <video id="guide-video-${version}" controls playsinline preload="none" poster="./assets/images/operation-guide-poster${portrait ? '-mobile' : ''}.svg" width="${portrait ? 1080 : 1920}" height="${portrait ? 1920 : 1080}" aria-labelledby="guide-video-${version}-title">
       <source src="${esc(src)}" type="video/mp4">
       您的瀏覽器無法播放此影片，請使用下方影片連結。
     </video>
+    <button type="button" class="v2-video-toggle" data-video-toggle aria-label="播放影片" aria-controls="guide-video-${version}" hidden></button>
+    </div>
     <p class="v2-caption">若影片無法播放，可<a href="${esc(src)}" target="_blank" rel="noopener noreferrer">另開${label}影片<span class="sr-only">（另開新視窗）</span></a>後重試。</p>
   </div>`;
 }).join('\n');
