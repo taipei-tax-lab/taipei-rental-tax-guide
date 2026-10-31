@@ -1,0 +1,6 @@
+{
+  "baseline": "0a1f4a20e475d1a4b9e12e87eb06373d9973f42c",
+  "data": "all original fields equal after restoring only labels/meta.note",
+  "generatedHTML": "only two label replacements and seven repeated sentence paragraphs removed",
+  "unchanged": "all other generated markup and asset version references"
+}

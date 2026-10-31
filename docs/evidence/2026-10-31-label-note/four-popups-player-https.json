@@ -1,0 +1,79 @@
+{
+  "base": "https://rental-tax-guide-test.pages.dev/",
+  "rows": [
+    {
+      "device": "desktop",
+      "version": "pc",
+      "screenPlayPauseResume": true,
+      "nativePlayPause": true,
+      "nativeSeek": true,
+      "nativeMute": true,
+      "volume": true,
+      "fullscreen": true,
+      "replayEnded": true,
+      "switchPause": true
+    },
+    {
+      "device": "desktop",
+      "version": "mobile",
+      "screenPlayPauseResume": true,
+      "nativePlayPause": true,
+      "nativeSeek": true,
+      "nativeMute": true,
+      "volume": true,
+      "fullscreen": true,
+      "replayEnded": true,
+      "switchPause": true
+    },
+    {
+      "device": "iPhone Chromium emulation",
+      "version": "pc",
+      "screenPlayPauseResume": true,
+      "nativePlayPause": true,
+      "nativeSeek": true,
+      "nativeMute": true,
+      "volume": true,
+      "fullscreen": true,
+      "replayEnded": true,
+      "switchPause": true
+    },
+    {
+      "device": "iPhone Chromium emulation",
+      "version": "mobile",
+      "screenPlayPauseResume": true,
+      "nativePlayPause": true,
+      "nativeSeek": true,
+      "nativeMute": true,
+      "volume": true,
+      "fullscreen": true,
+      "replayEnded": true,
+      "switchPause": true
+    },
+    {
+      "device": "Android Chromium emulation",
+      "version": "pc",
+      "screenPlayPauseResume": true,
+      "nativePlayPause": true,
+      "nativeSeek": true,
+      "nativeMute": true,
+      "volume": true,
+      "fullscreen": true,
+      "replayEnded": true,
+      "switchPause": true
+    },
+    {
+      "device": "Android Chromium emulation",
+      "version": "mobile",
+      "screenPlayPauseResume": true,
+      "nativePlayPause": true,
+      "nativeSeek": true,
+      "nativeMute": true,
+      "volume": true,
+      "fullscreen": true,
+      "replayEnded": true,
+      "switchPause": true
+    }
+  ],
+  "errors": [],
+  "dataBoundary": "only four labels and meta.note changed"
+}

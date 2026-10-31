@@ -1,0 +1,46 @@
+{
+  "base": "https://rental-tax-guide-test.pages.dev/",
+  "testedAt": "2026-10-31T12:31:36.634Z",
+  "baseline": false,
+  "rows": [],
+  "navigation": [
+    {
+      "entry": "owners",
+      "deepLink": true,
+      "reload": true,
+      "repeatPreservesPosition": true,
+      "resizePreservesPosition": true
+    },
+    {
+      "entry": "tenants",
+      "deepLink": true,
+      "reload": true,
+      "repeatPreservesPosition": true,
+      "resizePreservesPosition": true
+    },
+    {
+      "entry": "direct-apply",
+      "deepLink": true,
+      "reload": true,
+      "repeatPreservesPosition": true,
+      "resizePreservesPosition": true
+    },
+    {
+      "entry": "operation-guide",
+      "deepLink": true,
+      "reload": true,
+      "repeatPreservesPosition": true,
+      "resizePreservesPosition": true
+    },
+    {
+      "keyboard": true,
+      "historyRestoresReadingPosition": true,
+      "bottomClamp": {
+        "top": 571.625,
+        "y": 0,
+        "maxY": 0
+      }
+    }
+  ],
+  "nativeZoom": []
+}
