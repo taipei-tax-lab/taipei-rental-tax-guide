@@ -45,16 +45,44 @@ test('both video sources come from switchable config and retain native player af
   assert.match(read('assets/css/guide-v2.css'), /aspect-ratio: 16 \/ 9/);
 });
 
-function playerFixture() {
+function playerFixture(navigator = {userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}) {
   const events = {};
   const controls = ['pc','mobile'].map((value, i) => ({value, checked:i===0, addEventListener(type, fn) { this[type] = fn; }}));
   const videos = controls.map(() => ({paused:false, currentTime:12, pause() {this.paused=true;}, play() {throw new Error('must never autoplay');}}));
   const panels = controls.map((c,i) => ({dataset:{videoVersion:c.value}, hidden:false, querySelector() {return videos[i];}}));
   const document = {hidden:false, querySelectorAll(selector) {return selector === '[data-video-version]' ? panels : controls;}, addEventListener(type,fn) {events[type]=fn;}};
   const window = {addEventListener(type,fn) {events[type]=fn;}};
-  vm.runInNewContext(read('assets/js/operation-guide.js'), {document,window});
+  vm.runInNewContext(read('assets/js/operation-guide.js'), {document,window,navigator});
   return {controls,videos,panels,document,window,events};
 }
+
+test('initial version follows browser mobile device hint, with phone UA fallback', () => {
+  for (const [navigator, expected] of [
+    [{userAgentData:{mobile:true},userAgent:'reduced'}, 'mobile'],
+    [{userAgentData:{mobile:false},userAgent:'iPhone'}, 'pc'],
+    [{userAgent:'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) Mobile'}, 'mobile'],
+    [{userAgent:'Mozilla/5.0 (Linux; Android 15) Chrome/130 Mobile Safari/537.36'}, 'mobile'],
+    [{userAgent:'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}, 'pc'],
+    [{userAgent:'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)'}, 'pc']
+  ]) {
+    const f = playerFixture(navigator);
+    assert.equal(f.controls.find(c=>c.checked).value,expected);
+    assert.equal(f.panels.find(p=>!p.hidden).dataset.videoVersion,expected);
+    assert.ok(f.videos.every(v=>v.paused));
+  }
+});
+
+test('phone manual PC selection survives route pauses without autoplay or progress loss', () => {
+  const f = playerFixture({userAgentData:{mobile:true},userAgent:'reduced'});
+  f.controls[0].checked=true; f.controls[1].checked=false; f.controls[0].change();
+  f.videos[0].paused=false;
+  f.window.RentalOperationGuide.pause();
+  f.window.RentalOperationGuide.pause();
+  assert.equal(f.controls.find(c=>c.checked).value,'pc');
+  assert.deepEqual(f.panels.map(p=>p.hidden),[false,true]);
+  assert.ok(f.videos.every(v=>v.paused));
+  assert.deepEqual(f.videos.map(v=>v.currentTime),[12,12]);
+});
 
 test('switching and navigation pause both players without resetting selection or progress', () => {
   const f = playerFixture();

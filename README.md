@@ -91,7 +91,7 @@ CX 文件包含 PoC 與歷史操作紀錄，部分 Agent／Environment 敘述已
 
 影片來源在 `site/media.json` 的 `operationGuide.pc.src` 與 `operationGuide.mobile.src`。目前使用指定 R2 測試影片；日後可改為例如 `./assets/videos/operation-guide-pc.mp4` 與 `./assets/videos/operation-guide-mobile.mp4`，再執行 build。影片來源僅接受 HTTPS 或明確 `./` 相對路徑。MP4 不納入本輪 Git 或發行包；正式主機的檔案放置、CSP、MIME 與 Range 支援須另案確認。本機預覽器目前不提供 videos 路徑，本輪使用 R2 驗收。
 
-播放器使用本機 SVG 封面、原生 controls / fullscreen、`playsinline`、`preload="none"`，不自動播放。切換版本、離開頁籤或將瀏覽器移至背景時會暫停；同一頁面工作階段返回時保留所選版本與播放位置，不自動播放。重新載入預設電腦版。無 JavaScript 時兩版皆可手動播放。
+播放器使用本機 SVG 封面、原生 controls / fullscreen、`playsinline`、`preload="none"`，不自動播放。切換版本、離開頁籤或將瀏覽器移至背景時會暫停；同一頁面工作階段返回時保留所選版本與播放位置，不自動播放。首次載入或重新載入時依裝置預設：手機為手機版、電腦為電腦版；優先採用瀏覽器行動裝置資訊，無此資訊時辨識手機 User-Agent。視窗寬度改變不會重設選擇。無 JavaScript 時兩版皆可手動播放。
 
 額外的瀏覽器驗收（需要環境已有 Playwright 與 Edge）：
 

@@ -64,3 +64,23 @@ Checked read-only on 2026-10-31; no applications were submitted:
 - Confirm restricted official destinations manually. Existing policy data was reused, not re-audited for all future tax periods.
 - Formal hosting/CSP/MIME/Range, production-domain playback and relative MP4 hosting remain a separate deployment task. No formal ZIP prepared.
 - Commit SHA and remote branch are supplied in the final handoff; no PR is to be created.
+
+## Review correction — device-specific initial video (2026-10-31)
+
+- First ChatGPT review approved major features and State/Task management. Authorized only device-based initial version selection on the same branch.
+- Remote sync: clean worktree; fetch and fast-forward-only pull confirmed origin feature branch already current at `e0b1719a3fb032cb1121acc804edbeb7172dd680`.
+- [x] Initialize once using navigator.userAgentData.mobile with phone User-Agent fallback. A narrow desktop window stays PC; a landscape phone stays mobile. Manual selection and existing pause/no-autoplay logic remain intact.
+- [x] Add unit coverage for browser device hints, iPhone/Android/desktop fallback, phone manual PC selection and retained pause/progress; extend browser regression for phone initialization, manual choice retention, landscape/history and reload.
+- [x] Complete full regression; correction ready for commit/push on the same branch.
+- Requested “觀看 2 分鐘使用教學” and both test media sources remain unchanged. Previous evidence above is historical; the original PC-only reload behavior is superseded by this correction.
+
+### Correction validation and handoff
+
+- `node scripts/build.mjs` and `node scripts/build.mjs --check`: PASS.
+- `node --test tests/*.test.mjs`: **53/53 PASS**; `node scripts/performance-budget.mjs` and `git diff --check`: PASS. These are the exact package-script Node entrypoints; npm is absent in the shell.
+- `node scripts/browser-check.cjs`: PASS; `node scripts/chat-viewport-check.cjs`: PASS.
+- `node scripts/extension-browser-check.cjs`: PASS at 1440/1100/768/390/320px; desktop defaults to PC at all widths. iPhone UA emulation without UA-CH defaults to mobile, manual PC override survives route return, landscape and history, reload chooses mobile again even in landscape. Unit tests separately cover both UA-CH boolean values and Android/iPhone/desktop UA fallback. Browser checks are emulation, not physical-device acceptance.
+- Both supplied R2 videos again played with advancing time, 1920×1080 decode and no media errors; native fullscreen entry/exit, switching/leave pause and return without autoplay all PASS. Results remain in ignored `.preview/extension-results.json`.
+- Runtime diff: three initialization lines only; generated index changes only operation-guide.js cache hash. No CSS/template/policy/media/GA4/Messenger changes; documentation and tests updated. No new dependencies or player refactor.
+- No new issue found. Pre-existing physical-device/accessibility/official-link/deployment limitations remain as previously recorded. “觀看 2 分鐘使用教學” and test material URLs unchanged by explicit instruction.
+- Status: **IMPLEMENTED_AWAITING_CHATGPT_REVIEW — NOT RELEASED**. Commit and push this correction to `feat/direct-apply-operation-guide-20261031` only; no new branch/PR/merge/deployment.

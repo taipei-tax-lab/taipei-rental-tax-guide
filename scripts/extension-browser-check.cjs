@@ -30,6 +30,7 @@ fs.mkdirSync(artifacts, {recursive:true});
         await page.goto(base+'#'+hash);
         assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`${width} #${hash} overflow`);
         if(hash==='operation-guide') {
+          assert.ok(await page.getByLabel('電腦版',{exact:true}).isChecked(), 'desktop remains PC even at phone-sized viewport');
           const r=await page.locator('#guide-video-pc').boundingBox();
           assert.ok(Math.abs(r.width/r.height-16/9)<0.01);
           assert.equal(await page.locator('video[autoplay]').count(),0);
@@ -72,6 +73,30 @@ fs.mkdirSync(artifacts, {recursive:true});
         assert.ok(await page.locator(selector).evaluate(v=>v.paused));
       }
     }
+    // Real phone emulation exercises the User-Agent fallback (e.g. Safari without UA-CH).
+    const phone = await browser.newPage({viewport:{width:390,height:844},isMobile:true,hasTouch:true,
+      userAgent:'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 Version/18.0 Mobile/15E148 Safari/604.1'});
+    await phone.addInitScript(() => Object.defineProperty(navigator,'userAgentData',{value:undefined,configurable:true}));
+    await phone.route('**/*', route => new URL(route.request().url()).origin===new URL(base).origin ? route.continue() : route.abort());
+    phone.on('pageerror',e=>errors.push(e.message));
+    await phone.goto(base+'#operation-guide'); await phone.locator('.v2-ready').waitFor();
+    assert.ok(await phone.getByLabel('手機版',{exact:true}).isChecked());
+    assert.ok(await phone.locator('#guide-video-mobile').isVisible());
+    assert.ok(await phone.locator('video').evaluateAll(videos=>videos.every(v=>v.paused)));
+    await phone.getByLabel('電腦版',{exact:true}).check();
+    await phone.locator('footer a[href="#direct-apply"]').click();
+    await phone.locator('footer a[href="#operation-guide"]').click();
+    assert.ok(await phone.getByLabel('電腦版',{exact:true}).isChecked());
+    await phone.setViewportSize({width:844,height:390});
+    assert.ok(await phone.getByLabel('電腦版',{exact:true}).isChecked());
+    assert.ok(await phone.locator('#guide-video-pc').isVisible());
+    assert.ok(await phone.locator('video').evaluateAll(videos=>videos.every(v=>v.paused)));
+    await phone.goBack(); await phone.goForward();
+    assert.ok(await phone.getByLabel('電腦版',{exact:true}).isChecked());
+    await phone.reload(); await phone.locator('.v2-ready').waitFor();
+    assert.ok(await phone.getByLabel('手機版',{exact:true}).isChecked(), 'phone reload initializes by device even in landscape');
+    results.deviceDefault = {desktop:'pc',phone:'mobile',manualChoiceRetained:true,landscapeRetained:true};
+    await phone.close();
     assert.deepEqual(errors,[]);
     fs.writeFileSync(`${artifacts}/extension-results.json`,JSON.stringify(results,null,2));
     console.log('PASS: six entries, five widths, hash/history, 16:9, both live R2 playbacks, native fullscreen, switch/leave/return pause.');
