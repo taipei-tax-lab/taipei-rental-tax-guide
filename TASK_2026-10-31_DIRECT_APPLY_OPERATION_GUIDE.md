@@ -39,3 +39,10 @@ All changes restricted to scroll logic/test/docs/generated JS hash. No layout re
 - Isolated disposable Edge profiles successfully enable native engine page zoom (DPR 1/1.25/1.5 and reduced CSS viewport at fixed outer width). This is separate from the stopped native Chrome UI attempt; no user profile or blocked window was operated.
 
 - Local new scroll suite PASS: 36 responsive/zoom-equivalent + 12 native engine page-zoom measurements, four deep/reload/repeat/resize cases, keyboard/history, bottom clamp. Evidence: docs/evidence/2026-10-31-entry-scroll/. Awaiting pushed HTTPS acceptance.
+
+### HTTPS regression follow-up (before final acceptance)
+
+- First implementation deployment 772d628c-3672-4b49-ab35-696b01acb5d6 / f9e2af48b3d01291cb06d63abd4fed47a311daec succeeded. Existing four non-CX HTTPS suites PASS, but new scroll suite found cold deep-link/load timing and initial deep-link history cases; this deployment is NOT the final scroll acceptance.
+- Root cause of intermittent cold-load failure: registering the load correction inside requestAnimationFrame may miss load, so native fragment scrolling wins. Register synchronously during initial route; after load, rerun only the still-current route. No timers or fixed scrollY positions.
+- History marker now stores the exact hash; initial deep-linked entries receive replaceState metadata without adding history. This distinguishes new native fragment navigation from history traversal and preserves initial-entry reading position on Back.
+- New regression includes Back to each initially deep-linked entry after manual reading scroll. Test setup waits a layout frame after scrolling so browser native restoration has recorded a rendered position; existing history remains browser-managed.

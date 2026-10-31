@@ -1,5 +1,6 @@
 {
   "base": "http://127.0.0.1:4175/",
+  "testedAt": "2026-10-31T08:47:33.917Z",
   "baseline": false,
   "rows": [
     {

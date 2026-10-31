@@ -152,6 +152,9 @@
     hash = aliases[hash] || hash;
     const destination = pages.find(page => page.dataset.page === hash);
     const pageName = destination ? destination.dataset.page : 'home';
+    if (initial && (['owners', 'tenants'].includes(hash) || ['direct-apply', 'operation-guide'].includes(pageName))) {
+      history.replaceState({...history.state, rentalEntry: location.hash}, '');
+    }
     if (pageName !== 'operation-guide') window.RentalOperationGuide?.pause();
     const inline = desktop.matches && pageName.startsWith('plan-');
     for (const plan of planPages) {
@@ -200,12 +203,6 @@
       if (sharedPages.includes(pageName) && (pageName !== 'home' || (['owners', 'tenants'].includes(hash) && !returningPlan))) {
         const content = pageName === 'home' ? document.getElementById(hash) : visiblePage;
         const heading = content.querySelector('h1, h2');
-        if (initial && document.readyState !== 'complete') {
-          // Native fragment/restored scrolling happens at load, after our first layout frames.
-          window.addEventListener('load', () => requestAnimationFrame(() => requestAnimationFrame(() => {
-            if (generation === routeGeneration && heading.getClientRects().length) alignEntryHeading(heading);
-          })), {once: true});
-        }
         const position = initial || reason === 'entry' || reason === 'hash' || pendingEntryHeading === heading;
         if (position) {
           pendingEntryHeading = heading;
@@ -238,6 +235,10 @@
         if (!initial) focus(document.getElementById('home-title'));
       }
     });
+    // Register synchronously: load may precede the first animation frame.
+    if (initial && document.readyState !== 'complete') window.addEventListener('load', () => {
+      if (generation === routeGeneration) route(true);
+    }, {once: true});
   }
 
   site.addEventListener('click', event => {
@@ -256,14 +257,14 @@
       // Shared entry controls switch lower content without native anchor scrolling first.
       event.preventDefault();
       const changed = link.hash !== location.hash;
-      if (changed) history.pushState({...history.state, rentalEntry: true}, '', link.hash);
+      if (changed) history.pushState({...history.state, rentalEntry: link.hash}, '', link.hash);
       route(false, changed ? 'entry' : 'repeat');
       return;
     }
     if (link.dataset.returnPlan) returningPlan = link.dataset.returnPlan;
     if (link.hash === location.hash) { event.preventDefault(); route(); }
   });
-  window.addEventListener('popstate', event => { restoringEntryHistory = !!event.state?.rentalEntry; });
+  window.addEventListener('popstate', event => { restoringEntryHistory = event.state?.rentalEntry === location.hash; });
   window.addEventListener('hashchange', () => {
     const reason = restoringEntryHistory ? 'history' : 'hash';
     restoringEntryHistory = false;

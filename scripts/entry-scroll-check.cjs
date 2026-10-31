@@ -4,11 +4,12 @@ const fs=require('node:fs');
 const path=require('node:path');
 const base=process.env.PREVIEW_URL||'https://rental-tax-guide-test.pages.dev/';
 const baseline=process.argv.includes('--baseline');
+const navigationOnly=process.argv.includes('--navigation-only');
 const folder='.preview/entry-scroll';fs.mkdirSync(folder,{recursive:true});
 const entries=[['owners','owner-title'],['tenants','tenant-title'],['direct-apply','direct-apply-title'],['operation-guide','operation-guide-title']];
 (async()=>{const browser=await chromium.launch({channel:'msedge',headless:true});const rows=[];
 try{
- for(const [device,width,height] of [['desktop',1440,900],['tablet',768,1024],['phone',390,844]])for(const zoom of [1,1.25,1.5]){
+ if(!navigationOnly)for(const [device,width,height] of [['desktop',1440,900],['tablet',768,1024],['phone',390,844]])for(const zoom of [1,1.25,1.5]){
   const page=await browser.newPage({viewport:{width:Math.round(width/zoom),height:Math.round(height/zoom)},deviceScaleFactor:zoom});
   await page.route('**/*',r=>new URL(r.request().url()).origin===new URL(base).origin?r.continue():r.abort());
   for(const [hash,id] of entries){
@@ -28,7 +29,7 @@ try{
   const settle=()=>page.evaluate(()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r))));
   for(const [hash,id] of entries){
    await page.goto(base+'#'+hash);await page.locator('.v2-ready').waitFor();await settle();
-   await page.waitForFunction(id=>Math.abs(document.getElementById(id).getBoundingClientRect().top-28)<=2,id);
+   await page.waitForFunction(id=>Math.abs(document.getElementById(id).getBoundingClientRect().top-28)<=2,id,{timeout:3000}).catch(async()=>{throw Error(`Deep ${hash}: ${JSON.stringify(await page.locator('#'+id).evaluate(h=>({top:h.getBoundingClientRect().top,y:scrollY,state:history.state})))}`);});
    const deepTop=await page.locator('#'+id).evaluate(h=>h.getBoundingClientRect().top);assert.ok(Math.abs(deepTop-28)<=2,`deep ${hash}: ${deepTop}`);
    await page.reload();await page.locator('.v2-ready').waitFor();await settle();
    await page.waitForFunction(id=>Math.abs(document.getElementById(id).getBoundingClientRect().top-28)<=2,id);
@@ -40,20 +41,24 @@ try{
    await page.setViewportSize({width:1000,height:900});await settle();
    assert.ok(Math.abs(await page.evaluate(()=>scrollY)-reading)<=1,'breakpoint change preserves reading position');
    await page.setViewportSize({width:1440,height:900});
+   const readingBeforeLeave=await page.evaluate(()=>scrollY);
+   const other=hash==='direct-apply'?'owners':'direct-apply';
+   await page.locator(`.v2-audience a[href="#${other}"]`).dispatchEvent('click');await page.waitForFunction(other=>location.hash==='#'+other,other);await settle();
+   await page.goBack();await page.waitForFunction(y=>Math.abs(scrollY-y)<=2,readingBeforeLeave);
    navigation.push({entry:hash,deepLink:true,reload:true,repeatPreservesPosition:true,resizePreservesPosition:true});
   }
   await page.goto(base);await page.locator('.v2-ready').waitFor();
   for(const [hash,id] of entries){await page.locator(`.v2-audience a[href="#${hash}"]`).focus();await page.keyboard.press('Enter');await page.waitForFunction(id=>document.activeElement.id===id,id);await settle();}
-  await page.evaluate(()=>scrollBy({top:70,behavior:"instant"}));const videoY=await page.evaluate(()=>scrollY);
+  await page.evaluate(()=>scrollBy({top:70,behavior:"instant"}));await settle();const videoY=await page.evaluate(()=>scrollY);
   await page.goBack();await page.locator('#direct-apply:visible').waitFor();await settle();
   await page.goForward();await page.locator('#operation-guide:visible').waitFor();
-  await page.waitForFunction(y=>Math.abs(scrollY-y)<=2,videoY);assert.ok(Math.abs(await page.evaluate(()=>scrollY)-videoY)<=2,'history restores reading position');
+  await page.waitForFunction(y=>Math.abs(scrollY-y)<=2,videoY,{timeout:5000}).catch(async()=>{throw Error(`History expected ${videoY}, actual ${await page.evaluate(()=>scrollY)}`);});assert.ok(Math.abs(await page.evaluate(()=>scrollY)-videoY)<=2,'history restores reading position');
   await page.setViewportSize({width:1440,height:2200});await page.goto(base+'#operation-guide');await page.locator('.v2-ready').waitFor();await settle();
   const bottom=await page.locator('#operation-guide-title').evaluate(h=>({top:h.getBoundingClientRect().top,y:scrollY,maxY:document.documentElement.scrollHeight-innerHeight}));
   assert.ok(bottom.top>32);assert.ok(Math.abs(bottom.y-bottom.maxY)<=1,'short content clamps at page bottom');
   navigation.push({keyboard:true,historyRestoresReadingPosition:true,bottomClamp:bottom});await page.close();
   // Chromium native page-zoom preference in disposable, isolated profiles; no user browser/profile input.
-  for(const factor of [1,1.25,1.5]){
+  if(!navigationOnly)for(const factor of [1,1.25,1.5]){
    const profile=fs.mkdtempSync(path.resolve(folder,'native-profile-'));fs.mkdirSync(path.join(profile,'Default'));
    fs.writeFileSync(path.join(profile,'Default/Preferences'),JSON.stringify({partition:{default_zoom_level:{x:Math.log(factor)/Math.log(1.2)}}}));
    const context=await chromium.launchPersistentContext(profile,{channel:'msedge',headless:true,viewport:null,args:['--window-size=1440,900']});
@@ -65,5 +70,5 @@ try{
    }finally{await context.close();}
   }
  }
- fs.writeFileSync(`${folder}/${baseline?'before':'after'}.json`,JSON.stringify({base,baseline,rows,navigation,nativeZoom},null,2));console.log(JSON.stringify(rows.filter(r=>r.zoomPercent===100)));console.log(`${baseline?'BASELINE':'PASS'}: ${rows.length} responsive/zoom-equivalent measurements; ${nativeZoom.length} native page-zoom measurements; navigation ${navigation.length}.`);
+ fs.writeFileSync(`${folder}/${baseline?'before':navigationOnly?'navigation':'after'}.json`,JSON.stringify({base,testedAt:new Date().toISOString(),baseline,rows,navigation,nativeZoom},null,2));console.log(JSON.stringify(rows.filter(r=>r.zoomPercent===100)));console.log(`${baseline?'BASELINE':'PASS'}: ${rows.length} responsive/zoom-equivalent measurements; ${nativeZoom.length} native page-zoom measurements; navigation ${navigation.length}.`);
 }finally{await browser.close();}})().catch(e=>{console.error(e);process.exitCode=1;});
