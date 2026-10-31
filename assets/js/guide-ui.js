@@ -131,7 +131,20 @@
       mark.hidden = button.dataset.audience !== audience;
     }
   }
-  function route(initial = false) {
+  let routeGeneration = 0;
+  let restoringEntryHistory = false;
+  let pendingEntryHeading = null;
+  function alignEntryHeading(heading) {
+    const inset = 28 + (window.visualViewport?.offsetTop || 0);
+    const root = document.scrollingElement;
+    const desired = heading.getBoundingClientRect().top + window.scrollY - inset;
+    const limit = Math.max(0, root.scrollHeight - document.documentElement.clientHeight);
+    const top = Math.max(0, Math.min(desired, limit));
+    if (Math.abs(window.scrollY - top) > 1) window.scrollTo({top, behavior: 'instant'});
+  }
+  function route(initial = false, reason = 'hash') {
+    const generation = ++routeGeneration;
+    if (reason === 'history') pendingEntryHeading = null;
     let hash;
     try { hash = decodeURIComponent(location.hash.slice(1)); } catch { hash = ''; }
     // Preserve previously published anchors without reviving duplicate sections.
@@ -183,15 +196,27 @@
       if (mark) mark.hidden = !selected;
     }
     requestAnimationFrame(() => {
+      if (generation !== routeGeneration) return;
       if (sharedPages.includes(pageName) && (pageName !== 'home' || (['owners', 'tenants'].includes(hash) && !returningPlan))) {
         const content = pageName === 'home' ? document.getElementById(hash) : visiblePage;
         const heading = content.querySelector('h1, h2');
-        const rect = heading.getBoundingClientRect();
-        if (rect.top < 24 || rect.bottom > innerHeight * .85) {
-          const top = content.getBoundingClientRect().top + window.scrollY;
-          window.scrollTo({top: Math.max(0, top - Math.min(240, innerHeight * .35)), behavior: 'instant'});
+        if (initial && document.readyState !== 'complete') {
+          // Native fragment/restored scrolling happens at load, after our first layout frames.
+          window.addEventListener('load', () => requestAnimationFrame(() => requestAnimationFrame(() => {
+            if (generation === routeGeneration && heading.getClientRects().length) alignEntryHeading(heading);
+          })), {once: true});
         }
-        if (!initial) focus(heading);
+        const position = initial || reason === 'entry' || reason === 'hash' || pendingEntryHeading === heading;
+        if (position) {
+          pendingEntryHeading = heading;
+          // A second frame measures the heading after the newly visible content has reflowed.
+          requestAnimationFrame(() => {
+            if (generation !== routeGeneration || !heading.getClientRects().length) return;
+            alignEntryHeading(heading);
+            pendingEntryHeading = null;
+            if (!initial) focus(heading);
+          });
+        } else if (!initial && reason !== 'resize') focus(heading);
       } else if (inline) {
         const grid = site.querySelector('.v2-plan-grid');
         const gridBottom = grid.getBoundingClientRect().bottom + window.scrollY;
@@ -230,15 +255,21 @@
     if (link.matches('[data-audience], [data-entry-page]')) {
       // Shared entry controls switch lower content without native anchor scrolling first.
       event.preventDefault();
-      if (link.hash !== location.hash) history.pushState(null, '', link.hash);
-      route();
+      const changed = link.hash !== location.hash;
+      if (changed) history.pushState({...history.state, rentalEntry: true}, '', link.hash);
+      route(false, changed ? 'entry' : 'repeat');
       return;
     }
     if (link.dataset.returnPlan) returningPlan = link.dataset.returnPlan;
     if (link.hash === location.hash) { event.preventDefault(); route(); }
   });
-  window.addEventListener('hashchange', () => route());
-  desktop.addEventListener('change', () => route());
+  window.addEventListener('popstate', event => { restoringEntryHistory = !!event.state?.rentalEntry; });
+  window.addEventListener('hashchange', () => {
+    const reason = restoringEntryHistory ? 'history' : 'hash';
+    restoringEntryHistory = false;
+    route(false, reason);
+  });
+  desktop.addEventListener('change', () => route(false, 'resize'));
 
   // The existing component owns the conversation. This shortcut only opens it.
   let messengerReady = false;
