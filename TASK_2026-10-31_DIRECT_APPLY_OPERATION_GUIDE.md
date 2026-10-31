@@ -1,6 +1,6 @@
 # TASK — Entry heading positioning (2026-10-31)
 
-Status: **RECHECK_IN_PROGRESS — FINAL COLD-LOAD STABILITY**
+Status: **COMPLETE — NON-CX FRONTEND SCROLL ACCEPTANCE ON TEST HTTPS**
 
 ## Scope and result
 
@@ -11,8 +11,8 @@ Status: **RECHECK_IN_PROGRESS — FINAL COLD-LOAD STABILITY**
 - [x] Push same branch, reuse Pages auto deployment; actual HTTPS four-entry/device/zoom/navigation acceptance PASS.
 - [x] Save evidence and update State/Task. Final evidence-only commit deploys the same public files; final handoff checks canonical deployment SHA and public-file byte parity.
 
-Runtime accepted commit: 28bf22e252cdd4f1c7e37caa997c2de64e8717a6.
-Cloudflare deployment: 1a3b7ad0-7bc7-41fe-a09e-f8c3d27d264d, deploy SUCCESS, exact branch match.
+Runtime accepted commit: f129bef1786a2efc69442bdd4ca29d4b3a867b5c.
+Cloudflare deployment: 5f58487e-1dd6-445b-9923-0df2a9eb7880, deploy SUCCESS, exact branch match.
 URL: https://rental-tax-guide-test.pages.dev/ . Existing build command/output/environment unchanged.
 
 ## Cause and implementation
@@ -45,7 +45,7 @@ Actual HTTPS suites (PREVIEW_URL=https://rental-tax-guide-test.pages.dev/): entr
 
 Existing functionality PASS: six entries at 320/390/768/1100/1440px, four plan details and responsive transition, owner guide/tenant groups/comparison, application cards/internal navigation, keyboard/history, no horizontal overflow. 32 public asset status/MIME checks PASS, 11 private paths return 404, no runtime errors or GA4 tracking requests. Both unchanged R2 MP4s return 206/video/mp4 and play with advancing currentTime; native fullscreen, no autoplay, switch/leave/return pause, desktop/mobile defaults and manual choice retention PASS.
 
-Evidence directory: docs/evidence/2026-10-31-entry-scroll/ . Contains baseline before-https-7d150348.json, after-local.json, after-https-28bf22e.json, non-cx-https.json, pages-artifact-browser.json, ux2-https.json, r2-player-https.json, all four desktop heading screenshots and tablet/phone representative screenshots. Baseline is from the actual pre-edit HTTPS site; after screenshots and final JSON are from the accepted HTTPS runtime.
+Evidence directory: docs/evidence/2026-10-31-entry-scroll/ . Contains baseline before-https-7d150348.json, after-local.json (earlier snapshot), after-https-28bf22e.json (superseded before cold-load fix), after-https-final.json, non-cx-https.json, pages-artifact-browser.json, ux2-https.json, r2-player-https.json, all four desktop heading screenshots and tablet/phone representative screenshots. Baseline is from the actual pre-edit HTTPS site; after screenshots and final JSON are from the accepted HTTPS runtime.
 
 ## Failed cases resolved / remaining limits
 
@@ -59,3 +59,7 @@ Prior completed State/Task preserved in docs/history/*BEFORE_ENTRY_SCROLL_2026-1
 Final smoke on documentation deployment 6c357873-bcaa-402a-b41e-e338a2c57492 / 12c5263ae4e53da3d9d2f3b162b23876ec0c2f4e proved 32 public files byte-identical, but cold-load heading later moved to 79.42px. Native smooth fragment scrolling had been queued while the coordinate was initially correct; the 1px early-return guard skipped cancellation. Removed that guard for explicit positioning intents (repeat/resize/history remain excluded). Strengthened deep/reload tests to check stability 500ms after load and forced separate cold documents; delayed-resource stress checks added before final acceptance.
 
 Correction verified locally: all 58 tests/build/check/performance PASS; strengthened deep/reload/history navigation suite PASS; 8 separate cold browser contexts with a delayed hero resource remained at ~28px after 650ms. History restoration tests now separate keyboard focusing of offscreen controls (which naturally scrolls) from reading-position restoration.
+
+Final runtime f129bef: strengthened 36-case responsive/zoom-equivalent + 12-case native Edge page-zoom suite PASS on actual HTTPS, including forced cold-document deep links and reload stability after 500ms. All four existing non-CX HTTPS suites PASS again; final JSON/screenshots refreshed in the same evidence directory. No unresolved automated test failures.
+
+Actual HTTPS cold-load stress: 8 independent contexts, hero image delayed 150ms, measured 650ms after load, all owner headings ~28px. Evidence: cold-load-https.json. This specifically covers the previously intermittent queued-native-scroll defect.

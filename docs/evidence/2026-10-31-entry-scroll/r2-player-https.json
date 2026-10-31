@@ -32,7 +32,7 @@
       "version": "guide-video-pc",
       "src": "https://pub-20ae83e09e324873be7bff4d861f23b0.r2.dev/operation-guide-pc.mp4",
       "duration": 268.187696,
-      "time": 1.017545,
+      "time": 1.016602,
       "width": 1920,
       "height": 1080,
       "error": null
@@ -41,7 +41,7 @@
       "version": "guide-video-mobile",
       "src": "https://pub-20ae83e09e324873be7bff4d861f23b0.r2.dev/operation-guide-mobile.mp4",
       "duration": 135.649333,
-      "time": 1.011971,
+      "time": 1.020765,
       "width": 1920,
       "height": 1080,
       "error": null

@@ -1,0 +1,54 @@
+{
+  "base": "https://rental-tax-guide-test.pages.dev/",
+  "runtime": "f129bef1786a2efc69442bdd4ca29d4b3a867b5c",
+  "rows": [
+    {
+      "context": 0,
+      "delayedHeroMs": 150,
+      "afterLoadMs": 650,
+      "top": 28.421875
+    },
+    {
+      "context": 1,
+      "delayedHeroMs": 150,
+      "afterLoadMs": 650,
+      "top": 28.421875
+    },
+    {
+      "context": 2,
+      "delayedHeroMs": 150,
+      "afterLoadMs": 650,
+      "top": 28.421875
+    },
+    {
+      "context": 3,
+      "delayedHeroMs": 150,
+      "afterLoadMs": 650,
+      "top": 28.421875
+    },
+    {
+      "context": 4,
+      "delayedHeroMs": 150,
+      "afterLoadMs": 650,
+      "top": 28.421875
+    },
+    {
+      "context": 5,
+      "delayedHeroMs": 150,
+      "afterLoadMs": 650,
+      "top": 28.421875
+    },
+    {
+      "context": 6,
+      "delayedHeroMs": 150,
+      "afterLoadMs": 650,
+      "top": 28.421875
+    },
+    {
+      "context": 7,
+      "delayedHeroMs": 150,
+      "afterLoadMs": 650,
+      "top": 28.421875
+    }
+  ]
+}
