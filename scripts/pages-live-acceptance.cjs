@@ -134,6 +134,12 @@ fs.mkdirSync(artifacts, {recursive:true});
     await page.evaluate(() => { document.documentElement.style.fontSize = ''; });
     await page.goto(base+'#direct-apply');
     assert.equal(await page.locator('.v2-application-item:visible').count(),4);
+    assert.deepEqual(await page.locator('.v2-application-action > a').evaluateAll(links=>links.map(a=>a.firstChild.textContent)),Array(4).fill('前往申辦與書表下載'));
+    assert.deepEqual(await page.locator('.v2-application-action > a').evaluateAll(links=>links.map(a=>a.href)),Array(4).fill('https://tpctax.gov.taipei/cp.aspx?n=F1C8047E644BDA72'));
+    assert.equal(await page.locator('#direct-apply > .v2-notice').count(),0);
+    assert.equal(await page.locator('#direct-apply').evaluate(s=>s.lastElementChild.className),'v2-application-list');
+    assert.equal(await page.locator('body').evaluate(el=>el.textContent.includes('以下為公開資訊整理；實際資格、適用期間與稅額，以主管機關公告及個案核定為準。')),false);
+    assert.equal(await page.locator('#direct-apply, .v2-footer').evaluateAll(es=>es.some(el=>[...el.querySelectorAll('p')].some(p=>!p.textContent.trim()&&p.children.length===0))),false);
     const data=JSON.parse(fs.readFileSync('site/content.json','utf8'));
     for(const plan of data.plans) {
       const article=page.locator(`article[aria-labelledby="apply-${plan.id}"]`);

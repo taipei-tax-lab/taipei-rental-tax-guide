@@ -19,6 +19,8 @@ test('application cards use four existing palette accents and exactly one truthf
   const cards=[...section.matchAll(/<article\b[\s\S]*?<\/article>/g)].map(m=>m[0]);
   assert.equal(cards.length,4);
   for(const [i,plan] of data.plans.entries()){
+    assert.equal(plan.applicationAction.label,'前往申辦與書表下載');
+    assert.equal(plan.applicationAction.href,'https://tpctax.gov.taipei/cp.aspx?n=F1C8047E644BDA72');
     const card=cards[i];assert.ok(card.includes('v2-'+plan.accent));
     assert.equal((card.match(/class="v2-button v2-primary"/g)||[]).length,1);
     assert.ok(card.includes(plan.applicationAction.label));
@@ -30,5 +32,22 @@ test('application cards use four existing palette accents and exactly one truthf
     const action=data.plans.find(p=>p.id===id).applicationAction;
     assert.equal(action.href,'https://tpctax.gov.taipei/cp.aspx?n=F1C8047E644BDA72');
     assert.doesNotMatch(action.label,/線上申請|線上認定/);
+  }
+});
+
+test('retired shared note and its empty paragraphs are absent from generated pages',()=>{
+  const note='以下為公開資訊整理；實際資格、適用期間與稅額，以主管機關公告及個案核定為準。';
+  assert.equal(Object.hasOwn(data.meta,'note'),false);
+  assert.ok(!html.includes(note));
+  const application=html.slice(html.indexOf('data-page="direct-apply"'),html.indexOf('data-page="operation-guide"'));
+  const footer=html.slice(html.indexOf('<footer'),html.indexOf('</footer>'));
+  assert.doesNotMatch(application+footer,/<p\b[^>]*>\s*<\/p>/);
+  assert.doesNotMatch(html,/<p class="v2-notice">/);
+  assert.ok(!read('site/template.html').includes('{{NOTE}}'));
+  assert.doesNotMatch(read('scripts/build.mjs'),/data\.meta\.note|\bNOTE:/);
+  // Independent scheme-specific notices remain in the generated content.
+  for(const plan of data.plans) {
+    assert.ok(html.includes(plan.applicationAction.note));
+    for(const caution of plan.cautions) assert.ok(html.includes(caution));
   }
 });

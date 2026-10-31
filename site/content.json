@@ -4,8 +4,7 @@
     "checked": "2026-09-08",
     "official": "https://tpctax.gov.taipei/cp.aspx?n=3A978B4E3ADD88F2",
     "calculator": "https://services.arpa.tpctax.dof.gov.taipei/rentStandard/index.php?content=calculator",
-    "scope": "臺北市出租住宅；房屋稅年期請見各項標示。",
-    "note": "以下為公開資訊整理；實際資格、適用期間與稅額，以主管機關公告及個案核定為準。"
+    "scope": "臺北市出租住宅；房屋稅年期請見各項標示。"
   },
   "plans": [
     {
@@ -221,7 +220,7 @@
       "applicationMode": "地方稅主動辦理・認定洽住宅主管機關",
       "applicationAction": {
         "kind": "recognition",
-        "label": "前往稅捐處申辦與書表",
+        "label": "前往申辦與書表下載",
         "href": "https://tpctax.gov.taipei/cp.aspx?n=F1C8047E644BDA72",
         "note": "地方稅依都發局造冊資料主動辦理；如需自行申請，先查官方書表與承辦方式。此連結是申辦與書表總入口，不是專用線上認定表。"
       }
@@ -454,7 +453,7 @@
       "applicationMode": "自行申請地方稅・業者查詢洽內政部",
       "applicationAction": {
         "kind": "forms",
-        "label": "前往稅捐處申辦與書表",
+        "label": "前往申辦與書表下載",
         "href": "https://tpctax.gov.taipei/cp.aspx?n=F1C8047E644BDA72",
         "note": "查找個人租賃住宅委託包租代管減徵地價稅及房屋稅申請書，依官方管道辦理。此連結是書表總入口，不代表已確認專用線上合併申請。"
       }

@@ -79,7 +79,6 @@ const planDetails = plans.map(plan => {
     <details><summary><span>適用期間與注意事項</span><span class="v2-expand" aria-hidden="true">＋</span></summary><div class="v2-details-body">${list(plan.cautions)}</div></details>
   </div>
   <section class="v2-source"><h2>官方資訊與申辦入口</h2><div class="v2-source-links">${sourceList.map(l => link({label: l.title || l.label, href: l.url || l.href})).join('')}</div></section>
-  <p class="v2-notice">${esc(data.meta.note)}</p>
   <div class="v2-bottom-actions"><a href="#plans" class="v2-button" data-return-plan="${plan.id}">返回方案總覽</a><a href="#comparison" class="v2-text-link">比較其他出租方式 →</a></div>
 </section>`;
 }).join('\n');
@@ -174,7 +173,7 @@ const replacements = {
   HOUSE_ICON: icon('self'), PERSON_ICON: icon('person'), OFFICIAL: esc(data.meta.official),
   PLAN_CARDS: cards, PLAN_DETAILS: planDetails, TENANT_GROUPS: tenantGroups, FAQ: faqHtml,
   COMPARE_CONTROLS: `<fieldset class="v2-compare-controls" hidden><legend>選擇兩個方案並列比較</legend><div>${[0,1].map((n) => `<label>方案${n + 1}<select data-compare-select="${n}">${plans.map((p,i) => `<option value="${p.id}"${i === n ? ' selected' : ''}>${esc(p.eyebrow)}</option>`).join('')}</select></label>`).join('')}</div><p class="v2-caption" role="status" id="compare-status"></p></fieldset>`,
-  RESOURCES: resources, COMPARISON: comparison, NOTE: esc(data.meta.note), CHECKED: data.meta.checked,
+  RESOURCES: resources, COMPARISON: comparison, CHECKED: data.meta.checked,
   MESSENGER_STYLE_VERSION: hash('assets/css/messenger.css'),
   MESSENGER: read('site/messenger.html').replace('{{MESSENGER_UI_VERSION}}', hash('assets/js/messenger-ui.js'))
 };
