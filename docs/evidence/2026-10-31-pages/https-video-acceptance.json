@@ -1,0 +1,68 @@
+{
+  "base": "https://rental-tax-guide-test.pages.dev/",
+  "viewports": [
+    {
+      "width": 1440,
+      "entries": 6,
+      "overflow": false
+    },
+    {
+      "width": 1100,
+      "entries": 6,
+      "overflow": false
+    },
+    {
+      "width": 768,
+      "entries": 6,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "entries": 6,
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "entries": 6,
+      "overflow": false
+    }
+  ],
+  "media": [
+    {
+      "version": "guide-video-pc",
+      "src": "https://pub-20ae83e09e324873be7bff4d861f23b0.r2.dev/operation-guide-pc.mp4",
+      "duration": 268.187696,
+      "time": 1.015655,
+      "width": 1920,
+      "height": 1080,
+      "error": null
+    },
+    {
+      "version": "guide-video-mobile",
+      "src": "https://pub-20ae83e09e324873be7bff4d861f23b0.r2.dev/operation-guide-mobile.mp4",
+      "duration": 135.649333,
+      "time": 1.015055,
+      "width": 1920,
+      "height": 1080,
+      "error": null
+    }
+  ],
+  "mediaResponses": [
+    {
+      "url": "https://pub-20ae83e09e324873be7bff4d861f23b0.r2.dev/operation-guide-pc.mp4",
+      "status": 206,
+      "mime": "video/mp4"
+    },
+    {
+      "url": "https://pub-20ae83e09e324873be7bff4d861f23b0.r2.dev/operation-guide-mobile.mp4",
+      "status": 206,
+      "mime": "video/mp4"
+    }
+  ],
+  "deviceDefault": {
+    "desktop": "pc",
+    "phone": "mobile",
+    "manualChoiceRetained": true,
+    "landscapeRetained": true
+  }
+}

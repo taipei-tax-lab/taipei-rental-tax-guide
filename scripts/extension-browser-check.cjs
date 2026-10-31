@@ -7,7 +7,7 @@ const artifacts = '.preview';
 fs.mkdirSync(artifacts, {recursive:true});
 (async () => {
   const browser = await chromium.launch({channel:'msedge',headless:true});
-  const results = {viewports:[],media:[]};
+  const results = {base,viewports:[],media:[],mediaResponses:[]};
   try {
     const page = await browser.newPage({viewport:{width:1440,height:1000}});
     // No live CX traffic or test analytics; allow only preview and supplied R2 media.
@@ -15,6 +15,7 @@ fs.mkdirSync(artifacts, {recursive:true});
       const url = new URL(route.request().url());
       return [new URL(base).origin,'https://pub-20ae83e09e324873be7bff4d861f23b0.r2.dev'].includes(url.origin) ? route.continue() : route.abort();
     });
+    page.on('response',r=>{if(r.url().startsWith('https://pub-20ae83e09e324873be7bff4d861f23b0.r2.dev/'))results.mediaResponses.push({url:r.url(),status:r.status(),mime:r.headers()['content-type']});});
     const errors=[]; page.on('pageerror',e=>errors.push(e.message));
     await page.goto(base); await page.locator('.v2-ready').waitFor();
     for (const width of [1440,1100,768,390,320]) {
@@ -97,6 +98,8 @@ fs.mkdirSync(artifacts, {recursive:true});
     assert.ok(await phone.getByLabel('手機版',{exact:true}).isChecked(), 'phone reload initializes by device even in landscape');
     results.deviceDefault = {desktop:'pc',phone:'mobile',manualChoiceRetained:true,landscapeRetained:true};
     await phone.close();
+    assert.ok(results.mediaResponses.length>=2);
+    assert.ok(results.mediaResponses.every(r=>[200,206].includes(r.status)&&r.mime?.includes('video/mp4')), 'R2 media status/MIME');
     assert.deepEqual(errors,[]);
     fs.writeFileSync(`${artifacts}/extension-results.json`,JSON.stringify(results,null,2));
     console.log('PASS: six entries, five widths, hash/history, 16:9, both live R2 playbacks, native fullscreen, switch/leave/return pause.');

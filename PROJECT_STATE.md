@@ -2,20 +2,21 @@
 
 Last updated: 2026-10-31
 
-- Repository: `taipei-tax-lab/taipei-rental-tax-guide`; frontend only.
-- Branch: `feat/direct-apply-operation-guide-20261031`; synced clean at `1401ce2f02f210a81ad753cb59fb25d604d08075`.
-- ChatGPT approved the six-entry/application/video features and device-default correction at that commit.
-- Current phase: **READY_TO_CREATE_PAGES_TEST_PROJECT — NOT RELEASED**.
-- Target: Cloudflare Pages `rental-tax-guide-test`, production branch = this feature branch. Git integration preferred; only publish an isolated static directory with GA4 disabled in that test artifact.
-- Canonical task: [TASK_2026-10-31_DIRECT_APPLY_OPERATION_GUIDE.md](TASK_2026-10-31_DIRECT_APPLY_OPERATION_GUIDE.md).
-- Frozen: policy, player copy/behavior, R2 video URLs/files, Messenger/CX/GCP and existing environments' GA4. No PR, main merge or institutional deployment.
-- Prior State: [before Pages phase](docs/history/PROJECT_STATE_BEFORE_PAGES_TEST_2026-10-31.md). Prior Task/evidence: [before Pages phase](docs/history/TASK_2026-10-31_DIRECT_APPLY_OPERATION_GUIDE_BEFORE_PAGES_TEST_2026-10-31.md). Earlier snapshots remain intact.
+- Current phase: **PAGES_TEST_DEPLOYED — NON_CX_FRONTEND_ACCEPTANCE_PASS**.
+- Repo/branch: `taipei-tax-lab/taipei-rental-tax-guide` / `feat/direct-apply-operation-guide-20261031`; clean synchronized baseline `f9096fa44cf134bd85e672c356cc76aa56bca2dc`.
+- Target: Pages `rental-tax-guide-test`, same GitHub feature production branch; build `node scripts/build-pages-test.mjs`, output `dist-pages-test`, root blank, framework None, NODE_VERSION=22 / SKIP_DEPENDENCY_INSTALL=1.
+- Task: [current Task](TASK_2026-10-31_DIRECT_APPLY_OPERATION_GUIDE.md).
+- CX is excluded entirely from this phase: no opening Messenger, questions, examples or CX API. Test-only isolation blocks CX third-party requests; no product/Messenger/GCP configuration changes.
+- Frozen: GA4 in existing environments, policy, R2 files/URLs, player copy. No PR/main merge/institutional deployment/ZIP/official video.
+- History: [prior State](docs/history/PROJECT_STATE_BEFORE_PAGES_DEPLOY_2026-10-31.md), [prior Task and artifact evidence](docs/history/TASK_2026-10-31_DIRECT_APPLY_OPERATION_GUIDE_BEFORE_PAGES_DEPLOY_2026-10-31.md).
 
-## Current result
+## Test site and acceptance
 
-- Build: `node scripts/build-pages-test.mjs` (`npm run build:pages:test`); output `dist-pages-test`; framework None, root blank, NODE_VERSION=22 and SKIP_DEPENDENCY_INSTALL=1 for Production/Preview. Preview branch deployments: None. Settings documented in README.
-- Output: 32 allowlisted static files; no Repo documents/source/metadata/MP4. Root 404.html prevents Pages SPA fallback. GA4 loader/config removed only from test HTML; normal index.html and analytics helper are unchanged.
-- Validation: build + canonical build check PASS; full Node suite **56/56 PASS**; performance budget/diff check PASS. Browser integration, chat viewport, Pages-specific GA4/404/assets/hash checks and extension/R2 regression PASS against the actual isolated output at five widths. No new problem found.
-- Cloudflare connection: Pages API read succeeds; no Pages projects exist. Dashboard's existing Cloudflare Pages GitHub integration lists account `taipei-tax-lab` and exact repo `taipei-rental-tax-guide`. **Can create directly; no new GitHub authorization or keys needed.**
-- This phase prepares and assesses creation as requested; no Pages project was created and no Cloudflare/institutional site was deployed. On creation select this repo, project `rental-tax-guide-test`, feature production branch, and the README build settings. Existing services untouched.
-- Remaining: create/save/deploy the test project using those settings and verify its live Pages URL. Real Messenger on a new domain is unverified and may be domain-restricted; CX/GCP configuration stays frozen. Physical-device/accessibility acceptance remains pending.
+- Live HTTPS: https://rental-tax-guide-test.pages.dev/ . This is a test site, not an institutional production release.
+- Created via existing Cloudflare connection and GitHub authorization; settings verified. Initial accepted deployment `9dc325f4-40ec-435e-9aa6-602626cd89d0`, source `f9096fa44cf134bd85e672c356cc76aa56bca2dc`, all build/deploy stages success; no Functions.
+- Actual HTTPS tests PASS: six entries; owner/tenant/all four plans/guide/comparison; four application sections; device/video/history/fullscreen; 32 public assets and MIME; 11 excluded paths 404; no GA4 requests, page errors, unexpected console errors or overflow. R2 videos return 206/video/mp4 and decode at 1920×1080. No R2 mutation.
+- Build/check/full unit suite **56/56**/performance budget PASS. Product files unchanged this phase; only test harness fixes/new non-CX acceptance and documentation/evidence added.
+- External service.taipei/case-detail/BX004 returns an HTTP 404 shell but loads the correct official application/forms through JavaScript; original URL verified in a browser and retained. Ten other application destinations return HTTP 200. No application data submitted.
+- Evidence: [HTTPS report](docs/evidence/2026-10-31-pages/https-acceptance.json), [video report](docs/evidence/2026-10-31-pages/https-video-acceptance.json), [deployment](docs/evidence/2026-10-31-pages/deployment.json); screenshots in the same directory.
+- After the final test/evidence commit is pushed, its GitHub/Pages deployment source is checked against remote feature HEAD and supplied in the final handoff. The published website artifact is unchanged by these test/documentation files.
+- Goal reached: **non-CX frontend accepted and available for user manual testing**. CX is excluded, physical iOS/Android and full accessibility/audio review remain unverified. No main merge, PR, institutional deployment, ZIP or official-video replacement.

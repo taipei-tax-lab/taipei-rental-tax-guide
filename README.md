@@ -139,3 +139,18 @@ node scripts/extension-browser-check.cjs
 建立專案的 Git 授權狀態與本輪結果請見 PROJECT_STATE 及目前 Task。若 Repo 不在 Cloudflare 選單內，須由組織管理者在 Cloudflare Pages 的 GitHub 授權畫面選擇 `taipei-tax-lab/taipei-rental-tax-guide`；不要改選其他 Repo 或建立其他服務。
 
 參考：[Pages GitHub 整合](https://developers.cloudflare.com/pages/configuration/git-integration/github-integration/)、[建置環境與略過套件安裝](https://developers.cloudflare.com/pages/configuration/build-image/)。
+
+## 已部署的 Pages 測試站與非 CX 驗收
+
+測試網址：https://rental-tax-guide-test.pages.dev/ 。此為測試站，不是機關正式發布。部署／驗收紀錄及截圖請看目前 PROJECT_STATE 與 Task 的 evidence 連結。
+
+本輪明確排除 Messenger 開啟、訊息、預設問題及 CX API。針對實際 HTTPS 網址重跑非 CX 驗收（Playwright / Edge 已可用時）：
+
+```powershell
+$env:PREVIEW_URL='https://rental-tax-guide-test.pages.dev/'
+node scripts/pages-live-acceptance.cjs
+node scripts/pages-test-browser-check.cjs
+node scripts/extension-browser-check.cjs
+```
+
+這三支腳本在測試環境隔離 CX 第三方請求；不要以會開啟 Messenger 的舊 browser-check / chat-viewport-check 作為本輪非 CX 驗收。網站程式和 CX 設定沒有為此改動。外部申辦頁只做唯讀可達性確認。

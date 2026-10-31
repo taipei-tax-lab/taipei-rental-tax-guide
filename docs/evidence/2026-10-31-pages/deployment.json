@@ -1,0 +1,18 @@
+{
+  "project": "rental-tax-guide-test",
+  "url": "https://rental-tax-guide-test.pages.dev/",
+  "initialAcceptedDeployment": "9dc325f4-40ec-435e-9aa6-602626cd89d0",
+  "initialAcceptedCommit": "f9096fa44cf134bd85e672c356cc76aa56bca2dc",
+  "status": "success",
+  "branch": "feat/direct-apply-operation-guide-20261031",
+  "source": "GitHub taipei-tax-lab/taipei-rental-tax-guide",
+  "build": "node scripts/build-pages-test.mjs",
+  "output": "dist-pages-test",
+  "root": "",
+  "env": {
+    "NODE_VERSION": "22",
+    "SKIP_DEPENDENCY_INSTALL": "1"
+  },
+  "uses_functions": false,
+  "finalAlignment": "Final delivered branch HEAD deployment is checked after the evidence commit push and reported in final handoff."
+}
