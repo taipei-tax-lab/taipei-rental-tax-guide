@@ -27,6 +27,7 @@ const folder='.preview/ux2';fs.mkdirSync(folder,{recursive:true});
    assert.equal(await page.locator('.v2-application-action > a').count(),4);
    assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
    if(width!==320)await page.screenshot({path:`${folder}/apply-${width}.png`,fullPage:true});
+   if(width===1440)await page.screenshot({path:`${folder}/shared-entry-desktop.png`});
    const before=await page.evaluate(()=>scrollY);
    await page.locator('.v2-audience a[href="#operation-guide"]').click();await page.locator('#operation-guide:visible').waitFor();
    await page.waitForFunction(()=>document.activeElement?.id==='operation-guide-title');

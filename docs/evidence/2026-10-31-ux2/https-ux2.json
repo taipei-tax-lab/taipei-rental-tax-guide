@@ -1,0 +1,53 @@
+{
+  "base": "https://rental-tax-guide-test.pages.dev/",
+  "widths": [
+    {
+      "width": 1440,
+      "sharedEntries": true,
+      "focus": true,
+      "applicationColumns": 2,
+      "history": true,
+      "deepReload": true,
+      "noOverflow": true
+    },
+    {
+      "width": 768,
+      "sharedEntries": true,
+      "focus": true,
+      "applicationColumns": 2,
+      "history": true,
+      "deepReload": true,
+      "noOverflow": true
+    },
+    {
+      "width": 390,
+      "sharedEntries": true,
+      "focus": true,
+      "applicationColumns": 1,
+      "history": true,
+      "deepReload": true,
+      "noOverflow": true
+    },
+    {
+      "width": 320,
+      "sharedEntries": true,
+      "focus": true,
+      "applicationColumns": 1,
+      "history": true,
+      "deepReload": true,
+      "noOverflow": true
+    }
+  ],
+  "checks": [
+    "six DOM/keyboard order",
+    "shared hero/entry visibility across entry contents",
+    "one selected entry",
+    "heading focus after keyboard entry",
+    "desktop no unnecessary scroll",
+    "2×2/one-column palette cards",
+    "one primary per plan",
+    "history/deep-link/reload",
+    "video selection retention and paused return"
+  ],
+  "errors": []
+}

@@ -1,0 +1,10 @@
+{
+  "project": "rental-tax-guide-test",
+  "url": "https://rental-tax-guide-test.pages.dev/",
+  "acceptedImplementationCommit": "16f078f3d33b9bcd67815e8a72afd710ecc5aab7",
+  "acceptedImplementationDeployment": "b9f71aba-f753-4483-bdd8-f878bb3348d6",
+  "status": "success",
+  "branch": "feat/direct-apply-operation-guide-20261031",
+  "finalAlignment": "Final evidence-only commit is deployed by existing Git integration; canonical source equality is verified after push and recorded in final handoff.",
+  "applicationAcceptance": "Primary action method/role verified; user-selected portal is not verification of dedicated recognition/combined-tax online submission endpoints."
+}

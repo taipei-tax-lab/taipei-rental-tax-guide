@@ -1,6 +1,6 @@
 # TASK — UX round 2 (2026-10-31)
 
-Status: **IN_PROGRESS**
+Status: **UX_ROUND_2_HTTPS_PASS — DEDICATED_ENDPOINTS_PARTIALLY_UNVERIFIED**
 
 ## Scope and progress
 
@@ -10,7 +10,7 @@ Status: **IN_PROGRESS**
 - [x] Swap only helper and direct-apply entries.
 - [x] Four application cards, blue/orange/green/purple, 2×2 desktop and 1 column mobile, shared policy records.
 - [x] Verify and label one primary action per plan; record unresolved direct channels honestly.
-- [ ] Build/tests, desktop/tablet/mobile non-CX regression; push same branch, align existing Pages latest deployment and run real HTTPS regression.
+- [x] Build/tests and local non-CX regression; implementation pushed, existing Pages automatically deployed correct SHA, actual HTTPS regression PASS. Final evidence push/canonical alignment is checked at final handoff.
 
 ## Application source work
 
@@ -37,3 +37,31 @@ CX tests/actions remain excluded. R2 files/player/source URLs and Messenger conf
 - Initial UX2 scroll assertion exposed native anchor scrolling before route; fixed by intercepting only shared-entry links. Initial generic local artifact check found preview server did not serve its public 404.html; extended preview's static filename allowlist. Neither change affects CX/R2 configuration.
 - Impeccable detector ran once; existing style/border heuristics plus aggregate-parser warnings are advisory, not new measured defects. Bounded desktop/mobile/tablet screenshot review confirmed current layout; no unrelated redesign.
 - Next: push implementation, let existing Pages project rebuild, run actual HTTPS tests, save final evidence and update State/Task.
+
+## Actual Pages HTTPS acceptance
+
+- Implementation pushed on existing branch at `16f078f3d33b9bcd67815e8a72afd710ecc5aab7`; automatic Pages deployment `b9f71aba-f753-4483-bdd8-f878bb3348d6` SUCCESS, correct repo/branch/source SHA verified by API. Existing project reused with unchanged build/output/env settings.
+- All following suites targeted **https://rental-tax-guide-test.pages.dev/** after deployment, with CX third-party requests isolated only by tests:
+  - `scripts/ux2-browser-check.cjs` PASS at 1440/768/390/320px: exact DOM/keyboard order; common header/hero/entries visible across owner/tenant/application/video; one selected entry; keyboard Enter and heading focus; no unnecessary desktop scroll; 2-column desktop/tablet / 1-column phone application cards with four distinct accents; one primary action/card; deep reload/back/forward and video selection retention/paused return.
+  - `scripts/pages-live-acceptance.cjs` PASS: all original plans/inline/mobile transitions, guide previous/results/history, tenant groups, comparison duplicate-selection guard/columns, 200% text and responsive overflow; four shared application records/processes/modes, official links; 32 assets HTTP 200/correct MIME; 11 non-public paths 404; zero GA4 requests/uncaught or unexpected console errors. Three distinct primary action destinations HTTP 200, GET only.
+  - `scripts/pages-test-browser-check.cjs` PASS: gtag absent/no events, lower-content actions and retained video choice, no runtime asset failure/private file access.
+  - `scripts/extension-browser-check.cjs` PASS at 1440/1100/768/390/320px: live R2 PC/mobile video HTTP 206/video/mp4, decode 1920×1080/currentTime advances/no error; posters/native fullscreen/controls, switch/leave pause, no autoplay, phone/desktop defaults, resize/manual override/history/return.
+- Bounded screenshot verification covered desktop/tablet/mobile; tablet's inherited 4-column entry layout was narrowed to 2 columns to avoid cramped labels. No further visual redesign.
+- No policy, deadline, tax, condition or original reference-link value changed (deep equality check after stripping only new action metadata). No changes to operation-guide.js, media.json, analytics.js, Messenger HTML/CSS/JS or CX/GCP. Root GA4 contract remains intact; test artifact still removes only loader/config.
+
+## Four application actions and unresolved direct endpoints
+
+| Scheme | Current primary action / URL | Verified scope | Unverified scope |
+| --- | --- | --- | --- |
+| Ordinary | [Online official declaration](https://services.arpa.tpctax.dof.gov.taipei/incomeReachStandard/form.php) | Real fields/upload/submit form; distinct from calculator | No application submitted |
+| Public landlord | [User-confirmed tax application/forms portal](https://tpctax.gov.taipei/cp.aspx?n=F1C8047E644BDA72) | Proactive roster-based local taxes; portal supports official filing/forms discovery | Dedicated housing-recognition submission endpoint not confirmed; nprent query not promoted |
+| Social housing | [Consult official program providers](https://leasing-and-management.udd.gov.taipei/news/70) | Official instructions direct owners to cooperating providers | Not presented as online local-tax application |
+| Personal rental | [User-confirmed tax application/forms portal](https://tpctax.gov.taipei/cp.aspx?n=F1C8047E644BDA72) | Official forms/filing channel directory; specific combined-tax form visible in service details | Candidate https://service.taipei/online-application/BX004/step1 is generic land-tax exemption; combined house/land-tax applicability unconfirmed |
+
+User explicitly supplied the same portal for public/personal in this conversation; implemented it with transparent labels/notes. There is no need to block the other UX work. **This does not verify that all four schemes have dedicated direct-online application forms.** If dedicated public-recognition or personal combined-tax submission is desired, user/authority must provide or confirm those exact specialized URLs and their applicability. No candidate was guessed or falsely promoted.
+
+## Evidence and handoff
+
+Full new evidence in `docs/evidence/2026-10-31-ux2/`: application-source-review.md, deployment.json, https-ux2.json, https-regression.json, https-video.json, https-isolation.json and apply-1440/768/390.png. Earlier evidence and State/Task snapshots remain intact.
+
+The final evidence/test-only commit does not change the accepted runtime artifact. After its push, verify that the existing Pages canonical deployment source equals final remote branch HEAD, then rerun HTTPS UX/isolation smoke for handoff. Report that final SHA/Deployment ID externally rather than embedding a self-referential SHA in its own commit. No main merge/PR/formal deployment/ZIP/official video. CX remains excluded and physical-device/full accessibility validation remains pending.

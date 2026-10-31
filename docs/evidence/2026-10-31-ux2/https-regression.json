@@ -1,0 +1,204 @@
+{
+  "base": "https://rental-tax-guide-test.pages.dev/",
+  "testedAt": "2026-10-31T08:10:25.438Z",
+  "cx": "excluded; third-party requests isolated; never opened or queried",
+  "errors": [],
+  "consoleErrors": [],
+  "gaRequests": [],
+  "assets": [
+    {
+      "file": "404.html",
+      "status": 200,
+      "mime": "text/html; charset=utf-8"
+    },
+    {
+      "file": "hero-v2.png",
+      "status": 200,
+      "mime": "image/png"
+    },
+    {
+      "file": "hero-v2.webp",
+      "status": 200,
+      "mime": "image/webp"
+    },
+    {
+      "file": "index.html",
+      "status": 200,
+      "mime": "text/html; charset=utf-8"
+    },
+    {
+      "file": "assets/css/guide-v2.css",
+      "status": 200,
+      "mime": "text/css; charset=utf-8"
+    },
+    {
+      "file": "assets/css/messenger.css",
+      "status": 200,
+      "mime": "text/css; charset=utf-8"
+    },
+    {
+      "file": "assets/css/site.css",
+      "status": 200,
+      "mime": "text/css; charset=utf-8"
+    },
+    {
+      "file": "assets/images/income-standard-card.png",
+      "status": 200,
+      "mime": "image/png"
+    },
+    {
+      "file": "assets/images/income-standard-card.webp",
+      "status": 200,
+      "mime": "image/webp"
+    },
+    {
+      "file": "assets/images/income-standard-illustration.png",
+      "status": 200,
+      "mime": "image/png"
+    },
+    {
+      "file": "assets/images/income-standard-illustration.webp",
+      "status": 200,
+      "mime": "image/webp"
+    },
+    {
+      "file": "assets/images/operation-guide-poster.svg",
+      "status": 200,
+      "mime": "image/svg+xml"
+    },
+    {
+      "file": "assets/images/tpctax-logo.png",
+      "status": 200,
+      "mime": "image/png"
+    },
+    {
+      "file": "assets/images/tpctax-mark.png",
+      "status": 200,
+      "mime": "image/png"
+    },
+    {
+      "file": "assets/js/analytics.js",
+      "status": 200,
+      "mime": "application/javascript"
+    },
+    {
+      "file": "assets/js/guide-rules.js",
+      "status": 200,
+      "mime": "application/javascript"
+    },
+    {
+      "file": "assets/js/guide-ui.js",
+      "status": 200,
+      "mime": "application/javascript"
+    },
+    {
+      "file": "assets/js/messenger-ui.js",
+      "status": 200,
+      "mime": "application/javascript"
+    },
+    {
+      "file": "assets/js/operation-guide.js",
+      "status": 200,
+      "mime": "application/javascript"
+    },
+    {
+      "file": "assets/images/assistant/assistant-chat-bubble.png",
+      "status": 200,
+      "mime": "image/png"
+    },
+    {
+      "file": "assets/images/assistant/assistant-error.png",
+      "status": 200,
+      "mime": "image/png"
+    },
+    {
+      "file": "assets/images/assistant/assistant-error.webp",
+      "status": 200,
+      "mime": "image/webp"
+    },
+    {
+      "file": "assets/images/assistant/assistant-guiding.png",
+      "status": 200,
+      "mime": "image/png"
+    },
+    {
+      "file": "assets/images/assistant/assistant-guiding.webp",
+      "status": 200,
+      "mime": "image/webp"
+    },
+    {
+      "file": "assets/images/assistant/assistant-idle.png",
+      "status": 200,
+      "mime": "image/png"
+    },
+    {
+      "file": "assets/images/assistant/assistant-idle.webp",
+      "status": 200,
+      "mime": "image/webp"
+    },
+    {
+      "file": "assets/images/assistant/assistant-responding.png",
+      "status": 200,
+      "mime": "image/png"
+    },
+    {
+      "file": "assets/images/assistant/assistant-responding.webp",
+      "status": 200,
+      "mime": "image/webp"
+    },
+    {
+      "file": "assets/images/assistant/assistant-thinking.png",
+      "status": 200,
+      "mime": "image/png"
+    },
+    {
+      "file": "assets/images/assistant/assistant-thinking.webp",
+      "status": 200,
+      "mime": "image/webp"
+    },
+    {
+      "file": "assets/images/assistant/assistant-welcome.png",
+      "status": 200,
+      "mime": "image/png"
+    },
+    {
+      "file": "assets/images/assistant/assistant-welcome.webp",
+      "status": 200,
+      "mime": "image/webp"
+    }
+  ],
+  "external": [
+    {
+      "href": "https://services.arpa.tpctax.dof.gov.taipei/incomeReachStandard/form.php",
+      "status": 200,
+      "url": "https://services.arpa.tpctax.dof.gov.taipei/incomeReachStandard/form.php",
+      "contentType": "text/html; charset=UTF-8",
+      "rejected": false
+    },
+    {
+      "href": "https://tpctax.gov.taipei/cp.aspx?n=F1C8047E644BDA72",
+      "status": 200,
+      "url": "https://tpctax.gov.taipei/cp.aspx?n=F1C8047E644BDA72",
+      "contentType": "text/html; charset=utf-8",
+      "rejected": false
+    },
+    {
+      "href": "https://leasing-and-management.udd.gov.taipei/news/70",
+      "status": 200,
+      "url": "https://leasing-and-management.udd.gov.taipei/news/70",
+      "contentType": "text/html; charset=utf-8",
+      "rejected": false
+    }
+  ],
+  "checks": [
+    "six home entries",
+    "all four desktop inline/detail views and responsive transition",
+    "guide previous/result/history",
+    "tenant groups and all links",
+    "two/four comparison and duplicate-selection guard",
+    "320-1440px overflow and 200% text",
+    "four application contents/links",
+    "32 public asset MIME/status checks",
+    "11 excluded paths 404"
+  ]
+}
