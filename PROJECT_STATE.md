@@ -2,11 +2,12 @@
 
 Last updated: 2026-10-31
 
-- Phase: **ACTION_LABEL_NOTE_ACCEPTED — TEST_SITE_ONLY**.
-- Repo/branch: taipei-tax-lab/taipei-rental-tax-guide / feat/direct-apply-operation-guide-20261031; clean baseline 0a1f4a20e475d1a4b9e12e87eb06373d9973f42c safely fetched/pulled. No AGENTS.md found; read current State/Task/README/build/template/content/tests.
-- Existing test site: https://rental-tax-guide-test.pages.dev/ ; reuse Pages auto Git deployment, no main merge/PR/formal release.
-- Scope: all four applicationAction.label = 前往申辦與書表下載; href/note/kind/process/policy/reference links unchanged. Remove only retired meta.note sentence and its NOTE consumers/paragraphs from template/build, including shared footer/plan/comparison copies of the same sentence.
-- Frozen: R2/media/player/JS/CSS, CX/GCP/Messenger/GA4 and deployment settings. No unrelated policy/reminder changes.
-- Task: [current Task](TASK_2026-10-31_DIRECT_APPLY_OPERATION_GUIDE.md). Prior State/Task archived verbatim as docs/history/*BEFORE_LABEL_NOTE_2026-10-31.md; all previous evidence retained.
-- Build/check, 59 tests, performance and actual HTTPS frontend/navigation/media-interaction regressions PASS. Four labels/hrefs/new-tab links correct; no retired sentence/notice/empty paragraphs. Three viewport trailing-space measurements equal existing padding only. [Evidence](docs/evidence/2026-10-31-label-note/after-https.json).
-- Accepted runtime: 17d21c42934b04f7b525bdae7007cb7f75a5e653, deployment 937e0c96-13b4-4e2e-a770-b0109b227e74 SUCCESS (exact GitHub check SHA); main HTTPS HTML byte-matches immutable deployment/build. Final docs-only commit triggers identical-runtime deployment; final handoff verifies source SHA/public-file parity.
+- Phase: **NATIVE_VIDEO_CONTROLS_LOCAL_PASS — TEST_SITE_ONLY**.
+- Repo/branch: taipei-tax-lab/taipei-rental-tax-guide / feat/direct-apply-operation-guide-20261031. Clean baseline e9ebddb52663b94d9e79ac83020059f3da9e5c6e safely fetched/pulled; State/Task/source/tests/README read, no AGENTS.md found.
+- Test site: https://rental-tax-guide-test.pages.dev/ ; reuse existing Pages Git integration. No main merge/PR/formal release.
+- Before HTTPS hit test: upper/center points of both videos hit BUTTON; bottom hit VIDEO. This reproduces DOM interception, not real iPhone LINE execution.
+- Fix removes overlay button, wrapper and CSS entirely. Only tested desktop Chromium gets direct video click shortcut outside fullscreen. iOS/Android/iPad desktop-mode/LINE/WebView/unknown browsers install no custom click handler and retain native behavior. Native controls, ratios/sources/device defaults and pause rules preserved.
+- Build/check, 63 tests, performance and existing local frontend/V2 regression PASS. Native controls regression PASS: 8 device/video cases, trusted native play/pause/seek/mute/volume slider/fullscreen/PiP, no overlay hits; desktop surface shortcut retained and mobile custom listeners absent. Awaiting push/deployment/HTTPS acceptance.
+- Limits: no installed Playwright WebKit binary and no actual iPhone LINE device access. Actual iOS WebKit/LINE controls/fullscreen/PiP require user retest; do not claim Chromium emulation proves them.
+- Frozen: site/content.json and application labels/URLs/policies, media config/R2, CX/GCP/Messenger/GA4, other layout/deployment settings.
+- Task: [current Task](TASK_2026-10-31_DIRECT_APPLY_OPERATION_GUIDE.md). Prior State/Task archived verbatim under docs/history/*BEFORE_NATIVE_VIDEO_2026-10-31.md; previous evidence retained.

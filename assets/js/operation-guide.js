@@ -2,20 +2,22 @@
   'use strict';
   const videoPanels = Array.from(document.querySelectorAll('[data-video-version]'));
   const versionControls = Array.from(document.querySelectorAll('[name="guide-version"]'));
-  // The separate hit area excludes native controls, avoiding duplicate toggles.
-  videoPanels.forEach(panel => {
-    const video = panel.querySelector('video');
-    const toggle = panel.querySelector('[data-video-toggle]');
-    if (!toggle) return;
-    toggle.hidden = false;
-    const label = () => toggle.setAttribute('aria-label', video.paused ? '播放影片' : '暫停影片');
-    toggle.addEventListener('click', () => {
-      if (video.paused) video.play().catch(() => toggle.setAttribute('aria-label', '重試播放影片'));
-      else video.pause();
+  // Only tested desktop Chromium gets a surface shortcut. Native controls consume
+  // their own clicks there; mobile/LINE and unknown engines retain native behavior.
+  const ua = navigator.userAgent;
+  const nativeOnly = /Android|iPhone|iPad|iPod|\bLine\/|; wv\b/i.test(ua) ||
+    (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+  if (!nativeOnly && /\b(?:Chrome|Chromium|Edg)\//.test(ua)) {
+    videoPanels.forEach(panel => {
+      const video = panel.querySelector('video');
+      video.addEventListener('click', event => {
+        if (event.defaultPrevented || event.target !== video || document.fullscreenElement) return;
+        event.preventDefault();
+        if (video.paused) video.play().catch(() => {});
+        else video.pause();
+      });
     });
-    ['play', 'pause', 'ended'].forEach(type => video.addEventListener(type, label));
-    label();
-  });
+  }
   function pauseVideos() { videoPanels.forEach(panel => panel.querySelector('video').pause()); }
   function selectVideo() {
     pauseVideos();

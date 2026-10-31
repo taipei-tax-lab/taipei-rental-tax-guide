@@ -46,18 +46,62 @@ test('both video sources come from switchable config and retain native player af
   }
   assert.match(read('assets/css/guide-v2.css'), /aspect-ratio: 16 \/ 9/);
   assert.match(read('assets/css/guide-v2.css'), /\[data-video-version="mobile"\] video \{ max-width: 360px; aspect-ratio: 9 \/ 16/);
+  assert.doesNotMatch(html, /data-video-toggle|v2-video-surface/);
+  assert.doesNotMatch(read('assets/css/guide-v2.css'), /v2-video-toggle|inset: 0 0 80px/);
 });
 
 function playerFixture(navigator = {userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}) {
   const events = {};
   const controls = ['pc','mobile'].map((value, i) => ({value, checked:i===0, addEventListener(type, fn) { this[type] = fn; }}));
-  const videos = controls.map(() => ({paused:false, currentTime:12, pause() {this.paused=true;}, play() {throw new Error('must never autoplay');}}));
+  const videos = controls.map(() => ({paused:false, currentTime:12, playCalls:0, pause() {this.paused=true;}, play() {this.playCalls++;this.paused=false;return Promise.resolve();}, addEventListener(type,fn) {this[type]=fn;}}));
   const panels = controls.map((c,i) => ({dataset:{videoVersion:c.value}, hidden:false, querySelector(selector) {return selector === 'video' ? videos[i] : null;}}));
   const document = {hidden:false, querySelectorAll(selector) {return selector === '[data-video-version]' ? panels : controls;}, addEventListener(type,fn) {events[type]=fn;}};
   const window = {addEventListener(type,fn) {events[type]=fn;}};
   vm.runInNewContext(read('assets/js/operation-guide.js'), {document,window,navigator});
   return {controls,videos,panels,document,window,events};
 }
+
+test('iOS, LINE, embedded WebViews and unknown engines install no custom video click listener',()=>{
+  for(const navigator of [
+    {userAgent:'Mozilla/5.0 (iPhone) AppleWebKit/605.1.15 Version/18.0 Mobile Safari/604.1 Line/15.0'},
+    {userAgent:'Mozilla/5.0 (iPad) CriOS/130.0 Mobile Safari/604.1'},
+    {userAgent:'Mozilla/5.0 (Macintosh) Chrome/130.0 Safari/537.36',maxTouchPoints:5},
+    {userAgent:'Mozilla/5.0 (Android; wv) Chrome/130.0 Mobile Safari/537.36'},
+    {userAgent:'Mozilla/5.0 (Android) Chrome/130.0 Mobile Safari/537.36'},
+    {userAgent:'Mozilla/5.0 (Android) Chrome/130.0 Line/15.0'},
+    {userAgent:'Mozilla/5.0 (Macintosh) Version/18.0 Safari/605.1.15'},
+    {userAgent:'Mozilla/5.0 Firefox/130.0'}
+  ]) {
+    const f=playerFixture(navigator);
+    assert.ok(f.videos.every(v=>!v.click&&v.playCalls===0&&v.paused));
+  }
+});
+
+test('Chromium surface click toggles once without autoplay or separate touch handlers',()=>{
+  for(const userAgent of ['Mozilla/5.0 (Windows) Chrome/130.0 Edg/130.0','Mozilla/5.0 (Linux x86_64) Chromium/130.0']) {
+    const f=playerFixture({userAgent});const v=f.videos[0];
+    assert.equal(v.playCalls,0);assert.equal(v.touchend,undefined);assert.equal(v.pointerup,undefined);
+    const click={target:v,preventDefault(){this.defaultPrevented=true;}};
+    v.click({...click});assert.equal(v.playCalls,1);assert.equal(v.paused,false);
+    v.click({...click});assert.equal(v.playCalls,1);assert.equal(v.paused,true);
+  }
+});
+
+test('native-handled, descendant and fullscreen clicks do not invoke custom playback',()=>{
+  const f=playerFixture({userAgent:'Chrome/130.0'});const v=f.videos[0];
+  const event={target:v,preventDefault(){throw Error('native event must not be cancelled');}};
+  v.click({...event,defaultPrevented:true});v.click({...event,target:{}});
+  f.document.fullscreenElement=v;v.click(event);
+  assert.equal(v.playCalls,0);assert.equal(v.paused,true);
+});
+
+test('a rejected surface play request is contained and can be retried',async()=>{
+  const f=playerFixture({userAgent:'Chrome/130.0'});const v=f.videos[0];
+  v.play=()=>Promise.reject(new Error('play denied'));
+  v.click({target:v,preventDefault(){}});
+  await new Promise(resolve=>setImmediate(resolve));
+  assert.equal(v.paused,true);
+});
 
 test('initial version follows browser mobile device hint, with phone UA fallback', () => {
   for (const [navigator, expected] of [

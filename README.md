@@ -163,4 +163,4 @@ node scripts/extension-browser-check.cjs
 
 新增 `node scripts/ux2-browser-check.cjs` 驗證共用入口、DOM／鍵盤順序、焦點、響應式申辦卡片及歷史。預設本機4175；正式驗收請以 PREVIEW_URL 指向現有 Pages 測試站。影片及 CX／Messenger 配置維持原樣，非 CX 驗收繼續隔離第三方請求。
 
-影片畫面以透明按鈕支援播放／暫停／結束後重播；底部 80px 保留原生控制區。使用 click 單一事件避免觸控重複觸發，鍵盤可聚焦操作；原生影片全螢幕不帶入透明按鈕，維持瀏覽器原生控制。
+影片不使用覆蓋層。已驗證的桌機 Chromium 瀏覽器在非全螢幕時以 video click 提供畫面播放／暫停／結束後重播；原生控制鍵自行處理事件。iOS／Android／LINE、內嵌 WebView 及未確認引擎不加自訂點擊事件，保留原生控制；全螢幕也維持原生互動。真實 iPhone LINE、Safari 的控制鍵與子母畫面仍須實機複驗，不以 Chromium iPhone 模擬代替。
