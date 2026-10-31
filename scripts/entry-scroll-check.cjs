@@ -28,10 +28,10 @@ try{
   await page.route('**/*',r=>new URL(r.request().url()).origin===new URL(base).origin?r.continue():r.abort());
   const settle=()=>page.evaluate(()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r))));
   for(const [hash,id] of entries){
-   await page.goto(base+'#'+hash);await page.locator('.v2-ready').waitFor();await settle();
+   await page.goto(base+'?entry-scroll-check='+hash+'#'+hash);await page.locator('.v2-ready').waitFor();await settle();await page.waitForTimeout(500);
    await page.waitForFunction(id=>Math.abs(document.getElementById(id).getBoundingClientRect().top-28)<=2,id,{timeout:3000}).catch(async()=>{throw Error(`Deep ${hash}: ${JSON.stringify(await page.locator('#'+id).evaluate(h=>({top:h.getBoundingClientRect().top,y:scrollY,state:history.state})))}`);});
    const deepTop=await page.locator('#'+id).evaluate(h=>h.getBoundingClientRect().top);assert.ok(Math.abs(deepTop-28)<=2,`deep ${hash}: ${deepTop}`);
-   await page.reload();await page.locator('.v2-ready').waitFor();await settle();
+   await page.reload();await page.locator('.v2-ready').waitFor();await settle();await page.waitForTimeout(500);
    await page.waitForFunction(id=>Math.abs(document.getElementById(id).getBoundingClientRect().top-28)<=2,id);
    const reloadTop=await page.locator('#'+id).evaluate(h=>h.getBoundingClientRect().top);assert.ok(Math.abs(reloadTop-28)<=2,`reload ${hash}: ${reloadTop}`);
    // Dispatch while reading below the heading: a repeated entry must preserve that position.
@@ -49,8 +49,11 @@ try{
   }
   await page.goto(base);await page.locator('.v2-ready').waitFor();
   for(const [hash,id] of entries){await page.locator(`.v2-audience a[href="#${hash}"]`).focus();await page.keyboard.press('Enter');await page.waitForFunction(id=>document.activeElement.id===id,id);await settle();}
+  // Separate restoration from keyboard focus scrolling the offscreen entry controls into view.
+  await page.goto(base+'?history-scroll');await page.locator('.v2-ready').waitFor();
+  for(const hash of ['direct-apply','operation-guide']){await page.locator(`.v2-audience a[href="#${hash}"]`).dispatchEvent('click');await page.waitForFunction(hash=>document.activeElement.id===hash+'-title',hash);await settle();}
   await page.evaluate(()=>scrollBy({top:70,behavior:"instant"}));await settle();const videoY=await page.evaluate(()=>scrollY);
-  await page.goBack();await page.locator('#direct-apply:visible').waitFor();await settle();
+  await page.goBack();await page.locator('#direct-apply:visible').waitFor();await settle();await page.waitForTimeout(250);
   await page.goForward();await page.locator('#operation-guide:visible').waitFor();
   await page.waitForFunction(y=>Math.abs(scrollY-y)<=2,videoY,{timeout:5000}).catch(async()=>{throw Error(`History expected ${videoY}, actual ${await page.evaluate(()=>scrollY)}`);});assert.ok(Math.abs(await page.evaluate(()=>scrollY)-videoY)<=2,'history restores reading position');
   await page.setViewportSize({width:1440,height:2200});await page.goto(base+'#operation-guide');await page.locator('.v2-ready').waitFor();await settle();

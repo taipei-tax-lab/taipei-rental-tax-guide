@@ -140,7 +140,8 @@
     const desired = heading.getBoundingClientRect().top + window.scrollY - inset;
     const limit = Math.max(0, root.scrollHeight - document.documentElement.clientHeight);
     const top = Math.max(0, Math.min(desired, limit));
-    if (Math.abs(window.scrollY - top) > 1) window.scrollTo({top, behavior: 'instant'});
+    // Even at the right coordinate, cancel any pending native smooth fragment scroll.
+    window.scrollTo({top, behavior: 'instant'});
   }
   function route(initial = false, reason = 'hash') {
     const generation = ++routeGeneration;

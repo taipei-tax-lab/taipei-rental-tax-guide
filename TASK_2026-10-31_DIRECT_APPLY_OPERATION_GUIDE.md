@@ -1,6 +1,6 @@
 # TASK — Entry heading positioning (2026-10-31)
 
-Status: **COMPLETE — NON-CX FRONTEND SCROLL ACCEPTANCE ON TEST HTTPS**
+Status: **RECHECK_IN_PROGRESS — FINAL COLD-LOAD STABILITY**
 
 ## Scope and result
 
@@ -56,3 +56,6 @@ Evidence directory: docs/evidence/2026-10-31-entry-scroll/ . Contains baseline b
 - No unresolved automated frontend failures. Page-bottom clamp is expected, not a defect. CX remains excluded. Previous application-specific link review limits remain in prior Task/history; this task changes none of those links or policy.
 
 Prior completed State/Task preserved in docs/history/*BEFORE_ENTRY_SCROLL_2026-10-31.md; all older evidence retained. No main merge, PR, formal deployment, ZIP or media changes.
+Final smoke on documentation deployment 6c357873-bcaa-402a-b41e-e338a2c57492 / 12c5263ae4e53da3d9d2f3b162b23876ec0c2f4e proved 32 public files byte-identical, but cold-load heading later moved to 79.42px. Native smooth fragment scrolling had been queued while the coordinate was initially correct; the 1px early-return guard skipped cancellation. Removed that guard for explicit positioning intents (repeat/resize/history remain excluded). Strengthened deep/reload tests to check stability 500ms after load and forced separate cold documents; delayed-resource stress checks added before final acceptance.
+
+Correction verified locally: all 58 tests/build/check/performance PASS; strengthened deep/reload/history navigation suite PASS; 8 separate cold browser contexts with a delayed hero resource remained at ~28px after 650ms. History restoration tests now separate keyboard focusing of offscreen controls (which naturally scrolls) from reading-position restoration.

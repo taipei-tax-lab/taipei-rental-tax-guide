@@ -2,7 +2,7 @@
 
 Last updated: 2026-10-31
 
-- Phase: **ENTRY_HEADING_POSITION_ACCEPTED — CLOUDFLARE_TEST_SITE_ONLY**.
+- Phase: **ENTRY_HEADING_POSITION_RECHECK_IN_PROGRESS — CLOUDFLARE_TEST_SITE_ONLY**.
 - Repo/branch: taipei-tax-lab/taipei-rental-tax-guide / `feat/direct-apply-operation-guide-20261031`; no main merge or PR.
 - Test site: https://rental-tax-guide-test.pages.dev/ ; existing project rental-tax-guide-test and automatic Git integration retained.
 - Runtime accepted: `28bf22e252cdd4f1c7e37caa997c2de64e8717a6`, deployment `1a3b7ad0-7bc7-41fe-a09e-f8c3d27d264d` SUCCESS. Final evidence/docs commit triggers identical-runtime deployment; final handoff verifies its source SHA separately.
