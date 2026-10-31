@@ -1,0 +1,200 @@
+{
+  "base": "https://rental-tax-guide-test.pages.dev/",
+  "testedAt": "2026-10-31T12:00:47.796Z",
+  "viewports": [
+    {
+      "width": 1440,
+      "entries": 6,
+      "overflow": false
+    },
+    {
+      "width": 1100,
+      "entries": 6,
+      "overflow": false
+    },
+    {
+      "width": 768,
+      "entries": 6,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "entries": 6,
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "entries": 6,
+      "overflow": false
+    }
+  ],
+  "media": [
+    {
+      "version": "guide-video-pc",
+      "src": "https://pub-20ae83e09e324873be7bff4d861f23b0.r2.dev/operation-guide-pc.mp4?v=2",
+      "duration": 144.133333,
+      "time": 1.010804,
+      "width": 1920,
+      "height": 1080,
+      "error": null,
+      "display": {
+        "width": 960,
+        "height": 540,
+        "objectFit": "contain"
+      },
+      "nativeSeekTime": 94.725181
+    },
+    {
+      "version": "guide-video-mobile",
+      "src": "https://pub-20ae83e09e324873be7bff4d861f23b0.r2.dev/operation-guide-mobile.mp4?v=2",
+      "duration": 150.933333,
+      "time": 1.0173,
+      "width": 1080,
+      "height": 1920,
+      "error": null,
+      "display": {
+        "width": 360,
+        "height": 640,
+        "objectFit": "contain"
+      },
+      "nativeSeekTime": 101.259071
+    }
+  ],
+  "mediaResponses": [
+    {
+      "url": "https://pub-20ae83e09e324873be7bff4d861f23b0.r2.dev/operation-guide-pc.mp4?v=2",
+      "status": 206,
+      "mime": "video/mp4"
+    },
+    {
+      "url": "https://pub-20ae83e09e324873be7bff4d861f23b0.r2.dev/operation-guide-pc.mp4?v=2",
+      "status": 206,
+      "mime": "video/mp4"
+    },
+    {
+      "url": "https://pub-20ae83e09e324873be7bff4d861f23b0.r2.dev/operation-guide-pc.mp4?v=2",
+      "status": 206,
+      "mime": "video/mp4"
+    },
+    {
+      "url": "https://pub-20ae83e09e324873be7bff4d861f23b0.r2.dev/operation-guide-mobile.mp4?v=2",
+      "status": 206,
+      "mime": "video/mp4"
+    },
+    {
+      "url": "https://pub-20ae83e09e324873be7bff4d861f23b0.r2.dev/operation-guide-mobile.mp4?v=2",
+      "status": 206,
+      "mime": "video/mp4"
+    }
+  ],
+  "deviceDefaults": [
+    {
+      "name": "iPhone Chromium emulation",
+      "expected": "mobile",
+      "manualSelectionRetained": true,
+      "fullscreen": "Chromium emulated phone native control PASS"
+    },
+    {
+      "name": "Android phone",
+      "expected": "mobile",
+      "manualSelectionRetained": true,
+      "fullscreen": "Chromium emulated phone native control PASS"
+    },
+    {
+      "name": "iPad",
+      "expected": "pc",
+      "manualSelectionRetained": true,
+      "fullscreen": "covered desktop native control"
+    },
+    {
+      "name": "Android tablet",
+      "expected": "pc",
+      "manualSelectionRetained": true,
+      "fullscreen": "covered desktop native control"
+    }
+  ],
+  "r2": [
+    {
+      "url": "https://pub-20ae83e09e324873be7bff4d861f23b0.r2.dev/operation-guide-pc.mp4",
+      "size": 19659311,
+      "mime": "video/mp4",
+      "etag": "\"17b8578ed2488288d59f378b552bf6a4\"",
+      "lastModified": "Sat, 31 Oct 2026 11:51:10 GMT",
+      "ranges": [
+        {
+          "range": "bytes=0-1023",
+          "status": 206,
+          "contentRange": "bytes 0-1023/19659311"
+        },
+        {
+          "range": "bytes=19658287-19659310",
+          "status": 206,
+          "contentRange": "bytes 19658287-19659310/19659311"
+        }
+      ]
+    },
+    {
+      "url": "https://pub-20ae83e09e324873be7bff4d861f23b0.r2.dev/operation-guide-pc.mp4?v=2",
+      "size": 19659311,
+      "mime": "video/mp4",
+      "etag": "\"17b8578ed2488288d59f378b552bf6a4\"",
+      "lastModified": "Sat, 31 Oct 2026 11:51:10 GMT",
+      "ranges": [
+        {
+          "range": "bytes=0-1023",
+          "status": 206,
+          "contentRange": "bytes 0-1023/19659311"
+        },
+        {
+          "range": "bytes=19658287-19659310",
+          "status": 206,
+          "contentRange": "bytes 19658287-19659310/19659311"
+        }
+      ]
+    },
+    {
+      "url": "https://pub-20ae83e09e324873be7bff4d861f23b0.r2.dev/operation-guide-mobile.mp4",
+      "size": 35123380,
+      "mime": "video/mp4",
+      "etag": "\"149b8953f83cece3f3d853e6ec55f5d1\"",
+      "lastModified": "Sat, 31 Oct 2026 11:51:13 GMT",
+      "ranges": [
+        {
+          "range": "bytes=0-1023",
+          "status": 206,
+          "contentRange": "bytes 0-1023/35123380"
+        },
+        {
+          "range": "bytes=35122356-35123379",
+          "status": 206,
+          "contentRange": "bytes 35122356-35123379/35123380"
+        }
+      ]
+    },
+    {
+      "url": "https://pub-20ae83e09e324873be7bff4d861f23b0.r2.dev/operation-guide-mobile.mp4?v=2",
+      "size": 35123380,
+      "mime": "video/mp4",
+      "etag": "\"149b8953f83cece3f3d853e6ec55f5d1\"",
+      "lastModified": "Sat, 31 Oct 2026 11:51:13 GMT",
+      "ranges": [
+        {
+          "range": "bytes=0-1023",
+          "status": 206,
+          "contentRange": "bytes 0-1023/35123380"
+        },
+        {
+          "range": "bytes=35122356-35123379",
+          "status": 206,
+          "contentRange": "bytes 35122356-35123379/35123380"
+        }
+      ]
+    }
+  ],
+  "deviceDefault": {
+    "desktop": "pc",
+    "phone": "mobile",
+    "manualChoiceRetained": true,
+    "landscapeRetained": true
+  }
+}

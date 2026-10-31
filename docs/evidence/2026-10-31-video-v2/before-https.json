@@ -1,0 +1,20 @@
+[
+  {
+    "version": "pc",
+    "src": "https://pub-20ae83e09e324873be7bff4d861f23b0.r2.dev/operation-guide-pc.mp4",
+    "duration": 144.133333,
+    "w": 1920,
+    "h": 1080,
+    "displayW": 960,
+    "displayH": 540
+  },
+  {
+    "version": "mobile",
+    "src": "https://pub-20ae83e09e324873be7bff4d861f23b0.r2.dev/operation-guide-mobile.mp4",
+    "duration": 150.933333,
+    "w": 1080,
+    "h": 1920,
+    "displayW": 960,
+    "displayH": 540
+  }
+]

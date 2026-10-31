@@ -1,0 +1,29 @@
+{
+  "base": "https://rental-tax-guide-test.pages.dev/",
+  "warm": [
+    {
+      "src": "https://pub-20ae83e09e324873be7bff4d861f23b0.r2.dev/operation-guide-pc.mp4?v=2",
+      "duration": 144.133333,
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "src": "https://pub-20ae83e09e324873be7bff4d861f23b0.r2.dev/operation-guide-mobile.mp4?v=2",
+      "duration": 150.933333,
+      "width": 1080,
+      "height": 1920
+    },
+    {
+      "src": "https://pub-20ae83e09e324873be7bff4d861f23b0.r2.dev/operation-guide-pc.mp4?v=2",
+      "duration": 144.133333,
+      "width": 1920,
+      "height": 1080
+    },
+    {
+      "src": "https://pub-20ae83e09e324873be7bff4d861f23b0.r2.dev/operation-guide-mobile.mp4?v=2",
+      "duration": 150.933333,
+      "width": 1080,
+      "height": 1920
+    }
+  ]
+}

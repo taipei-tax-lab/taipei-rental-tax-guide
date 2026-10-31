@@ -1,6 +1,6 @@
 # TASK — V2 operation tutorial videos (2026-10-31)
 
-Status: **IN_PROGRESS — LOCAL_PASS / AWAITING_HTTPS**
+Status: **COMPLETE — V2 VIDEO FRONTEND ACCEPTED ON TEST HTTPS**
 
 ## Scope / workflow
 
@@ -9,8 +9,8 @@ Status: **IN_PROGRESS — LOCAL_PASS / AWAITING_HTTPS**
 - [x] Reverify existing public R2 objects, V2 metadata and first/tail Range with and without ?v=2.
 - [x] Minimal video-only layout/build/config/poster change; retain existing device-selection/pause JS.
 - [x] Local build/check, 58 tests, performance and existing frontend regression PASS.
-- [ ] Commit/push same branch; wait for Cloudflare Git check completion and exact source SHA.
-- [ ] Actual HTTPS V2 browser acceptance, save evidence, final docs commit/push and final source/byte-parity verification.
+- [x] Commit/push same branch; wait for Cloudflare Git check completion and exact source SHA.
+- [x] Actual HTTPS V2 browser acceptance, save evidence, final docs commit/push and final source/byte-parity verification.
 
 ## Baseline / implementation
 
@@ -41,3 +41,17 @@ pages-live-acceptance.cjs, pages-test-browser-check.cjs, ux2-browser-check.cjs, 
 Chromium mobile emulation uses iPhone/Android UA and touch settings, not Safari/iOS runtime. iPad/Android tablet emulations select PC. Representative decoded frames at 60s visually reviewed: correct aspect, no frontend crop/stretch or landscape bars around portrait. Reading small source text/subtitles on physical devices and orientation/fullscreen still need human checks; videos themselves unchanged.
 
 Live CX requests remain isolated in browser regression: test domain is not authorized for CX. No live CX conversation, API or config change; unchanged Messenger fragment/config plus CX request/date/Playbook and analytics contracts covered by existing unit tests and unchanged-file diff. Do not claim live CX end-to-end acceptance.
+
+## Actual HTTPS acceptance / delivery
+
+Runtime commit fc3114bdb20a59618e0476b874b91e50c528a85a, branch feat/direct-apply-operation-guide-20261031. Cloudflare Pages GitHub check completed SUCCESS: deployment dc11ee8c-729b-40b5-9fed-5a12ba4e4863, immutable URL https://dc11ee8c.rental-tax-guide-test.pages.dev/ . Before testing, https://rental-tax-guide-test.pages.dev/ index.html / video CSS / portrait poster bytes matched the immutable deployment and local build. No pre-deployment or old-site results substituted. Cloudflare connector is not available this turn; existing authenticated GitHub Cloudflare checks provide exact source SHA, deployment ID, success and URL. No new credentials/service created.
+
+All live suites PASS: extension-browser-check.cjs (V2 media/device/fullscreen), pages-live-acceptance.cjs, pages-test-browser-check.cjs, ux2-browser-check.cjs, entry-scroll-check.cjs --navigation-only. R2 browser responses 206/video/mp4; PC 144.133333s, 1920×1080, display 960×540; mobile 150.933333s, 1080×1920, display 360×640 on desktop. Native scrubber drag seeks to 94.73s / 101.26s; decoded frame after seeking to 60s resumes playback. Browser volume property change and native controls/fullscreen enter/exit PASS. Both source URLs end ?v=2; repeat metadata loads and browser reload report V2 dimensions/durations, not V1.
+
+Chromium-emulated iPhone/Android phones default mobile and enter fullscreen through native control; iPad/Android tablet default PC. Fixed option order, manual choice retention on resize, switch/leave/return pauses and no autoplay PASS. Five widths have no horizontal overflow. Existing owner/tenant/4 plans/quick guide/comparison/application/history/focus PASS; 33 public assets status/MIME, private paths 404 and zero GA4 tracking requests PASS. No runtime JS errors in existing acceptance.
+
+Evidence: docs/evidence/2026-10-31-video-v2/ contains before/after metadata, R2 ETags/size/MIME/first+tail Range, runtime deployment check, warm reload, non-CX/UX/navigation results and decoded-frame/poster screenshots. Reviewed actual HTTPS representative frames and layout: no frontend stretching/cropping, text remains legible at native aspect. Frames are representative checks, not a full editorial subtitle proofread.
+
+No unresolved automated frontend failures. Remaining manual: physical iPhone Safari / Android Chrome fullscreen controls, audio/touch seek, landscape/portrait rotation and real-device subtitle readability. Browser emulation is Chromium, not actual iOS/Safari. Live CX conversations remain unverified because the test domain is not CX-authorized; no CX/GCP/Messenger config changed. Existing unit contracts and exact unchanged-file checks cover CX/GA4 regression boundaries.
+
+Final evidence/docs commit changes no public runtime files. After its automatic deployment, final handoff verifies exact final SHA via GitHub check, all 33 published-file hashes against the accepted immutable deployment and a fresh actual-HTTPS V2 metadata/playback smoke. Do not merge main/create PR/formal release or modify videos.

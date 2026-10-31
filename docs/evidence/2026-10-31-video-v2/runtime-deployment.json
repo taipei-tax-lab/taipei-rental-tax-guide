@@ -1,0 +1,10 @@
+[
+  {
+    "head_sha": "fc3114bdb20a59618e0476b874b91e50c528a85a",
+    "name": "Cloudflare Pages",
+    "status": "completed",
+    "conclusion": "success",
+    "details_url": "https://dash.cloudflare.com/?to=/b1e813caaa40e5a71174ede3e1d90a1a/pages/view/rental-tax-guide-test/dc11ee8c-729b-40b5-9fed-5a12ba4e4863",
+    "summary": "<table><tr><td><strong>Latest commit:</strong> </td><td>\n<code>fc3114b</code>\n</td></tr>\n<tr><td><strong>Status:</strong></td><td>&nbsp;✅&nbsp; Deploy successful!</td></tr>\n<tr><td><strong>Preview URL:</strong></td><td>\n<a href='https://dc11ee8c.rental-tax-guide-test.pages.dev'>https://dc11ee8c.rental-tax-guide-test.pages.dev</a>\n</td></tr>\n</table>\n\n[View logs](https://dash.cloudflare.com/?to=/b1e813caaa40e5a71174ede3e1d90a1a/pages/view/rental-tax-guide-test/dc11ee8c-729b-40b5-9fed-5a12ba4e4863)\n"
+  }
+]
