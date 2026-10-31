@@ -19,7 +19,7 @@
   </script>
   <link rel="icon" href="./assets/images/tpctax-mark.png" type="image/png">
   <link rel="stylesheet" href="./assets/css/site.css?v=a00e880ef9">
-  <link rel="stylesheet" href="./assets/css/guide-v2.css?v=b94a2f5b57">
+  <link rel="stylesheet" href="./assets/css/guide-v2.css?v=0a346af61a">
   <!-- The existing Messenger theme, markup and runtime remain unchanged. -->
   <link rel="stylesheet" href="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/themes/df-messenger-default.css">
   <link rel="stylesheet" href="./assets/css/messenger.css?v=36032ebb66">
@@ -63,6 +63,8 @@
                   <span class="v2-income-standard-fallback"><strong>所得達租金標準</strong><small>申報優惠稅率專區</small></span>
                 </div>
               </a>
+              <a href="#direct-apply" class="v2-audience-button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H5v18h14V10M14 3v7h5M8 14h8M8 17h5"/></svg><span><strong>直接申請</strong><small>已了解方案？前往申辦</small></span></a>
+              <a href="#operation-guide" class="v2-audience-button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m10 8 6 4-6 4z"/></svg><span><strong>操作說明</strong><small>觀看 2 分鐘使用教學</small></span></a>
             </div>
             <p id="helper-status" class="v2-caption" role="status" hidden></p>
           </div>
@@ -134,6 +136,68 @@
           </section>
         </div>
       </div>
+      <section data-page="direct-apply" id="direct-apply" class="v2-container v2-inner-page" aria-labelledby="direct-apply-title">
+        <h1 id="direct-apply-title" tabindex="-1">直接申請</h1>
+        <p>已了解方案？依您的出租方式，查看辦理順序與官方入口。地方稅優惠、住宅計畫與所得稅申報，請分別依主管機關規定辦理。</p>
+        <div class="v2-application-list"><article class="v2-application-item" aria-labelledby="apply-ordinary">
+  <h2 id="apply-ordinary">一般出租</h2>
+  <p class="v2-application-mode">自行申報地方稅</p>
+  <p>房屋稅及地價稅請洽稅捐處；所得稅請洽國稅局。</p>
+  <ol><li>整理房屋、土地現值與全年租金資料</li><li>透過租金標準試算，了解租金是否達租金標準</li><li>簽訂並保存租賃契約與收付紀錄</li><li>房屋稅請於當年期 3 月 22 日以前，向房屋所在地稽徵機關申報；逾期申報者，自次期起適用</li><li>請依相關規定向國稅局申報租賃所得。</li></ol>
+  <div class="v2-source-links"><a class="" href="https://services.arpa.tpctax.dof.gov.taipei/incomeReachStandard/form.php" target="_blank" rel="noopener noreferrer">前往所得達租金標準申報優惠稅率專區<span class="sr-only">（另開新視窗）</span></a><a class="" href="https://services.arpa.tpctax.dof.gov.taipei/rentStandard/index.php?content=calculator" target="_blank" rel="noopener noreferrer">開啟租金標準試算<span class="sr-only">（另開新視窗）</span></a></div>
+  <a class="v2-text-link" href="#plan-ordinary">查看完整條件與應備資料 →</a>
+</article>
+<article class="v2-application-item" aria-labelledby="apply-public">
+  <h2 id="apply-public">公益出租人</h2>
+  <p class="v2-application-mode">地方稅主動辦理・認定洽住宅主管機關</p>
+  <p>地方稅由稅捐處依都發局造冊資料主動辦理；所得稅仍須向國稅局申報。</p>
+  <ol><li>確認自己為住宅所有權人及房屋為合法建築物</li><li>確認房客符合或已取得租金補貼資格</li><li>地方稅由稅捐處依都發局造冊資料主動辦理；或房屋所有權人攜帶公益出租人資格認定函及相關資料向稅捐處提出申請。</li><li>請依相關規定向國稅局申報租賃所得。</li></ol>
+  <div class="v2-source-links"><a class="" href="https://nprent.nlma.gov.tw/nprent/" target="_blank" rel="noopener noreferrer">查詢公益出租人認定<span class="sr-only">（另開新視窗）</span></a><a class="" href="https://pip.moi.gov.tw/Publicize/Info/B4050" target="_blank" rel="noopener noreferrer">查看認定方式與常見問題<span class="sr-only">（另開新視窗）</span></a><a class="" href="https://pip.moi.gov.tw/Publicize/Info/B1020" target="_blank" rel="noopener noreferrer">查看中央租金補貼<span class="sr-only">（另開新視窗）</span></a></div>
+  <a class="v2-text-link" href="#plan-public">查看完整條件與應備資料 →</a>
+</article>
+<article class="v2-application-item" aria-labelledby="apply-social">
+  <h2 id="apply-social">社會住宅包租代管</h2>
+  <p class="v2-application-mode">先洽計畫業者・地方稅主動辦理</p>
+  <p>先由租屋服務事業業者確認計畫條件。地方稅由稅捐處依都發局造冊資料主動辦理；所得稅仍須向國稅局申報。</p>
+  <ol><li>備妥合法房屋證明與基本資料</li><li>洽詢臺北市或國家住都中心列示的租屋服務事業業者</li><li>比較包租與代管模式及管理責任</li><li>業者完成媒合與簽約，並協助後續管理。</li><li>請依相關規定向國稅局申報租賃所得。</li></ol>
+  <div class="v2-source-links"><a class="" href="https://leasing-and-management.udd.gov.taipei/news/70" target="_blank" rel="noopener noreferrer">屋主洽詢租屋服務事業業者<span class="sr-only">（另開新視窗）</span></a><a class="" href="https://leasing-and-management.udd.gov.taipei/attachment" target="_blank" rel="noopener noreferrer">下載屋主／房客申請文件<span class="sr-only">（另開新視窗）</span></a><a class="" href="https://leasing-and-management.udd.gov.taipei/house-plan" target="_blank" rel="noopener noreferrer">查看房客資格與合作業者<span class="sr-only">（另開新視窗）</span></a></div>
+  <a class="v2-text-link" href="#plan-social">查看完整條件與應備資料 →</a>
+</article>
+<article class="v2-application-item" aria-labelledby="apply-personal">
+  <h2 id="apply-personal">個人租賃住宅包租代管</h2>
+  <p class="v2-application-mode">自行申請地方稅・業者查詢洽內政部</p>
+  <p>地方稅須向稅捐處申請；所得稅向國稅局申報。</p>
+  <ol><li>查詢合法租賃住宅服務業</li><li>比較包租與代管服務、費用及責任</li><li>簽訂供居住使用一年以上的租約</li><li>房屋稅請於當年期 3 月 22 日前、地價稅請於當年度 9 月 22 日前向稅捐處提出申請，逾期申請者自次年(期)起適用。</li><li>請依相關規定向國稅局申報租賃所得。</li></ol>
+  <div class="v2-source-links"><a class="" href="https://resim.moi.gov.tw/Home/RentIndex" target="_blank" rel="noopener noreferrer">查詢合法租賃住宅服務業<span class="sr-only">（另開新視窗）</span></a><a class="" href="https://service.taipei/case-detail/BX004" target="_blank" rel="noopener noreferrer">申請地方稅減徵與下載書表<span class="sr-only">（另開新視窗）</span></a><a class="" href="https://www-ws.gov.taipei/001/Upload/336/relfile/16016/124219/9bf4c7a3-948a-42a2-9af7-a2a7293235cb.pdf" target="_blank" rel="noopener noreferrer">查看申請書範例與應備文件（PDF）<span class="sr-only">（另開新視窗）</span></a></div>
+  <a class="v2-text-link" href="#plan-personal">查看完整條件與應備資料 →</a>
+</article></div>
+        <p class="v2-notice">以下為公開資訊整理；實際資格、適用期間與稅額，以主管機關公告及個案核定為準。</p>
+      </section>
+      <section data-page="operation-guide" id="operation-guide" class="v2-container v2-inner-page" aria-labelledby="operation-guide-title">
+        <h1 id="operation-guide-title" tabindex="-1">操作說明</h1>
+        <p>選擇電腦版或手機版，觀看專區使用教學。按下播放後開始觀看，可使用播放器的全螢幕功能。</p>
+        <fieldset class="v2-video-switch"><legend>選擇教學版本</legend>
+          <label><input type="radio" name="guide-version" value="pc" checked aria-controls="guide-video-pc"> 電腦版</label>
+          <label><input type="radio" name="guide-version" value="mobile" aria-controls="guide-video-mobile"> 手機版</label>
+        </fieldset>
+        <div class="v2-video-panel" data-video-version="pc">
+    <h2 id="guide-video-pc-title">電腦版使用教學</h2>
+    <video id="guide-video-pc" controls playsinline preload="none" poster="./assets/images/operation-guide-poster.svg" width="1280" height="720" aria-labelledby="guide-video-pc-title">
+      <source src="https://pub-20ae83e09e324873be7bff4d861f23b0.r2.dev/operation-guide-pc.mp4" type="video/mp4">
+      您的瀏覽器無法播放此影片，請使用下方影片連結。
+    </video>
+    <p class="v2-caption">若影片無法播放，可<a href="https://pub-20ae83e09e324873be7bff4d861f23b0.r2.dev/operation-guide-pc.mp4" target="_blank" rel="noopener noreferrer">另開電腦版影片<span class="sr-only">（另開新視窗）</span></a>後重試。</p>
+  </div>
+<div class="v2-video-panel" data-video-version="mobile">
+    <h2 id="guide-video-mobile-title">手機版使用教學</h2>
+    <video id="guide-video-mobile" controls playsinline preload="none" poster="./assets/images/operation-guide-poster.svg" width="1280" height="720" aria-labelledby="guide-video-mobile-title">
+      <source src="https://pub-20ae83e09e324873be7bff4d861f23b0.r2.dev/operation-guide-mobile.mp4" type="video/mp4">
+      您的瀏覽器無法播放此影片，請使用下方影片連結。
+    </video>
+    <p class="v2-caption">若影片無法播放，可<a href="https://pub-20ae83e09e324873be7bff4d861f23b0.r2.dev/operation-guide-mobile.mp4" target="_blank" rel="noopener noreferrer">另開手機版影片<span class="sr-only">（另開新視窗）</span></a>後重試。</p>
+  </div>
+        <noscript><p>未啟用 JavaScript 時，兩個版本均會顯示；請先暫停目前影片，再播放另一版本。</p></noscript>
+      </section>
       <section data-page="plan-ordinary" id="plan-ordinary" class="v2-container v2-inner-page v2-blue" aria-labelledby="title-ordinary">
   <a href="#plans" class="v2-back" data-return-plan="ordinary">← 返回出租方案</a>
   <p class="v2-kicker">我自己出租、自己管理</p><h1 id="title-ordinary" tabindex="-1">一般出租</h1>
@@ -229,14 +293,15 @@
     </main>
     <footer class="v2-footer">
       <div><strong>臺北市稅捐稽徵處</strong><span>出租房屋租稅優惠專區</span></div>
-      <nav aria-label="頁尾導覽"><a href="#plans">出租方案</a><a href="#tenants">房客服務</a><a href="#resources">官方窗口</a><a href="#top">回到頁首 ↑</a></nav>
+      <nav aria-label="頁尾導覽"><a href="#plans">出租方案</a><a href="#tenants">房客服務</a><a href="#resources">官方窗口</a><a href="#direct-apply">直接申請</a><a href="#operation-guide">操作說明</a><a href="#top">回到頁首 ↑</a></nav>
       <p>以下為公開資訊整理；實際資格、適用期間與稅額，以主管機關公告及個案核定為準。</p>
       <small>租稅來源核對：2026-09-08　｜　適用範圍：臺北市　｜　房屋稅年期請見各項標示</small>
     </footer>
   </div>
   <script src="./assets/js/analytics.js?v=a9ee7a2b9e"></script>
   <script src="./assets/js/guide-rules.js?v=41c1a336de"></script>
-  <script src="./assets/js/guide-ui.js?v=861585b4a4"></script>
+  <script src="./assets/js/operation-guide.js?v=2830ff37ae"></script>
+  <script src="./assets/js/guide-ui.js?v=4c4de500d4"></script>
   <!-- Dialogflow CX Conversational Messenger -->
 <script src="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/df-messenger.js"></script>
 

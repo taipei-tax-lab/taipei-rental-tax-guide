@@ -100,7 +100,12 @@
           "title": "財政部稅務入口網｜所得稅資訊",
           "url": "https://www.mof.gov.tw/singlehtml/384fb3077bb349ea973e7fc6f13b6974?cntId=1a2759d765cd4816a66bd1ead732ed5a"
         }
-      ]
+      ],
+      "applicationMode": "自行申報地方稅",
+      "applicationLink": {
+        "label": "前往所得達租金標準申報優惠稅率專區",
+        "href": "https://services.arpa.tpctax.dof.gov.taipei/incomeReachStandard/form.php"
+      }
     },
     {
       "id": "public",
@@ -206,7 +211,8 @@
           "title": "財政部稅務入口網｜所得稅資訊",
           "url": "https://www.mof.gov.tw/singlehtml/384fb3077bb349ea973e7fc6f13b6974?cntId=1a2759d765cd4816a66bd1ead732ed5a"
         }
-      ]
+      ],
+      "applicationMode": "地方稅主動辦理・認定洽住宅主管機關"
     },
     {
       "id": "social",
@@ -314,7 +320,8 @@
           "title": "財政部稅務入口網｜所得稅資訊",
           "url": "https://www.mof.gov.tw/singlehtml/384fb3077bb349ea973e7fc6f13b6974?cntId=1a2759d765cd4816a66bd1ead732ed5a"
         }
-      ]
+      ],
+      "applicationMode": "先洽計畫業者・地方稅主動辦理"
     },
     {
       "id": "personal",
@@ -425,7 +432,8 @@
           "title": "財政部稅務入口網｜所得稅資訊",
           "url": "https://www.mof.gov.tw/singlehtml/384fb3077bb349ea973e7fc6f13b6974?cntId=1a2759d765cd4816a66bd1ead732ed5a"
         }
-      ]
+      ],
+      "applicationMode": "自行申請地方稅・業者查詢洽內政部"
     }
   ],
   "tenants": [

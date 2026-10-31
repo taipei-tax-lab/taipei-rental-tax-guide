@@ -6,6 +6,7 @@ import {contentHash, normalizeEol} from './text.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const read = name => normalizeEol(fs.readFileSync(path.join(root, name), 'utf8'));
 const data = JSON.parse(read('site/content.json'));
+const media = JSON.parse(read('site/media.json')).operationGuide;
 const esc = value => String(value).replace(/[&<>"']/g, char => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'}[char]));
 const link = (item, cls = '') => `<a class="${cls}" href="${esc(item.href)}" target="_blank" rel="noopener noreferrer">${esc(item.label)}<span class="sr-only">（另開新視窗）</span></a>`;
 const list = items => `<ul>${items.map(item => `<li>${esc(item)}</li>`).join('')}</ul>`;
@@ -31,6 +32,7 @@ for (const plan of plans) {
   if (plan.taxes.length !== 3 || !plan.source?.checked || !plan.links.length) throw new Error(`Incomplete plan: ${plan.id}`);
   const planUrls = [
     ...plan.links.map(l => l.href),
+    ...(plan.applicationLink ? [plan.applicationLink.href] : []),
     plan.source.url,
     ...(plan.sourceLinks || []).map(l => l.url || l.href),
     ...(plan.documentSource?.href ? [plan.documentSource.href] : [])
@@ -131,11 +133,38 @@ const comparison = plans.map(plan => {
   }).join('');
   return `<article data-compare-plan="${plan.id}" class="v2-compare-card v2-${plan.accent}"><h2>${esc(plan.eyebrow)}</h2><p class="v2-compare-situation">${esc(plan.compareSituation || plan.situation)}</p><dl><div><dt>管理方式</dt><dd>${esc(plan.management)}</dd></div><div><dt>主要門檻</dt><dd>${esc(plan.condition)}</dd></div>${compareTaxes}<div><dt>第一步</dt><dd>${esc(plan.firstStep)}</dd></div></dl><a href="#plan-${plan.id}" class="v2-button">查看優惠與辦理方式 →</a></article>`;
 }).join('\n');
+// Application instructions stay in the shared policy records; no separate tax rules.
+const directApply = plans.map(plan => `<article class="v2-application-item" aria-labelledby="apply-${plan.id}">
+  <h2 id="apply-${plan.id}">${esc(plan.eyebrow)}</h2>
+  <p class="v2-application-mode">${esc(plan.applicationMode)}</p>
+  <p>${esc(plan.nextStepCaption)}</p>
+  <ol>${plan.process.map(step => `<li>${esc(step)}</li>`).join('')}</ol>
+  <div class="v2-source-links">${[...(plan.applicationLink ? [plan.applicationLink] : []), ...plan.links].map(item => link(item)).join('')}</div>
+  <a class="v2-text-link" href="#plan-${plan.id}">查看完整條件與應備資料 →</a>
+</article>`).join('\n');
+const operationVideos = ['pc', 'mobile'].map(version => {
+  const src = media[version].src;
+  // HTTPS for remote media; explicit relative paths for a later same-origin deployment.
+  if (!(src.startsWith('./') && !/[?#]/.test(src)) && new URL(src).protocol !== 'https:') throw new Error('Video source must be HTTPS or an explicit relative path');
+  const label = version === 'pc' ? '電腦版' : '手機版';
+  return `<div class="v2-video-panel" data-video-version="${version}">
+    <h2 id="guide-video-${version}-title">${label}使用教學</h2>
+    <video id="guide-video-${version}" controls playsinline preload="none" poster="./assets/images/operation-guide-poster.svg" width="1280" height="720" aria-labelledby="guide-video-${version}-title">
+      <source src="${esc(src)}" type="video/mp4">
+      您的瀏覽器無法播放此影片，請使用下方影片連結。
+    </video>
+    <p class="v2-caption">若影片無法播放，可<a href="${esc(src)}" target="_blank" rel="noopener noreferrer">另開${label}影片<span class="sr-only">（另開新視窗）</span></a>後重試。</p>
+  </div>`;
+}).join('\n');
 const hash = name => contentHash(read(name));
 const replacements = {
   BASE_VERSION: hash('assets/css/site.css'), STYLE_VERSION: hash('assets/css/guide-v2.css'),
   ANALYTICS_VERSION: hash('assets/js/analytics.js'),
+  VIDEO_VERSION: hash('assets/js/operation-guide.js'),
   RULES_VERSION: hash('assets/js/guide-rules.js'), UI_VERSION: hash('assets/js/guide-ui.js'),
+  APPLY_ICON: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H5v18h14V10M14 3v7h5M8 14h8M8 17h5"/></svg>',
+  VIDEO_ICON: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m10 8 6 4-6 4z"/></svg>',
+  DIRECT_APPLY: directApply, OPERATION_VIDEOS: operationVideos,
   HOUSE_ICON: icon('self'), PERSON_ICON: icon('person'), OFFICIAL: esc(data.meta.official),
   PLAN_CARDS: cards, PLAN_DETAILS: planDetails, TENANT_GROUPS: tenantGroups, FAQ: faqHtml,
   COMPARE_CONTROLS: `<fieldset class="v2-compare-controls" hidden><legend>選擇兩個方案並列比較</legend><div>${[0,1].map((n) => `<label>方案${n + 1}<select data-compare-select="${n}">${plans.map((p,i) => `<option value="${p.id}"${i === n ? ' selected' : ''}>${esc(p.eyebrow)}</option>`).join('')}</select></label>`).join('')}</div><p class="v2-caption" role="status" id="compare-status"></p></fieldset>`,

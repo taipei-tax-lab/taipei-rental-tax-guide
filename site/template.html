@@ -63,6 +63,8 @@
                   <span class="v2-income-standard-fallback"><strong>所得達租金標準</strong><small>申報優惠稅率專區</small></span>
                 </div>
               </a>
+              <a href="#direct-apply" class="v2-audience-button">{{APPLY_ICON}}<span><strong>直接申請</strong><small>已了解方案？前往申辦</small></span></a>
+              <a href="#operation-guide" class="v2-audience-button">{{VIDEO_ICON}}<span><strong>操作說明</strong><small>觀看 2 分鐘使用教學</small></span></a>
             </div>
             <p id="helper-status" class="v2-caption" role="status" hidden></p>
           </div>
@@ -98,6 +100,22 @@
           </section>
         </div>
       </div>
+      <section data-page="direct-apply" id="direct-apply" class="v2-container v2-inner-page" aria-labelledby="direct-apply-title">
+        <h1 id="direct-apply-title" tabindex="-1">直接申請</h1>
+        <p>已了解方案？依您的出租方式，查看辦理順序與官方入口。地方稅優惠、住宅計畫與所得稅申報，請分別依主管機關規定辦理。</p>
+        <div class="v2-application-list">{{DIRECT_APPLY}}</div>
+        <p class="v2-notice">{{NOTE}}</p>
+      </section>
+      <section data-page="operation-guide" id="operation-guide" class="v2-container v2-inner-page" aria-labelledby="operation-guide-title">
+        <h1 id="operation-guide-title" tabindex="-1">操作說明</h1>
+        <p>選擇電腦版或手機版，觀看專區使用教學。按下播放後開始觀看，可使用播放器的全螢幕功能。</p>
+        <fieldset class="v2-video-switch"><legend>選擇教學版本</legend>
+          <label><input type="radio" name="guide-version" value="pc" checked aria-controls="guide-video-pc"> 電腦版</label>
+          <label><input type="radio" name="guide-version" value="mobile" aria-controls="guide-video-mobile"> 手機版</label>
+        </fieldset>
+        {{OPERATION_VIDEOS}}
+        <noscript><p>未啟用 JavaScript 時，兩個版本均會顯示；請先暫停目前影片，再播放另一版本。</p></noscript>
+      </section>
       {{PLAN_DETAILS}}
       <section data-page="comparison" id="comparison" class="v2-container v2-inner-page" aria-labelledby="comparison-title">
         <a href="#plans" class="v2-back">← 返回出租方案</a>
@@ -111,13 +129,14 @@
     </main>
     <footer class="v2-footer">
       <div><strong>臺北市稅捐稽徵處</strong><span>出租房屋租稅優惠專區</span></div>
-      <nav aria-label="頁尾導覽"><a href="#plans">出租方案</a><a href="#tenants">房客服務</a><a href="#resources">官方窗口</a><a href="#top">回到頁首 ↑</a></nav>
+      <nav aria-label="頁尾導覽"><a href="#plans">出租方案</a><a href="#tenants">房客服務</a><a href="#resources">官方窗口</a><a href="#direct-apply">直接申請</a><a href="#operation-guide">操作說明</a><a href="#top">回到頁首 ↑</a></nav>
       <p>{{NOTE}}</p>
       <small>租稅來源核對：{{CHECKED}}　｜　適用範圍：臺北市　｜　房屋稅年期請見各項標示</small>
     </footer>
   </div>
   <script src="./assets/js/analytics.js?v={{ANALYTICS_VERSION}}"></script>
   <script src="./assets/js/guide-rules.js?v={{RULES_VERSION}}"></script>
+  <script src="./assets/js/operation-guide.js?v={{VIDEO_VERSION}}"></script>
   <script src="./assets/js/guide-ui.js?v={{UI_VERSION}}"></script>
   {{MESSENGER}}
 </body>

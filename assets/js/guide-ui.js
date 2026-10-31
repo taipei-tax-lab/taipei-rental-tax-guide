@@ -137,6 +137,7 @@
     hash = aliases[hash] || hash;
     const destination = pages.find(page => page.dataset.page === hash);
     const pageName = destination ? destination.dataset.page : 'home';
+    if (pageName !== 'operation-guide') window.RentalOperationGuide?.pause();
     const inline = desktop.matches && pageName.startsWith('plan-');
     for (const plan of planPages) {
       const isInline = inline && plan === destination;

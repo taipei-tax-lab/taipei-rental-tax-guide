@@ -84,3 +84,19 @@ CX 文件包含 PoC 與歷史操作紀錄，部分 Agent／Environment 敘述已
 聊天視窗依 visualViewport 的可見範圍定位，預留實際按鈕尺寸；不再以固定最小高度撐出畫面。小於400px可用高度時以標題列關閉，收合使用提醒與熱門問題，保留對話及輸入空間。人物面板在高度不足520px時隱藏。聊天 CSS／JS 使用內容雜湊版本避免舊快取。
 
 `node scripts/chat-viewport-check.cjs` 驗證縮放等效尺寸、visual viewport 縮放、標題與輸入及關閉邊界、左右對齊、提醒展開和草稿保留；不送出真實 CX 問題。
+
+## 2026-10-31 功能擴充（工作分支，待審查）
+
+首頁六張入口沿用既有 hash 導覽，新增 `#direct-apply` 與 `#operation-guide`。四方案的申辦順序與連結共用 `site/content.json`，`applicationMode` 僅為辦理方式標示；原有政策欄位未改動。
+
+影片來源在 `site/media.json` 的 `operationGuide.pc.src` 與 `operationGuide.mobile.src`。目前使用指定 R2 測試影片；日後可改為例如 `./assets/videos/operation-guide-pc.mp4` 與 `./assets/videos/operation-guide-mobile.mp4`，再執行 build。影片來源僅接受 HTTPS 或明確 `./` 相對路徑。MP4 不納入本輪 Git 或發行包；正式主機的檔案放置、CSP、MIME 與 Range 支援須另案確認。本機預覽器目前不提供 videos 路徑，本輪使用 R2 驗收。
+
+播放器使用本機 SVG 封面、原生 controls / fullscreen、`playsinline`、`preload="none"`，不自動播放。切換版本、離開頁籤或將瀏覽器移至背景時會暫停；同一頁面工作階段返回時保留所選版本與播放位置，不自動播放。重新載入預設電腦版。無 JavaScript 時兩版皆可手動播放。
+
+額外的瀏覽器驗收（需要環境已有 Playwright 與 Edge）：
+
+```powershell
+node scripts/extension-browser-check.cjs
+```
+
+它會阻擋 CX 與分析請求，驗證五種寬度、R2 真實播放、原生全螢幕、切換／離開／返回及瀏覽器歷史。`PREVIEW_URL` 可指定預覽網址；截圖與結果儲存在忽略版控的 `.preview/`。歷史與本輪證據見 PROJECT_STATE 及其連結 Task。

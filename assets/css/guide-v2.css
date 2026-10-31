@@ -389,7 +389,7 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
 }
 @media (min-width: 1100px) {
   /* The approved artwork sets the row height; Cards 1~3 are vertically centered and slightly slimmer. */
-  .v2-audience { grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 1.12fr); }
+  .v2-audience { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .v2-audience > .v2-audience-button:not(.v2-income-standard-entry) {
     align-self: center;
     height: 90%;
@@ -527,3 +527,27 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
 .v2-inner-page > h1 { font-size:28px; }
 .v2-guide-shortcut { display:inline-block; margin-top:8px; font-size:1rem; font-weight:600; }
 .v2-site .v2-compare-card h2 { font-size:22px; }
+
+/* Six entry points preserve the existing palette and responsive artwork. */
+@media (min-width: 1100px) {
+  .v2-audience { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .v2-audience > .v2-audience-button:not(.v2-income-standard-entry) { align-self: stretch; height: auto; min-height: 100px; padding: 14px 18px; }
+  .v2-audience > .v2-audience-button[aria-current] { padding-bottom: 30px; }
+  .v2-income-standard-entry { align-self: center; }
+}
+.v2-application-list { margin-top: 32px; }
+.v2-application-item { padding: 28px 0; border-top: 1px solid #b1c8c6; }
+.v2-application-item h2 { margin-bottom: 8px; }
+.v2-application-mode { color: var(--teal-dark); font-weight: 700; }
+.v2-application-item ol { padding-left: 1.5em; max-width: 72ch; }
+.v2-application-item li + li { margin-top: 8px; }
+.v2-application-item > .v2-text-link { display: inline-block; margin-top: 16px; }
+.v2-video-switch { border: 0; padding: 0; margin: 24px 0; display: flex; flex-wrap: wrap; gap: 12px; }
+.v2-video-switch legend { font-weight: 700; margin-bottom: 8px; }
+.v2-video-switch label { display: flex; align-items: center; gap: 8px; min-height: 48px; padding: 8px 20px; border: 1px solid #92b2ae; border-radius: 8px; background: white; cursor: pointer; }
+.v2-video-switch label:has(:checked) { background: var(--teal); color: white; }
+.v2-video-switch input { accent-color: var(--teal-dark); }
+.v2-video-panel { max-width: 960px; }
+.v2-video-panel video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: contain; background: #103844; border-radius: 12px; }
+.v2-video-panel video:fullscreen { width: 100%; height: 100%; border-radius: 0; }
+.v2-video-panel video:focus-visible { outline: 3px solid var(--teal); outline-offset: 4px; }
