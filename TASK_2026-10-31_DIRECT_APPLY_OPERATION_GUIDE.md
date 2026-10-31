@@ -1,86 +1,51 @@
-# TASK 2026-10-31 — Direct application and operation guide
+# TASK 2026-10-31 — Cloudflare Pages test publication
 
-Status: **IMPLEMENTED_AWAITING_CHATGPT_REVIEW — NOT RELEASED**
+Status: **READY_TO_CREATE_PAGES_TEST_PROJECT — NOT RELEASED**
 
-## Authorized scope and acceptance
+## Scope
 
-- Frontend repo only; branch `feat/direct-apply-operation-guide-20261031` from latest main `28fd76a`.
-- Keep four existing entries; add 直接申請 / 已了解方案？前往申辦 and 操作說明 / 觀看 2 分鐘使用教學. Desktop: two rows, three columns.
-- Reuse the visual system and hash routing; no new return-home button or broad refactor.
-- Four-plan application instructions reuse `site/content.json`; distinguish self application, proactive local-tax processing and housing-authority/provider processes. Preserve policy values.
-- PC/mobile HTML5 video, 16:9, local poster, native controls/fullscreen, no autoplay; pause on switching or leaving route, retain selected version on return.
-- Configurable R2 URLs; relative paths supported for later deployment. No MP4 or release ZIP in Git.
-- Do not change CX/GCP/Messenger, GA4 event semantics, CSP, MIME or formal deployment.
-- Run build, reproducibility check, full tests, performance gate, browser and responsive regression; commit and push only. No PR/merge/deployment. ChatGPT owns review.
+Continue approved feature branch `feat/direct-apply-operation-guide-20261031` from `1401ce2f`. Build isolated static output for Pages `rental-tax-guide-test`; production branch is this feature branch. Disable GA4 only in the test artifact. Retain R2 test URLs; do not upload MP4, change CX/GCP, create another service, PR, main merge or institutional deployment. Prefer existing Cloudflare connection/Git integration; report any GitHub authorization/repository selection the user must complete. No keys requested.
 
-## Progress and evidence
+## Progress
 
-- [x] Confirmed correct repo and clean worktree; fetched and fast-forwarded main from d5fad9e to 28fd76a; created requested branch.
-- [x] Read README, prior State/Task, frontend source/build/tests; no repository/ancestor AGENTS.md found.
-- [x] Preserved prior State verbatim in docs/history; all old Task files retained.
-- [x] Implementation and official-source checks (restricted destinations noted below).
-- [x] Automated and browser validation.
-- [x] State/Task handoff prepared; commit/push this reviewed worktree to the named feature branch only.
+- [x] Clean worktree, fetched/pulled same branch; already up to date at approved commit.
+- [x] Read latest README/State/Task/build flow; Cloudflare skill and current Pages documentation consulted.
+- [x] Archived complete prior State and Task under docs/history; current files now track this phase only.
+- [x] Implement isolated Pages test build and tests.
+- [x] Verify output, GA4 isolation, browser/hash/media regressions.
+- [x] Assess Pages/Git access and update results; commit/push same branch for handoff.
 
-## Implementation
+## History
 
-- Six home entry cards: desktop two rows × three columns; existing owner/tenant/helper/income-standard entry behavior preserved. New hash routes: `#direct-apply`, `#operation-guide`; footer navigation also exposes them. No return-home button added.
-- Direct-apply page renders all four plans from the existing `process`, `nextStepCaption` and `links` fields, plus presentation-only `applicationMode`. Ordinary rental has an `applicationLink` reusing the existing income-standard official form URL.
-- Policy equality check against base HEAD: removing only the newly added `applicationMode`/`applicationLink` fields yields byte-independent deep equality with the original JSON. No existing policy values, source dates or URLs changed.
-- `site/media.json` configures PC/mobile R2 sources. Build supports explicit `./` relative sources (tested in a temporary build fixture), rejects HTTP remote sources, and escapes output. Future relative MP4 hosting is not activated by this task.
-- Two HTML5 players: local SVG cover, 16:9, native controls/fullscreen, playsinline, preload none, no autoplay. Small dedicated `operation-guide.js` pauses players on version changes, page visibility changes and pagehide; the existing hash router adds one pause call when leaving the operation-guide route. Same-document navigation retains selection and progress; reload defaults to PC. No-JS fallback shows both manual players.
-- Prior PROJECT_STATE preserved in full in `docs/history/PROJECT_STATE_BEFORE_2026-10-31.md` (normalized EOL equality checked). Old TASK files retained unchanged; current State now points to the current task and historical snapshot.
+- [Approved feature/device correction and all prior evidence](docs/history/TASK_2026-10-31_DIRECT_APPLY_OPERATION_GUIDE_BEFORE_PAGES_TEST_2026-10-31.md).
+- [Prior State](docs/history/PROJECT_STATE_BEFORE_PAGES_TEST_2026-10-31.md).
 
-## Verification — 2026-10-31
+## Implementation and build settings
 
-- `node scripts/build.mjs` PASS (same build entrypoint as `npm run build`).
-- `node scripts/build.mjs --check` PASS.
-- `node --test tests/*.test.mjs` **51/51 PASS** (same full suite as `npm test`; npm executable is absent in this shell, so the package scripts were executed directly).
-- `node scripts/performance-budget.mjs` PASS; `git diff --check` PASS.
-- `node scripts/browser-check.cjs` PASS: existing plan expansion/detail, reading guide, comparison, tenant links and responsive integration.
-- `node scripts/chat-viewport-check.cjs` PASS: title/input/close bounds, side-panel alignment, zoom-equivalent viewports, draft preservation. No live CX questions sent.
-- `node scripts/extension-browser-check.cjs` PASS: 1440/1100/768/390/320px; six entries, two × three at desktop, no horizontal overflow on home/direct-apply/operation-guide, 16:9 video boxes, actual R2 playback, native fullscreen entry/exit for both players, switching/route-leave pause, return/version retention, browser back/forward. New script blocks CX and analytics traffic; no console page errors.
-- Local Chrome interactive smoke also confirmed actual playback and pause states. Both R2 videos decoded at 1920×1080 with readyState 4 and advancing currentTime; PC 268.187696 seconds, mobile 135.649333 seconds; no media error.
-- Native fullscreen first entered successfully, but the first headless harness timed out exiting via Escape; the harness was corrected to use the native fullscreen control for exit, and the complete rerun passed. No product workaround was needed.
-- Local ignored evidence: `.preview/extension-results.json`, `.preview/extension-{1440,390}-{top,direct-apply,operation-guide}.png`, and existing browser/chat screenshots. Visual inspection of desktop/mobile captures found no new layout issue.
-- Impeccable detector ran once: six warnings concern existing accent borders; the heading-size warning is incomplete because the detector resolves template stylesheets relative to `site/`. No unrelated visual redesign was made.
-- Frozen source check: Messenger HTML/CSS/JS, analytics.js, rules.js unchanged. No MP4, release ZIP, CSP/MIME change, cloud mutation, PR, merge or deployment.
+- `scripts/build-pages-test.mjs` invokes the existing build and writes only a fixed allowlist to `dist-pages-test` (ignored by Git). 32 files: index/404, hero PNG/WebP, 3 CSS, 5 JS, 7 entry/logo/poster images, bubble image and 12 dynamic assistant state images. No repo-root copying, documents, metadata, assistant manifest, unused snapshots or MP4.
+- Clears only the fixed output directory; refuses a symlink output or non-regular allowlisted asset. Repeat builds remove stale files.
+- Removes the known GA4 loader/config block only in output HTML, and fails if the expected block is missing or tracking code remains. Normal index.html/template/analytics.js and events unchanged. Tests restore the removed block and compare the whole HTML, and compare analytics helper unchanged.
+- Static 404.html prevents Pages' implicit SPA fallback. Tests verify every local HTML/CSS asset, dynamic assistant fallback, internal hash destination and unchanged media URL.
+- `scripts/serve.mjs --pages-test` previews only the isolated directory; default preview is unchanged. `scripts/pages-test-browser-check.cjs` checks no GA4 requests during interactions and 404s for seven representative repo/source paths.
+- Pages settings: project `rental-tax-guide-test`, Git repo `taipei-tax-lab/taipei-rental-tax-guide`, production branch `feat/direct-apply-operation-guide-20261031`, framework None, root blank, build `node scripts/build-pages-test.mjs`, output `dist-pages-test`, NODE_VERSION=22 and SKIP_DEPENDENCY_INSTALL=1 in both build environments; preview branches None. No bindings/secrets/functions required.
 
-## Official-source review
+## Verification — Pages artifact
 
-Checked read-only on 2026-10-31; no applications were submitted:
+- `node scripts/build-pages-test.mjs`: PASS (32 static files).
+- `node scripts/build.mjs --check`: PASS; normal tracked index.html identical to approved commit.
+- `node --test tests/*.test.mjs`: **56/56 PASS**, including three new artifact/isolation tests in a temporary fixture. Exact package-script entrypoints used because npm is absent in local shell.
+- `node scripts/performance-budget.mjs`, `git diff --check`: PASS.
+- Local server: PORT=4175, `node scripts/serve.mjs --pages-test`; all browser checks use PREVIEW_URL=http://127.0.0.1:4175/ and installed Playwright/Edge.
+- `scripts/browser-check.cjs`: PASS; `scripts/chat-viewport-check.cjs`: PASS. No live CX question submitted.
+- `scripts/pages-test-browser-check.cjs`: PASS; window.gtag absent, helper returns false, no GA4 loader/collector request during owner/tenant/plan/page/video interactions, no failed runtime assets, documents/source/Git paths return 404.
+- `scripts/extension-browser-check.cjs`: PASS at 1440/1100/768/390/320px; hash/history, phone/desktop defaults and retained override; both supplied R2 videos decoded 1920×1080 with advancing currentTime and no media error; native fullscreen entry/exit, switch/leave pause and no autoplay on return. No video upload or URL change.
+- Ignored local evidence: `.preview/pages-test-results.json`, `.preview/extension-results.json`, `.preview/browser-results.json` and regression screenshots. No new issue found in these checks.
 
-- [Income-standard official form](https://services.arpa.tpctax.dof.gov.taipei/incomeReachStandard/form.php): form and required-document instructions present.
-- [Personal rental local-tax application/forms](https://service.taipei/case-detail/BX004): includes the personal rental house/land-tax reduction application form.
-- [Taipei social housing plan providers](https://leasing-and-management.udd.gov.taipei/news/70): published provider contact route present.
-- [Taipei tax public-landlord page](https://tpctax.gov.taipei/cp.aspx?n=3A978B4E3ADD88F2&s=0F6CC22A30839EA4): distinguishes housing recognition and proactive house/land-tax processing, with income-tax filing separately.
-- Existing `nprent.nlma.gov.tw/nprent/` and `pip.moi.gov.tw/Publicize/Info/B4050` returned Request Rejected to automated retrieval; `resim.moi.gov.tw/Home/RentIndex` timed out. Original official links retained, not replaced with guessed destinations. Human browser review required.
+## Existing Cloudflare/Git integration assessment
 
-## Human review / deferred work
-
-- ChatGPT: review diff, shared policy rendering, official link labels/roles, playback lifecycle and State/Task handoff before authorizing release.
-- Requested card copy says “2 分鐘”; actual PC video is ~4m28s and mobile ~2m16s. Requested wording retained pending human decision on copy or replacement videos.
-- Human review of complete video content/audio, captions/accessibility and physical iOS/Android playback remains pending. Desktop Chromium emulation does not prove native mobile behavior.
-- Confirm restricted official destinations manually. Existing policy data was reused, not re-audited for all future tax periods.
-- Formal hosting/CSP/MIME/Range, production-domain playback and relative MP4 hosting remain a separate deployment task. No formal ZIP prepared.
-- Commit SHA and remote branch are supplied in the final handoff; no PR is to be created.
-
-## Review correction — device-specific initial video (2026-10-31)
-
-- First ChatGPT review approved major features and State/Task management. Authorized only device-based initial version selection on the same branch.
-- Remote sync: clean worktree; fetch and fast-forward-only pull confirmed origin feature branch already current at `e0b1719a3fb032cb1121acc804edbeb7172dd680`.
-- [x] Initialize once using navigator.userAgentData.mobile with phone User-Agent fallback. A narrow desktop window stays PC; a landscape phone stays mobile. Manual selection and existing pause/no-autoplay logic remain intact.
-- [x] Add unit coverage for browser device hints, iPhone/Android/desktop fallback, phone manual PC selection and retained pause/progress; extend browser regression for phone initialization, manual choice retention, landscape/history and reload.
-- [x] Complete full regression; correction ready for commit/push on the same branch.
-- Requested “觀看 2 分鐘使用教學” and both test media sources remain unchanged. Previous evidence above is historical; the original PC-only reload behavior is superseded by this correction.
-
-### Correction validation and handoff
-
-- `node scripts/build.mjs` and `node scripts/build.mjs --check`: PASS.
-- `node --test tests/*.test.mjs`: **53/53 PASS**; `node scripts/performance-budget.mjs` and `git diff --check`: PASS. These are the exact package-script Node entrypoints; npm is absent in the shell.
-- `node scripts/browser-check.cjs`: PASS; `node scripts/chat-viewport-check.cjs`: PASS.
-- `node scripts/extension-browser-check.cjs`: PASS at 1440/1100/768/390/320px; desktop defaults to PC at all widths. iPhone UA emulation without UA-CH defaults to mobile, manual PC override survives route return, landscape and history, reload chooses mobile again even in landscape. Unit tests separately cover both UA-CH boolean values and Android/iPhone/desktop UA fallback. Browser checks are emulation, not physical-device acceptance.
-- Both supplied R2 videos again played with advancing time, 1920×1080 decode and no media errors; native fullscreen entry/exit, switching/leave pause and return without autoplay all PASS. Results remain in ignored `.preview/extension-results.json`.
-- Runtime diff: three initialization lines only; generated index changes only operation-guide.js cache hash. No CSS/template/policy/media/GA4/Messenger changes; documentation and tests updated. No new dependencies or player refactor.
-- No new issue found. Pre-existing physical-device/accessibility/official-link/deployment limitations remain as previously recorded. “觀看 2 分鐘使用教學” and test material URLs unchanged by explicit instruction.
-- Status: **IMPLEMENTED_AWAITING_CHATGPT_REVIEW — NOT RELEASED**. Commit and push this correction to `feat/direct-apply-operation-guide-20261031` only; no new branch/PR/merge/deployment.
+- Cloudflare plugin `GET /accounts` identified the existing account; Pages API list returned zero existing projects (page=1/per_page=10; an initial per_page=100 request was rejected as invalid and corrected).
+- Dashboard inspected read-only through Workers & Pages → Create application → Pages → Import existing Git repository. Existing GitHub account `taipei-tax-lab` is available and the exact `taipei-rental-tax-guide` repo is listed. No new authorization, repo access expansion or key is required.
+- **Ready to create directly with the README settings.** No Pages project created or deployment started in this preparation/feasibility handoff. No other service created or changed.
+- Next operator action: select that exact repo → Begin setup → enter target project/feature production branch/build/output/env settings → Save and Deploy. Then inspect build logs and validate the live Pages URL. Pages calls its primary test URL “Production”; this does not authorize main merge or institutional deployment.
+- Real Messenger operation on a new Pages hostname remains unverified and may hit existing domain restrictions; do not change CX/GCP to resolve it within this scope. Physical iOS/Android and accessibility review remain pending.
+- Documentation references: [GitHub integration](https://developers.cloudflare.com/pages/configuration/git-integration/github-integration/), [build image and skip dependency install](https://developers.cloudflare.com/pages/configuration/build-image/), [static serving behavior](https://developers.cloudflare.com/pages/configuration/serving-pages/).

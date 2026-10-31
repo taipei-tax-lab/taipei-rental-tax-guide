@@ -3,7 +3,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 
-const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const root = process.argv.includes('--pages-test') ? path.join(repo, 'dist-pages-test') : repo;
 const port = Number(process.env.PORT || 4173);
 const mime = {'.html':'text/html; charset=utf-8', '.js':'text/javascript; charset=utf-8', '.css':'text/css; charset=utf-8', '.svg':'image/svg+xml', '.png':'image/png', '.webp':'image/webp', '.json':'application/json; charset=utf-8'};
 http.createServer((req, res) => {

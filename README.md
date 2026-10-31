@@ -100,3 +100,42 @@ node scripts/extension-browser-check.cjs
 ```
 
 它會阻擋 CX 與分析請求，驗證五種寬度、R2 真實播放、原生全螢幕、切換／離開／返回及瀏覽器歷史。`PREVIEW_URL` 可指定預覽網址；截圖與結果儲存在忽略版控的 `.preview/`。歷史與本輪證據見 PROJECT_STATE 及其連結 Task。
+
+## Cloudflare Pages 測試發布
+
+沿用同一功能分支；不影響原有 GitHub Pages／機關正式部署。Pages 使用 Git 整合，自動從指定功能分支建置；不需要 API key、Workers、Functions 或 R2 binding。
+
+| 設定 | 值 |
+| --- | --- |
+| Project name | `rental-tax-guide-test` |
+| Repository | `taipei-tax-lab/taipei-rental-tax-guide` |
+| Production branch | `feat/direct-apply-operation-guide-20261031` |
+| Framework preset | None |
+| Root directory | Repo 根目錄（留空） |
+| Build command | `node scripts/build-pages-test.mjs`（等同 `npm run build:pages:test`） |
+| Build output directory | `dist-pages-test` |
+| Build env（Production / Preview） | `NODE_VERSION=22`、`SKIP_DEPENDENCY_INSTALL=1` |
+| Preview branch deployments | None（本輪只測指定分支） |
+
+此處 Pages 的 Production 指測試專案主網址，不代表機關正式發布。推送指定分支後將觸發該測試專案的自動建置。
+
+`build-pages-test.mjs` 先執行既有建置，再依明確白名單輸出 32 個靜態檔案：index、404、hero 圖片、必要 CSS／JS、既有入口圖片與小幫手動態圖片。不整批複製 Repo 或 assets，不包含 State／Task、README、docs、site、scripts、tests、Git metadata、素材清單或 MP4。輸出目錄已忽略版控，每次建置清除舊檔。
+
+僅測試版 HTML 移除 GA4 loader/config；原有 index.html、analytics.js 與事件契約保持原樣。小幫手設定未改動；本輪不擴充 CX 允許網域，因此 Pages 網域的真實問答仍需另案確認。兩支 R2 影片維持現有 URL，不上傳替換。頂層 404.html 讓 Pages 對不存在路徑回傳 404，避免隱含 SPA fallback。
+
+本機驗證發布產物：
+
+```powershell
+node scripts/build-pages-test.mjs
+node scripts/serve.mjs --pages-test
+# 另一終端機，Playwright 與 Edge 已可用時：
+node scripts/pages-test-browser-check.cjs
+node scripts/browser-check.cjs
+node scripts/extension-browser-check.cjs
+```
+
+預覽仍使用 4173，或以 PORT / PREVIEW_URL 指向同一服務。上述 Pages 專用檢查驗證 GA4 無請求、相對資源、私有路徑 404 與頁籤狀態；extension 檢查會實播既有 R2 影片。
+
+建立專案的 Git 授權狀態與本輪結果請見 PROJECT_STATE 及目前 Task。若 Repo 不在 Cloudflare 選單內，須由組織管理者在 Cloudflare Pages 的 GitHub 授權畫面選擇 `taipei-tax-lab/taipei-rental-tax-guide`；不要改選其他 Repo 或建立其他服務。
+
+參考：[Pages GitHub 整合](https://developers.cloudflare.com/pages/configuration/git-integration/github-integration/)、[建置環境與略過套件安裝](https://developers.cloudflare.com/pages/configuration/build-image/)。
