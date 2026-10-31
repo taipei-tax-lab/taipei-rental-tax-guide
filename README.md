@@ -89,9 +89,9 @@ CX 文件包含 PoC 與歷史操作紀錄，部分 Agent／Environment 敘述已
 
 首頁六張入口沿用既有 hash 導覽，新增 `#direct-apply` 與 `#operation-guide`。四方案的申辦順序與連結共用 `site/content.json`，`applicationMode` 僅為辦理方式標示；原有政策欄位未改動。
 
-影片來源在 `site/media.json` 的 `operationGuide.pc.src` 與 `operationGuide.mobile.src`。目前使用指定 R2 測試影片；日後可改為例如 `./assets/videos/operation-guide-pc.mp4` 與 `./assets/videos/operation-guide-mobile.mp4`，再執行 build。影片來源僅接受 HTTPS 或明確 `./` 相對路徑。MP4 不納入本輪 Git 或發行包；正式主機的檔案放置、CSP、MIME 與 Range 支援須另案確認。本機預覽器目前不提供 videos 路徑，本輪使用 R2 驗收。
+影片來源在 `site/media.json` 的 `operationGuide.pc.src` 與 `operationGuide.mobile.src`。目前使用指定 R2 V2 測試影片，原檔名加上 `?v=2` 以隔離舊瀏覽器快取（更版時只更新此設定）；日後可改為例如 `./assets/videos/operation-guide-pc.mp4` 與 `./assets/videos/operation-guide-mobile.mp4`，再執行 build。影片來源僅接受 HTTPS 或明確 `./` 相對路徑。MP4 不納入本輪 Git 或發行包；正式主機的檔案放置、CSP、MIME 與 Range 支援須另案確認。本機預覽器目前不提供 videos 路徑，本輪使用 R2 驗收。
 
-播放器使用本機 SVG 封面、原生 controls / fullscreen、`playsinline`、`preload="none"`，不自動播放。切換版本、離開頁籤或將瀏覽器移至背景時會暫停；同一頁面工作階段返回時保留所選版本與播放位置，不自動播放。首次載入或重新載入時依裝置預設：手機為手機版、電腦為電腦版；優先採用瀏覽器行動裝置資訊，無此資訊時辨識手機 User-Agent。視窗寬度改變不會重設選擇。無 JavaScript 時兩版皆可手動播放。
+電腦影片為 16:9，維持最大 960px；手機影片為 9:16，寬度不超過容器及 360px，全螢幕解除最大寬度並以 contain 保留完整畫面。兩版各有同比例本機 SVG 封面。播放器使用原生 controls / fullscreen、`playsinline`、`preload="none"`，不自動播放。切換版本、離開頁籤或將瀏覽器移至背景時會暫停；同一頁面工作階段返回時保留所選版本與播放位置，不自動播放。首次載入或重新載入時依裝置預設：手機為手機版、電腦與平板為電腦版；優先採用瀏覽器行動裝置資訊，無此資訊時辨識手機 User-Agent。視窗寬度改變不會重設選擇。無 JavaScript 時兩版皆可手動播放。
 
 額外的瀏覽器驗收（需要環境已有 Playwright 與 Edge）：
 
@@ -119,7 +119,7 @@ node scripts/extension-browser-check.cjs
 
 此處 Pages 的 Production 指測試專案主網址，不代表機關正式發布。推送指定分支後將觸發該測試專案的自動建置。
 
-`build-pages-test.mjs` 先執行既有建置，再依明確白名單輸出 32 個靜態檔案：index、404、hero 圖片、必要 CSS／JS、既有入口圖片與小幫手動態圖片。不整批複製 Repo 或 assets，不包含 State／Task、README、docs、site、scripts、tests、Git metadata、素材清單或 MP4。輸出目錄已忽略版控，每次建置清除舊檔。
+`build-pages-test.mjs` 先執行既有建置，再依明確白名單輸出 33 個靜態檔案（包含新增直式影片封面）：index、404、hero 圖片、必要 CSS／JS、既有入口圖片與小幫手動態圖片。不整批複製 Repo 或 assets，不包含 State／Task、README、docs、site、scripts、tests、Git metadata、素材清單或 MP4。輸出目錄已忽略版控，每次建置清除舊檔。
 
 僅測試版 HTML 移除 GA4 loader/config；原有 index.html、analytics.js 與事件契約保持原樣。小幫手設定未改動；本輪不擴充 CX 允許網域，因此 Pages 網域的真實問答仍需另案確認。兩支 R2 影片維持現有 URL，不上傳替換。頂層 404.html 讓 Pages 對不存在路徑回傳 404，避免隱含 SPA fallback。
 

@@ -40,10 +40,12 @@ test('both video sources come from switchable config and retain native player af
   for (const [i, version] of ['pc','mobile'].entries()) {
     assert.ok(players[i][0].includes(media[version].src));
     assert.match(players[i][0], /controls playsinline preload="none"/);
-    assert.match(players[i][0], /poster="\.\/assets\/images\/operation-guide-poster.svg"/);
+    assert.ok(players[i][0].includes(`poster="./assets/images/operation-guide-poster${version === 'mobile' ? '-mobile' : ''}.svg"`));
+    assert.ok(players[i][0].includes(version === 'mobile' ? 'width="1080" height="1920"' : 'width="1920" height="1080"'));
     assert.doesNotMatch(players[i][0], /autoplay|loop|controlslist="nofullscreen"/i);
   }
   assert.match(read('assets/css/guide-v2.css'), /aspect-ratio: 16 \/ 9/);
+  assert.match(read('assets/css/guide-v2.css'), /\[data-video-version="mobile"\] video \{ max-width: 360px; aspect-ratio: 9 \/ 16/);
 });
 
 function playerFixture(navigator = {userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}) {
@@ -64,7 +66,9 @@ test('initial version follows browser mobile device hint, with phone UA fallback
     [{userAgent:'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) Mobile'}, 'mobile'],
     [{userAgent:'Mozilla/5.0 (Linux; Android 15) Chrome/130 Mobile Safari/537.36'}, 'mobile'],
     [{userAgent:'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'}, 'pc'],
-    [{userAgent:'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)'}, 'pc']
+    [{userAgent:'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)'}, 'pc'],
+    [{userAgent:'Mozilla/5.0 (iPad; CPU OS 18_0 like Mac OS X) Mobile/15E148 Safari/604.1'}, 'pc'],
+    [{userAgent:'Mozilla/5.0 (Linux; Android 15; SM-X710) AppleWebKit/537.36 Chrome/130 Safari/537.36'}, 'pc']
   ]) {
     const f = playerFixture(navigator);
     assert.equal(f.controls.find(c=>c.checked).value,expected);

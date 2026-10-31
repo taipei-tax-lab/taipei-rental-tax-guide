@@ -149,9 +149,10 @@ const operationVideos = ['pc', 'mobile'].map(version => {
   // HTTPS for remote media; explicit relative paths for a later same-origin deployment.
   if (!(src.startsWith('./') && !/[?#]/.test(src)) && new URL(src).protocol !== 'https:') throw new Error('Video source must be HTTPS or an explicit relative path');
   const label = version === 'pc' ? '電腦版' : '手機版';
+  const portrait = version === 'mobile';
   return `<div class="v2-video-panel" data-video-version="${version}">
     <h2 id="guide-video-${version}-title">${label}使用教學</h2>
-    <video id="guide-video-${version}" controls playsinline preload="none" poster="./assets/images/operation-guide-poster.svg" width="1280" height="720" aria-labelledby="guide-video-${version}-title">
+    <video id="guide-video-${version}" controls playsinline preload="none" poster="./assets/images/operation-guide-poster${portrait ? '-mobile' : ''}.svg" width="${portrait ? 1080 : 1920}" height="${portrait ? 1920 : 1080}" aria-labelledby="guide-video-${version}-title">
       <source src="${esc(src)}" type="video/mp4">
       您的瀏覽器無法播放此影片，請使用下方影片連結。
     </video>

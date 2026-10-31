@@ -2,13 +2,13 @@
 
 Last updated: 2026-10-31
 
-- Phase: **ENTRY_HEADING_POSITION_ACCEPTED — CLOUDFLARE_TEST_SITE_ONLY**.
-- Repo/branch: taipei-tax-lab/taipei-rental-tax-guide / `feat/direct-apply-operation-guide-20261031`; no main merge or PR.
-- Test site: https://rental-tax-guide-test.pages.dev/ ; existing project rental-tax-guide-test and automatic Git integration retained.
-- Runtime accepted: `f129bef1786a2efc69442bdd4ca29d4b3a867b5c`, deployment `5f58487e-1dd6-445b-9923-0df2a9eb7880` SUCCESS. Final evidence/docs commit triggers identical-runtime deployment; final handoff verifies its source SHA separately.
-- Four entry headings align to ~28 CSS px from actual DOM positions after reflow/load, within document scroll limits. Repeats/resize preserve reading position; hash/deep links/history/focus retained. Shared hero/cards remain in DOM and visible above content.
-- Build/check, 58 tests, performance guards, 36 responsive/zoom-equivalent and 12 native Edge page-zoom cases PASS. All existing non-CX browser suites PASS on actual HTTPS, including unchanged R2 playback, history and player choice.
-- Frozen/unchanged: CSS layout, application cards/policy/URLs, CX/GCP/Messenger, GA4 semantics, R2 media/player/config. Test GA4 stays disabled; no formal site/video/ZIP.
-- Limits: real iOS/Android devices, dynamic address-bar/pinch behavior and native Chrome UI zoom remain manual checks. Isolated Edge native engine page zoom 100/125/150% was verified separately. A short document cannot place its heading at 28px when max scroll is zero.
-- Task: [current Task](TASK_2026-10-31_DIRECT_APPLY_OPERATION_GUIDE.md). Evidence: [scroll and non-CX HTTPS results](docs/evidence/2026-10-31-entry-scroll/after-https-final.json).
-- History preserved: [prior State](docs/history/PROJECT_STATE_BEFORE_ENTRY_SCROLL_2026-10-31.md), [prior Task/evidence](docs/history/TASK_2026-10-31_DIRECT_APPLY_OPERATION_GUIDE_BEFORE_ENTRY_SCROLL_2026-10-31.md). Prior application-entry review limitations remain unchanged.
+- Phase: **VIDEO_V2_LOCAL_VERIFIED — AWAITING_PAGES_HTTPS_ACCEPTANCE**.
+- Repo/branch: taipei-tax-lab/taipei-rental-tax-guide / feat/direct-apply-operation-guide-20261031. Clean baseline 1c3d3a905ab7d1feb9f3c818b7365a439d330862 safely fetched/pulled; previous deployment af51e4aa-84fc-4b3b-b923-ea372e9651eb SUCCESS verified via GitHub Cloudflare check.
+- Existing test site: https://rental-tax-guide-test.pages.dev/ ; same Pages project and Git integration. No main merge/PR/formal deployment.
+- V2 R2 sources keep original object paths with ?v=2 browser-cache versioning; no R2 write/upload. PC 19,659,311 bytes / 1920×1080 / 144.133333s; mobile 35,123,380 bytes / 1080×1920 / 150.933333s. HEAD 200 + first/tail Range 206 verified.
+- Player: desktop 16:9 up to 960px; portrait 9:16 up to 360px or container width. Matching portrait SVG poster added. Native controls/playsinline/preload=none/contain/fullscreen retained. Device-selection JS unchanged; phone/tablet defaults and manual retention verified.
+- Local build/check, 58 tests, performance and non-CX browser regression PASS. Await deployment source SHA + actual HTTPS acceptance before completion.
+- Frozen: policy/application text and URLs, entry/routing layout, CX/GCP/Data Store/Messenger, GA4 and formal deployment settings. Test GA4 remains disabled.
+- Task: [current Task](TASK_2026-10-31_DIRECT_APPLY_OPERATION_GUIDE.md).
+- Prior completed stage archived verbatim: [State](docs/history/PROJECT_STATE_BEFORE_VIDEO_V2_2026-10-31.md), [Task and evidence](docs/history/TASK_2026-10-31_DIRECT_APPLY_OPERATION_GUIDE_BEFORE_VIDEO_V2_2026-10-31.md). Existing scroll acceptance/evidence preserved.
+- Remaining manual: physical iPhone/Android fullscreen, rotation and mobile browser controls; no emulation represented as hardware acceptance. Live CX remains outside test-domain authorization; unchanged source/config contracts verified by tests/diff.

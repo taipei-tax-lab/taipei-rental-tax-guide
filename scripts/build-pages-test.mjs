@@ -20,7 +20,7 @@ const files = [
   ...['site','guide-v2','messenger'].map(name => `assets/css/${name}.css`),
   ...['analytics','guide-rules','guide-ui','operation-guide','messenger-ui'].map(name => `assets/js/${name}.js`),
   ...['tpctax-logo.png','tpctax-mark.png','income-standard-card.png','income-standard-card.webp',
-    'income-standard-illustration.png','income-standard-illustration.webp','operation-guide-poster.svg'].map(name => `assets/images/${name}`),
+    'income-standard-illustration.png','income-standard-illustration.webp','operation-guide-poster.svg','operation-guide-poster-mobile.svg'].map(name => `assets/images/${name}`),
   'assets/images/assistant/assistant-chat-bubble.png',
   ...['idle','welcome','thinking','responding','guiding','error'].flatMap(state =>
     ['png','webp'].map(ext => `assets/images/assistant/assistant-${state}.${ext}`))

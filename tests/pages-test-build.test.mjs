@@ -28,7 +28,7 @@ test('Pages test artifact disables GA4 without changing normal generated HTML or
 test('publication excludes repo metadata, source documents, snapshots, arbitrary assets and MP4; removes stale output', () => {
   const output=path.join(fixture,'dist-pages-test');
   const published=files(output).map(p=>path.relative(output,p).replaceAll('\\','/'));
-  assert.equal(published.length,32);
+  assert.equal(published.length,33);
   for(const name of published) assert.match(name,/^(?:index\.html|404\.html|hero-v2\.(?:png|webp)|assets\/(?:css|js|images)\/.+\.(?:css|js|png|webp|svg))$/);
   assert.ok(published.every(p=>!p.endsWith('.mp4')));
   fs.writeFileSync(path.join(output,'STALE_TASK.md'),'must disappear');
