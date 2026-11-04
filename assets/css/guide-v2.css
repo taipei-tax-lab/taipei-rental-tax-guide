@@ -528,11 +528,11 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
 .v2-guide-shortcut { display:inline-block; margin-top:8px; font-size:1rem; font-weight:600; }
 .v2-site .v2-compare-card h2 { font-size:22px; }
 
-/* Keep all six desktop entry cards balanced without letting the wide artwork set row height. */
+/* Compact, equal-height desktop entry cards; scale the wide artwork down to fit. */
 @media (min-width: 1100px) {
-  .v2-audience { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: 156px; }
-  .v2-audience > .v2-audience-button:not(.v2-income-standard-entry) { align-self: stretch; height: auto; min-height: 0; padding: 14px 18px; }
-  .v2-audience > .v2-audience-button[aria-current] { padding-bottom: 30px; }
+  .v2-audience { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: minmax(116px, auto); }
+  .v2-audience > .v2-audience-button:not(.v2-income-standard-entry) { align-self: stretch; height: auto; min-height: 0; padding: 8px 14px; }
+  .v2-audience > .v2-audience-button[aria-current] { padding-bottom: 24px; }
   .v2-income-standard-entry { align-self: stretch; height: 100%; min-height: 0; aspect-ratio: auto; }
   .v2-income-standard-card-image { width: 100%; height: 100%; object-fit: contain; }
 }
