@@ -531,7 +531,7 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
 /* Desktop six-entry grid: both rows use the same compact height.
    The wide illustration must fit its grid cell, not size the entire second row. */
 @media (min-width: 1100px) {
-  .v2-audience { width: min(100%, 1000px); margin-inline: auto; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: repeat(2, 116px); grid-auto-rows: 116px; }
+  .v2-audience { width: min(100%, 1000px); margin-inline: 0 auto; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: repeat(2, 116px); grid-auto-rows: 116px; }
   .v2-audience > .v2-audience-button:not(.v2-income-standard-entry) { align-self: stretch; height: auto; min-height: 0; padding: 8px 14px; }
   .v2-audience > .v2-audience-button[aria-current] { padding-bottom: 24px; }
   .v2-income-standard-entry { align-self: stretch; height: 100%; min-height: 0; aspect-ratio: auto; overflow: hidden; }
