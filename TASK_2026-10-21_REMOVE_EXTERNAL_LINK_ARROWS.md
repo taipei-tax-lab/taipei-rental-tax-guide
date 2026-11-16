@@ -1,6 +1,8 @@
 # TASK 2026-10-21 — Remove Decorative External-Link Arrows
 
-Status: **IMPLEMENTED_AWAITING_REVIEW — NOT RELEASED**
+Status: **RELEASED — historical task closed** (2026-10-21).
+
+PR [#17](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/pull/17) merged into `main` at `d5fad9e52acdb6c8f46495903f9f9dfbdb3c8c1e`; [GitHub Pages deployment](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/actions/runs/39564340362) succeeded. The implementation handoff below is a dated pre-release record, not an outstanding release instruction. Institutional-host/device acceptance was not established by this release. See [current state](docs/PROJECT_STATE.md).
 
 Planning owner: ChatGPT
 Implementation owner: Codex Cloud

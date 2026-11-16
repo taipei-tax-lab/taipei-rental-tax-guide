@@ -1,5 +1,7 @@
 # TASK — Unblock native video controls (2026-10-31)
 
+> **已封存階段紀錄**：本輪 10/31 自動化驗收證據保留，下方狀態不涵蓋 11/4 新提交。實體 iPhone LINE 待驗收事項已移列 [現行 State](docs/PROJECT_STATE.md)，下一輪只依 [NEXT_TASK](docs/NEXT_TASK.md) 開工。
+
 Status: **AUTOMATED_HTTPS_PASS — REAL_IPHONE_LINE_RETEST_REQUIRED**
 
 - [x] Clean specified feature branch fetched/pulled at e9ebddb52663b94d9e79ac83020059f3da9e5c6e; read State/Task/README/player/CSS/build/tests. No AGENTS.md found. Prior completed State/Task archived verbatim under docs/history/*BEFORE_NATIVE_VIDEO_2026-10-31.md.

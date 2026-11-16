@@ -1,5 +1,7 @@
 # PROJECT_STATE
 
+> **歷史快照（2026-10-31）**：以下保留當時的影片原生控制驗收交接紀錄；已被 [docs/PROJECT_STATE.md](docs/PROJECT_STATE.md) 取代為現行狀態。11/4 另有 7 次入口排版提交，詳見 [WORKLOG](docs/WORKLOG.md)。本檔不再作為開工或任務依據。
+
 Last updated: 2026-10-31
 
 - Phase: **NATIVE_VIDEO_CONTROLS_AUTOMATED_PASS — REAL_IPHONE_LINE_PENDING — TEST_SITE_ONLY**.

@@ -1,6 +1,6 @@
 # Messenger 開場文案參考
 
-這份文件保留作為日後若要設計 Dialogflow CX 開場訊息的參考，不是目前網站介面的必要設定。現在的聊天視窗以 `index.html` 的前端空白狀態提示卡提供視覺導覽，不會在視窗開啟時自動送出或顯示一則 CX 訊息。
+**歷史文案參考，非現行規格或核定 CX 修改。** 下方空白狀態卡、舊 placeholder、PoC Agent 及 Flow Start Page 的描述保留供追溯，不得依此操作機關 CX。現行介面以 [Messenger 規格](messenger-ui-spec.md)、`site/messenger.html` 及 `assets/js/messenger-ui.js` 為準。
 
 ## 可選的第一則訊息
 

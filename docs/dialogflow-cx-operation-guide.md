@@ -1,12 +1,12 @@
 # Dialogflow CX 操作與驗證說明
 
-> **文件校正（2026-10-10，Docs-only）：** 本文最初記錄 PoC／Phase 5A 建置時的操作，後續章節部分仍描述舊測試 Agent 與「尚未切換」的歷史狀態，**不得依舊段落判斷目前 Production 或直接操作 GCP**。目前網站程式已使用機關 CX；本次僅修正文件，沒有變更網站、CX 或正式環境。
+> **文件校正（2026-11-16，Docs-only）：** 本文保留 PoC／Phase 5A 的歷史操作；第 1、3–9、11–14 節含當時的資源及流程，**不是現行 GCP 操作指令，不得據以恢復舊資源、變更 Production 或執行部署**。目前網站程式已使用機關 CX；本輪未變更網站、CX 或正式環境。
 >
-> **現行可追溯基準：** [前端正式來源 `site/messenger.html`](../site/messenger.html) 綁定 `serviceagent-1150909`／Tokyo Agent `799426c1-ba69-49dc-85e4-5065985706e2`，由 `scripts/build.mjs` 產生 `index.html`；[網站發布狀態](../PROJECT_STATE.md) 曾確認正式部署。後端 [2026-10-10 保留服務驗收](https://github.com/taipei-tax-lab/dialogflow-cx-qa-framework/blob/0426acd0efbfc8a67b0e1ae24760c5b456d11898/docs/GCP_CX_POST_CLEANUP_ACCEPTANCE_2026-10-10.md) 確認 Production 為 Rental Playbook v3、Rental Tool v1，並與 1999 FAQ Flow v1 等版本共用 Tokyo Agent。此為日期明確的驗收快照，不是即時 GCP 查詢。
+> **現行可追溯基準：** [前端正式來源 `site/messenger.html`](../site/messenger.html) 綁定 `serviceagent-1150909`／Tokyo Agent `799426c1-ba69-49dc-85e4-5065985706e2`，由 `scripts/build.mjs` 產生 `index.html`。後端 [2026-10-13 verified baseline](https://github.com/taipei-tax-lab/dialogflow-cx-qa-framework/blob/63fa97d/config/current_production_baseline.json) 及[正式架構](https://github.com/taipei-tax-lab/dialogflow-cx-qa-framework/blob/63fa97d/docs/CX_CURRENT_PRODUCTION_ARCHITECTURE.md) 確認 Production Rental Playbook v3、Rental Official Docs Tool v1、`rental-official-docs_1790231587498`（七份 TXT），與 1999 FAQ Flow v1 等版本共用 Tokyo Agent。首題直入 Rental Playbook，重設／到期後重新 arm；網站傳送既有 runtime context、房屋稅年期與 Asia/Taipei query time。此為日期明確的驗收快照，不是當日 GCP 查詢或 Integration 私有設定回讀。網站環境及剩餘驗收見 [PROJECT_STATE](PROJECT_STATE.md)。
 >
 > **前後端完整對照：** [CX Framework — 跨 Repo 入口稽核](https://github.com/taipei-tax-lab/cx-service-framework/pull/1)。僅涉及文件更新；若未來要改寫 GCP 設定，需重新盤點最新實際環境並經另行授權。
 
-本文件是「臺北市出租房屋租稅優惠智慧服務 PoC」的 Dialogflow CX 操作指南。
+本文件原為「臺北市出租房屋租稅優惠智慧服務 PoC」的 Dialogflow CX 操作指南，現保留其歷史設計與診斷經驗。任何新後端工作須另行核准，先讀 QA framework 正式來源及當時的實際環境。
 
 文件用途：
 
@@ -186,7 +186,7 @@ Instructions 應至少包含以下原則：
 
 ## 6. Data Store 設定
 
-### 6.1 目前 Data Store
+### 6.1 歷史 PoC Data Store（非現行）
 
 ```text
 Data Store Display Name: taipei-rental-tax-guide
@@ -237,9 +237,9 @@ Folder: rental-tax-rag/
 
 ## 7. Data Store Tool
 
-### 7.1 目前應使用的 Tool
+### 7.1 歷史 PoC Tool（非現行）
 
-目前正常運作的是：
+當時 PoC 正常運作的是：
 
 ```text
 Tool Display Name: 出租房屋租稅知識庫_診斷
@@ -252,7 +252,7 @@ Connected Data Store: taipei-rental-tax-guide
 出租房屋租稅知識庫
 ```
 
-### 7.2 建立新的 Data Store Tool
+### 7.2 歷史 PoC 新 Tool 建立程序（不得直接套用）
 
 只有在需要刻意診斷或建立新的 Tool 時才執行：
 
@@ -379,12 +379,14 @@ Example 應展示以下流程：
 
 | 網站版本 | Project ID | Agent ID | 狀態 |
 | --- | --- | --- | --- |
-| `main` production | `aerial-day-496714-v6` | `9fb1cac6-62cd-40e6-8b13-eecf651f1f72` | 現行 production |
-| `phase5a-official-cx` candidate | `serviceagent-1150909` | `799426c1-ba69-49dc-85e4-5065985706e2` | 待 review / release |
+| `main` GitHub Pages | `serviceagent-1150909` | `799426c1-ba69-49dc-85e4-5065985706e2` | 已發布 |
+| `feat/direct-apply-operation-guide-20261031` | `serviceagent-1150909` | `799426c1-ba69-49dc-85e4-5065985706e2` | Cloudflare 測試站，真實 CX 問答未驗收 |
+| `phase5a-official-cx`（歷史） | `serviceagent-1150909` | `799426c1-ba69-49dc-85e4-5065985706e2` | PR #9 已合併 |
+| 切換前 PoC（歷史） | `aerial-day-496714-v6` | `9fb1cac6-62cd-40e6-8b13-eecf651f1f72` | 已被取代，禁止用作正式設定 |
 
 修改 candidate 後，先執行 `npm run build`，再執行 `npm run build -- --check` 與 `npm test`。確認 source/generated CX 設定一致後才交由 release review。不得直接手改 `index.html` 作為主要修正。
 
-Messenger source 範例如下（Phase 5A candidate）：
+下列 HTML 為 Phase 5A 歷史範例，不是可直接貼用的現行設定；現行 `site/messenger.html` 另有 `data-initial-playbook`，標題為「租稅小幫手」、placeholder 為「請輸入您的問題」。不要從範例移除首題入口或覆蓋現行片段：
 
 - CSS 在 `<head>`。
 - Dialogflow Messenger JavaScript 在 `</body>` 前。
@@ -413,7 +415,7 @@ Messenger source 範例如下（Phase 5A candidate）：
 
 如果仍使用同一個 Agent、同一個 Region 與同一個 Language，Dialogflow Console 的一般 Playbook 或 Data Store 修改不需要修改網站前端。
 
-只有在更換 Agent、Project、Region 或語言時，才更新 `site/messenger.html`，重新產生並檢查 `index.html`。Production `main` 與 Phase 5A candidate 的變更必須分開審查；candidate 未完成 release 前，不要假設 production 已使用公務 CX。
+若經核准變更前端 Agent、Project、Region、語言或首題入口，才更新 `site/messenger.html`，重新產生並檢查 `index.html`，並依正式 integration contract 驗證。不因測試站部署成功即假定網域授權或私有 Integration 正確，也不推定機關站已更新。
 
 不要將 API key、Service Account key 或其他秘密憑證寫入前端 repository。Project ID 與 Agent ID 因為 Messenger 必須使用，會出現在公開 HTML 中；但秘密憑證不能放在前端。
 
@@ -496,7 +498,7 @@ Messenger source 範例如下（Phase 5A candidate）：
 
 ---
 
-## 14. 目前優先順序
+## 14. 歷史 PoC 優先順序（不作現行任務）
 
 1. 維持現有前端與 Messenger 正常運作。
 2. 維持 `出租房屋租稅知識庫_診斷` 的正常 RAG 鏈路。

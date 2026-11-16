@@ -1,15 +1,17 @@
 # 臺北市出租房屋租稅優惠專區｜V2 網站與維護
 
-目標是「充分且不混淆的資訊，讓民眾快速找到需求與下一步」。仍為 GitHub Pages 靜態網站，不需要後端、資料庫或前端套件安裝。
+目標是「充分且不混淆的資訊，讓民眾快速找到需求與下一步」。網站是可重建的靜態 HTML／CSS／JavaScript，不需要自建後端、資料庫或前端套件安裝。
 
-## 本次範圍
+開發與交接先讀 [AGENTS.md](AGENTS.md)、[現行狀態](docs/PROJECT_STATE.md)、[任務](docs/NEXT_TASK.md) 與 [Workflow](docs/PROJECT_WORKFLOW.md)。舊 State/日期式 Task 及歷史文件為證據，不是新一輪指令。
+
+## 功能概覽
 
 - 首頁依屋主／房客分流；直接呈現四種出租情境及優惠摘要。
 - 桌機四欄時，點選方案在卡片下方展開；手機／平板維持詳情畫面。共用完整條件、三大稅目、下一步與官方入口。
 - 不確定者使用最多三題的閱讀導引，附建議理由，不判定正式資格。
 - 完整比較在第二層，各項目對齊；手機可選兩方案並列比較。
 - 房客服務依補貼、房源、租屋／設籍三類整理；實際入口以 `site/content.json` 為準。
-- 首頁提供屋主、房客、直接問小幫手三個明顯入口；快速判斷位於方案卡片後方，標題旁保留快捷入口。
+- 主線原有屋主、房客、小幫手及所得達租金標準等入口；現行 Cloudflare 開發分支另有直接申請與操作說明，形成六入口。快速判斷位於方案卡片後方，標題旁保留快捷入口。
 - 小幫手快捷入口使用官方 openChat 開啟原有右下角視窗，不送出問題或清除對話。Messenger 沿用已確認的人物素材、比例與關閉行為；CX 題庫及雲端設定另案處理。
 
 ## 開發與預覽
@@ -30,13 +32,15 @@ npm run dev
 | --- | --- |
 | site/content.json | 四方案政策主資料、官方資源、來源與核對日期 |
 | site/template.html | 首頁與共用版面 |
-| site/messenger.html | 從 main 保留的小幫手片段 |
+| site/messenger.html | 小幫手正式來源片段，保留機關 CX 指向 |
+| site/media.json | 兩版操作影片來源（開發分支） |
 | scripts/build.mjs | 零相依建置，產生 index.html 與資產內容雜湊版本 |
 | assets/css/guide-v2.css | V2 版面與響應式樣式，限縮於 .v2-site |
 | assets/js/guide-rules.js | 最多三題的閱讀導引規則 |
 | assets/js/guide-ui.js | 身分切換、hash 導覽、返回、展開與列印 |
+| assets/js/operation-guide.js | 影片版本、播放及暫停規則（開發分支） |
 | assets/css/site.css | 保留的既有基礎樣式及小幫手使用的色彩變數 |
-| assets/css/messenger.css、assets/js/messenger-ui.js | 小幫手樣式及行為，本輪維持既有版本 |
+| assets/css/messenger.css、assets/js/messenger-ui.js | 小幫手樣式、前端互動及 CX runtime context |
 | index.html | GitHub Pages 使用的建置結果，不直接手改 |
 
 舊 _next/ 快照與 site-enhancements.js 保留但不再由 V2 載入。舊版可由 main／對應 Git 歷史版本取得。
@@ -59,7 +63,9 @@ node scripts/browser-check.cjs
 
 保留原 GitHub Pages 分支部署方式。建置後提交 index.html、assets/、hero-v2.png、favicon.svg 及 .nojekyll 等網站資產；原始檔與建置腳本也一併版控，供日後重建。
 
-正式網站由 GitHub Pages 的 `main` 分支發布。Phase 5A 已透過 PR #9 以 Standard Merge Commit 發布（release merge commit `251884ee3d133d4f2e5723b3d25ccdfc8a1bf642`）。本機預覽或工作分支推送不會改變 `main` 的正式頁面；更新正式網站須依專案 release 流程合併至 `main`。
+GitHub Pages 從 `main` 發布；Phase 5A 的 PR #9 是歷史發布，不是目前最新版本。現在以 [PROJECT_STATE](docs/PROJECT_STATE.md) 的核對基準為準。機關正式站由資訊室另行部署，不能從 Pages 成功推定已上版。
+
+本次改版延續 `feat/direct-apply-operation-guide-20261031`，其 push 會觸發既有 Cloudflare 測試站 build，但不修改 GitHub Pages 主線或機關站。11/4 原始碼與已提交的 `index.html` 有差異，UX2 的入口順序斷言仍為舊版；具體失敗／限制見 [PROJECT_STATE](docs/PROJECT_STATE.md)。後續修改功能時必須重新 build、檢查並提交生成物，正式發布須另經核准。
 
 ## 專案與 CX 文件
 
@@ -69,7 +75,7 @@ node scripts/browser-check.cjs
 - [Dialogflow CX 操作與驗證](docs/dialogflow-cx-operation-guide.md)
 - [Messenger 介面規格](docs/messenger-ui-spec.md)
 
-CX 文件包含 PoC 與歷史操作紀錄，部分 Agent／Environment 敘述已過期；請先看 [操作指南頂部的 2026-10-10 現況校正](docs/dialogflow-cx-operation-guide.md) 與 [後端正式保留服務驗收](https://github.com/taipei-tax-lab/dialogflow-cx-qa-framework/blob/0426acd0efbfc8a67b0e1ae24760c5b456d11898/docs/GCP_CX_POST_CLEANUP_ACCEPTANCE_2026-10-10.md)。網站政策資料不會自動同步到 Data Store；新題庫、知識版本與設定留待下一階段。
+CX 文件包含 PoC 與歷史操作紀錄，部分 Agent／Environment 敘述已過期；請先看 [操作指南頂部現況校正](docs/dialogflow-cx-operation-guide.md) 與 [後端 2026-10-13 verified baseline](https://github.com/taipei-tax-lab/dialogflow-cx-qa-framework/blob/63fa97d/config/current_production_baseline.json)。網站政策資料不會自動同步到 Data Store；未獲核准不修改 CX。
 
 ## 本輪閱讀與互動改善
 
@@ -85,7 +91,7 @@ CX 文件包含 PoC 與歷史操作紀錄，部分 Agent／Environment 敘述已
 
 `node scripts/chat-viewport-check.cjs` 驗證縮放等效尺寸、visual viewport 縮放、標題與輸入及關閉邊界、左右對齊、提醒展開和草稿保留；不送出真實 CX 問題。
 
-## 2026-10-31 功能擴充（工作分支，待審查）
+## 功能擴充（Cloudflare 工作分支，未合併 main）
 
 首頁六張入口沿用既有 hash 導覽，新增 `#direct-apply` 與 `#operation-guide`。四方案的申辦順序與連結共用 `site/content.json`，`applicationMode` 僅為辦理方式標示；原有政策欄位未改動。
 
@@ -99,7 +105,7 @@ CX 文件包含 PoC 與歷史操作紀錄，部分 Agent／Environment 敘述已
 node scripts/extension-browser-check.cjs
 ```
 
-它會阻擋 CX 與分析請求，驗證五種寬度、R2 真實播放、原生全螢幕、切換／離開／返回及瀏覽器歷史。`PREVIEW_URL` 可指定預覽網址；截圖與結果儲存在忽略版控的 `.preview/`。歷史與本輪證據見 PROJECT_STATE 及其連結 Task。
+它會阻擋 CX 與分析請求，驗證五種寬度、R2 真實播放、原生全螢幕、切換／離開／返回及瀏覽器歷史。`PREVIEW_URL` 可指定預覽網址；截圖與結果儲存在忽略版控的 `.preview/`。已完成及待驗證範圍見 [PROJECT_STATE](docs/PROJECT_STATE.md)，歷史證據見 [WORKLOG](docs/WORKLOG.md)。
 
 ## Cloudflare Pages 測試發布
 
@@ -136,15 +142,15 @@ node scripts/extension-browser-check.cjs
 
 預覽仍使用 4173，或以 PORT / PREVIEW_URL 指向同一服務。上述 Pages 專用檢查驗證 GA4 無請求、相對資源、私有路徑 404 與頁籤狀態；extension 檢查會實播既有 R2 影片。
 
-建立專案的 Git 授權狀態與本輪結果請見 PROJECT_STATE 及目前 Task。若 Repo 不在 Cloudflare 選單內，須由組織管理者在 Cloudflare Pages 的 GitHub 授權畫面選擇 `taipei-tax-lab/taipei-rental-tax-guide`；不要改選其他 Repo 或建立其他服務。
+現有 Pages 專案已建立且 Git 整合正常；本輪沿用，不重新建立或擴大授權。部署證據請見 [PROJECT_STATE](docs/PROJECT_STATE.md)。
 
 參考：[Pages GitHub 整合](https://developers.cloudflare.com/pages/configuration/git-integration/github-integration/)、[建置環境與略過套件安裝](https://developers.cloudflare.com/pages/configuration/build-image/)。
 
 ## 已部署的 Pages 測試站與非 CX 驗收
 
-測試網址：https://rental-tax-guide-test.pages.dev/ 。此為測試站，不是機關正式發布。部署／驗收紀錄及截圖請看目前 PROJECT_STATE 與 Task 的 evidence 連結。
+測試網址：https://rental-tax-guide-test.pages.dev/ 。此為測試站，不是機關正式發布。部署／驗收紀錄及截圖見 [PROJECT_STATE](docs/PROJECT_STATE.md) 及 [WORKLOG](docs/WORKLOG.md)；10/31 的完整非 CX HTTPS 驗收不代表 11/4 新版已完整回歸。
 
-本輪明確排除 Messenger 開啟、訊息、預設問題及 CX API。針對實際 HTTPS 網址重跑非 CX 驗收（Playwright / Edge 已可用時）：
+10/31 非 CX HTTPS 驗收明確排除 Messenger 開啟、訊息、預設問題及 CX API。針對實際 HTTPS 網址重跑非 CX 驗收（Playwright / Edge 已可用時）：
 
 ```powershell
 $env:PREVIEW_URL='https://rental-tax-guide-test.pages.dev/'
@@ -155,11 +161,11 @@ node scripts/extension-browser-check.cjs
 
 這三支腳本在測試環境隔離 CX 第三方請求；不要以會開啟 Messenger 的舊 browser-check / chat-viewport-check 作為本輪非 CX 驗收。網站程式和 CX 設定沒有為此改動。外部申辦頁只做唯讀可達性確認。
 
-## 2026-10-31 第二輪 UX
+## 入口導覽與申辦 UX
 
-首頁、直接申請及操作說明共用同一份主視覺與六入口，下方切換內容；獨立方案詳情／比較仍維持原有導航。入口順序為屋主、房客、直接申請、所得達租金標準、小幫手、操作說明。入口使用原生連結與 hash，程式在同頁入口切換時透過 history.pushState 避免原生錨點先捲動，內容完成 reflow 後依實際標題位置捲至視窗上緣約 28px（受頁底上限約束）並管理焦點；相同入口重複操作與斷點改變保留閱讀位置，上一頁／下一頁還原閱讀位置，深層連結與重新整理會校正標題位置。
+首頁、直接申請及操作說明共用同一份主視覺與六入口，下方切換內容；獨立方案詳情／比較仍維持原有導航。11/4 最新來源順序為屋主、房客、直接申請、操作說明、小幫手、所得達租金標準；桌機採較緊湊、左對齊的入口卡片列。10/31 的導覽定位行為保留：入口使用原生連結與 hash，程式在同頁入口切換時透過 history.pushState 避免原生錨點先捲動，內容完成 reflow 後依實際標題位置捲至視窗上緣約 28px（受頁底上限約束）並管理焦點；相同入口重複操作與斷點改變保留閱讀位置，上一頁／下一頁還原閱讀位置，深層連結與重新整理會校正標題位置。
 
-直接申請使用四方案既有配色，桌機／平板兩欄、手機單欄，保留完整流程。`site/content.json` 的 `applicationAction` 僅維護每方案單一主要動作、官方網址與管道說明，原有政策／流程／參考連結仍供方案詳情使用。一般出租與社宅主要按鈕連到稅捐處申辦與書表下載總入口，並明確說明不是方案專屬線上申請表，公益／個人包租代管依使用者指定連到稅捐處申辦與書表總頁；總入口不等同專用線上申請，未確認的專用認定／合併申辦網址不會宣告已驗收。
+直接申請使用四方案既有配色，桌機／平板兩欄、手機單欄，保留完整流程。`site/content.json` 的 `applicationAction` 僅維護每方案單一主要動作、官方網址與管道說明，原有政策／流程／參考連結仍供方案詳情使用。四方案按鈕目前統一為「前往申辦與書表下載」，連到稅捐處官方申辦與書表總入口，各自保留管道說明；總入口不等同專用線上申請，未確認的專用認定／合併申辦網址不會宣告已驗收。
 
 新增 `node scripts/ux2-browser-check.cjs` 驗證共用入口、DOM／鍵盤順序、焦點、響應式申辦卡片及歷史。預設本機4175；正式驗收請以 PREVIEW_URL 指向現有 Pages 測試站。影片及 CX／Messenger 配置維持原樣，非 CX 驗收繼續隔離第三方請求。
 

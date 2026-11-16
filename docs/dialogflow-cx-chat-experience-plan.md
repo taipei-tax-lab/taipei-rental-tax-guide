@@ -3,6 +3,8 @@
 > 適用專案：臺北市出租房屋租稅優惠智慧服務 PoC  
 > 規劃日期：2026-09-01
 
+> **歷史 PoC 規劃，非現行任務或核定設定。** 下文 Default Playbook、診斷 Tool、空白提示卡與各階段都是當時設計，不能據此更改機關 CX。現行前端與後端基準請讀 [操作指南頂部](dialogflow-cx-operation-guide.md) 及 [PROJECT_STATE](PROJECT_STATE.md)。
+
 ## 一、規劃目標
 
 在維持目前 GitHub Pages 靜態網站架構的前提下，將對話內容、知識、流程與後續改善機制集中由 Google Cloud Dialogflow CX 管理，並提升民眾使用對話框時的理解、操作與信任感。

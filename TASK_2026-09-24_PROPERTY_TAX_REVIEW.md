@@ -1,5 +1,7 @@
 # TASK_2026-09-24_PROPERTY_TAX_REVIEW
 
+Status: **MERGED — historical task closed**. PR [#8](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/pull/8) was merged into `main` on 2026-09-24 (`76c164b`), and is an ancestor of the current published main baseline. The final "Next action: release" below is a historical pre-merge handoff, not a remaining task. No new institutional acceptance is implied. See [current state](docs/PROJECT_STATE.md).
+
 ## Goal
 
 依財產稅科最新修正稿 `督導網頁-新1150922.pdf`，更新「出租房屋租稅優惠專區」的文字與指定連結。
