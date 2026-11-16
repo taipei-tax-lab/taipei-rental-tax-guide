@@ -1,0 +1,212 @@
+{
+  "base": "http://127.0.0.1:4175/",
+  "at": "2026-11-16T14:16:16.601Z",
+  "original": {
+    "group": {
+      "background": "rgb(255, 255, 255)",
+      "color": "rgb(8, 63, 73)",
+      "border": "2px solid rgb(146, 178, 174)",
+      "shadow": "rgba(16, 56, 68, 0.043) 0px 3px 10px 0px"
+    },
+    "links": [
+      {
+        "background": "rgb(237, 245, 239)",
+        "color": "rgb(16, 56, 68)",
+        "border": "1px solid rgb(146, 178, 174)",
+        "shadow": "none"
+      },
+      {
+        "background": "rgb(237, 245, 239)",
+        "color": "rgb(16, 56, 68)",
+        "border": "1px solid rgb(146, 178, 174)",
+        "shadow": "none"
+      }
+    ]
+  },
+  "pointer": [
+    {
+      "target": "title",
+      "groupUnchanged": true,
+      "buttonsUnchanged": true
+    },
+    {
+      "target": "icon",
+      "groupUnchanged": true,
+      "buttonsUnchanged": true
+    },
+    {
+      "target": "blank",
+      "groupUnchanged": true,
+      "buttonsUnchanged": true
+    },
+    {
+      "target": "gap",
+      "groupUnchanged": true,
+      "buttonsUnchanged": true
+    },
+    {
+      "target": "income_standard_calculate",
+      "style": {
+        "background": "rgb(12, 104, 109)",
+        "color": "rgb(255, 255, 255)",
+        "border": "1px solid rgb(8, 63, 73)",
+        "shadow": "none"
+      },
+      "groupUnchanged": true,
+      "peerUnchanged": true
+    },
+    {
+      "target": "income_standard_apply",
+      "style": {
+        "background": "rgb(12, 104, 109)",
+        "color": "rgb(255, 255, 255)",
+        "border": "1px solid rgb(8, 63, 73)",
+        "shadow": "none"
+      },
+      "groupUnchanged": true,
+      "peerUnchanged": true
+    }
+  ],
+  "touch": [
+    {
+      "width": 390,
+      "ids": [
+        "income_standard_calculate",
+        "income_standard_apply"
+      ],
+      "minTarget": 44,
+      "noStickyHover": true
+    },
+    {
+      "width": 320,
+      "ids": [
+        "income_standard_calculate",
+        "income_standard_apply"
+      ],
+      "minTarget": 44,
+      "noStickyHover": true
+    }
+  ],
+  "artwork": [
+    {
+      "key": "owner",
+      "x": 2.5,
+      "y": 3,
+      "right": 21.5,
+      "bottom": 21
+    },
+    {
+      "key": "tenant",
+      "x": 3,
+      "y": 2.5,
+      "right": 21,
+      "bottom": 22
+    },
+    {
+      "key": "apply",
+      "x": 5,
+      "y": 2,
+      "right": 19,
+      "bottom": 21
+    },
+    {
+      "key": "tutorial",
+      "x": 3,
+      "y": 3,
+      "right": 21,
+      "bottom": 21
+    },
+    {
+      "key": "helper",
+      "x": 3,
+      "y": 3,
+      "right": 21,
+      "bottom": 22
+    },
+    {
+      "key": "standard",
+      "x": 2,
+      "y": 3,
+      "right": 21,
+      "bottom": 22
+    },
+    {
+      "key": "ordinary",
+      "x": 3,
+      "y": 3,
+      "right": 21,
+      "bottom": 21
+    },
+    {
+      "key": "public",
+      "x": 3,
+      "y": 3,
+      "right": 21,
+      "bottom": 20
+    },
+    {
+      "key": "social",
+      "x": 2,
+      "y": 3,
+      "right": 22,
+      "bottom": 22
+    },
+    {
+      "key": "personal",
+      "x": 2,
+      "y": 5,
+      "right": 22,
+      "bottom": 20
+    },
+    {
+      "key": "subsidy",
+      "x": 3,
+      "y": 3,
+      "right": 21,
+      "bottom": 22
+    },
+    {
+      "key": "search",
+      "x": 3,
+      "y": 3,
+      "right": 22,
+      "bottom": 21
+    },
+    {
+      "key": "questions",
+      "x": 2,
+      "y": 3,
+      "right": 21,
+      "bottom": 22
+    },
+    {
+      "key": "online",
+      "x": 3,
+      "y": 3,
+      "right": 21,
+      "bottom": 21
+    },
+    {
+      "key": "building",
+      "x": 3,
+      "y": 3.5,
+      "right": 21,
+      "bottom": 21
+    },
+    {
+      "key": "mail",
+      "x": 3,
+      "y": 3,
+      "right": 22,
+      "bottom": 20
+    }
+  ],
+  "keyboardFocus": true,
+  "mainCardStatesPreserved": true,
+  "personalPlanSelectionAndReturn": true,
+  "errors": [],
+  "gaRequests": [],
+  "tlsVerificationBypass": false,
+  "cx": "blocked; no real queries",
+  "externalForms": "native touch activation prevented only for test; never submitted"
+}

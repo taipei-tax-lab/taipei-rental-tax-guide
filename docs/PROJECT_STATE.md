@@ -85,3 +85,8 @@ GPT 核對遠端 `6e6d7fe280b1e9d7cf4f2e8e5636cbbcc0504943`、Cloudflare Pages c
 ## 11/16 兩入口外層背景追加需求（待實作）
 
 使用者提供畫面指出直接申請、操作說明內容區近乎白底，與屋主、房客頁可透出背景不一致。GPT 核對遠端 `ff2de97585bea50ba72859ab448d7cc9b1e957ee`，兩入口 section 共用 `v2-inner-page v2-entry-content`，通用 `.v2-inner-page` 背景 `#fffefbf5` 為來源原因。核定僅兩入口外層背景透明；保留原背景圖、白底申請卡、影片播放器及版本切換器、其他詳情／比較頁與操作行為。已合併同一 [NEXT_TASK](NEXT_TASK.md)，未修改 runtime；本輪待 Coding Agent 實作與回歸，使用者對圖示概念的確認不等於已部署 SVG 的人工驗收。
+
+
+## 第四輪執行紀錄
+
+由乾淨遠端 d2cf8d5 同步；personal 改握手合作、subsidy 改鈔票與向下領取箭頭。只對 #direct-apply / #operation-guide.v2-entry-content 設透明背景，其他底色、背景資產、模板、JS 與業務資料保留。從 6e6d7fe 真實來源產生 SHA-256 fixture，確認僅兩圖改變、其他 14 圖不變；舊 fixture 及四圖差異守門仍保留。70/70 單元、建置一致性、budget、Pages 33 檔、五寬度×兩字級與 hover/touch 回歸通過。截圖僅 .preview/；待推送與 HTTPS 複驗，辨識度及實機人工確認仍保留。證據見 [報告](evidence/2026-11-16-handshake/REPORT.md)。

@@ -54,3 +54,10 @@ test('numbering is removed at source while selected-plan emphasis and comparison
   assert.match(html, /四種方案完整比較/);
   assert.match(html, /比較四種出租方案/);
 });
+
+
+test('only personal and subsidy change from the actual 6e6d7fe artwork', () => {
+ const baseline=JSON.parse(read('tests/fixtures/card-icons-6e6d7fe.json'));
+ assert.deepEqual(Object.keys(cardIcons),Object.keys(baseline));
+ assert.deepEqual(Object.entries(cardIcons).filter(([k,v])=>createHash('sha256').update(v).digest('hex')!==baseline[k]).map(([k])=>k),['personal','subsidy']);
+});

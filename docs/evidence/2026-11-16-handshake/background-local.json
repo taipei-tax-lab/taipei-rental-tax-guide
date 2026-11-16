@@ -1,0 +1,223 @@
+{
+  "base": "http://127.0.0.1:4175/",
+  "rows": [
+    {
+      "width": 1440,
+      "font": 100,
+      "hash": "owners",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "width": 1440,
+      "font": 100,
+      "hash": "tenants",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "width": 1440,
+      "font": 100,
+      "hash": "direct-apply",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "width": 1440,
+      "font": 100,
+      "hash": "operation-guide",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "width": 1440,
+      "font": 100,
+      "hash": "comparison",
+      "bg": "rgba(255, 254, 251, 0.96)"
+    },
+    {
+      "width": 1440,
+      "font": 100,
+      "hash": "plan-personal",
+      "bg": "rgba(255, 254, 251, 0.96)"
+    },
+    {
+      "width": 1440,
+      "font": 200,
+      "hash": "owners",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "width": 1440,
+      "font": 200,
+      "hash": "tenants",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "width": 1440,
+      "font": 200,
+      "hash": "direct-apply",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "width": 1440,
+      "font": 200,
+      "hash": "operation-guide",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "width": 1440,
+      "font": 200,
+      "hash": "comparison",
+      "bg": "rgba(255, 254, 251, 0.96)"
+    },
+    {
+      "width": 1440,
+      "font": 200,
+      "hash": "plan-personal",
+      "bg": "rgba(255, 254, 251, 0.96)"
+    },
+    {
+      "width": 390,
+      "font": 100,
+      "hash": "owners",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "width": 390,
+      "font": 100,
+      "hash": "tenants",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "width": 390,
+      "font": 100,
+      "hash": "direct-apply",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "width": 390,
+      "font": 100,
+      "hash": "operation-guide",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "width": 390,
+      "font": 100,
+      "hash": "comparison",
+      "bg": "rgba(255, 254, 251, 0.96)"
+    },
+    {
+      "width": 390,
+      "font": 100,
+      "hash": "plan-personal",
+      "bg": "rgba(255, 254, 251, 0.96)"
+    },
+    {
+      "width": 390,
+      "font": 200,
+      "hash": "owners",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "width": 390,
+      "font": 200,
+      "hash": "tenants",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "width": 390,
+      "font": 200,
+      "hash": "direct-apply",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "width": 390,
+      "font": 200,
+      "hash": "operation-guide",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "width": 390,
+      "font": 200,
+      "hash": "comparison",
+      "bg": "rgba(255, 254, 251, 0.96)"
+    },
+    {
+      "width": 390,
+      "font": 200,
+      "hash": "plan-personal",
+      "bg": "rgba(255, 254, 251, 0.96)"
+    },
+    {
+      "width": 320,
+      "font": 100,
+      "hash": "owners",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "width": 320,
+      "font": 100,
+      "hash": "tenants",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "width": 320,
+      "font": 100,
+      "hash": "direct-apply",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "width": 320,
+      "font": 100,
+      "hash": "operation-guide",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "width": 320,
+      "font": 100,
+      "hash": "comparison",
+      "bg": "rgba(255, 254, 251, 0.96)"
+    },
+    {
+      "width": 320,
+      "font": 100,
+      "hash": "plan-personal",
+      "bg": "rgba(255, 254, 251, 0.96)"
+    },
+    {
+      "width": 320,
+      "font": 200,
+      "hash": "owners",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "width": 320,
+      "font": 200,
+      "hash": "tenants",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "width": 320,
+      "font": 200,
+      "hash": "direct-apply",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "width": 320,
+      "font": 200,
+      "hash": "operation-guide",
+      "bg": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "width": 320,
+      "font": 200,
+      "hash": "comparison",
+      "bg": "rgba(255, 254, 251, 0.96)"
+    },
+    {
+      "width": 320,
+      "font": 200,
+      "hash": "plan-personal",
+      "bg": "rgba(255, 254, 251, 0.96)"
+    }
+  ],
+  "videoControlsAndSwitch": true,
+  "tlsDiagnostic": false
+}

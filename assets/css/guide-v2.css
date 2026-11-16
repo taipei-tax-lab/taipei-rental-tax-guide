@@ -499,3 +499,6 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
   .v2-audience { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 .v2-application-list + .v2-notice { margin-top: 24px; }
+
+/* Entry content shares the owners/tenants backdrop; detail pages keep their paper. */
+#direct-apply.v2-entry-content, #operation-guide.v2-entry-content { background: transparent; }

@@ -60,3 +60,8 @@
 使用者檢視既有測試站後反映個人租賃住宅包租代管、我要申請租金補貼兩張 icon 仍不直覺。以 `6e6d7fe280b1e9d7cf4f2e8e5636cbbcc0504943` 為開工基準（Cloudflare check SUCCESS），核對前輪 SVG 使用相同小屋＋文件／寫 1 的硬幣，建議本輪改採握手和鈔票／領取箭頭，僅改 personal/subsidy，其餘 14 圖、背景、hover 和原功能維持。前輪實作規格與結果見 [固定 SHA](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/blob/6e6d7fe280b1e9d7cf4f2e8e5636cbbcc0504943/docs/NEXT_TASK.md) 與 [report](evidence/2026-11-16-icon-refinement/REPORT.md)。已更新 [NEXT_TASK](NEXT_TASK.md) 及現行 State，不修改 runtime，不聲稱新驗收。
 
 使用者確認握手與鈔票＋領取箭頭兩個圖示概念 OK，追加直接申請／操作說明頁外層背景應與屋主／房客頁相同。核對 template 共用 `v2-inner-page v2-entry-content` 及 CSS `.v2-inner-page { background:#fffefbf5; }`，核定只取消兩入口外框底色，原固定住宅背景、三申請卡白底、影片播放器及其他詳情／比較頁原樣。與兩 icon 納入同一任務，僅提交文件、未改程式，待驗收。
+
+
+## 第四輪執行紀錄
+
+由乾淨遠端 d2cf8d5 同步；personal 改握手合作、subsidy 改鈔票與向下領取箭頭。只對 #direct-apply / #operation-guide.v2-entry-content 設透明背景，其他底色、背景資產、模板、JS 與業務資料保留。從 6e6d7fe 真實來源產生 SHA-256 fixture，確認僅兩圖改變、其他 14 圖不變；舊 fixture 及四圖差異守門仍保留。70/70 單元、建置一致性、budget、Pages 33 檔、五寬度×兩字級與 hover/touch 回歸通過。截圖僅 .preview/；待推送與 HTTPS 複驗，辨識度及實機人工確認仍保留。證據見 [報告](evidence/2026-11-16-handshake/REPORT.md)。
