@@ -17,9 +17,9 @@ for (const [name, limit] of budgets) {
 
 const read = name => readFileSync(new URL(name, root), 'utf8');
 const markup = read('site/template.html');
-const entry = markup.slice(markup.indexOf('class="v2-audience-button v2-income-standard-entry"'), markup.indexOf('</picture>') + 10);
-assert.equal((entry.match(/<img\b/g) || []).length, 1, 'Income entry must use one responsive img');
-assert.match(entry, /<source media="\(min-width: 1100px\)"/);
+const entry = markup.match(/<div class="v2-audience-button v2-income-standard-entry"[\s\S]*?\n              <\/div>/)[0];
+assert.doesNotMatch(entry, /<img|<picture|<source/, 'Text service controls require no artwork request');
+assert.match(entry, /INCOME_STANDARD_ACTIONS/);
 const js = read('assets/js/messenger-ui.js');
 const initialize = js.slice(js.indexOf('function initialize()'), js.indexOf('function initializeAfterHydration()'));
 assert.doesNotMatch(initialize, /preloadAssistantStates\(/, 'Do not eagerly preload assistant states at initialization');

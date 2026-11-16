@@ -14,10 +14,10 @@ assert.ok(Array.isArray(tenantItems) && tenantItems.length > 0, 'site/content.js
 fs.mkdirSync(artifacts, {recursive:true});
 
 (async () => {
-  const browser = await chromium.launch({channel: 'msedge', headless: true});
+  const browser = await chromium.launch({...(process.env.BROWSER_EXECUTABLE ? {executablePath:process.env.BROWSER_EXECUTABLE} : {channel:'msedge'}), headless: true});
   const errors = [];
   try {
-    const page = await browser.newPage({viewport:{width:1440,height:1000}, reducedMotion:'reduce'});
+    const page = await browser.newPage({ignoreHTTPSErrors:process.env.BROWSER_IGNORE_HTTPS_ERRORS==='1',viewport:{width:1440,height:1000}, reducedMotion:'reduce'});
     const gaRequests=[],consoleErrors=[];
     page.on('console',msg=>{if(msg.type()==='error'&&!/net::ERR_FAILED|net::ERR_BLOCKED_BY_CLIENT/.test(msg.text()))consoleErrors.push(msg.text());});
     page.on('request',req=>{if(/googletagmanager\.com|google-analytics\.com/.test(req.url()))gaRequests.push(req.url());});
@@ -28,7 +28,7 @@ fs.mkdirSync(artifacts, {recursive:true});
     await page.screenshot({path:`${artifacts}/desktop-home.png`, fullPage:true});
     assert.equal(await page.locator('.v2-audience > .v2-audience-button').count(),6);
     assert.ok(await page.locator('#open-helper').isVisible()); // Presence only; CX opening is excluded.
-    assert.equal(await page.locator('.v2-income-standard-entry').getAttribute('href'),'https://services.arpa.tpctax.dof.gov.taipei/incomeReachStandard/form.php');
+    assert.equal(await page.locator('[data-service-entry="income_standard_apply"]').getAttribute('href'),'https://services.arpa.tpctax.dof.gov.taipei/incomeReachStandard/form.php');
     for(const hash of ['direct-apply','operation-guide']) {
       await page.locator(`.v2-audience a[href="#${hash}"]`).click();
       await page.locator(`[data-page="${hash}"]:visible`).waitFor();
@@ -133,22 +133,16 @@ fs.mkdirSync(artifacts, {recursive:true});
 
     await page.evaluate(() => { document.documentElement.style.fontSize = ''; });
     await page.goto(base+'#direct-apply');
-    assert.equal(await page.locator('.v2-application-item:visible').count(),4);
-    assert.deepEqual(await page.locator('.v2-application-action > a').evaluateAll(links=>links.map(a=>a.firstChild.textContent)),Array(4).fill('前往申辦與書表下載'));
-    assert.deepEqual(await page.locator('.v2-application-action > a').evaluateAll(links=>links.map(a=>a.href)),Array(4).fill('https://tpctax.gov.taipei/cp.aspx?n=F1C8047E644BDA72'));
+    assert.equal(await page.locator('.v2-application-item:visible').count(),3);
     assert.equal(await page.locator('#direct-apply > .v2-notice').count(),0);
     assert.equal(await page.locator('#direct-apply').evaluate(s=>s.lastElementChild.className),'v2-application-list');
     assert.equal(await page.locator('body').evaluate(el=>el.textContent.includes('以下為公開資訊整理；實際資格、適用期間與稅額，以主管機關公告及個案核定為準。')),false);
     assert.equal(await page.locator('#direct-apply, .v2-footer').evaluateAll(es=>es.some(el=>[...el.querySelectorAll('p')].some(p=>!p.textContent.trim()&&p.children.length===0))),false);
     const data=JSON.parse(fs.readFileSync('site/content.json','utf8'));
-    for(const plan of data.plans) {
-      const article=page.locator(`article[aria-labelledby="apply-${plan.id}"]`);
-      assert.ok((await article.innerText()).includes(plan.applicationMode));
-      for(const step of plan.process) assert.ok((await article.innerText()).includes(step));
-      assert.ok(await article.locator(`a[href="#plan-${plan.id}"]`).isVisible());
-    }
-    const applicationLinks=await page.locator('.v2-application-item a[href^="https:"]').evaluateAll(links=>links.map(a=>({href:a.href,label:a.textContent,target:a.target,rel:a.rel})));
-    assert.ok(applicationLinks.every(a=>a.target==='_blank'&&a.rel.includes('noopener')));
+    const applicationLinks=await page.locator('a.v2-application-item').evaluateAll(links=>links.map(a=>({href:a.href,label:a.textContent,target:a.target,rel:a.rel})));
+    assert.deepEqual(applicationLinks.map(a=>a.href),data.directApplyActions.map(a=>a.href));
+    for(const [i,action] of data.directApplyActions.entries()) assert.ok(applicationLinks[i].label.includes(action.label)&&applicationLinks[i].label.includes(action.note));
+    assert.ok(applicationLinks.every(a=>a.target==='_blank'&&a.rel.includes('noopener')&&a.rel.includes('noreferrer')));
     // Reachability is recorded separately; anti-bot rejection/timeout is not policy validation.
     const external=[];
     for(const href of [...new Set(applicationLinks.map(a=>a.href))]) {
@@ -182,7 +176,7 @@ fs.mkdirSync(artifacts, {recursive:true});
     await page.goto(base+'#top');await page.screenshot({path:`${artifacts}/home-desktop.png`});
     await page.setViewportSize({width:768,height:1024});await page.goto(base+'#direct-apply');await page.screenshot({path:`${artifacts}/application-tablet.png`});
     await page.setViewportSize({width:390,height:844});await page.goto(base+'#operation-guide');await page.getByLabel('手機版',{exact:true}).check();await page.screenshot({path:`${artifacts}/video-mobile.png`});
-    fs.writeFileSync(`${artifacts}/acceptance.json`,JSON.stringify({base,testedAt:new Date().toISOString(),cx:'excluded; third-party requests isolated; never opened or queried',errors,consoleErrors,gaRequests,assets,external,checks:['six home entries','all four desktop inline/detail views and responsive transition','guide previous/result/history','tenant groups and all links','two/four comparison and duplicate-selection guard','320-1440px overflow and 200% text','four application contents/links','33 public asset MIME/status checks','11 excluded paths 404']},null,2));
+    fs.writeFileSync(`${artifacts}/acceptance.json`,JSON.stringify({base,testedAt:new Date().toISOString(),cx:'excluded; third-party requests isolated; never opened or queried',errors,consoleErrors,gaRequests,assets,external,checks:['six home entries','all four desktop inline/detail views and responsive transition','guide previous/result/history','tenant groups and all links','two/four comparison and duplicate-selection guard','320-1440px overflow and 200% text','three application channels/links','33 public asset MIME/status checks','11 excluded paths 404']},null,2));
     console.log(`PASS: ${new URL(base).protocol==='https:'?'LIVE Pages HTTPS':'LOCAL preview'} non-CX frontend acceptance, 33 assets/MIME, excluded paths 404, zero GA4 requests.`);
     console.log(JSON.stringify({external}));
   } finally {await browser.close();}

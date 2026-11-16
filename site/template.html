@@ -45,25 +45,10 @@
               <a href="#direct-apply" data-entry-page="direct-apply" class="v2-audience-button">{{APPLY_ICON}}<span><strong>直接申請</strong><small>已了解方案？前往申辦</small></span></a>
               <a href="#operation-guide" data-entry-page="operation-guide" class="v2-audience-button">{{VIDEO_ICON}}<span><strong>操作說明</strong><small>觀看 2 分鐘使用教學</small></span></a>
               <button type="button" class="v2-audience-button v2-chat-entry" id="open-helper"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a7 7 0 0 1-7 7H8l-5 4V6a3 3 0 0 1 3-3h11a3 3 0 0 1 3 3z"/><path d="M7 8h9M7 12h6"/></svg><span><strong>直接問小幫手</strong><small>直接描述您的問題</small></span></button>
-              <a
-                class="v2-audience-button v2-income-standard-entry"
-                data-service-entry="income_standard"
-                href="https://services.arpa.tpctax.dof.gov.taipei/incomeReachStandard/form.php"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="所得達租金標準申報優惠稅率專區（另開新視窗）"
-              >
-                <div class="v2-income-standard-content">
-                  <picture class="v2-income-standard-fallback-icon">
-                    <source media="(min-width: 1100px)" type="image/webp" srcset="./assets/images/income-standard-card.webp" width="1040" height="378">
-                    <source media="(min-width: 1100px)" srcset="./assets/images/income-standard-card.png" width="1040" height="378">
-                    <source media="(min-width: 701px)" type="image/webp" srcset="./assets/images/income-standard-illustration.webp" width="320" height="320">
-                    <source media="(min-width: 701px)" srcset="./assets/images/income-standard-illustration.png" width="320" height="320">
-                    <img class="v2-income-standard-card-image" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="" width="320" height="320" aria-hidden="true">
-                  </picture>
-                  <span class="v2-income-standard-fallback"><strong>所得達租金標準</strong><small>申報優惠稅率專區</small></span>
-                </div>
-              </a>
+              <div class="v2-audience-button v2-income-standard-entry" role="group" aria-labelledby="income-standard-title">
+                <strong id="income-standard-title"><span>出租房屋</span><span>達租金標準</span></strong>
+                <div class="v2-income-standard-actions">{{INCOME_STANDARD_ACTIONS}}</div>
+              </div>
             </div>
             <p id="helper-status" class="v2-caption" role="status" hidden></p>
           </div>
@@ -102,7 +87,7 @@
       </div>
       <section data-page="direct-apply" id="direct-apply" class="v2-container v2-inner-page v2-entry-content" aria-labelledby="direct-apply-title">
         <h2 id="direct-apply-title" tabindex="-1">直接申請</h2>
-        <p>已了解方案？依您的出租方式，查看辦理順序與官方入口。地方稅優惠、住宅計畫與所得稅申報，請分別依主管機關規定辦理。</p>
+        <p>選擇適合您的申請方式，前往官方申辦服務或查詢各分處資訊。</p>
         <div class="v2-application-list">{{DIRECT_APPLY}}</div>
       </section>
       <section data-page="operation-guide" id="operation-guide" class="v2-container v2-inner-page v2-entry-content" aria-labelledby="operation-guide-title">

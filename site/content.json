@@ -621,5 +621,40 @@
       "href": "https://www.etax.nat.gov.tw/etwmain/tax-info/taxable-goods-or-tobacco-alcohol-deformation-destroy-area/link-and-contact",
       "icon": "phone"
     }
+  ],
+  "incomeStandardActions": [
+    {
+      "id": "income_standard_calculate",
+      "label": "試算",
+      "href": "https://services.arpa.tpctax.dof.gov.taipei/rentStandard/index.php?content=calculator"
+    },
+    {
+      "id": "income_standard_apply",
+      "label": "申請",
+      "href": "https://services.arpa.tpctax.dof.gov.taipei/incomeReachStandard/form.php"
+    }
+  ],
+  "directApplyActions": [
+    {
+      "id": "direct_apply_online",
+      "label": "線上申請",
+      "note": "前往市府線上申辦服務",
+      "href": "https://service.taipei/case-detail/BX015",
+      "icon": "online"
+    },
+    {
+      "id": "direct_apply_in_person",
+      "label": "親自申請",
+      "note": "查詢各分處及交通資訊",
+      "href": "https://tpctax.gov.taipei/cp.aspx?n=EE558C7C1C627F29",
+      "icon": "building"
+    },
+    {
+      "id": "direct_apply_mail_fax",
+      "label": "郵寄/傳真",
+      "note": "查詢各分處地址及傳真資訊",
+      "href": "https://tpctax.gov.taipei/News_Content.aspx?n=1CDCF9E878CCDB8F&sms=EB055A67C769EB25&s=AAD268A00665CC03",
+      "icon": "mail"
+    }
   ]
 }

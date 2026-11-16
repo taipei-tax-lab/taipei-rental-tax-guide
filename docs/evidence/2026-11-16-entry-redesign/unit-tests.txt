@@ -1,0 +1,82 @@
+
+> taipei-rental-tax-guide@2.0.0 test
+> node --test tests/*.test.mjs
+
+✔ analytics helper fails safely without gtag and rejects unknown events/enums (7.448874ms)
+✔ analytics helper emits only schema-approved parameters and never free text (3.085715ms)
+✔ source tracking reduces valid URLs to hostname and error tracking drops messages/objects (2.000521ms)
+✔ gtag exceptions are contained (1.255812ms)
+✔ entry redesign events accept only the six mappings and preserve historical service id (2.906717ms)
+✔ text hashing treats CRLF and LF as the same source content (3.244468ms)
+✔ checked-in GitHub Pages output is reproducible (67.34704ms)
+✔ GA4 loader/config and the frozen V1 event contract are present without GTM (3.20913ms)
+✔ approved owner-guide hierarchy stays clear and the source-check date appears only in the footer (1.08736ms)
+✔ static anchors are unique and every internal link resolves (0.671681ms)
+✔ external links omit decorative arrows and preserve new-window accessibility (0.956641ms)
+✔ all plans expose complete tax information and official next steps without client-side rendering (1.469856ms)
+✔ generated Messenger preserves its source fragment and CX configuration (1.465828ms)
+✔ all plans provide a full condition hook for the guide UI (0.645226ms)
+✔ typography rules prevent forced line breaks and keep tokens inline (1.195621ms)
+✔ public landlord includes official flow PDF with https www-ws.gov.taipei source link (0.985372ms)
+✔ build script validates all plan sourceLinks require HTTPS (0.437319ms)
+✔ favicon uses official Taipei Revenue Service mark and preserves header logo (0.392086ms)
+✔ messenger ui rules ensure notice is never moved into details and panel aligns gapless (1.240784ms)
+✔ income-standard-launcher floating shortcut is completely removed (0.557698ms)
+✔ income standard is an HTML group with two safe independent actions and retained assets (0.49026ms)
+✔ every guidance path terminates within three questions and refers to existing plans (1.925207ms)
+✔ known subsidy leads to public landlord; uncertainty retains alternatives (1.056614ms)
+✔ private service does not recommend the personal-owner benefit after owner condition is denied (0.177761ms)
+✔ previous answer can be changed without retaining an obsolete branch (0.301767ms)
+✔ quick-topic de-duplication matches only the predefined input and never forwards text (2.672204ms)
+✔ CX open attribution consumes only a real hero closed-to-open transition (0.475097ms)
+✔ Rental site explicitly configures its initial Playbook and generated output preserves it (0.34455ms)
+✔ shared Messenger UI has no Rental Playbook resource fallback (0.454447ms)
+✔ configured initial Playbook is sent on the first request with unchanged runtime context (1.17432ms)
+✔ first request disarms currentPlaybook while retaining runtime context (0.516475ms)
+✔ new session, session expiration/end, and storage reset re-arm the configured initial Playbook (0.960069ms)
+✔ missing or blank site config sends runtime context without guessing a Playbook (0.727263ms)
+✔ hash changes update page section without changing initial-Playbook policy (0.62213ms)
+✔ house-tax current period follows the July boundary and Taipei runtime date injection (0.37775ms)
+✔ explicit date parser accepts only the supported full-date forms and normalizes ROC dates (1.610342ms)
+✔ explicit date parser rejects a date preceded by an embedded digit (0.374047ms)
+✔ explicit date parser rejects a date followed by an embedded digit (0.247105ms)
+✔ adjacent Chinese full dates are ambiguous (0.39403ms)
+✔ calendar validity rejects impossible dates and detects multiple dates (0.34317ms)
+✔ invalid or ambiguous outgoing dates clear normalized date and period values (0.627625ms)
+✔ adjacent Chinese full dates clear outgoing explicit date and period (0.280467ms)
+✔ each outgoing Messenger request refreshes context and clears stale explicit dates (0.716918ms)
+✔ Messenger title, placeholder, assistant copy, and rental hot topics remain present (0.682291ms)
+✔ six entries preserve existing destinations and expose both new hash pages (2.241883ms)
+✔ application channels retain exact configured links and independent policy details (0.768353ms)
+✔ both video sources come from switchable config and retain native player affordances (3.791776ms)
+✔ iOS, LINE, embedded WebViews and unknown engines install no custom video click listener (8.694667ms)
+✔ Chromium surface click toggles once without autoplay or separate touch handlers (2.788025ms)
+✔ native-handled, descendant and fullscreen clicks do not invoke custom playback (1.412842ms)
+✔ a rejected surface play request is contained and can be retried (9.080595ms)
+✔ initial version follows browser mobile device hint, with phone UA fallback (7.861659ms)
+✔ phone manual PC selection survives route pauses without autoplay or progress loss (2.13893ms)
+✔ switching and navigation pause both players without resetting selection or progress (1.965948ms)
+✔ backgrounding the browser or leaving the document pauses playback (1.217508ms)
+✔ build accepts future relative video paths and rejects non-HTTPS remote sources (123.663922ms)
+✔ Pages test artifact disables GA4 without changing normal generated HTML or analytics helper (1.770273ms)
+✔ publication excludes repo metadata, source documents, snapshots, arbitrary assets and MP4; removes stale output (156.943823ms)
+✔ all relative HTML/CSS runtime assets resolve inside published output and R2 sources stay unchanged (2.464384ms)
+✔ critical assets stay within the static performance budget (72.977775ms)
+✔ income standard text controls request no artwork at any viewport (0.679634ms)
+✔ one shared hero precedes all content pages and six entry DOM order matches requested keyboard order (13.158129ms)
+✔ application page has three equal channel links while four policy records remain (0.736688ms)
+✔ retired shared note and its empty paragraphs are absent from generated pages (2.874478ms)
+✔ approved five destinations keep every query parameter exactly (0.257474ms)
+ℹ tests 65
+ℹ suites 0
+ℹ pass 65
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 657.656902
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.2
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.2
+npm notice To update run: npm install -g npm@12.2.2
+npm notice

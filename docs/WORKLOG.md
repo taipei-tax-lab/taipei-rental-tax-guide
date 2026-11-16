@@ -21,3 +21,7 @@
 ## 已記錄的非阻擋維護 backlog
 
 9/27 [維護 Task](../TASK_2026-09-27_POST_RELEASE_MAINTENANCE.md) 曾列出索引式房客服務分類、build 中 FAQ 硬編碼、`resources.slice(3)` 依賴順序、小幫手初始圖片請求、Messenger shadow DOM workaround、政策版本／核對日期語義等。尚未重新排定；依業務效益與改版範圍決定，不順手重構。SEO／CSP 等廣泛 hardening 亦未核定；機關實際 CSP 故障另依 10/28 診斷處理。
+
+## 2026-11-16 申請入口實作
+
+由指定分支乾淨 `b55060a` 同步，完成首頁文字／試算／申請、直接申請三管道、GA4 六項映射、生成物同步與測試順序修正。短申請頁導致原生 history 捲動還原被夾至頁底，已補 reflow 後還原並通過回歸。本地 65/65 tests、四寬度六卡尺寸比對、鍵盤／mock／隔離 GA4／非 CX 回歸及 36+12 組捲動縮放量測通過；五外站實際瀏覽器讀回，BX015 HTTP 404 但可讀內容仍列人工確認。R2 於 11/8 的外部更新使原大小／時長快照失效，本輪唯讀核對並更新測試，未改物件。詳見 [本輪 report 與截圖](evidence/2026-11-16-entry-redesign/REPORT.md)；推送及 Cloudflare HTTPS 結果於收尾補記。

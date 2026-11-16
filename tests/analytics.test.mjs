@@ -48,3 +48,17 @@ test('gtag exceptions are contained', () => {
   const analytics = load(() => { throw new Error('blocked'); });
   assert.equal(analytics.track('plan_select', {plan_id: 'ordinary'}), false);
 });
+
+test('entry redesign events accept only the six mappings and preserve historical service id',()=>{
+ const calls=[];const analytics=load((...args)=>calls.push(args));
+ analytics.track('direct_apply_open',{url:'private',input:'private'});
+ assert.deepEqual(JSON.parse(JSON.stringify(calls.shift())),['event','direct_apply_open',{}]);
+ for(const service_id of ['income_standard','income_standard_calculate','income_standard_apply','direct_apply_online','direct_apply_in_person','direct_apply_mail_fax']) {
+  assert.equal(analytics.track('service_entry_click',{service_id,destination_host:'tpctax.gov.taipei',url:'private',query:'private'}),true);
+  assert.deepEqual(JSON.parse(JSON.stringify(calls.pop())),['event','service_entry_click',{service_id,destination_host:'tpctax.gov.taipei'}]);
+ }
+ assert.equal(analytics.track('service_entry_click',{service_id:'unknown',destination_host:'tpctax.gov.taipei'}),false);
+ assert.equal(analytics.track('service_entry_click',{service_id:'direct_apply_online',destination_host:'https://service.taipei/?private'}),false);
+ assert.equal(analytics.track('direct_apply_open'),true);
+ assert.equal(load(undefined).track('direct_apply_open'),false);
+});

@@ -14,23 +14,19 @@ test('six entries preserve existing destinations and expose both new hash pages'
   assert.equal((entries.match(/class="v2-audience-button/g) || []).length, 6);
   for (const hash of ['owners','tenants','direct-apply','operation-guide']) assert.ok(entries.includes(`href="#${hash}"`));
   assert.ok(entries.includes('id="open-helper"'));
-  assert.ok(entries.includes('data-service-entry="income_standard"'));
+  assert.ok(entries.includes('data-service-entry="income_standard_calculate"'));
   assert.ok(entries.includes('觀看 2 分鐘使用教學'));
   assert.doesNotMatch(html, /返回首頁/);
 });
 
-test('application page shares complete process and official links for each plan', () => {
+test('application channels retain exact configured links and independent policy details', () => {
   const section = html.slice(html.indexOf('data-page="direct-apply"'), html.indexOf('data-page="operation-guide"'));
-  assert.equal((section.match(/class="v2-application-item /g) || []).length, 4);
-  const esc = s => s.replaceAll('&','&amp;');
-  for (const plan of data.plans) {
-    assert.ok(section.includes(plan.applicationMode));
-    for (const step of plan.process) assert.ok(section.includes(step));
-    assert.ok(section.includes(esc(plan.applicationAction.href)));
-    assert.ok(section.includes(plan.applicationAction.label));
+  assert.equal((section.match(/class="v2-application-item"/g)||[]).length,3);
+  for(const action of data.directApplyActions) assert.ok(section.includes(action.href.replaceAll('&','&amp;')));
+  for(const plan of data.plans) {
+    assert.ok(plan.applicationMode.length>0);
+    for(const step of plan.process) assert.ok(html.includes(step));
   }
-  assert.match(section, /地方稅主動辦理/);
-  assert.match(section, /自行申請地方稅/);
 });
 
 test('both video sources come from switchable config and retain native player affordances', () => {

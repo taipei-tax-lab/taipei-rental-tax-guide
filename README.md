@@ -65,7 +65,7 @@ node scripts/browser-check.cjs
 
 GitHub Pages 從 `main` 發布；Phase 5A 的 PR #9 是歷史發布，不是目前最新版本。現在以 [PROJECT_STATE](docs/PROJECT_STATE.md) 的核對基準為準。機關正式站由資訊室另行部署，不能從 Pages 成功推定已上版。
 
-本次改版延續 `feat/direct-apply-operation-guide-20261031`，其 push 會觸發既有 Cloudflare 測試站 build，但不修改 GitHub Pages 主線或機關站。11/4 原始碼與已提交的 `index.html` 有差異，UX2 的入口順序斷言仍為舊版；具體失敗／限制見 [PROJECT_STATE](docs/PROJECT_STATE.md)。後續修改功能時必須重新 build、檢查並提交生成物，正式發布須另經核准。
+本次改版延續 `feat/direct-apply-operation-guide-20261031`，其 push 會觸發既有 Cloudflare 測試站 build，但不修改 GitHub Pages 主線或機關站。11/16 已重新生成 `index.html` 並修正 UX2 的入口順序斷言；具體驗證與限制見 [PROJECT_STATE](docs/PROJECT_STATE.md)。後續修改功能時必須重新 build、檢查並提交生成物，正式發布須另經核准。
 
 ## 專案與 CX 文件
 
@@ -93,7 +93,7 @@ CX 文件包含 PoC 與歷史操作紀錄，部分 Agent／Environment 敘述已
 
 ## 功能擴充（Cloudflare 工作分支，未合併 main）
 
-首頁六張入口沿用既有 hash 導覽，新增 `#direct-apply` 與 `#operation-guide`。四方案的申辦順序與連結共用 `site/content.json`，`applicationMode` 僅為辦理方式標示；原有政策欄位未改動。
+首頁六張入口沿用既有 hash 導覽，新增 `#direct-apply` 與 `#operation-guide`。直接申請頁使用 `site/content.json` 的 `directApplyActions` 三種管道；首頁租金標準使用 `incomeStandardActions` 試算／申請雙連結。原四方案政策、流程、申辦資料保留。
 
 影片來源在 `site/media.json` 的 `operationGuide.pc.src` 與 `operationGuide.mobile.src`。目前使用指定 R2 V2 測試影片，原檔名加上 `?v=2` 以隔離舊瀏覽器快取（更版時只更新此設定）；日後可改為例如 `./assets/videos/operation-guide-pc.mp4` 與 `./assets/videos/operation-guide-mobile.mp4`，再執行 build。影片來源僅接受 HTTPS 或明確 `./` 相對路徑。MP4 不納入本輪 Git 或發行包；正式主機的檔案放置、CSP、MIME 與 Range 支援須另案確認。本機預覽器目前不提供 videos 路徑，本輪使用 R2 驗收。
 
@@ -165,8 +165,16 @@ node scripts/extension-browser-check.cjs
 
 首頁、直接申請及操作說明共用同一份主視覺與六入口，下方切換內容；獨立方案詳情／比較仍維持原有導航。11/4 最新來源順序為屋主、房客、直接申請、操作說明、小幫手、所得達租金標準；桌機採較緊湊、左對齊的入口卡片列。10/31 的導覽定位行為保留：入口使用原生連結與 hash，程式在同頁入口切換時透過 history.pushState 避免原生錨點先捲動，內容完成 reflow 後依實際標題位置捲至視窗上緣約 28px（受頁底上限約束）並管理焦點；相同入口重複操作與斷點改變保留閱讀位置，上一頁／下一頁還原閱讀位置，深層連結與重新整理會校正標題位置。
 
-直接申請使用四方案既有配色，桌機／平板兩欄、手機單欄，保留完整流程。`site/content.json` 的 `applicationAction` 僅維護每方案單一主要動作、官方網址與管道說明，原有政策／流程／參考連結仍供方案詳情使用。四方案按鈕目前統一為「前往申辦與書表下載」，連到稅捐處官方申辦與書表總入口，各自保留管道說明；總入口不等同專用線上申請，未確認的專用認定／合併申辦網址不會宣告已驗收。
+直接申請頁改為「線上申請、親自申請、郵寄/傳真」三張同層級管道卡片，桌機／平板兩欄、手機單欄。首頁第六卡改為 HTML 標題與對等試算／申請按鈕，保留原六入口格線及外框 bounding box。四方案詳情、比較與政策資料維持原樣。申請頁變短時沿用頁底定位上限；前後導覽在目的頁 reflow 後補還原閱讀位置。
 
+[GA4 現行事件](docs/GA4_EVENTS.md) 記錄六項本輪入口映射；僅前端意圖訊號，測試站不載入 GA4。
 新增 `node scripts/ux2-browser-check.cjs` 驗證共用入口、DOM／鍵盤順序、焦點、響應式申辦卡片及歷史。預設本機4175；正式驗收請以 PREVIEW_URL 指向現有 Pages 測試站。影片及 CX／Messenger 配置維持原樣，非 CX 驗收繼續隔離第三方請求。
 
 影片不使用覆蓋層。已驗證的桌機 Chromium 瀏覽器在非全螢幕時以 video click 提供畫面播放／暫停／結束後重播；原生控制鍵自行處理事件。iOS／Android／LINE、內嵌 WebView 及未確認引擎不加自訂點擊事件，保留原生控制；全螢幕也維持原生互動。真實 iPhone LINE、Safari 的控制鍵與子母畫面仍須實機複驗，不以 Chromium iPhone 模擬代替。
+
+
+## 11/16 申請入口改版驗證
+
+`node scripts/entry-redesign-browser-check.cjs` 針對 GA4 隔離產物驗證四種寬度、七個主要操作、焦點／鍵盤、五個精確網址、六個 mock 事件及無 gtag 導覽；可設 `BASELINE_JSON` 比對改版前卡片尺寸。`node scripts/entry-external-read-check.cjs` 僅唯讀瀏覽外部入口，不填表或送件。證據見 [11/16 report](docs/evidence/2026-11-16-entry-redesign/REPORT.md)。
+
+瀏覽器腳本預設 Edge，雲端可設 `BROWSER_EXECUTABLE=/usr/bin/chromium`；Playwright 仍為驗證工具，不是網站相依。Node 24 雲端需 `node --use-env-proxy scripts/extension-browser-check.cjs` 才沿用環境代理存取 R2。R2 影片已由外部在 11/8 更新，本輪只讀回 metadata 並校正過期測試快照，未上傳或改 URL。TLS 代理造成 Chromium 信任錯誤時，診斷性 `BROWSER_IGNORE_HTTPS_ERRORS=1` 的結果須明確標示，不能當正式 TLS 驗收。

@@ -1,0 +1,484 @@
+{
+  "base": "http://127.0.0.1:4175/",
+  "at": "2026-11-16T11:36:33.069Z",
+  "browser": "Chromium emulation; not physical devices",
+  "widths": [
+    {
+      "width": 1440,
+      "boxes": [
+        {
+          "x": 137.015625,
+          "y": 247.8125,
+          "width": 299.296875,
+          "height": 95.109375,
+          "top": 247.8125,
+          "right": 436.3125,
+          "bottom": 342.921875,
+          "left": 137.015625
+        },
+        {
+          "x": 474.34375,
+          "y": 247.8125,
+          "width": 299.296875,
+          "height": 95.109375,
+          "top": 247.8125,
+          "right": 773.640625,
+          "bottom": 342.921875,
+          "left": 474.34375
+        },
+        {
+          "x": 811.671875,
+          "y": 247.8125,
+          "width": 299.3125,
+          "height": 95.109375,
+          "top": 247.8125,
+          "right": 1110.984375,
+          "bottom": 342.921875,
+          "left": 811.671875
+        },
+        {
+          "x": 137.015625,
+          "y": 375.8125,
+          "width": 299.296875,
+          "height": 95.109375,
+          "top": 375.8125,
+          "right": 436.3125,
+          "bottom": 470.921875,
+          "left": 137.015625
+        },
+        {
+          "x": 474.34375,
+          "y": 375.8125,
+          "width": 299.296875,
+          "height": 95.109375,
+          "top": 375.8125,
+          "right": 773.640625,
+          "bottom": 470.921875,
+          "left": 474.34375
+        },
+        {
+          "x": 798.65625,
+          "y": 365.375,
+          "width": 325.34375,
+          "height": 116,
+          "top": 365.375,
+          "right": 1124,
+          "bottom": 481.375,
+          "left": 798.65625
+        }
+      ],
+      "baselineMatch": true,
+      "sevenKeyboardControls": true,
+      "focusVisible": true,
+      "noOverflow": true,
+      "historyAndReload": true,
+      "exactLinks": true,
+      "mockMappings": true,
+      "noGtagNavigation": true
+    },
+    {
+      "width": 768,
+      "boxes": [
+        {
+          "x": 28,
+          "y": 237.375,
+          "width": 350,
+          "height": 114.390625,
+          "top": 237.375,
+          "right": 378,
+          "bottom": 351.765625,
+          "left": 28
+        },
+        {
+          "x": 390,
+          "y": 237.375,
+          "width": 350,
+          "height": 114.390625,
+          "top": 237.375,
+          "right": 740,
+          "bottom": 351.765625,
+          "left": 390
+        },
+        {
+          "x": 28,
+          "y": 363.765625,
+          "width": 350,
+          "height": 114.390625,
+          "top": 363.765625,
+          "right": 378,
+          "bottom": 478.15625,
+          "left": 28
+        },
+        {
+          "x": 390,
+          "y": 363.765625,
+          "width": 350,
+          "height": 114.390625,
+          "top": 363.765625,
+          "right": 740,
+          "bottom": 478.15625,
+          "left": 390
+        },
+        {
+          "x": 28,
+          "y": 490.15625,
+          "width": 350,
+          "height": 114.390625,
+          "top": 490.15625,
+          "right": 378,
+          "bottom": 604.546875,
+          "left": 28
+        },
+        {
+          "x": 390,
+          "y": 490.15625,
+          "width": 350,
+          "height": 114.390625,
+          "top": 490.15625,
+          "right": 740,
+          "bottom": 604.546875,
+          "left": 390
+        }
+      ],
+      "baselineMatch": true,
+      "sevenKeyboardControls": true,
+      "focusVisible": true,
+      "noOverflow": true,
+      "historyAndReload": true,
+      "exactLinks": true,
+      "mockMappings": true,
+      "noGtagNavigation": true
+    },
+    {
+      "width": 390,
+      "boxes": [
+        {
+          "x": 20,
+          "y": 329.828125,
+          "width": 169,
+          "height": 135.171875,
+          "top": 329.828125,
+          "right": 189,
+          "bottom": 465,
+          "left": 20
+        },
+        {
+          "x": 201,
+          "y": 329.828125,
+          "width": 169,
+          "height": 135.171875,
+          "top": 329.828125,
+          "right": 370,
+          "bottom": 465,
+          "left": 201
+        },
+        {
+          "x": 20,
+          "y": 477,
+          "width": 169,
+          "height": 135.171875,
+          "top": 477,
+          "right": 189,
+          "bottom": 612.171875,
+          "left": 20
+        },
+        {
+          "x": 201,
+          "y": 477,
+          "width": 169,
+          "height": 135.171875,
+          "top": 477,
+          "right": 370,
+          "bottom": 612.171875,
+          "left": 201
+        },
+        {
+          "x": 20,
+          "y": 624.171875,
+          "width": 169,
+          "height": 135.171875,
+          "top": 624.171875,
+          "right": 189,
+          "bottom": 759.34375,
+          "left": 20
+        },
+        {
+          "x": 201,
+          "y": 624.171875,
+          "width": 169,
+          "height": 135.171875,
+          "top": 624.171875,
+          "right": 370,
+          "bottom": 759.34375,
+          "left": 201
+        }
+      ],
+      "baselineMatch": true,
+      "sevenKeyboardControls": true,
+      "focusVisible": true,
+      "noOverflow": true,
+      "historyAndReload": true,
+      "exactLinks": true,
+      "mockMappings": true,
+      "noGtagNavigation": true
+    },
+    {
+      "width": 320,
+      "boxes": [
+        {
+          "x": 16,
+          "y": 329.828125,
+          "width": 288,
+          "height": 108.78125,
+          "top": 329.828125,
+          "right": 304,
+          "bottom": 438.609375,
+          "left": 16
+        },
+        {
+          "x": 16,
+          "y": 450.609375,
+          "width": 288,
+          "height": 108.78125,
+          "top": 450.609375,
+          "right": 304,
+          "bottom": 559.390625,
+          "left": 16
+        },
+        {
+          "x": 16,
+          "y": 571.390625,
+          "width": 288,
+          "height": 108.78125,
+          "top": 571.390625,
+          "right": 304,
+          "bottom": 680.171875,
+          "left": 16
+        },
+        {
+          "x": 16,
+          "y": 692.171875,
+          "width": 288,
+          "height": 108.78125,
+          "top": 692.171875,
+          "right": 304,
+          "bottom": 800.953125,
+          "left": 16
+        },
+        {
+          "x": 16,
+          "y": 812.953125,
+          "width": 288,
+          "height": 108.78125,
+          "top": 812.953125,
+          "right": 304,
+          "bottom": 921.734375,
+          "left": 16
+        },
+        {
+          "x": 16,
+          "y": 933.734375,
+          "width": 288,
+          "height": 108.78125,
+          "top": 933.734375,
+          "right": 304,
+          "bottom": 1042.515625,
+          "left": 16
+        }
+      ],
+      "baselineMatch": true,
+      "sevenKeyboardControls": true,
+      "focusVisible": true,
+      "noOverflow": true,
+      "historyAndReload": true,
+      "exactLinks": true,
+      "mockMappings": true,
+      "noGtagNavigation": true
+    }
+  ],
+  "events": [
+    [
+      "event",
+      "direct_apply_open",
+      {}
+    ],
+    [
+      "event",
+      "service_entry_click",
+      {
+        "service_id": "income_standard_calculate",
+        "destination_host": "services.arpa.tpctax.dof.gov.taipei"
+      }
+    ],
+    [
+      "event",
+      "service_entry_click",
+      {
+        "service_id": "income_standard_apply",
+        "destination_host": "services.arpa.tpctax.dof.gov.taipei"
+      }
+    ],
+    [
+      "event",
+      "service_entry_click",
+      {
+        "service_id": "direct_apply_online",
+        "destination_host": "service.taipei"
+      }
+    ],
+    [
+      "event",
+      "service_entry_click",
+      {
+        "service_id": "direct_apply_in_person",
+        "destination_host": "tpctax.gov.taipei"
+      }
+    ],
+    [
+      "event",
+      "service_entry_click",
+      {
+        "service_id": "direct_apply_mail_fax",
+        "destination_host": "tpctax.gov.taipei"
+      }
+    ],
+    [
+      "event",
+      "direct_apply_open",
+      {}
+    ],
+    [
+      "event",
+      "service_entry_click",
+      {
+        "service_id": "income_standard_calculate",
+        "destination_host": "services.arpa.tpctax.dof.gov.taipei"
+      }
+    ],
+    [
+      "event",
+      "service_entry_click",
+      {
+        "service_id": "income_standard_apply",
+        "destination_host": "services.arpa.tpctax.dof.gov.taipei"
+      }
+    ],
+    [
+      "event",
+      "service_entry_click",
+      {
+        "service_id": "direct_apply_online",
+        "destination_host": "service.taipei"
+      }
+    ],
+    [
+      "event",
+      "service_entry_click",
+      {
+        "service_id": "direct_apply_in_person",
+        "destination_host": "tpctax.gov.taipei"
+      }
+    ],
+    [
+      "event",
+      "service_entry_click",
+      {
+        "service_id": "direct_apply_mail_fax",
+        "destination_host": "tpctax.gov.taipei"
+      }
+    ],
+    [
+      "event",
+      "direct_apply_open",
+      {}
+    ],
+    [
+      "event",
+      "service_entry_click",
+      {
+        "service_id": "income_standard_calculate",
+        "destination_host": "services.arpa.tpctax.dof.gov.taipei"
+      }
+    ],
+    [
+      "event",
+      "service_entry_click",
+      {
+        "service_id": "income_standard_apply",
+        "destination_host": "services.arpa.tpctax.dof.gov.taipei"
+      }
+    ],
+    [
+      "event",
+      "service_entry_click",
+      {
+        "service_id": "direct_apply_online",
+        "destination_host": "service.taipei"
+      }
+    ],
+    [
+      "event",
+      "service_entry_click",
+      {
+        "service_id": "direct_apply_in_person",
+        "destination_host": "tpctax.gov.taipei"
+      }
+    ],
+    [
+      "event",
+      "service_entry_click",
+      {
+        "service_id": "direct_apply_mail_fax",
+        "destination_host": "tpctax.gov.taipei"
+      }
+    ],
+    [
+      "event",
+      "direct_apply_open",
+      {}
+    ],
+    [
+      "event",
+      "service_entry_click",
+      {
+        "service_id": "income_standard_calculate",
+        "destination_host": "services.arpa.tpctax.dof.gov.taipei"
+      }
+    ],
+    [
+      "event",
+      "service_entry_click",
+      {
+        "service_id": "income_standard_apply",
+        "destination_host": "services.arpa.tpctax.dof.gov.taipei"
+      }
+    ],
+    [
+      "event",
+      "service_entry_click",
+      {
+        "service_id": "direct_apply_online",
+        "destination_host": "service.taipei"
+      }
+    ],
+    [
+      "event",
+      "service_entry_click",
+      {
+        "service_id": "direct_apply_in_person",
+        "destination_host": "tpctax.gov.taipei"
+      }
+    ],
+    [
+      "event",
+      "service_entry_click",
+      {
+        "service_id": "direct_apply_mail_fax",
+        "destination_host": "tpctax.gov.taipei"
+      }
+    ]
+  ],
+  "gaRequests": [],
+  "errors": [],
+  "cx": "third-party requests blocked; no real queries"
+}

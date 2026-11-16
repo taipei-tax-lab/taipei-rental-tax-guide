@@ -42,7 +42,7 @@ test('GA4 loader/config and the frozen V1 event contract are present without GTM
       : /assets\/js\/analytics\.js\?v=\{\{ANALYTICS_VERSION\}\}/);
   }
   const analytics = read('assets/js/analytics.js');
-  const approved = ['audience_select', 'plan_select', 'guide_start', 'guide_complete', 'cx_open', 'cx_query_submit', 'cx_source_click', 'cx_error', 'service_entry_click'];
+  const approved = ['audience_select', 'plan_select', 'guide_start', 'guide_complete', 'cx_open', 'cx_query_submit', 'cx_source_click', 'cx_error', 'direct_apply_open', 'service_entry_click'];
   const declared = [...analytics.matchAll(/^    ([a-z_]+): \{/gm)].map(match => match[1]);
   assert.deepEqual(declared, approved);
   assert.equal((analytics.match(/root\.gtag\('event'/g) || []).length, 1, 'all events pass through the centralized helper');
@@ -175,45 +175,15 @@ test('income-standard-launcher floating shortcut is completely removed', () => {
   assert.doesNotMatch(html, /src="\.\/assets\/images\/income-standard-launcher\.png"/);
 });
 
-test('income-standard audience entry card is declared and built with responsive dual presentation', () => {
-  const cardAssetPath = path.join(root, 'assets/images/income-standard-card.png');
-  const illustAssetPath = path.join(root, 'assets/images/income-standard-illustration.png');
-  const oldBannerAssetPath = path.join(root, 'assets/images/income-standard-entry-card.png');
-  const oldIconAssetPath = path.join(root, 'assets/images/income-standard-icon.png');
-
-  assert.ok(fs.existsSync(cardAssetPath), 'income-standard-card.png asset must exist');
-  assert.ok(fs.existsSync(illustAssetPath), 'income-standard-illustration.png asset must exist');
-  assert.ok(!fs.existsSync(oldBannerAssetPath), 'old income-standard-entry-card.png must not exist');
-  assert.ok(!fs.existsSync(oldIconAssetPath), 'old income-standard-icon.png must not exist');
-
-  const template = fs.readFileSync(path.join(root, 'site/template.html'), 'utf8');
-  const freshHtml = fs.readFileSync(path.join(root, 'index.html'), 'utf8');
-
-  for (const markup of [template, freshHtml]) {
-    assert.match(markup, /class="v2-audience-button v2-income-standard-entry"/);
-    assert.match(markup, /href="https:\/\/services\.arpa\.tpctax\.dof\.gov\.taipei\/incomeReachStandard\/form\.php"/);
-    assert.match(markup, /target="_blank"/);
-    assert.match(markup, /rel="noopener noreferrer"/);
-    assert.match(markup, /aria-label="所得達租金標準申報優惠稅率專區（另開新視窗）"/);
-    assert.match(markup, /<picture class="v2-income-standard-fallback-icon">/);
-    assert.match(markup, /<source media="\(min-width: 1100px\)" type="image\/webp" srcset="\.\/assets\/images\/income-standard-card\.webp"/);
-    assert.match(markup, /class="v2-income-standard-fallback"/);
-    assert.match(markup, /class="v2-income-standard-card-image"\s+src="data:image\/gif;base64,/);
-    const entry = markup.slice(markup.indexOf('class="v2-audience-button v2-income-standard-entry"'), markup.indexOf('</picture>') + 10);
-    assert.equal((entry.match(/<img\b/g) || []).length, 1, 'One responsive image, not two eager images');
-    assert.match(markup, /<strong>所得達租金標準<\/strong>/);
-    assert.match(markup, /<small>申報優惠稅率專區<\/small>/);
-    assert.doesNotMatch(markup, /income-standard-entry-card\.png/);
-    assert.doesNotMatch(markup, /income-standard-icon\.png/);
-
-    // Extract Card 4 HTML and verify no arrow elements or characters
-    const card4Html = markup.slice(markup.indexOf('v2-income-standard-entry'), markup.indexOf('</div>', markup.indexOf('v2-income-standard-entry')) + 10);
-    assert.doesNotMatch(card4Html, />\s*→|&gt;|aria-hidden="true">\s*→/);
-  }
-
-  const css = fs.readFileSync(path.join(root, 'assets/css/guide-v2.css'), 'utf8');
-  assert.match(css, /@media\s*\(min-width:\s*1100px\)/);
-  assert.match(css, /@media\s*\(max-width:\s*1099px\)/);
-  assert.match(css, /\.v2-income-standard-card-image/);
-  assert.match(css, /\.v2-income-standard-fallback/);
+test('income standard is an HTML group with two safe independent actions and retained assets', () => {
+  for(const file of ['income-standard-card.png','income-standard-illustration.png']) assert.ok(fs.existsSync(path.join(root,'assets/images',file)));
+  const entry=html.match(/<div class="v2-audience-button v2-income-standard-entry"[\s\S]*?\n              <\/div>/)[0];
+  assert.match(entry,/role="group" aria-labelledby="income-standard-title"/);
+  assert.ok(entry.replace(/<[^>]+>/g,'').includes('出租房屋達租金標準'));
+  assert.equal((entry.match(/<a /g)||[]).length,2);
+  assert.equal((entry.match(/target="_blank" rel="noopener noreferrer"/g)||[]).length,2);
+  assert.equal((entry.match(/另開新視窗/g)||[]).length,2);
+  assert.match(entry,/data-service-entry="income_standard_calculate"/);
+  assert.match(entry,/data-service-entry="income_standard_apply"/);
+  assert.doesNotMatch(entry,/<img|<picture|data-service-entry="income_standard"|→/);
 });

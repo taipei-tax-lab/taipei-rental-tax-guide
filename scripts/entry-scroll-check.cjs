@@ -7,10 +7,10 @@ const baseline=process.argv.includes('--baseline');
 const navigationOnly=process.argv.includes('--navigation-only');
 const folder='.preview/entry-scroll';fs.mkdirSync(folder,{recursive:true});
 const entries=[['owners','owner-title'],['tenants','tenant-title'],['direct-apply','direct-apply-title'],['operation-guide','operation-guide-title']];
-(async()=>{const browser=await chromium.launch({channel:'msedge',headless:true});const rows=[];
+(async()=>{const browser=await chromium.launch({...(process.env.BROWSER_EXECUTABLE ? {executablePath:process.env.BROWSER_EXECUTABLE} : {channel:'msedge'}),headless:true});const rows=[];
 try{
  if(!navigationOnly)for(const [device,width,height] of [['desktop',1440,900],['tablet',768,1024],['phone',390,844]])for(const zoom of [1,1.25,1.5]){
-  const page=await browser.newPage({viewport:{width:Math.round(width/zoom),height:Math.round(height/zoom)},deviceScaleFactor:zoom});
+  const page=await browser.newPage({ignoreHTTPSErrors:process.env.BROWSER_IGNORE_HTTPS_ERRORS==='1',viewport:{width:Math.round(width/zoom),height:Math.round(height/zoom)},deviceScaleFactor:zoom});
   await page.route('**/*',r=>new URL(r.request().url()).origin===new URL(base).origin?r.continue():r.abort());
   for(const [hash,id] of entries){
    await page.goto(base);await page.locator('.v2-ready').waitFor();await page.locator(`.v2-audience a[href="#${hash}"]`).click();
@@ -24,16 +24,16 @@ try{
  }
  const navigation=[];const nativeZoom=[];
  if(!baseline){
-  const page=await browser.newPage({viewport:{width:1440,height:900}});
+  const page=await browser.newPage({ignoreHTTPSErrors:process.env.BROWSER_IGNORE_HTTPS_ERRORS==='1',viewport:{width:1440,height:900}});
   await page.route('**/*',r=>new URL(r.request().url()).origin===new URL(base).origin?r.continue():r.abort());
   const settle=()=>page.evaluate(()=>new Promise(r=>requestAnimationFrame(()=>requestAnimationFrame(r))));
   for(const [hash,id] of entries){
    await page.goto(base+'?entry-scroll-check='+hash+'#'+hash);await page.locator('.v2-ready').waitFor();await settle();await page.waitForTimeout(500);
-   await page.waitForFunction(id=>Math.abs(document.getElementById(id).getBoundingClientRect().top-28)<=2,id,{timeout:3000}).catch(async()=>{throw Error(`Deep ${hash}: ${JSON.stringify(await page.locator('#'+id).evaluate(h=>({top:h.getBoundingClientRect().top,y:scrollY,state:history.state})))}`);});
-   const deepTop=await page.locator('#'+id).evaluate(h=>h.getBoundingClientRect().top);assert.ok(Math.abs(deepTop-28)<=2,`deep ${hash}: ${deepTop}`);
+   await page.waitForFunction(id=>Math.abs(scrollY-Math.max(0,Math.min(document.getElementById(id).getBoundingClientRect().top+scrollY-28,document.documentElement.scrollHeight-innerHeight)))<=2,id,{timeout:3000}).catch(async()=>{throw Error(`Deep ${hash}: ${JSON.stringify(await page.locator('#'+id).evaluate(h=>({top:h.getBoundingClientRect().top,y:scrollY,state:history.state})))}`);});
+   const deepTop=await page.locator('#'+id).evaluate(h=>h.getBoundingClientRect().top);assert.ok(await page.evaluate(()=>scrollY<=document.documentElement.scrollHeight-innerHeight),`deep ${hash}: ${deepTop}`);
    await page.reload();await page.locator('.v2-ready').waitFor();await settle();await page.waitForTimeout(500);
-   await page.waitForFunction(id=>Math.abs(document.getElementById(id).getBoundingClientRect().top-28)<=2,id);
-   const reloadTop=await page.locator('#'+id).evaluate(h=>h.getBoundingClientRect().top);assert.ok(Math.abs(reloadTop-28)<=2,`reload ${hash}: ${reloadTop}`);
+   await page.waitForFunction(id=>Math.abs(scrollY-Math.max(0,Math.min(document.getElementById(id).getBoundingClientRect().top+scrollY-28,document.documentElement.scrollHeight-innerHeight)))<=2,id);
+   const reloadTop=await page.locator('#'+id).evaluate(h=>h.getBoundingClientRect().top);assert.ok(await page.evaluate(()=>scrollY<=document.documentElement.scrollHeight-innerHeight),`reload ${hash}: ${reloadTop}`);
    // Dispatch while reading below the heading: a repeated entry must preserve that position.
    await page.evaluate(()=>scrollBy({top:100,behavior:"instant"}));const reading=await page.evaluate(()=>scrollY);
    await page.locator(`.v2-audience a[href="#${hash}"]`).dispatchEvent('click');await settle();
@@ -44,7 +44,7 @@ try{
    const readingBeforeLeave=await page.evaluate(()=>scrollY);
    const other=hash==='direct-apply'?'owners':'direct-apply';
    await page.locator(`.v2-audience a[href="#${other}"]`).dispatchEvent('click');await page.waitForFunction(other=>location.hash==='#'+other,other);await settle();
-   await page.goBack();await page.waitForFunction(y=>Math.abs(scrollY-y)<=2,readingBeforeLeave);
+   await page.goBack();await page.waitForFunction(y=>Math.abs(scrollY-y)<=2,readingBeforeLeave,{timeout:5000}).catch(async()=>{throw Error(`History ${hash}: expected ${readingBeforeLeave}, actual ${await page.evaluate(()=>scrollY)}, max ${await page.evaluate(()=>document.documentElement.scrollHeight-innerHeight)}`)});
    navigation.push({entry:hash,deepLink:true,reload:true,repeatPreservesPosition:true,resizePreservesPosition:true});
   }
   await page.goto(base);await page.locator('.v2-ready').waitFor();
@@ -64,11 +64,11 @@ try{
   if(!navigationOnly)for(const factor of [1,1.25,1.5]){
    const profile=fs.mkdtempSync(path.resolve(folder,'native-profile-'));fs.mkdirSync(path.join(profile,'Default'));
    fs.writeFileSync(path.join(profile,'Default/Preferences'),JSON.stringify({partition:{default_zoom_level:{x:Math.log(factor)/Math.log(1.2)}}}));
-   const context=await chromium.launchPersistentContext(profile,{channel:'msedge',headless:true,viewport:null,args:['--window-size=1440,900']});
+   const context=await chromium.launchPersistentContext(profile,{...(process.env.BROWSER_EXECUTABLE ? {executablePath:process.env.BROWSER_EXECUTABLE} : {channel:'msedge'}),headless:true,viewport:null,args:['--window-size=1440,900']});
    try{const p=context.pages()[0];await p.route('**/*',r=>new URL(r.request().url()).origin===new URL(base).origin?r.continue():r.abort());
     for(const [hash,id] of entries){await p.goto(base);await p.locator('.v2-ready').waitFor();await p.locator(`.v2-audience a[href="#${hash}"]`).click();await p.waitForFunction(id=>document.activeElement.id===id,id);
      const m=await p.locator('#'+id).evaluate(h=>({top:h.getBoundingClientRect().top,innerWidth,innerHeight,dpr:devicePixelRatio,outerWidth}));
-     assert.ok(Math.abs(m.dpr-factor)<.01,'native zoom changes DPR');assert.ok(Math.abs(m.top-28)<=2,JSON.stringify(m));nativeZoom.push({zoomPercent:factor*100,entry:hash,...m});
+     assert.ok(Math.abs(m.dpr-factor)<.01,'native zoom changes DPR');assert.ok(await p.locator('#'+id).evaluate(h=>Math.abs(h.getBoundingClientRect().top-28)<=2||Math.abs(scrollY-(document.documentElement.scrollHeight-innerHeight))<=2),JSON.stringify(m));nativeZoom.push({zoomPercent:factor*100,entry:hash,...m});
     }
    }finally{await context.close();}
   }

@@ -10,7 +10,7 @@ const media = JSON.parse(read('site/media.json')).operationGuide;
 const esc = value => String(value).replace(/[&<>"']/g, char => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'}[char]));
 const link = (item, cls = '') => `<a class="${cls}" href="${esc(item.href)}" target="_blank" rel="noopener noreferrer">${esc(item.label)}<span class="sr-only">（另開新視窗）</span></a>`;
 const list = items => `<ul>${items.map(item => `<li>${esc(item)}</li>`).join('')}</ul>`;
-const icon = name => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${name === 'person' ? '<circle cx="12" cy="7" r="3"/><path d="M5 21v-3a7 7 0 0 1 14 0v3"/>' : name === 'building' ? '<path d="M4 21V3h10v18M14 9h6v12M7 7h3M7 11h3M7 15h3M17 13h1M17 17h1M9 21v-3h2v3"/>' : name === 'operator' ? '<path d="M3 21V7l9-4 9 4v17M7 10h3M14 10h3M7 14h3M14 14h3M10 21v-4h4v4"/>' : name === 'subsidy' ? '<path d="m3 10 9-7 9 7M5 9v12h14V9"/><path d="m8 15 3 3 5-6"/>' : '<path d="m3 10 9-7 9 7M5 9v12h14V9M9 21v-7h6v7"/>'}</svg>`;
+const icon = name => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${name === 'mail' ? '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>' : name === 'online' ? '<rect x="3" y="3" width="18" height="14" rx="2"/><path d="M8 21h8m-4-4v4m-4-12 3 3 5-5"/>' : name === 'person' ? '<circle cx="12" cy="7" r="3"/><path d="M5 21v-3a7 7 0 0 1 14 0v3"/>' : name === 'building' ? '<path d="M4 21V3h10v18M14 9h6v12M7 7h3M7 11h3M7 15h3M17 13h1M17 17h1M9 21v-3h2v3"/>' : name === 'operator' ? '<path d="M3 21V7l9-4 9 4v17M7 10h3M14 10h3M7 14h3M14 14h3M10 21v-4h4v4"/>' : name === 'subsidy' ? '<path d="m3 10 9-7 9 7M5 9v12h14V9"/><path d="m8 15 3 3 5-6"/>' : '<path d="m3 10 9-7 9 7M5 9v12h14V9M9 21v-7h6v7"/>'}</svg>`;
 const planIcon = id => {
   const house = '<path d="m2 9 6-6 6 5M4 10v11h4"/><path d="M7 13h2"/>';
   const symbols = {
@@ -134,15 +134,13 @@ const comparison = plans.map(plan => {
   }).join('');
   return `<article data-compare-plan="${plan.id}" class="v2-compare-card v2-${plan.accent}"><h2>${esc(plan.eyebrow)}</h2><p class="v2-compare-situation">${esc(plan.compareSituation || plan.situation)}</p><dl><div><dt>管理方式</dt><dd>${esc(plan.management)}</dd></div><div><dt>主要門檻</dt><dd>${esc(plan.condition)}</dd></div>${compareTaxes}<div><dt>第一步</dt><dd>${esc(plan.firstStep)}</dd></div></dl><a href="#plan-${plan.id}" class="v2-button">查看優惠與辦理方式 →</a></article>`;
 }).join('\n');
-// Application instructions stay in the shared policy records; no separate tax rules.
-const directApply = plans.map(plan => `<article class="v2-application-item v2-${esc(plan.accent)}" data-application-plan="${plan.id}" aria-labelledby="apply-${plan.id}">
-  <h3 id="apply-${plan.id}">${esc(plan.eyebrow)}</h3>
-  <p class="v2-application-mode">${esc(plan.applicationMode)}</p>
-  <p>${esc(plan.nextStepCaption)}</p>
-  <ol>${plan.process.map(step => `<li>${esc(step)}</li>`).join('')}</ol>
-  <div class="v2-application-action">${link(plan.applicationAction, 'v2-button v2-primary')}<p class="v2-caption">${esc(plan.applicationAction.note)}</p></div>
-  <a class="v2-text-link" href="#plan-${plan.id}">查看完整條件與應備資料 →</a>
-</article>`).join('\n');
+// Channel links share the same source as the two income-standard actions.
+const serviceLink = (item, cls, content) => {
+  if (new URL(item.href).protocol !== 'https:') throw new Error('Service links require HTTPS');
+  return `<a class="${cls}" data-service-entry="${esc(item.id)}" href="${esc(item.href)}" target="_blank" rel="noopener noreferrer">${content}<span class="sr-only">（另開新視窗）</span></a>`;
+};
+const incomeStandardActions = data.incomeStandardActions.map(item => serviceLink(item, 'v2-income-standard-action', esc(item.label))).join('');
+const directApply = data.directApplyActions.map(item => serviceLink(item, 'v2-application-item', `${icon(item.icon)}<span><strong>${esc(item.label)}</strong><small>${esc(item.note)}</small></span>`)).join('\n');
 const operationVideos = ['pc', 'mobile'].map(version => {
   const src = media[version].src;
   // HTTPS for remote media; explicit relative paths for a later same-origin deployment.
@@ -166,7 +164,7 @@ const replacements = {
   RULES_VERSION: hash('assets/js/guide-rules.js'), UI_VERSION: hash('assets/js/guide-ui.js'),
   APPLY_ICON: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H5v18h14V10M14 3v7h5M8 14h8M8 17h5"/></svg>',
   VIDEO_ICON: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m10 8 6 4-6 4z"/></svg>',
-  DIRECT_APPLY: directApply, OPERATION_VIDEOS: operationVideos,
+  INCOME_STANDARD_ACTIONS: incomeStandardActions, DIRECT_APPLY: directApply, OPERATION_VIDEOS: operationVideos,
   HOUSE_ICON: icon('self'), PERSON_ICON: icon('person'), OFFICIAL: esc(data.meta.official),
   PLAN_CARDS: cards, PLAN_DETAILS: planDetails, TENANT_GROUPS: tenantGroups, FAQ: faqHtml,
   COMPARE_CONTROLS: `<fieldset class="v2-compare-controls" hidden><legend>選擇兩個方案並列比較</legend><div>${[0,1].map((n) => `<label>方案${n + 1}<select data-compare-select="${n}">${plans.map((p,i) => `<option value="${p.id}"${i === n ? ' selected' : ''}>${esc(p.eyebrow)}</option>`).join('')}</select></label>`).join('')}</div><p class="v2-caption" role="status" id="compare-status"></p></fieldset>`,

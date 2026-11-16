@@ -134,6 +134,7 @@
   let routeGeneration = 0;
   let restoringEntryHistory = false;
   let pendingEntryHeading = null;
+  let historyEntryY = null;
   function alignEntryHeading(heading) {
     const inset = 28 + (window.visualViewport?.offsetTop || 0);
     const root = document.scrollingElement;
@@ -146,6 +147,8 @@
   function route(initial = false, reason = 'hash') {
     const generation = ++routeGeneration;
     if (reason === 'history') pendingEntryHeading = null;
+    const restoreY = reason === 'history' ? historyEntryY : null;
+    historyEntryY = null;
     let hash;
     try { hash = decodeURIComponent(location.hash.slice(1)); } catch { hash = ''; }
     // Preserve previously published anchors without reviving duplicate sections.
@@ -214,7 +217,12 @@
             pendingEntryHeading = null;
             if (!initial) focus(heading);
           });
-        } else if (!initial && reason !== 'resize') focus(heading);
+        } else if (!initial && reason !== 'resize') {
+          focus(heading);
+          if (Number.isFinite(restoreY)) requestAnimationFrame(() => {
+            if (generation === routeGeneration) window.scrollTo({top: restoreY, behavior: 'instant'});
+          });
+        }
       } else if (inline) {
         const grid = site.querySelector('.v2-plan-grid');
         const gridBottom = grid.getBoundingClientRect().bottom + window.scrollY;
@@ -247,11 +255,12 @@
     if (audienceControl) analytics?.track('audience_select', {audience: audienceControl.dataset.audience});
     const planCard = event.target.closest('.v2-plan-card');
     if (planCard) analytics?.track('plan_select', {plan_id: planCard.id.replace('card-', '')});
-    const serviceEntry = event.target.closest('[data-service-entry="income_standard"]');
+    const serviceEntry = event.target.closest('a[data-service-entry]');
     if (serviceEntry) {
       const host = analytics?.destinationHost(serviceEntry.href);
-      if (host) analytics.track('service_entry_click', {service_id: 'income_standard', destination_host: host});
+      if (host) analytics.track('service_entry_click', {service_id: serviceEntry.dataset.serviceEntry, destination_host: host});
     }
+    if (event.target.closest('.v2-audience [data-entry-page="direct-apply"]')) analytics?.track('direct_apply_open');
     const link = event.target.closest('a[href^="#"]');
     if (!link || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || event.button !== 0) return;
     if (link.matches('[data-audience], [data-entry-page]')) {
@@ -265,7 +274,17 @@
     if (link.dataset.returnPlan) returningPlan = link.dataset.returnPlan;
     if (link.hash === location.hash) { event.preventDefault(); route(); }
   });
-  window.addEventListener('popstate', event => { restoringEntryHistory = event.state?.rentalEntry === location.hash; });
+  // Native restoration can clamp against the previous, shorter entry page.
+  // Capture its saved coordinate before reflow, then restore after the destination is visible.
+  window.addEventListener('scroll', () => {
+    if (!restoringEntryHistory && history.state?.rentalEntry === location.hash) {
+      history.replaceState({...history.state, rentalScrollY: window.scrollY}, '');
+    }
+  }, {passive: true});
+  window.addEventListener('popstate', event => {
+    restoringEntryHistory = event.state?.rentalEntry === location.hash;
+    historyEntryY = restoringEntryHistory ? event.state?.rentalScrollY : null;
+  });
   window.addEventListener('hashchange', () => {
     const reason = restoringEntryHistory ? 'history' : 'hash';
     restoringEntryHistory = false;

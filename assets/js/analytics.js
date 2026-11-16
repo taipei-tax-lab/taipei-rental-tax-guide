@@ -14,7 +14,8 @@
     cx_query_submit: {input_method: ['manual', 'quick_topic'], topic_id: ['rent_subsidy', 'tax_benefits', 'application_process', 'tenant_rights']},
     cx_source_click: {destination_host: 'host'},
     cx_error: {error_code: 'scalar', error_status: 'scalar'},
-    service_entry_click: {service_id: ['income_standard'], destination_host: 'host'}
+    direct_apply_open: {},
+    service_entry_click: {service_id: ['income_standard', 'income_standard_calculate', 'income_standard_apply', 'direct_apply_online', 'direct_apply_in_person', 'direct_apply_mail_fax'], destination_host: 'host'}
   };
 
   function isAllowed(value, rule) {

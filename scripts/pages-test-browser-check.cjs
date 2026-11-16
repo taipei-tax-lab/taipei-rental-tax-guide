@@ -3,9 +3,9 @@ const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const base=process.env.PREVIEW_URL||'http://127.0.0.1:4173/';
 (async()=>{
-  const browser=await chromium.launch({channel:'msedge',headless:true});
+  const browser=await chromium.launch({...(process.env.BROWSER_EXECUTABLE ? {executablePath:process.env.BROWSER_EXECUTABLE} : {channel:'msedge'}),headless:true});
   try {
-    const page=await browser.newPage({viewport:{width:1440,height:1000}});
+    const page=await browser.newPage({ignoreHTTPSErrors:process.env.BROWSER_IGNORE_HTTPS_ERRORS==='1',viewport:{width:1440,height:1000}});
     const tracking=[],failedAssets=[];
     page.on('request',req=>{if(/googletagmanager\.com|google-analytics\.com/.test(req.url()))tracking.push(req.url());});
     page.on('response',res=>{if(res.url().startsWith(new URL(base).origin)&&res.status()>=400)failedAssets.push(res.url());});
@@ -20,7 +20,7 @@ const base=process.env.PREVIEW_URL||'http://127.0.0.1:4173/';
     await page.locator('#card-public').click();
     await page.locator('footer a[href="#direct-apply"]').click();
     await page.locator('#direct-apply:visible').waitFor();
-    assert.equal(await page.locator('.v2-application-item:visible').count(),4);
+    assert.equal(await page.locator('.v2-application-item:visible').count(),3);
     await page.locator('footer a[href="#operation-guide"]').click();
     await page.getByLabel('手機版',{exact:true}).check();
     await page.locator('footer a[href="#direct-apply"]').click();

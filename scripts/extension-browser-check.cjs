@@ -6,10 +6,11 @@ const base = process.env.PREVIEW_URL || 'http://127.0.0.1:4173/';
 const artifacts = '.preview';
 fs.mkdirSync(artifacts, {recursive:true});
 (async () => {
-  const browser = await chromium.launch({channel:'msedge',headless:true});
+  const browser = await chromium.launch({...(process.env.BROWSER_EXECUTABLE ? {executablePath:process.env.BROWSER_EXECUTABLE} : {channel:'msedge'}),headless:true});
   const results = {base,testedAt:new Date().toISOString(),viewports:[],media:[],mediaResponses:[],deviceDefaults:[],r2:[]};
   try {
-    for(const [version,size] of [['pc',19659311],['mobile',35123380]]) {
+    // Current read-only R2 metadata: 2026-11-16; objects last modified 2026-11-08.
+    for(const [version,size] of [['pc',18678158],['mobile',23785340]]) {
       const src=JSON.parse(fs.readFileSync('site/media.json','utf8')).operationGuide[version].src;
       for(const url of [src.split('?')[0],src]) {
         const head=await fetch(url,{method:'HEAD'});
@@ -25,7 +26,7 @@ fs.mkdirSync(artifacts, {recursive:true});
         results.r2.push({url,size,mime:head.headers.get('content-type'),etag:head.headers.get('etag'),lastModified:head.headers.get('last-modified'),ranges});
       }
     }
-    const page = await browser.newPage({viewport:{width:1440,height:1000}});
+    const page = await browser.newPage({ignoreHTTPSErrors:process.env.BROWSER_IGNORE_HTTPS_ERRORS==='1',viewport:{width:1440,height:1000}});
     // No live CX traffic or test analytics; allow only preview and supplied R2 media.
     await page.route('**/*', route => {
       const url = new URL(route.request().url());
@@ -41,7 +42,7 @@ fs.mkdirSync(artifacts, {recursive:true});
       assert.equal(rects.length,6);
       if(width>=1100) {
         assert.equal(rects[0].y,rects[1].y); assert.equal(rects[1].y,rects[2].y);
-        assert.ok(rects[3].y>rects[0].y); assert.equal(rects[3].y,rects[4].y); assert.equal(rects[4].y,rects[5].y);
+        assert.ok(rects[3].y>rects[0].y); assert.equal(rects[3].y,rects[4].y); assert.ok(Math.abs(rects[4].y+rects[4].height/2-rects[5].y-rects[5].height/2)<1);
       }
       for(const hash of ['top','direct-apply','operation-guide']) {
         await page.goto(base+'#'+hash);
@@ -68,7 +69,7 @@ fs.mkdirSync(artifacts, {recursive:true});
       await page.waitForFunction(sel=>{const v=document.querySelector(sel);return v.currentTime>1&&v.readyState>=2&&!v.paused;},selector,{timeout:45000});
       const state=await page.locator(selector).evaluate(v=>({version:v.id,src:v.currentSrc,duration:v.duration,time:v.currentTime,width:v.videoWidth,height:v.videoHeight,error:v.error?.code||null}));
       assert.ok(state.src.endsWith('?v=2'));
-      assert.ok(Math.abs(state.duration-(version==='pc'?144.133333:150.933333))<.1,'V2 duration');
+      assert.ok(Math.abs(state.duration-(version==='pc'?103.933333:102.066667))<.1,'V2 duration');
       assert.equal(state.width,version==='pc'?1920:1080);assert.equal(state.height,version==='pc'?1080:1920);
       assert.ok(Math.abs(bounds.width/bounds.height-(version==='pc'?16/9:9/16))<.01);
       if(version==='mobile')assert.ok(bounds.width<=360);
@@ -88,8 +89,9 @@ fs.mkdirSync(artifacts, {recursive:true});
       await page.waitForFunction(sel=>{const v=document.querySelector(sel);return !v.paused&&v.currentTime>60.5&&v.readyState>=2;},selector);
       await page.locator(selector).evaluate(v=>v.pause());
       await page.locator(selector).screenshot({path:`${artifacts}/v2-frame-desktop-${version}.png`});
-      await page.locator(selector).evaluate(v=>v.play());
+      await page.locator(selector).evaluate(v=>Promise.race([v.play(),new Promise((_,reject)=>setTimeout(()=>reject(new Error('Timed out resuming video')),30000))]));
       results.media.push(state);
+      console.log(`Verified playback/seek ${version}`);
       // Chromium native fullscreen control (left of overflow menu).
       await page.locator(selector).click({position:{x:bounds.width-60,y:bounds.height-30}});
       await page.waitForFunction(()=>!!document.fullscreenElement,null,{timeout:5000});
@@ -112,8 +114,9 @@ fs.mkdirSync(artifacts, {recursive:true});
         assert.ok(await page.locator(selector).evaluate(v=>v.paused));
       }
     }
+    console.log('Verified native fullscreen and return pause for both videos');
     // Real phone emulation exercises the User-Agent fallback (e.g. Safari without UA-CH).
-    const phone = await browser.newPage({viewport:{width:390,height:844},isMobile:true,hasTouch:true,
+    const phone = await browser.newPage({ignoreHTTPSErrors:process.env.BROWSER_IGNORE_HTTPS_ERRORS==='1',viewport:{width:390,height:844},isMobile:true,hasTouch:true,
       userAgent:'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 Version/18.0 Mobile/15E148 Safari/604.1'});
     await phone.addInitScript(() => Object.defineProperty(navigator,'userAgentData',{value:undefined,configurable:true}));
     await phone.route('**/*', route => new URL(route.request().url()).origin===new URL(base).origin ? route.continue() : route.abort());
@@ -136,6 +139,7 @@ fs.mkdirSync(artifacts, {recursive:true});
     assert.ok(await phone.getByLabel('手機版',{exact:true}).isChecked(), 'phone reload initializes by device even in landscape');
     results.deviceDefault = {desktop:'pc',phone:'mobile',manualChoiceRetained:true,landscapeRetained:true};
     await phone.close();
+    console.log('Verified phone manual selection/history');
     for(const [name,device,expected] of [
       ['iPhone Chromium emulation',devices['iPhone 13'],'mobile'],
       ['Android phone',devices['Pixel 7'],'mobile'],

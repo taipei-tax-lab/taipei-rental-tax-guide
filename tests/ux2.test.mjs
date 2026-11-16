@@ -7,32 +7,27 @@ const data=JSON.parse(read('site/content.json'));
 test('one shared hero precedes all content pages and six entry DOM order matches requested keyboard order',()=>{
   const shell=html.slice(html.indexOf('data-entry-shell'),html.indexOf('<div data-page="home">'));
   assert.equal((html.match(/data-entry-shell/g)||[]).length,1);
-  const controls=[...shell.matchAll(/<(?:a|button)\b[^>]*class="v2-audience-button[^>]*>[\s\S]*?<\/(?:a|button)>/g)].map(m=>m[0]);
-  assert.equal(controls.length,6);
-  for(const [i,text] of ['我是屋主','我是房客','直接申請','所得達租金標準','直接問小幫手','操作說明'].entries()) assert.ok(controls[i].includes(text));
+  const labels=[...shell.matchAll(/<strong[^>]*>([\s\S]*?)<\/strong>/g)].map(m=>m[1].replace(/<[^>]+>/g,''));
+  assert.deepEqual(labels,['我是屋主','我是房客','直接申請','操作說明','直接問小幫手','出租房屋達租金標準']);
+  assert.equal((shell.match(/<(?:a|button)\b/g)||[]).length,7);
   assert.equal((html.match(/id="open-helper"/g)||[]).length,1);
   assert.equal((html.match(/id="top"/g)||[]).length,1);
   for(const page of ['direct-apply','operation-guide']) assert.match(html,new RegExp(`<h2 id="${page}-title" tabindex="-1">`));
 });
-test('application cards use four existing palette accents and exactly one truthful primary action per plan',()=>{
+test('application page has three equal channel links while four policy records remain',()=>{
   const section=html.slice(html.indexOf('data-page="direct-apply"'),html.indexOf('data-page="operation-guide"'));
-  const cards=[...section.matchAll(/<article\b[\s\S]*?<\/article>/g)].map(m=>m[0]);
-  assert.equal(cards.length,4);
-  for(const [i,plan] of data.plans.entries()){
-    assert.equal(plan.applicationAction.label,'前往申辦與書表下載');
-    assert.equal(plan.applicationAction.href,'https://tpctax.gov.taipei/cp.aspx?n=F1C8047E644BDA72');
-    const card=cards[i];assert.ok(card.includes('v2-'+plan.accent));
-    assert.equal((card.match(/class="v2-button v2-primary"/g)||[]).length,1);
-    assert.ok(card.includes(plan.applicationAction.label));
-    assert.ok(card.includes(plan.applicationAction.note));
-    assert.doesNotMatch(card,/開啟租金標準試算|查看認定方式與常見問題|查看中央租金補貼/);
-    for(const step of plan.process)assert.ok(card.includes(step));
+  const cards=[...section.matchAll(/<a class="v2-application-item"[\s\S]*?<\/a>/g)].map(m=>m[0]);
+  assert.equal(cards.length,3);
+  assert.deepEqual(data.directApplyActions.map(a=>a.label),['線上申請','親自申請','郵寄/傳真']);
+  for(const [i,action] of data.directApplyActions.entries()) {
+    assert.ok(cards[i].includes(action.href.replaceAll('&','&amp;')));
+    assert.ok(cards[i].includes(action.label));assert.ok(cards[i].includes(action.note));
+    assert.ok(cards[i].includes(`data-service-entry="${action.id}"`));
+    assert.match(cards[i],/target="_blank" rel="noopener noreferrer"/);
+    assert.match(cards[i],/另開新視窗/);
   }
-  for(const id of ['public','personal']){
-    const action=data.plans.find(p=>p.id===id).applicationAction;
-    assert.equal(action.href,'https://tpctax.gov.taipei/cp.aspx?n=F1C8047E644BDA72');
-    assert.doesNotMatch(action.label,/線上申請|線上認定/);
-  }
+  assert.equal(data.plans.length,4);
+  for(const plan of data.plans) for(const step of plan.process) assert.ok(html.includes(step));
 });
 
 test('retired shared note and its empty paragraphs are absent from generated pages',()=>{
@@ -47,7 +42,17 @@ test('retired shared note and its empty paragraphs are absent from generated pag
   assert.doesNotMatch(read('scripts/build.mjs'),/data\.meta\.note|\bNOTE:/);
   // Independent scheme-specific notices remain in the generated content.
   for(const plan of data.plans) {
-    assert.ok(html.includes(plan.applicationAction.note));
+    assert.ok(plan.applicationAction.note.length>0);
     for(const caution of plan.cautions) assert.ok(html.includes(caution));
   }
+});
+
+test('approved five destinations keep every query parameter exactly',()=>{
+ assert.deepEqual([...data.incomeStandardActions,...data.directApplyActions].map(a=>a.href),[
+  'https://services.arpa.tpctax.dof.gov.taipei/rentStandard/index.php?content=calculator',
+  'https://services.arpa.tpctax.dof.gov.taipei/incomeReachStandard/form.php',
+  'https://service.taipei/case-detail/BX015',
+  'https://tpctax.gov.taipei/cp.aspx?n=EE558C7C1C627F29',
+  'https://tpctax.gov.taipei/News_Content.aspx?n=1CDCF9E878CCDB8F&sms=EB055A67C769EB25&s=AAD268A00665CC03'
+ ]);
 });
