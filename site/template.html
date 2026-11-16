@@ -7,7 +7,7 @@
   <meta name="description" content="依出租情況查看臺北市四種出租方案的房屋稅、地價稅與所得稅優惠，了解適用條件及下一步。另提供租金補貼、房源與租屋權益入口。">
   <meta property="og:title" content="出租房屋租稅優惠專區｜臺北市稅捐稽徵處">
   <meta property="og:description" content="從您的情況出發，找出租稅優惠與辦理方式。">
-  <meta property="og:image" content="https://taipei-tax-lab.github.io/taipei-rental-tax-guide/hero-v2.png">
+  <meta property="og:image" content="https://taipei-tax-lab.github.io/taipei-rental-tax-guide/hero-v2.png?v=3f847526af">
   <meta name="twitter:card" content="summary_large_image">
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-S891SFSMBH"></script>
@@ -44,8 +44,9 @@
               <a href="#tenants" data-audience="tenant" class="v2-audience-button">{{PERSON_ICON}}<span><strong>我是房客</strong><small>查補貼、房源與租屋權益</small></span></a>
               <a href="#direct-apply" data-entry-page="direct-apply" class="v2-audience-button">{{APPLY_ICON}}<span><strong>直接申請</strong><small>已了解方案？前往申辦</small></span></a>
               <a href="#operation-guide" data-entry-page="operation-guide" class="v2-audience-button">{{VIDEO_ICON}}<span><strong>操作說明</strong><small>觀看 2 分鐘使用教學</small></span></a>
-              <button type="button" class="v2-audience-button v2-chat-entry" id="open-helper"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a7 7 0 0 1-7 7H8l-5 4V6a3 3 0 0 1 3-3h11a3 3 0 0 1 3 3z"/><path d="M7 8h9M7 12h6"/></svg><span><strong>直接問小幫手</strong><small>直接描述您的問題</small></span></button>
+              <button type="button" class="v2-audience-button v2-chat-entry" id="open-helper">{{HELPER_ICON}}<span><strong>直接問小幫手</strong><small>直接描述您的問題</small></span></button>
               <div class="v2-audience-button v2-income-standard-entry" role="group" aria-labelledby="income-standard-title">
+                {{STANDARD_ICON}}
                 <div class="v2-income-standard-panel">
                   <strong id="income-standard-title"><span>出租房屋</span><span>達租金標準</span></strong>
                   <div class="v2-income-standard-actions">{{INCOME_STANDARD_ACTIONS}}</div>
@@ -68,7 +69,7 @@
               <summary><span><strong>不知道適用哪個方案？</strong><small>依您的出租情況，逐步查找可能適用的方案。</small></span><span class="v2-guide-cta">開始判斷 <span class="v2-expand" aria-hidden="true">＋</span></span></summary>
               <div class="v2-guide-body">
                 <p class="v2-caption">僅協助選擇閱讀方向，不是資格審查；不需要填寫個人資料。</p>
-                <div id="guide-stage" aria-live="polite"><p>請依出租情境查看方案，或使用<a href="#comparison">四方案完整比較</a>。啟用 JavaScript 後可使用快速判斷。</p></div>
+                <div id="guide-stage" aria-live="polite"><p>請依出租情境查看方案，或使用<a href="#comparison">四種方案完整比較</a>。啟用 JavaScript 後可使用快速判斷。</p></div>
               </div>
             </details>
             <div class="v2-comparison-entry"><p>想了解各方案的差異？</p><a class="v2-button" href="#comparison">比較四種出租方案 →</a></div>
@@ -105,7 +106,7 @@
       {{PLAN_DETAILS}}
       <section data-page="comparison" id="comparison" class="v2-container v2-inner-page" aria-labelledby="comparison-title">
         <a href="#plans" class="v2-back">← 返回出租方案</a>
-        <p class="v2-kicker">四方案完整比較</p>
+        <p class="v2-kicker">四種方案完整比較</p>
         <h1 id="comparison-title" tabindex="-1">管理方式、適用條件與租稅優惠</h1>
         <p>先比較出租方式與條件，再看三大稅目及第一個辦理動作。各項優惠有不同要件，不能逕自相加。</p>
         {{COMPARE_CONTROLS}}
