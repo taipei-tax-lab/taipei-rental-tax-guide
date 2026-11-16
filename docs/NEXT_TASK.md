@@ -1,56 +1,61 @@
-# NEXT_TASK — 2026-11-16 出租專區申請入口改版
+# NEXT_TASK — 2026-11-16 出租專區視覺一致性改版
 
-狀態：**IMPLEMENTED_AND_TEST_SITE_VERIFIED — 待人工／業務及實機驗收**（2026-11-16，Asia/Taipei）。使用者已核定兩處 UI 改版，並授權本輪前端 GA4 埋點設計與實作；此文件為現行唯一任務。延續 Cloudflare 現行測試分支 `feat/direct-apply-operation-guide-20261031`，不可回到 main 或另開分支。前次文件校正已提交 `d18ae1d`。原需求核定稿以下保留；11/16 本輪程式、本地驗證與指定 Cloudflare 測試站複驗已完成，詳見 [report](evidence/2026-11-16-entry-redesign/REPORT.md)。勾選代表核定範圍已處理或已如實列出限制，不代表實機／正式站／真實 CX 已驗收。
+狀態：**READY_FOR_IMPLEMENTATION**（2026-11-16，Asia/Taipei）。使用者已核定十項前端視覺需求，延續 `feat/direct-apply-operation-guide-20261031` 的已驗證申請入口版本。此前功能基準 `f2d04d3`、審查／截圖清理 `7866755`。本次是視覺改版，非新功能或政策改版；下列 Checklist 為本輪唯一實作規格。前次任務完成紀錄見 [前輪 Task（固定 SHA）](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/blob/78667557e32602712ad0cd2344fa3d8bdcfff890/docs/NEXT_TASK.md) 與 [前輪報告](evidence/2026-11-16-entry-redesign/REPORT.md)。
 
-## A. 首頁租金標準卡片
+## A. 背景圖及六張主卡片
 
-- [x] 維持現行首頁六個卡片區域與順序（屋主、房客、直接申請、操作說明、直接問小幫手、租金標準）。原第六張插圖卡的外框尺寸、格線位置、圓角、間距及響應式行為維持不變；不要因加入子按鈕擴大外框或改動其他卡片。
-- [x] 原「所得達租金標準／申報優惠稅率專區」整張圖片入口改成真實 HTML 文字與控制項；第一排標題為「出租房屋達租金標準」（使用者原訊息「標題」依上下文校正為「標準」），第二排為左右並列、大小一致的兩個子按鈕。不可用文字圖片代替，不保留舊整張卡片連結、不可巢狀 anchor；外框只作容器。
-- [x] 左「試算」：https://services.arpa.tpctax.dof.gov.taipei/rentStandard/index.php?content=calculator
-- [x] 右「申請」：https://services.arpa.tpctax.dof.gov.taipei/incomeReachStandard/form.php
+- [ ] **需求 1**：採用已核定的候選 A（臺北住宅街廓、水彩建築、遠景 101、右側景物及左側淺色留白）。交接素材為 repo 的 `assets/images/hero-taipei-a.webp`，1672×941、177706 bytes、Git blob `3f847526afdbff2722da5fa03f996af1ce5f5784`，由使用者選定的原始 A 圖轉檔，**必須使用該圖，不重繪或替換成其他候選**。接入現行 `hero-v2.webp` 和 `hero-v2.png` 的 WebP／PNG fallback（可使用新檔名，但必須同步 CSS、OG image、各 build／部署白名單、快取版本、測試及其他有效引用）；兩格式皆為 A，不能有瀏覽器仍顯示舊圖。原始畫面比例、淡色調、左側留白維持；不得拉伸，針對現況背景尺寸、右側定位、遮罩與桌機／手機顯示調整，使 A 有適當辨識度，同時不干擾文字及卡片。避免雙重存放相同正式資產；原始 A 的舊名稱若不再需要，可在實際部署素材已驗證後移除，Git 歷史保留，不刪其他網站資產。WebP 優先、PNG fallback 可用，沿用現有 700KB WebP budget，不增額外第三方圖片請求。
+- [ ] **需求 3**：「直接問小幫手」取消與其餘五張主卡片不一致的淡綠底／較淡的邊框等特殊樣式。閒置狀態使用共通卡片的背景、外框色與粗細、圓角、陰影、padding、標題字色及圖示位置。保持它是開啟現行小幫手的 button，而不是換頁連結；保留焦點／hover、既有開啟方式與功能；其他頁面的目前選擇高亮仍保留。
+- [ ] **需求 4**：「出租房屋達租金標準」外框與其他五張主卡片一致，包括實際可見框尺寸、邊線、圓角、背景、陰影及同列對齊。取消原插圖留下的特殊雙容器視覺及 18px 圓角／內縮差異，採共通可見框（內部仍可用非互動 group）。上一輪雙按鈕與外鏈功能全部保留，外框本身不可做成巢狀連結。以同列卡片為對照，不因第六卡改成不同高度或寬度；如窄版需增高，整列卡片採一致高度，保持可讀及至少 44px 操作目標。
+- [ ] **需求 5**：重新設計原五張主卡片 icon，並為第六張加入左側 icon。六張順序維持「我是屋主、我是房客、直接申請、操作說明、直接問小幫手、出租房屋達租金標準」。第六卡左圖示，右側標題＋下方左右並列試算／申請；不縮小文字至不易閱讀，必要時於窄版使用共通緊湊排版或標題按詞換行；保持兩個子連結清楚、均等、可獨立點擊。
+- [ ] 現行桌機六主入口仍為三欄兩列；中型及手機沿用既有響應式欄數（兩欄／窄版一欄），圖示不因第六張有特殊樣式而不一致。現況 CSS 在手機隱藏部分 SVG，依本輪要求調整六張一致且可見的圖示策略，優先緊湊而清楚，不因新增圖示造成溢出、重疊或跳動；不得硬固定高度裁切內容。保留已選卡片強調、閱讀動線、現有文字、操作語意。
 
-## B. 直接申請頁
+## B. 直接申請與其他子頁面卡片
 
-- [x] 首頁「直接申請／已了解方案？前往申辦」卡片外觀及既有內部導覽維持原樣；點入後將現有四方案入口改成三張等級一致、清楚可點選的卡片（依下列次序）。維持原頁回首頁／返回、導覽、深連結及 history 行為。
-- [x] 「線上申請」：https://service.taipei/case-detail/BX015 — 可加簡短輔助文字「前往市府線上申辦服務」。
-- [x] 「親自申請」：https://tpctax.gov.taipei/cp.aspx?n=EE558C7C1C627F29 — 可加「查詢各分處及交通資訊」。
-- [x] 「郵寄/傳真」：https://tpctax.gov.taipei/News_Content.aspx?n=1CDCF9E878CCDB8F&sms=EB055A67C769EB25&s=AAD268A00665CC03 — 可加「查詢各分處地址及傳真資訊」。
-- [x] 不修改其他頁面的四方案、比較、房客、快速導引、既有政策與申辦資源；新三張卡僅取代直接申請頁的入口，非刪除網站原方案。新連結集中於 `site/content.json`（與既有資料模型相容），透過模板／build 產出，避免多點硬編碼。精確保留 href 查詢參數（HTML 中 &amp; 正常解碼）；遵循現有外部連結開啟方式及無障礙語意；不加已被移除的外連右上箭頭。
+- [ ] **需求 2**：點入「直接申請」，由左至右同一列三張卡：「線上申請」、「親自申請」、「郵寄/傳真」。以現有「我是房客」三張卡片（`.v2-tenant-grid`／`.v2-tenant-card`）作版面範本，採用相同三欄格線、卡片寬度、間距、圓角、白底、邊框、圖示區、標題及說明層級；三張卡對齊並同高。以房客頁既有響應式斷點為準，寬螢幕三欄，窄版單欄由上至下同順序；不得在桌機再回到兩欄＋一張。確認 `#direct-apply` 既有 section、返回與 hash 導覽正常。
+- [ ] 三張直接申請卡仍為整張可點擊的原生外部連結，不把房客頁的 details 展開互動複製到申辦卡，不額外增加點擊步驟；保留 `directApplyActions` 目前核定的三個管道資料及 `data-service-entry`（三個 direct apply id），另保留 `incomeStandardActions` 的兩個核定入口，網址、query、target、rel、可及新視窗提示與 GA4 事件不變。
+- [ ] **需求 9**：「我是房客」三張卡「我要申請租金補貼」、「我要找包租代管房屋」、「我有租屋／設籍問題」的 icon 均重新設計。保留既有 details 點擊展開、各官方連結、內容與資料來源，沒有新增政策資訊或改變卡片功能。
+- [ ] 直接申請三張卡的 icon 隨本輪一起重繪，與屋主的四方案卡及房客三卡共用同一套子卡圖示設計語言；義項各別清晰，卡片原有操作特性不變。
 
-## C. GA4 前端事件
+## C. 四方案卡與比較文案
 
-就本次兩個使用流程做最小有用的事件設計：沿用既有 `assets/js/analytics.js` 白名單／安全包裝與現有 GA4 配置；新增入口事件及擴充既有 `service_entry_click` 的 service_id 枚舉，沿用既有 custom dimensions `service_id`、`destination_host`，不新增管理端維護負擔。
+- [ ] **需求 6**：所有使用者可見的精確片語「四方案完整比較」改成「四種方案完整比較」。目前來源含 `site/template.html`（比較頁 kicker、無 JS 導引）、`scripts/build.mjs`（FAQ 文案／連結），檢查其他前端來源及生成物是否仍有舊詞。僅改該完整片語，不改 `#comparison` hash、ID、頁面資料、既有「比較四種出租方案」等其他核定文案。
+- [ ] **需求 7**：四種方案卡（一般出租、公益出租人、社會住宅包租代管、個人租賃住宅包租代管）的 icon 重新設計；維持每種方案既有色彩辨識（藍／橘／綠／紫）與內容結構，改為同一族的精緻圖示，避免四張只是同一房屋圖換小裝飾。相同方案若有其他現行 icon 實例則沿用同一符號。
+- [ ] **需求 8**：四張方案卡右上角的 01、02、03、04 裝飾標號全部移除，由來源 `scripts/build.mjs` 的 `.v2-card-number` 生成段落移除（不用 CSS 隱藏）；整理專為標號留白的樣式，如手機標題右側額外 padding，但不移除任何稅率、方案順序、資料識別 id、aria 或測試定位，不改方案標題與優惠內容。
 
-| 使用者行為 | event_name | service_id | destination_host |
-| --- | --- | --- | --- |
-| 首頁點擊直接申請 | direct_apply_open | — | — |
-| 租金標準－試算 | service_entry_click | income_standard_calculate | services.arpa.tpctax.dof.gov.taipei |
-| 租金標準－申請 | service_entry_click | income_standard_apply | services.arpa.tpctax.dof.gov.taipei |
-| 直接申請－線上申請 | service_entry_click | direct_apply_online | service.taipei |
-| 直接申請－親自申請 | service_entry_click | direct_apply_in_person | tpctax.gov.taipei |
-| 直接申請－郵寄/傳真 | service_entry_click | direct_apply_mail_fax | tpctax.gov.taipei |
+## D. 統一 icon 設計語言（需求 10）
 
-- [x] 一次真實啟用只送一次該自訂事件；支援滑鼠、觸控、鍵盤正常啟用。不得因渲染、回到上一頁、重新整理、直接進入 deep link 而重送 `direct_apply_open`。保留原 `income_standard` 允許值供歷史相容，但新子按鈕不再記舊整卡事件；移除或修正舊整卡 selector／handler，防雙重記錄。
-- [x] destination_host 取實際 href 的 hostname，不送完整 URL、query、使用者輸入、身分或表單值。此等事件代表入口點擊／申辦意圖，不代表完成申請；不宣稱轉換成功或新增 GA4 管理端 key event。保留既有其他事件、loader、Measurement ID、安全過濾及無 gtag 時正常導覽（不等待追蹤再跳轉）。
-- [x] 既有 Cloudflare test build 仍移除 GA4 loader／config，不發正式 GA4 請求；只在本地 mock gtag 驗證新事件。正式 GA4 管理設定、GCP/CX、R2、網域與部署配置均不在本輪授權。操作說明等未修改功能沿用原有追蹤，不額外擴大埋點範圍。
+- [ ] 這次重繪的 16 個語意圖示（6 主入口＋4 屋主方案＋3 房客＋3 申請方式）採單一自製 SVG icon library（可擴增現有 build icon helper），集中定義及輸出，避免在模板和資料各處複製 path。全套共用 24×24 viewBox、適度一致光學線寬（例如 1.75–2px）、round cap/join、currentColor、同等留白與形體細節；主卡與子卡可有不同顯示尺寸及底色，但須呈現同一套圖示系列。純裝飾 SVG `aria-hidden=true`、`focusable=false`，不得搶鍵盤焦點；所有操作均有清楚真實 HTML 標籤。避免 emoji、Material Icons 字型文字、圖片式圖示及外部 CDN／字型／套件相依。不得轉用第三方未確認授權的資產。
+- [ ] 以下為建議圖示構想（語意已核定，具體 SVG 造型留給 Coding Agent 自主設計），優先辨識、均衡、簡潔；不強制以相同房屋母體重複。
 
-## D. 設計與可用性
+| 卡片組 | 卡片 | 建議語意 |
+| --- | --- | --- |
+| 主卡 | 我是屋主 | 房屋／屋主鑰匙 |
+| 主卡 | 我是房客 | 人物／租屋鑰匙 |
+| 主卡 | 直接申請 | 表單、勾選或送件 |
+| 主卡 | 操作說明 | 螢幕播放、教學 |
+| 主卡 | 直接問小幫手 | 對話泡泡、問答 |
+| 主卡 | 出租房屋達租金標準 | 房屋與計算機或租金基準 |
+| 四方案 | 一般出租 | 自主管理住宅與鑰匙 |
+| 四方案 | 公益出租人 | 住宅與公益關懷 |
+| 四方案 | 社會住宅包租代管 | 政府／社會住宅與管理保障 |
+| 四方案 | 個人租賃住宅包租代管 | 專業租賃管理／合約與住宅 |
+| 房客 | 我要申請租金補貼 | 補助款／住宅 |
+| 房客 | 我要找包租代管房屋 | 房屋搜尋 |
+| 房客 | 我有租屋／設籍問題 | 對話與租約／地址 |
+| 直接申請 | 線上申請 | 電腦及電子送件 |
+| 直接申請 | 親自申請 | 服務櫃檯／機關 |
+| 直接申請 | 郵寄/傳真 | 信封／傳真 |
 
-- [x] 使用現有深青色、淺青綠邊框、背景／字級、間距、圓角、輕陰影與既有 icon 系統。子按鈕是同一卡片中的對等操作，視覺層級清晰；三張申辦方式卡片採現有設計語言，簡潔而適合長者。可用既有或相容的線性 SVG 裝飾圖示，不增加外部依賴／圖片。
-- [x] 桌機維持六入口原格線，手機三張申辦方式卡片可依既有響應式策略疊排；各操作目標易辨識、可鍵盤依序到達、焦點可見、語意標籤完整、文字不被裁切，320px 寬亦無水平溢出。若外部新分頁，遵循既有安全 rel 及可及提示。圖示不得取代可讀標籤。
-- [x] 首頁以前後相同 viewport 的 bounding box／截圖比對外框尺寸及鄰近卡片；六張邏輯卡片仍存在，原五張入口＋兩個子連結共七個主要可操作元素，DOM／鍵盤順序與畫面一致。不得藉隱藏溢出或壓過小字達成尺寸。
+- [ ] 全站視覺維持目前深青及米白淺綠主調；主卡圖示同色系、同尺寸、同左側位置，選中樣式維持反白／可辨識。子卡圖示可保留四方案各自 accent，房客及申請方式則同樣的圖示容器、線條風格及色彩規則。禁止藉此大改全站版型、Messenger、影片播放器、政策資料或重新設計所有小操作 icon。若共用 helper 影響非本輪頁面，檢查相容性，限定實際卡片圖示作用域。
 
-## E. 驗證與完成條件
+## E. 實作與驗收 Checklist
 
-- [x] 開工讀 AGENTS、Workflow、State、Task、Worklog，核對實際分支、HEAD、遠端及工作樹；保留使用者變更。記錄現行 Cloudflare UI／原方案基準再改。
-- [x] 由 `site/template.html`、`site/content.json`、`scripts/build.mjs`、`assets/css/guide-v2.css`、`assets/js/guide-ui.js`、`assets/js/analytics.js` 等實際結構決定最小必要差異；生成物 `index.html` 以 build 更新，不手改。既有圖片資源不任意刪除。
-- [x] 修正前次已知建置失同步：`npm run build`，`node scripts/build.mjs --check` 必須 PASS；更新 `tests/ux2.test.mjs`、`scripts/ux2-browser-check.cjs` 及其他實際受影響測試（舊入口順序、整卡單連結／四方案入口斷言），保持原驗證強度，不單純移除斷言。執行 `npm test`、既有相關 browser check 及 Cloudflare test build，記錄指令和結果。
-- [x] 瀏覽器驗證桌機、768px、390px、320px；確認兩個子按鈕、三卡、五個精確 URL、正常前後導覽與回上一頁、focus／keyboard、無水平溢出及其他原有功能。截圖只存 `.preview/`，Repo 僅保存尺寸量測等文字證據。以 mock gtag 驗證六項映射、只送一次、無額外敏感參數、未裝 gtag 仍可用，並確認 test build 不送 GA4。
-- [x] 五個外部網址均做唯讀檢查（不填表、不送件）。規劃時四個連結可讀；BX015 以網頁檢索取得 404，未證實正常瀏覽器也失效；請用實際瀏覽器複查、記錄最終 URL／畫面及可用性。若仍 404、權限／網路限制，保留使用者指定 URL，不擅自換址，列為發布前人工確認項目；不得假報 PASS。
-- [x] 所有既有未改動功能保留：方案、房客、比較、快速導引、CX、小幫手、R2 影片；不因本輪要求更改機關正式資料或實施額外重構。既有尚未取得實機、機關部署證據者仍列待確認。
-- [x] README 若功能描述過時，更新相關段落；更新 GA4 現行事件說明（與舊事件歷史文件區隔）、State／Task／Worklog，區分程式完成、自動測試、Cloudflare 真實驗證、人工驗收。檢查 diff、敏感資料、生成物及文件一致性後，將本輪變更 commit/push 至指定分支並核對 GitHub 遠端；現有 Cloudflare Git 整合若自動建置，記錄 check 與測試站驗證情況，不另外修改部署配置。不 merge main、不正式部署。交付 commit、測試結果、文字證據及剩餘限制供審查。
-
-
-## 本輪收尾
-
-程式版本 `f2d04d3108962ae7a6edbf7eb317afca051cc2c3` 已推送至指定分支，Cloudflare Pages check SUCCESS；原六卡 grid bounding box 與桌機可見框內縮均驗證，正式設定未變。完整文字證據、前後量測及 HTTPS 結果見 [REPORT](evidence/2026-11-16-entry-redesign/REPORT.md)。其後僅補交接證據文件，不改 runtime。BX015 的 HTTP 404／可讀內容差異、實機、真人／完整輔助科技、正式站與真實 CX 仍依 report 列待確認。未有新核定需求前不開始下一項功能、不合併 main／正式發布。
+- [ ] 先照 AGENTS／Workflow 核對實際工作樹、指定分支、最新遠端 SHA／開工畫面，保存原有功能基準；不強制 reset、另開分支或改 main。
+- [ ] 必要來源範圍：`site/template.html`、`scripts/build.mjs`（圖示 map、四卡標號、比較文字、直接申請模板）、`assets/css/guide-v2.css`（主卡與子卡、背景和響應式）；`assets/css/site.css`、`site/content.json` 及 build／deploy 其他引用僅於必要時更新。從真正來源重新生成 `index.html`；HTML 不能直接手改。
+- [ ] 原有五個外部服務 href、全部方案/房客資料、GA4 event name/ID/hostname、click handler、無 gtag 的正常導航、Cloudflare GA4 隔離、原 R2 影片來源、CX 設定及 Messenger 行為不變。若 CSS／DOM 變更需要調整既有 selectors，僅做必要相容修正並有回歸證據。BX015 既知 HTTP 404 但瀏覽器呈現申辦內容，保留為前輪待人工確認，不改網址、不送件。
+- [ ] `npm run build`、`node scripts/build.mjs --check`、`npm test`、`node scripts/performance-budget.mjs`、`node scripts/build-pages-test.mjs`、`git diff --check` 全數 PASS；前輪 65 項單元為比較基準；補測 A 圖實際引用與 fallback、資產存在／MIME/白名單、16 個圖示獨立語意及 SVG 共通規則、六卡同框、直接申請三欄順序、四方案標號不再生成、指定比較字句無舊詞、原 URL 及事件保留。過去測試若與**本輪已核定的外框或直接申請欄數**矛盾，更新預期及測量方式，不刪除或降低其他驗證強度。
+- [ ] 真實瀏覽器以 1440、1100、768、390、320px 及 200% 字級（依既有檢查能力）檢視首頁／屋主四方案、房客三卡、直接申請三卡、比較頁、操作說明；檢查主卡同列外框 bounding box、各圖示 alignment／一致尺寸、背景右側構圖與可讀性、無水平溢出、鍵盤焦點與 44px 子按鈕。直接申請與房客的欄數及對齊比較，桌機必須一列三卡，窄版順序正確。手機不要裁切字或讓圖示／雙按鈕重疊。回到上頁、hash 深層連結、resize、重新整理與 36+12 原有捲動／zoom 回歸通過；用 mock gtag 驗證原六項追蹤、保留其餘核心功能。
+- [ ] 以既有 `scripts/entry-redesign-browser-check.cjs`、`scripts/entry-live-layout-check.cjs`、`scripts/ux2-browser-check.cjs`、`scripts/entry-scroll-check.cjs`、Pages 與 non-CX regression 工具作風險相稱的本地／HTTPS 驗證；不要使用會送正式 CX 問題或污染 GA4 的測試。瀏覽器受環境／網路限制時明確報告 PASS／BLOCKED 的實際層級，不能聲稱完成實機／業務驗收。
+- [ ] 提交前檢查所有 runtime 輸出及 Cloudflare 白名單（必要時調整含新圖檔的精確清單與數量，而非整批複製資料夾），不帶 MP4、Repo docs、截圖或暫存。實際核定 A 是網站圖片資產可版控；**所有測試截圖只存 `.preview/`，絕對不提交 GitHub**。保留文字報告、尺寸／JSON/log、可重現指令。可視化結果以現有 Cloudflare 測試站供使用者人工確認。
+- [ ] 更新必要的 README、State、Task、Worklog；區分已實作、測試、部署與人工驗收。commit/push 至現行指定分支，遠端核對 SHA／Cloudflare check；自動測試站 build 屬既有整合，無需改設定。回報 commit、測試結果、差異及待人工事項；不 merge main、不正式部署、不變更 GA4/CX/R2/網域設定。
