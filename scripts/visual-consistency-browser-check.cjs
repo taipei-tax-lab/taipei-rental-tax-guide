@@ -78,16 +78,16 @@ const near=(a,b,label)=>assert.ok(Math.abs(a-b)<1,`${label}: ${a} / ${b}`);
   assert.equal(new URL(page.url()).hash,'','helper stays on the current page');
   const heroRequests=[];page.on('request',r=>{if(/hero-v2/.test(r.url()))heroRequests.push(r.url());});
   await page.reload();await page.locator('.v2-ready').waitFor();
-  assert.ok(heroRequests.some(url=>url.includes('hero-v2.webp?v=3f847526af')),'WebP selected');
-  await page.addStyleTag({content:'body.v2-body { --hero-art: url("./hero-v2.png?v=3f847526af"); }'});
-  await page.waitForFunction(()=>performance.getEntriesByType('resource').some(r=>r.name.includes('hero-v2.png?v=3f847526af')));
+  assert.ok(heroRequests.some(url=>url.includes('hero-v2.webp?v=81760c85cf')),'WebP selected');
+  await page.addStyleTag({content:'body.v2-body { --hero-art: url("./hero-v2.png?v=81760c85cf"); }'});
+  await page.waitForFunction(()=>performance.getEntriesByType('resource').some(r=>r.name.includes('hero-v2.png?v=81760c85cf')));
   const pixelEquality=await page.evaluate(async()=>{
-   const decode=async ext=>{const img=new Image();img.src=`./hero-v2.${ext}?v=3f847526af`;await img.decode();const c=document.createElement('canvas');c.width=img.naturalWidth;c.height=img.naturalHeight;const x=c.getContext('2d');x.drawImage(img,0,0);return {width:c.width,height:c.height,pixels:x.getImageData(0,0,c.width,c.height).data};};
+   const decode=async ext=>{const img=new Image();img.src=`./hero-v2.${ext}?v=81760c85cf`;await img.decode();const c=document.createElement('canvas');c.width=img.naturalWidth;c.height=img.naturalHeight;const x=c.getContext('2d');x.drawImage(img,0,0);return {width:c.width,height:c.height,pixels:x.getImageData(0,0,c.width,c.height).data};};
    const w=await decode('webp'),p=await decode('png');return {width:w.width,height:w.height,equal:w.width===p.width&&w.height===p.height&&w.pixels.every((v,i)=>v===p.pixels[i])};
   });
   assert.deepEqual(pixelEquality,{width:1672,height:941,equal:true});
   const assets=[];
-  for(const [ext,mime] of [['webp','image/webp'],['png','image/png']]){const response=await page.request.get(base+`hero-v2.${ext}?v=3f847526af`);assert.equal(response.status(),200);assert.ok(response.headers()['content-type'].includes(mime));assets.push({ext,status:response.status(),mime:response.headers()['content-type']});}
+  for(const [ext,mime] of [['webp','image/webp'],['png','image/png']]){const response=await page.request.get(base+`hero-v2.${ext}?v=81760c85cf`);assert.equal(response.status(),200);assert.ok(response.headers()['content-type'].includes(mime));assets.push({ext,status:response.status(),mime:response.headers()['content-type']});}
   assert.deepEqual(errors,[]);assert.deepEqual(gaRequests,[]);
   fs.writeFileSync(`${folder}/results.json`,JSON.stringify({base,at:new Date().toISOString(),browser:'Chromium; emulated viewports and root font scaling, not physical devices',rows,pixelEquality,assets,heroRequests,errors,gaRequests,tlsVerificationBypass:process.env.BROWSER_IGNORE_HTTPS_ERRORS==='1',cx:'third-party blocked; no real queries'},null,2));
   console.log('PASS: five widths × 100/200% root font; common frames/icons, 44px controls, tenant/apply grid, five views, exact A fallback pixels/MIME, no overflow/GA4/CX.');

@@ -7,19 +7,28 @@ import {cardIcon, cardIcons} from '../scripts/icons.mjs';
 const read = name => fs.readFileSync(new URL('../'+name, import.meta.url), 'utf8');
 const html = read('index.html');
 
-test('approved A is the deployed WebP, with versioned PNG fallback and OG', () => {
+test('approved refined A is the deployed WebP, with versioned PNG fallback and OG', () => {
   const webp = fs.readFileSync(new URL('../hero-v2.webp', import.meta.url));
+  assert.equal(webp.length, 135064);
   const blob = createHash('sha1').update(`blob ${webp.length}\0`).update(webp).digest('hex');
-  assert.equal(blob, '3f847526afdbff2722da5fa03f996af1ce5f5784');
+  assert.equal(blob, '81760c85cfdde844809a04f1ab6a5ba51c25d293');
   const png = fs.readFileSync(new URL('../hero-v2.png', import.meta.url));
   assert.equal(png.subarray(1,4).toString(), 'PNG');
   assert.equal(png.readUInt32BE(16), 1672);
   assert.equal(png.readUInt32BE(20), 941);
   const css = read('assets/css/guide-v2.css');
-  assert.match(css, /--hero-art: url\('\.\.\/\.\.\/hero-v2.png\?v=3f847526af'\)/);
-  assert.match(css, /image-set\(url\('\.\.\/\.\.\/hero-v2.webp\?v=3f847526af'\) type\('image\/webp'\), url\('\.\.\/\.\.\/hero-v2.png\?v=3f847526af'\) type\('image\/png'\)\)/);
-  assert.match(html, /property="og:image"[^>]+hero-v2.png\?v=3f847526af/);
-  assert.match(read('assets/css/site.css'), /hero-v2.png\?v=3f847526af/);
+  assert.match(css, /--hero-art: url\('\.\.\/\.\.\/hero-v2.png\?v=81760c85cf'\)/);
+  assert.match(css, /image-set\(url\('\.\.\/\.\.\/hero-v2.webp\?v=81760c85cf'\) type\('image\/webp'\), url\('\.\.\/\.\.\/hero-v2.png\?v=81760c85cf'\) type\('image\/png'\)\)/);
+  assert.match(html, /property="og:image"[^>]+hero-v2.png\?v=81760c85cf/);
+  assert.match(read('assets/css/site.css'), /hero-v2.png\?v=81760c85cf/);
+});
+
+test('only the four approved icon definitions change from the verified 4fc7521 baseline', () => {
+  const baseline = JSON.parse(read('tests/fixtures/card-icons-4fc7521.json'));
+  assert.deepEqual(Object.keys(cardIcons), Object.keys(baseline));
+  const changed = Object.entries(cardIcons).filter(([key, artwork]) =>
+    createHash('sha256').update(artwork).digest('hex') !== baseline[key]).map(([key]) => key);
+  assert.deepEqual(changed, ['owner', 'tenant', 'personal', 'subsidy']);
 });
 
 test('all 16 distinct card semantics use one accessible original SVG library', () => {

@@ -1,9 +1,9 @@
 /* V2 is scoped to the information site. Legacy tokens and Messenger styles stay intact. */
 body.v2-body { background: #f7f8f5; isolation: isolate; }
 /* PNG remains the fallback when image-set/type selection is unsupported. */
-body.v2-body { --hero-art: url('../../hero-v2.png?v=3f847526af'); }
-@supports (background-image: image-set(url('../../hero-v2.webp?v=3f847526af') type('image/webp'))) {
-  body.v2-body { --hero-art: image-set(url('../../hero-v2.webp?v=3f847526af') type('image/webp'), url('../../hero-v2.png?v=3f847526af') type('image/png')); }
+body.v2-body { --hero-art: url('../../hero-v2.png?v=81760c85cf'); }
+@supports (background-image: image-set(url('../../hero-v2.webp?v=81760c85cf') type('image/webp'))) {
+  body.v2-body { --hero-art: image-set(url('../../hero-v2.webp?v=81760c85cf') type('image/webp'), url('../../hero-v2.png?v=81760c85cf') type('image/png')); }
 }
 /* A viewport-fixed background layer also works on mobile without background-attachment quirks. */
 body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none; background-image: linear-gradient(90deg, #f7f8f5c7 0%, #f7f8f566 48%, #f7f8f533 100%), var(--hero-art); background-position: center, right 80px; background-size: cover, min(1440px, 100vw) auto; background-repeat: no-repeat; }
@@ -41,7 +41,7 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
 .v2-audience { display: inline-flex; gap: 6px; border: 1px solid #b1c8c6; border-radius: 12px; padding: 5px; background: #fff; }
 .v2-audience-button { min-height: 48px; padding: 9px 23px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; border-radius: 8px; font-weight: 700; color: var(--teal-dark); }
 .v2-audience-button[aria-current="true"] { background: var(--teal); color: white; box-shadow: 0 2px 4px #0c686d26; }
-.v2-audience-button:hover:not([aria-current="true"]) { background: #e9f2ef; }
+.v2-audience-button:hover:not([aria-current="true"]):not(.v2-income-standard-entry) { background: #e9f2ef; }
 .v2-mobile-break { display: none; }
 .v2-container { width: min(100%, 1280px); padding: 0 44px; margin: auto; }
 .v2-owner-section, .v2-tenant-section { padding-top: 25px; border-top: 1px solid var(--v2-border); }
@@ -443,7 +443,7 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
 .v2-audience { width: min(100%, 1000px); grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: none; grid-auto-rows: 1fr; gap: 12px; }
 .v2-audience > .v2-audience-button { display: flex; align-items: center; justify-content: flex-start; align-self: stretch; justify-self: stretch; min-width: 0; width: 100%; height: auto; min-height: 104px; padding: 12px 14px 12px 52px; gap: 10px; border: 2px solid #92b2ae; border-radius: 8px; background: #fff; box-shadow: 0 3px 10px #1038440b; color: var(--teal-dark); text-align: left; }
 .v2-audience > .v2-audience-button[aria-current="true"] { background: var(--teal); color: #fff; border-color: var(--teal-dark); box-shadow: 0 3px 10px #10384420; padding-bottom: 28px; }
-.v2-audience > .v2-audience-button:hover:not([aria-current="true"]) { background: #e9f2ef; }
+.v2-audience > .v2-audience-button:hover:not([aria-current="true"]):not(.v2-income-standard-entry) { background: #e9f2ef; }
 .v2-audience-button svg { display: block; position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; margin: 0; color: inherit; }
 .v2-audience-button strong { font-size: 1.25rem; line-height: 1.4; }
 .v2-audience-button small { margin-top: 4px; }
@@ -452,7 +452,9 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
 .v2-income-standard-entry strong span { display: inline-block; }
 .v2-income-standard-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; margin-top: 6px; }
 .v2-income-standard-action { display: flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; padding: 4px; border: 1px solid #92b2ae; border-radius: 6px; background: #edf5ef; color: #103844; font-size: 1.125rem; line-height: 1.5; }
-.v2-income-standard-action:hover { background: #d9ebe4; }
+@media (hover: hover) and (pointer: fine) {
+  .v2-income-standard-action:hover { background: var(--teal); color: #fff; border-color: var(--teal-dark); }
+}
 @media (min-width: 1100px) {
   .v2-audience { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .v2-audience > .v2-audience-button { width: 92%; justify-self: center; }

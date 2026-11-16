@@ -186,3 +186,8 @@ node scripts/extension-browser-check.cjs
 核定 A 背景已接入 `hero-v2.webp` 及同畫面的 `hero-v2.png` fallback，CSS / OG 加上素材版本；交接檔舊名稱不重複保留。現有 Pages 白名單仍為 33 檔，WebP 177706 bytes，符合原 700KB budget。六主卡共用外框、圖示位置與閒置色彩；桌機三欄兩列、平板兩欄、手機依寬度兩欄／一欄，放大字級時自然增高。16 個卡片圖示由 `scripts/icons.mjs` 集中輸出，四方案保留色彩、取消裝飾數字；直接申請與房客共用三欄／窄版單欄格線。政策、服務網址與 GA4 / CX / Messenger 行為保留。
 
 `node scripts/visual-consistency-browser-check.cjs` 驗證五種寬度、100/200% 字級、六卡同框與圖示、申請／房客格線、44px 子連結及 A 的格式選用、fallback 像素與 MIME。68/68 單元、本地及測試站 HTTPS 回歸通過，完整來源 `346d24d` 的 Cloudflare check / deploy SUCCESS；Cloud Chromium 的外部 TLS 信任限制及部署紀錄見 [視覺改版報告](docs/evidence/2026-11-16-visual-consistency/REPORT.md)。截圖只保留 `.preview/`，不提交 GitHub。人工及實體裝置驗收仍需另行確認。
+
+
+## 11/16 圖示辨識、租金標準 hover 與背景修整
+
+本輪只優化屋主／房客、個人代管及租金補貼四個 SVG，其餘 12 個保留；租金標準父框不隨滑鼠變色，試算／申請各自 hover 深青底白字，觸控避免黏滯反色。GPT 已提供的修整版背景直接接入既有根目錄 `hero-v2.webp/png`，不重生圖片；WebP 135064 bytes，兩格式像素一致、版面與 33 檔白名單保留。`node scripts/icon-refinement-browser-check.cjs` 實測滑鼠位置／computed style、鍵盤焦點及手機 tap；69/69 與本地回歸證據、部署及人工限制見 [本輪報告](docs/evidence/2026-11-16-icon-refinement/REPORT.md)。圖示辨識與背景觀感仍由使用者看測試站確認，截圖僅存 `.preview/`。

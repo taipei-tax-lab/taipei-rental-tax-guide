@@ -1,0 +1,55 @@
+{
+  "baseline": "4c6ae97 (runtime identical to 4fc7521)",
+  "rows": [
+    {
+      "width": 1440,
+      "fontPercent": 100,
+      "maxDelta": 0
+    },
+    {
+      "width": 1440,
+      "fontPercent": 200,
+      "maxDelta": 0
+    },
+    {
+      "width": 1100,
+      "fontPercent": 100,
+      "maxDelta": 0
+    },
+    {
+      "width": 1100,
+      "fontPercent": 200,
+      "maxDelta": 0
+    },
+    {
+      "width": 768,
+      "fontPercent": 100,
+      "maxDelta": 0
+    },
+    {
+      "width": 768,
+      "fontPercent": 200,
+      "maxDelta": 0
+    },
+    {
+      "width": 390,
+      "fontPercent": 100,
+      "maxDelta": 0
+    },
+    {
+      "width": 390,
+      "fontPercent": 200,
+      "maxDelta": 0
+    },
+    {
+      "width": 320,
+      "fontPercent": 100,
+      "maxDelta": 0
+    },
+    {
+      "width": 320,
+      "fontPercent": 200,
+      "maxDelta": 0
+    }
+  ]
+}

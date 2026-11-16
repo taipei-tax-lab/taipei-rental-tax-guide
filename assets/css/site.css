@@ -20,7 +20,7 @@ html {
   scroll-behavior: smooth;
 }
 body {
-  background: linear-gradient(180deg, #f8f5ee73 0%, #f8f5eec7 32%, #f8f5eeeb 100%), url(../../hero-v2.png?v=3f847526af) right 70px / min(980px, 70vw) auto fixed no-repeat, var(--paper);
+  background: linear-gradient(180deg, #f8f5ee73 0%, #f8f5eec7 32%, #f8f5eeeb 100%), url(../../hero-v2.png?v=81760c85cf) right 70px / min(980px, 70vw) auto fixed no-repeat, var(--paper);
   color: var(--ink);
   min-width: 320px;
   margin: 0;
