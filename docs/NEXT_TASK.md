@@ -1,6 +1,6 @@
 # NEXT_TASK — 2026-11-16 兩個服務圖示再優化與兩入口頁背景一致性
 
-狀態：**IMPLEMENTED_PENDING_DEPLOYMENT**（2026-11-16，Asia/Taipei）。
+狀態：**IMPLEMENTED_TEST_DEPLOYED_PENDING_HUMAN_REVIEW**（2026-11-16，Asia/Taipei）。
 指定工作分支：`feat/direct-apply-operation-guide-20261031`。
 開工基準：`6e6d7fe280b1e9d7cf4f2e8e5636cbbcc0504943`（本次核對 Cloudflare Pages check SUCCESS）。前輪實作 `2b9d2f1`，69/69 單元及技術驗證已有紀錄；使用者檢視後明確反映「個人租賃住宅包租代管」和「我要申請租金補貼」兩個 icon 仍不夠直覺易懂，要求再設計。使用者已確認本輪兩張圖示構想 OK，並追加「直接申請」「操作說明」外層背景與屋主／房客頁一致。兩項合併執行，尚未實作。本輪不是重做前輪；[前輪完整 Task（固定 SHA）](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/blob/6e6d7fe280b1e9d7cf4f2e8e5636cbbcc0504943/docs/NEXT_TASK.md)、[前輪 report](evidence/2026-11-16-icon-refinement/REPORT.md) 保留。
 
@@ -37,3 +37,6 @@
 ## 第四輪執行紀錄
 
 由乾淨遠端 d2cf8d5 同步；personal 改握手合作、subsidy 改鈔票與向下領取箭頭。只對 #direct-apply / #operation-guide.v2-entry-content 設透明背景，其他底色、背景資產、模板、JS 與業務資料保留。從 6e6d7fe 真實來源產生 SHA-256 fixture，確認僅兩圖改變、其他 14 圖不變；舊 fixture 及四圖差異守門仍保留。70/70 單元、建置一致性、budget、Pages 33 檔、五寬度×兩字級與 hover/touch 回歸通過。截圖僅 .preview/；待推送與 HTTPS 複驗，辨識度及實機人工確認仍保留。證據見 [報告](evidence/2026-11-16-handshake/REPORT.md)。
+
+
+第四輪部署完成：bcb857dd1930bba814a5a5e2cc43ad2fdc59baa8，Cloudflare deploy 3edcb6fb-4d5b-44c8-bcc0-d979613d711d SUCCESS。HTTPS computed style、1440/390/320×兩字級、原生影片控制／切換與導航回歸 PASS；兩入口透明 rgba(0,0,0,0)，詳情／比較維持 rgba(255,254,251,0.96)，卡片白底及播放器 rgb(16,56,68) 保留。實際畫面已檢視。瀏覽器為憑證診斷模式；Node 正常 TLS 逐 bytes 核對線上 HTML/CSS/背景與本地一致。其他14圖、背景資產、模板、JS、政策及雲端設定不變。收尾只補文件，runtime不變；辨識度及實機等原有人工待辦仍保留。

@@ -1,6 +1,6 @@
 # PROJECT_STATE — 現行狀態
 
-核對日期：2026-11-16（Asia/Taipei）。狀態：**前輪四圖示、雙子按鈕 hover 與修整版背景已實作並通過技術驗證；使用者反映其中兩圖示仍不易理解，本輪圖示構想已核定，追加兩入口頁背景一致性，待實作與人工確認**。
+核對日期：2026-11-16（Asia/Taipei）。狀態：**第四輪握手／補助款圖示與兩入口背景已實作、推送及測試站驗證，待人工辨識度／實機確認**。
 
 ## 11/16 前一輪申請入口實作
 
@@ -90,3 +90,6 @@ GPT 核對遠端 `6e6d7fe280b1e9d7cf4f2e8e5636cbbcc0504943`、Cloudflare Pages c
 ## 第四輪執行紀錄
 
 由乾淨遠端 d2cf8d5 同步；personal 改握手合作、subsidy 改鈔票與向下領取箭頭。只對 #direct-apply / #operation-guide.v2-entry-content 設透明背景，其他底色、背景資產、模板、JS 與業務資料保留。從 6e6d7fe 真實來源產生 SHA-256 fixture，確認僅兩圖改變、其他 14 圖不變；舊 fixture 及四圖差異守門仍保留。70/70 單元、建置一致性、budget、Pages 33 檔、五寬度×兩字級與 hover/touch 回歸通過。截圖僅 .preview/；待推送與 HTTPS 複驗，辨識度及實機人工確認仍保留。證據見 [報告](evidence/2026-11-16-handshake/REPORT.md)。
+
+
+第四輪部署完成：bcb857dd1930bba814a5a5e2cc43ad2fdc59baa8，Cloudflare deploy 3edcb6fb-4d5b-44c8-bcc0-d979613d711d SUCCESS。HTTPS computed style、1440/390/320×兩字級、原生影片控制／切換與導航回歸 PASS；兩入口透明 rgba(0,0,0,0)，詳情／比較維持 rgba(255,254,251,0.96)，卡片白底及播放器 rgb(16,56,68) 保留。實際畫面已檢視。瀏覽器為憑證診斷模式；Node 正常 TLS 逐 bytes 核對線上 HTML/CSS/背景與本地一致。其他14圖、背景資產、模板、JS、政策及雲端設定不變。收尾只補文件，runtime不變；辨識度及實機等原有人工待辦仍保留。
