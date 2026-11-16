@@ -177,4 +177,4 @@ node scripts/extension-browser-check.cjs
 
 `node scripts/entry-redesign-browser-check.cjs` 針對 GA4 隔離產物驗證四種寬度、七個主要操作、焦點／鍵盤、五個精確網址、六個 mock 事件及無 gtag 導覽；可設 `BASELINE_JSON` 比對改版前卡片尺寸。`node scripts/entry-external-read-check.cjs` 僅唯讀瀏覽外部入口，不填表或送件。證據見 [11/16 report](docs/evidence/2026-11-16-entry-redesign/REPORT.md)。
 
-瀏覽器腳本預設 Edge，雲端可設 `BROWSER_EXECUTABLE=/usr/bin/chromium`；Playwright 仍為驗證工具，不是網站相依。Node 24 雲端需 `node --use-env-proxy scripts/extension-browser-check.cjs` 才沿用環境代理存取 R2。R2 影片已由外部在 11/8 更新，本輪只讀回 metadata 並校正過期測試快照，未上傳或改 URL。TLS 代理造成 Chromium 信任錯誤時，診斷性 `BROWSER_IGNORE_HTTPS_ERRORS=1` 的結果須明確標示，不能當正式 TLS 驗收。
+瀏覽器腳本預設 Edge，雲端可設 `BROWSER_EXECUTABLE=/usr/bin/chromium`；Playwright 仍為驗證工具，不是網站相依。HTTPS 腳本中的 API request 可設 `BROWSER_PROXY` 沿用環境代理（不輸出代理值）。`node scripts/entry-live-layout-check.cjs` 可在不裝 mock gtag 的情況複驗真實 Pages 四寬度與可見框內縮。Node 24 雲端需 `node --use-env-proxy scripts/extension-browser-check.cjs` 才沿用環境代理存取 R2。R2 影片已由外部在 11/8 更新，本輪只讀回 metadata 並校正過期測試快照，未上傳或改 URL。TLS 代理造成 Chromium 信任錯誤時，診斷性 `BROWSER_IGNORE_HTTPS_ERRORS=1` 的結果須明確標示，不能當正式 TLS 驗收。

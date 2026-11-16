@@ -4,7 +4,7 @@
 
 ## 實作與界線
 
-- 六入口順序不變；第六卡為真實 HTML group，兩個對等、至少 44px 高的獨立安全外連。新舊四寬度的全部六卡 x/y/width/height 比對差異 <1 CSS px，沒有以隱藏溢出達成尺寸。窄卡標題以完整語詞分行，18px 字級。
+- 六入口順序不變；第六卡為真實 HTML group，兩個對等、至少 44px 高的獨立安全外連。新舊四寬度的全部六卡 x/y/width/height 比對差異 <1 CSS px；桌機另以內層 panel 保留原插圖可見外框 92%×82% 的內縮、18px 圓角與相鄰卡片對齊，沒有以隱藏溢出達成尺寸。窄卡標題以完整語詞分行，18px 字級。
 - 直接申請頁以三個整卡原生 anchor 取代四方案入口，沿用深青／淺青綠框／淺背景、圖示、圓角與陰影。原四方案內容、流程、房客、比較、導引、CX 片段與影片 URL 未改。
 - 新連結資料集中 `site/content.json`，模板／build 生成 `index.html`；測試獨立斷言五個核定 URL 的完整 query。
 - GA4 六項映射只在啟用送一次，歷史 `income_standard` 白名單保留。既有 loader／Measurement ID 未改，測試產物仍移除 loader/config。使用本地 mock，不對正式 GA4 發事件；不修改管理端。
@@ -25,7 +25,7 @@ Node 24.22.1；Playwright 為環境既有工具，未增加網站相依。瀏覽
 | `scripts/entry-scroll-check.cjs` | PASS；36 組響應式/縮放等效、12 組原生 page zoom、5 組 navigation；[結果](scroll-local.json) |
 | `scripts/pages-test-browser-check.cjs` | PASS；33 runtime／GA4 無請求／私有路徑 404 |
 | `ALLOW_LOCAL_PREVIEW=1 ... scripts/pages-live-acceptance.cjs` | PASS 本地非 CX 前端、四方案／比較／房客／導引／200% 字／320–1440 溢出／33 檔 MIME 與私有路徑；[結果](acceptance-local.json) |
-| R2 extension check | 本輪重跑中；見下方當前物件 metadata。不得將歷史 10/31 結果當本次 PASS |
+| `node --use-env-proxy scripts/extension-browser-check.cjs` | PASS 本地與 f3d5063 HTTPS；HEAD／首尾 Range、雙版真實播放／拖曳／全螢幕／切換／history／裝置預設；[本地結果](extension-local.json)、[HTTPS 結果](live/extension.json) |
 | `git diff --check` | PASS |
 
 瀏覽器共用命令前綴：`NODE_PATH=/opt/codex/cua_node/lib/node_modules BROWSER_EXECUTABLE=/usr/bin/chromium PREVIEW_URL=http://127.0.0.1:4175/`。本地以 `PORT=4175 node scripts/serve.mjs --pages-test` 服務隔離產物。入口尺寸測試另設 `BASELINE_JSON=.preview/entry-redesign/baseline.json`，改版前資料從現行 Cloudflare UI 讀回。
@@ -67,4 +67,7 @@ CX 第三方請求隔離、不開啟 Messenger／不送真實問題；未改 `si
 
 ## 推送與 Cloudflare
 
-本輪提交後補記精確 SHA、遠端確認、Cloudflare check 與 HTTPS 回歸證據。此段未補記前不宣稱遠端部署與實測完成。
+- 功能提交 `f3d50632ce27343fce8b1feaad23105270927755` 已推送並經 `git ls-remote` 核對。其 Cloudflare Pages check completed/success，deployment `19bc8a42-42c0-4a14-ab37-aa52f386aca1`；[check](live/cloudflare-check.json)。
+- 該版本 HTTPS 實測已通過 `entry-live-layout-check`、UX2、pages-test、pages-live acceptance、extension。GA4 網路請求為零，僅本地做 mock；[layout](live/results.json)、[acceptance](live/acceptance.json)、[pages-test](live/pages-test.json)、[影片](live/extension.json)。
+- 最後畫面複核另外修正桌機可見框內縮；本文件提交後再確認其自動建置與新版 HTTPS 截圖，收尾補記。
+- HTTPS 腳本的 API request client 需明設 `BROWSER_PROXY` 沿用環境代理，已以該模式重跑 PASS；初次 direct API 的 ECONNREFUSED 不當作官方站故障。

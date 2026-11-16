@@ -5,7 +5,7 @@ const base=process.env.PREVIEW_URL||'http://127.0.0.1:4173/';
 (async()=>{
   const browser=await chromium.launch({...(process.env.BROWSER_EXECUTABLE ? {executablePath:process.env.BROWSER_EXECUTABLE} : {channel:'msedge'}),headless:true});
   try {
-    const page=await browser.newPage({ignoreHTTPSErrors:process.env.BROWSER_IGNORE_HTTPS_ERRORS==='1',viewport:{width:1440,height:1000}});
+    const page=await browser.newPage({proxy:process.env.BROWSER_PROXY?{server:process.env.BROWSER_PROXY}:undefined,ignoreHTTPSErrors:process.env.BROWSER_IGNORE_HTTPS_ERRORS==='1',viewport:{width:1440,height:1000}});
     const tracking=[],failedAssets=[];
     page.on('request',req=>{if(/googletagmanager\.com|google-analytics\.com/.test(req.url()))tracking.push(req.url());});
     page.on('response',res=>{if(res.url().startsWith(new URL(base).origin)&&res.status()>=400)failedAssets.push(res.url());});

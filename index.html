@@ -19,7 +19,7 @@
   </script>
   <link rel="icon" href="./assets/images/tpctax-mark.png" type="image/png">
   <link rel="stylesheet" href="./assets/css/site.css?v=a00e880ef9">
-  <link rel="stylesheet" href="./assets/css/guide-v2.css?v=de384febbb">
+  <link rel="stylesheet" href="./assets/css/guide-v2.css?v=abc9fa2420">
   <!-- The existing Messenger theme, markup and runtime remain unchanged. -->
   <link rel="stylesheet" href="https://www.gstatic.com/dialogflow-console/fast/df-messenger/prod/v1/themes/df-messenger-default.css">
   <link rel="stylesheet" href="./assets/css/messenger.css?v=36032ebb66">
@@ -46,8 +46,10 @@
               <a href="#operation-guide" data-entry-page="operation-guide" class="v2-audience-button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m10 8 6 4-6 4z"/></svg><span><strong>操作說明</strong><small>觀看 2 分鐘使用教學</small></span></a>
               <button type="button" class="v2-audience-button v2-chat-entry" id="open-helper"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a7 7 0 0 1-7 7H8l-5 4V6a3 3 0 0 1 3-3h11a3 3 0 0 1 3 3z"/><path d="M7 8h9M7 12h6"/></svg><span><strong>直接問小幫手</strong><small>直接描述您的問題</small></span></button>
               <div class="v2-audience-button v2-income-standard-entry" role="group" aria-labelledby="income-standard-title">
-                <strong id="income-standard-title"><span>出租房屋</span><span>達租金標準</span></strong>
-                <div class="v2-income-standard-actions"><a class="v2-income-standard-action" data-service-entry="income_standard_calculate" href="https://services.arpa.tpctax.dof.gov.taipei/rentStandard/index.php?content=calculator" target="_blank" rel="noopener noreferrer">試算<span class="sr-only">（另開新視窗）</span></a><a class="v2-income-standard-action" data-service-entry="income_standard_apply" href="https://services.arpa.tpctax.dof.gov.taipei/incomeReachStandard/form.php" target="_blank" rel="noopener noreferrer">申請<span class="sr-only">（另開新視窗）</span></a></div>
+                <div class="v2-income-standard-panel">
+                  <strong id="income-standard-title"><span>出租房屋</span><span>達租金標準</span></strong>
+                  <div class="v2-income-standard-actions"><a class="v2-income-standard-action" data-service-entry="income_standard_calculate" href="https://services.arpa.tpctax.dof.gov.taipei/rentStandard/index.php?content=calculator" target="_blank" rel="noopener noreferrer">試算<span class="sr-only">（另開新視窗）</span></a><a class="v2-income-standard-action" data-service-entry="income_standard_apply" href="https://services.arpa.tpctax.dof.gov.taipei/incomeReachStandard/form.php" target="_blank" rel="noopener noreferrer">申請<span class="sr-only">（另開新視窗）</span></a></div>
+                </div>
               </div>
             </div>
             <p id="helper-status" class="v2-caption" role="status" hidden></p>

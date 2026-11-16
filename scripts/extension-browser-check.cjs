@@ -146,7 +146,7 @@ fs.mkdirSync(artifacts, {recursive:true});
       ['iPad',devices['iPad (gen 7)'],'pc'],
       ['Android tablet',{viewport:{width:800,height:1280},isMobile:true,hasTouch:true,userAgent:'Mozilla/5.0 (Linux; Android 15; SM-X710) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36'},'pc']
     ]) {
-      const p=await browser.newPage(device);
+      const p=await browser.newPage({...device,ignoreHTTPSErrors:process.env.BROWSER_IGNORE_HTTPS_ERRORS==='1'});
       await p.addInitScript(()=>Object.defineProperty(navigator,'userAgentData',{value:undefined,configurable:true}));
       await p.route('**/*',r=>[new URL(base).origin,'https://pub-20ae83e09e324873be7bff4d861f23b0.r2.dev'].includes(new URL(r.request().url()).origin)?r.continue():r.abort());
       await p.goto(base+'#operation-guide');await p.locator('.v2-ready').waitFor();
@@ -154,7 +154,7 @@ fs.mkdirSync(artifacts, {recursive:true});
       assert.deepEqual(await p.locator('[name="guide-version"]').evaluateAll(es=>es.map(e=>e.value)),['pc','mobile']);
       if(expected==='mobile') {
         const v=p.locator('#guide-video-mobile');await v.scrollIntoViewIfNeeded();
-        await v.evaluate(async v=>{await v.play();v.currentTime=60;});
+        await v.evaluate(async v=>{await Promise.race([v.play(),new Promise((_,reject)=>setTimeout(()=>reject(new Error('Timed out starting emulated video')),30000))]);v.currentTime=60;});
         await p.waitForFunction(()=>{const v=document.getElementById('guide-video-mobile');return v.currentTime>60.5&&v.readyState>=2;});
         await v.evaluate(v=>v.pause());
         const r=await v.boundingBox();assert.ok(Math.abs(r.width/r.height-9/16)<.01);
