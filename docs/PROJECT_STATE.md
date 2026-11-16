@@ -1,6 +1,6 @@
 # PROJECT_STATE — 現行狀態
 
-核對日期：2026-11-16（Asia/Taipei）。狀態：**申請入口改版已完成本地開發與自動驗證；準備推送及測試站複驗**。
+核對日期：2026-11-16（Asia/Taipei）。狀態：**申請入口改版已完成並推送；Cloudflare 測試站驗證通過，待人工／實機及正式發布核准**。
 
 ## 11/16 本輪實作
 
@@ -11,7 +11,7 @@
 - `index.html` 已由來源重建、舊順序測試已校正；65/65 單元測試、建置一致性、performance budget 及本地四寬度入口／GA4／非 CX 驗收通過。完整命令及限制見 [本輪證據](evidence/2026-11-16-entry-redesign/REPORT.md)。
 - 外部五網址：四個 HTTP 200、BX015 HTTP 404 但瀏覽器載入「申報房屋使用情形變更」與線上申辦內容；保留核定網址，發布前仍須人工確認。未填表／送件。瀏覽器以代理 TLS 診斷模式讀取，不代表正式 TLS 驗收。
 - R2 metadata 顯示兩物件於 11/8 已由外部更新；本輪未修改物件／URL，僅更新既有影片測試的過期大小／時長快照。
-- 本輪提交、遠端與 Cloudflare 自動建置／HTTPS 結果於交接證據補記。iOS／Android／LINE 實機、真人／輔助科技、正式部署與真實 CX 問答仍待另案驗收。
+- 程式 commit `f2d04d3108962ae7a6edbf7eb317afca051cc2c3` 已推送、Cloudflare check SUCCESS；真實 HTTPS 入口 layout／UX2／非 CX／GA4 隔離與影片回歸通過，完整結果見 report。桌機可見框另保留原插圖 92%×82% 內縮與圓角。iOS／Android／LINE 實機、真人／輔助科技、正式部署與真實 CX 問答仍待另案驗收。
 
 ## 版本與環境
 
@@ -22,7 +22,7 @@
 | 本次文件整理前開發基準 | `51161daf856ab6ede91f69077b1ed2e2971f315d`（2026-11-04） |
 | main 最新已發布基準 | `28fd76aed2a212776fa5eade5eca18e02ff24701`（PR #18，2026-10-31） |
 | 分支關係（文件整理前） | feature 領先 main 26 commits、落後 0；未合併，沒有待合併 PR |
-| Cloudflare 測試 | [test site](https://rental-tax-guide-test.pages.dev/)，`51161da` 的 [Cloudflare Pages check](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/commit/51161daf856ab6ede91f69077b1ed2e2971f315d/checks) SUCCESS；使用既有 Git 整合 |
+| Cloudflare 測試（歷史基準） | [test site](https://rental-tax-guide-test.pages.dev/)，`51161da` 的 [Cloudflare Pages check](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/commit/51161daf856ab6ede91f69077b1ed2e2971f315d/checks) SUCCESS；使用既有 Git 整合 |
 | GitHub Pages | [主線網站](https://taipei-tax-lab.github.io/taipei-rental-tax-guide/)，[10/31 部署成功](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/actions/runs/41170372607)（main `28fd76a`） |
 | 機關站 | [rentaltax](https://services.arpa.tpctax.dof.gov.taipei/rentaltax/)，獨立部署；未取得 10/28 診斷之後的修復／正式版本驗收證據 |
 
@@ -50,4 +50,4 @@
 
 ## 目前下一步
 
-完成指定分支推送與 Cloudflare 測試站複驗後供人工審查；待確認項目及證據見本輪 report。未授權合併 main、正式發布或更改 CX／GA4 管理端／R2／部署設定。新需求未核定前不自行擴充功能。
+指定分支推送與 Cloudflare 測試站複驗已完成，供人工審查；待確認項目及證據見本輪 report。未授權合併 main、正式發布或更改 CX／GA4 管理端／R2／部署設定。新需求未核定前不自行擴充功能。

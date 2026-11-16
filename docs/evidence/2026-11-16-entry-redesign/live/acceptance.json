@@ -1,6 +1,6 @@
 {
   "base": "https://rental-tax-guide-test.pages.dev/",
-  "testedAt": "2026-11-16T11:41:36.713Z",
+  "testedAt": "2026-11-16T11:44:36.548Z",
   "cx": "excluded; third-party requests isolated; never opened or queried",
   "errors": [],
   "consoleErrors": [],

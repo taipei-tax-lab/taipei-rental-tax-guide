@@ -1,6 +1,6 @@
 # NEXT_TASK — 2026-11-16 出租專區申請入口改版
 
-狀態：**IMPLEMENTED_LOCAL_VERIFIED — 待分支推送／Cloudflare 複驗紀錄**（2026-11-16，Asia/Taipei）。使用者已核定兩處 UI 改版，並授權本輪前端 GA4 埋點設計與實作；此文件為現行唯一任務。延續 Cloudflare 現行測試分支 `feat/direct-apply-operation-guide-20261031`，不可回到 main 或另開分支。前次文件校正已提交 `d18ae1d`。原需求核定稿以下保留；11/16 本輪程式與本地驗證已完成，詳見 [report](evidence/2026-11-16-entry-redesign/REPORT.md)。勾選代表核定範圍已處理或已如實列出限制，不代表實機／正式站／真實 CX 已驗收。
+狀態：**IMPLEMENTED_AND_TEST_SITE_VERIFIED — 待人工／業務及實機驗收**（2026-11-16，Asia/Taipei）。使用者已核定兩處 UI 改版，並授權本輪前端 GA4 埋點設計與實作；此文件為現行唯一任務。延續 Cloudflare 現行測試分支 `feat/direct-apply-operation-guide-20261031`，不可回到 main 或另開分支。前次文件校正已提交 `d18ae1d`。原需求核定稿以下保留；11/16 本輪程式、本地驗證與指定 Cloudflare 測試站複驗已完成，詳見 [report](evidence/2026-11-16-entry-redesign/REPORT.md)。勾選代表核定範圍已處理或已如實列出限制，不代表實機／正式站／真實 CX 已驗收。
 
 ## A. 首頁租金標準卡片
 
@@ -48,4 +48,9 @@
 - [x] 瀏覽器驗證桌機、768px、390px、320px；確認兩個子按鈕、三卡、五個精確 URL、正常前後導覽與回上一頁、focus／keyboard、無水平溢出及其他原有功能。附新舊主要畫面截圖／尺寸證據。以 mock gtag 驗證六項映射、只送一次、無額外敏感參數、未裝 gtag 仍可用，並確認 test build 不送 GA4。
 - [x] 五個外部網址均做唯讀檢查（不填表、不送件）。規劃時四個連結可讀；BX015 以網頁檢索取得 404，未證實正常瀏覽器也失效；請用實際瀏覽器複查、記錄最終 URL／畫面及可用性。若仍 404、權限／網路限制，保留使用者指定 URL，不擅自換址，列為發布前人工確認項目；不得假報 PASS。
 - [x] 所有既有未改動功能保留：方案、房客、比較、快速導引、CX、小幫手、R2 影片；不因本輪要求更改機關正式資料或實施額外重構。既有尚未取得實機、機關部署證據者仍列待確認。
-- [ ] README 若功能描述過時，更新相關段落；更新 GA4 現行事件說明（與舊事件歷史文件區隔）、State／Task／Worklog，區分程式完成、自動測試、Cloudflare 真實驗證、人工驗收。檢查 diff、敏感資料、生成物及文件一致性後，將本輪變更 commit/push 至指定分支並核對 GitHub 遠端；現有 Cloudflare Git 整合若自動建置，記錄 check 與測試站驗證情況，不另外修改部署配置。不 merge main、不正式部署。交付 commit、測試結果、截圖／證據及剩餘限制供審查。
+- [x] README 若功能描述過時，更新相關段落；更新 GA4 現行事件說明（與舊事件歷史文件區隔）、State／Task／Worklog，區分程式完成、自動測試、Cloudflare 真實驗證、人工驗收。檢查 diff、敏感資料、生成物及文件一致性後，將本輪變更 commit/push 至指定分支並核對 GitHub 遠端；現有 Cloudflare Git 整合若自動建置，記錄 check 與測試站驗證情況，不另外修改部署配置。不 merge main、不正式部署。交付 commit、測試結果、截圖／證據及剩餘限制供審查。
+
+
+## 本輪收尾
+
+程式版本 `f2d04d3108962ae7a6edbf7eb317afca051cc2c3` 已推送至指定分支，Cloudflare Pages check SUCCESS；原六卡 grid bounding box 與桌機可見框內縮均驗證，正式設定未變。完整證據、前後截圖及 HTTPS 結果見 [REPORT](evidence/2026-11-16-entry-redesign/REPORT.md)。其後僅補交接證據文件，不改 runtime。BX015 的 HTTP 404／可讀內容差異、實機、真人／完整輔助科技、正式站與真實 CX 仍依 report 列待確認。未有新核定需求前不開始下一項功能、不合併 main／正式發布。

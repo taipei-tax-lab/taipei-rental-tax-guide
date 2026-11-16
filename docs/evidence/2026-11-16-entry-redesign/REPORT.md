@@ -25,7 +25,7 @@ Node 24.22.1；Playwright 為環境既有工具，未增加網站相依。瀏覽
 | `scripts/entry-scroll-check.cjs` | PASS；36 組響應式/縮放等效、12 組原生 page zoom、5 組 navigation；[結果](scroll-local.json) |
 | `scripts/pages-test-browser-check.cjs` | PASS；33 runtime／GA4 無請求／私有路徑 404 |
 | `ALLOW_LOCAL_PREVIEW=1 ... scripts/pages-live-acceptance.cjs` | PASS 本地非 CX 前端、四方案／比較／房客／導引／200% 字／320–1440 溢出／33 檔 MIME 與私有路徑；[結果](acceptance-local.json) |
-| `node --use-env-proxy scripts/extension-browser-check.cjs` | PASS 本地與 f3d5063 HTTPS；HEAD／首尾 Range、雙版真實播放／拖曳／全螢幕／切換／history／裝置預設；[本地結果](extension-local.json)、[HTTPS 結果](live/extension.json) |
+| `node --use-env-proxy scripts/extension-browser-check.cjs` | PASS 本地與 f2d04d3 HTTPS；HEAD／首尾 Range、雙版真實播放／拖曳／全螢幕／切換／history／裝置預設；[本地結果](extension-local.json)、[HTTPS 結果](live/extension.json) |
 | `git diff --check` | PASS |
 
 瀏覽器共用命令前綴：`NODE_PATH=/opt/codex/cua_node/lib/node_modules BROWSER_EXECUTABLE=/usr/bin/chromium PREVIEW_URL=http://127.0.0.1:4175/`。本地以 `PORT=4175 node scripts/serve.mjs --pages-test` 服務隔離產物。入口尺寸測試另設 `BASELINE_JSON=.preview/entry-redesign/baseline.json`，改版前資料從現行 Cloudflare UI 讀回。
@@ -69,5 +69,8 @@ CX 第三方請求隔離、不開啟 Messenger／不送真實問題；未改 `si
 
 - 功能提交 `f3d50632ce27343fce8b1feaad23105270927755` 已推送並經 `git ls-remote` 核對。其 Cloudflare Pages check completed/success，deployment `19bc8a42-42c0-4a14-ab37-aa52f386aca1`；[check](live/cloudflare-check.json)。
 - 該版本 HTTPS 實測已通過 `entry-live-layout-check`、UX2、pages-test、pages-live acceptance、extension。GA4 網路請求為零，僅本地做 mock；[layout](live/results.json)、[acceptance](live/acceptance.json)、[pages-test](live/pages-test.json)、[影片](live/extension.json)。
-- 最後畫面複核另外修正桌機可見框內縮；本文件提交後再確認其自動建置與新版 HTTPS 截圖，收尾補記。
+- 最後畫面複核補上可見框內縮與 18px 圓角，程式提交 `f2d04d3108962ae7a6edbf7eb317afca051cc2c3` 已推送。Cloudflare check SUCCESS，deployment `8643853f-0de2-4048-a7ba-1319ae3a40c5`；最終程式的 HTTPS layout／UX2／pages-test／pages-live acceptance／extension 已重跑 PASS。live 目錄的結果／畫面已更新為此版本。
+- 最終 [桌機首頁](live/home-1440.png)、[手機首頁](live/home-390.png)、[桌機申請](live/apply-1440.png)、[手機申請](live/apply-390.png)；768／320 同目錄。可見框與第五卡寬高及 y 座標差異 <1px；grid cell 繼續與原 live 基準相同。
+- 最終 runtime 與本地 build:pages:test 的 33 個檔案逐一 SHA-256 完全一致（[hashes](live/runtime-hashes.json)，Node 使用環境 CA 並保持 TLS 驗證）；最後交接提交只含文件／驗證證據。main 未合併、正式環境未變。
+- 另以 `git archive b55060a` 重建初始來源並本地預覽舊直接申請四方案，附 [桌機前版](before-apply-1440.png)／[手機前版](before-apply-390.png)，明確為初始來源重現圖；首頁 before 圖則為開工時直接讀取 Cloudflare 的實際畫面。未另外 checkout／建立分支。
 - HTTPS 腳本的 API request client 需明設 `BROWSER_PROXY` 沿用環境代理，已以該模式重跑 PASS；初次 direct API 的 ECONNREFUSED 不當作官方站故障。
