@@ -43,7 +43,7 @@
 
 ## 2026-11-16 第三輪圖示辨識需求
 
-使用者檢視視覺改版後提出四個圖示難辨識，需單獨優化屋主／房客、個人租賃住宅包租代管及租金補貼。核對遠端 `4fc7521744bdcaecd27d4c6c159fb94eb8449a7e`（Cloudflare check SUCCESS）及 `scripts/icons.mjs` 現行十六個圖示，保留原設計系統，僅指定四個 key；前輪任務與驗收保存於 [固定 SHA](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/blob/4fc7521744bdcaecd27d4c6c159fb94eb8449a7e/docs/NEXT_TASK.md)。本次提交現行任務、狀態與決策，不改 runtime、不宣稱已實作或新驗收；下一步依 [NEXT_TASK](NEXT_TASK.md) 執行。
+使用者檢視視覺改版後提出四個圖示難辨識，需單獨優化屋主／房客、個人租賃住宅包租代管及租金補貼。核對遠端 `4fc7521744bdcaecd27d4c6c159fb94eb8449a7e`（Cloudflare check SUCCESS）及 `scripts/icons.mjs` 現行十六個圖示，保留原設計系統，僅指定四個 key；前輪任務與驗收保存於 [固定 SHA](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/blob/4fc7521744bdcaecd27d4c6c159fb94eb8449a7e/docs/NEXT_TASK.md)。本次提交現行任務、狀態與決策，不改 runtime、不宣稱已實作或新驗收；該輪規格及執行見 [前輪 Task（固定 SHA）](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/blob/6e6d7fe280b1e9d7cf4f2e8e5636cbbcc0504943/docs/NEXT_TASK.md)。
 
 使用者補充：出租房屋達租金標準的非互動外框不應觸發反色；試算／申請各自 hover 才使用其他主卡同款深綠底白字。已併入同一 NEXT_TASK，限定第六卡 CSS 狀態與對應測試，尚未實作。
 
@@ -53,3 +53,8 @@
 ## 2026-11-16 第三輪實作與本地回歸
 
 從指定分支最新 `4c6ae97` 乾淨同步；owner 改完整屋內人物、tenant 改人物與入住箱、personal 改獨立住宅與折角合約、subsidy 改住宅與面額硬幣，其餘 12 SVG 定義不變。租金標準父框 hover 精確排除、雙子連結各自深青／白字，觸控不黏滯且焦點／原連結保留。直接接入已提供修整素材，沒有重生圖片；WebP / PNG 都是新圖、全像素相同，135064 / 1245328 bytes，CSS / OG 版本同步，33 檔白名單不變。發現 Task 的 runtime 路徑多寫 assets/images，依實際 Git / CSS / whitelist 保留根目錄並校正文件。69 項單元及必要建置、五寬度×兩字級、實際 pointer／鍵盤／touch／原導航與事件回歸 PASS，六主卡位置尺寸差異 0px。文字／JSON 見 [report](evidence/2026-11-16-icon-refinement/REPORT.md)，所有畫面只留 `.preview/`。實作 `2b9d2f1` 推送後，Cloudflare check / API deploy SUCCESS（`eefe33b8-5bff-45c9-9e43-3a8caedf637a`），實際 HTTPS 五寬度×兩字級／16 SVG／hover 與 touch／焦點／個人方案選中返回／修整背景 fallback 像素與 MIME／33 assets 非 CX 回歸 PASS。Chromium 使用明確憑證診斷模式；Node 正常 TLS 逐 bytes 核對線上 HTML / CSS / 新 A 雙格式 / 核心 JS 一致。收尾只補證據文件，runtime 不變；待使用者視覺辨識／實機確認，沒有改正式或雲端設定。
+
+
+## 2026-11-16 第四輪圖示再設計需求
+
+使用者檢視既有測試站後反映個人租賃住宅包租代管、我要申請租金補貼兩張 icon 仍不直覺。以 `6e6d7fe280b1e9d7cf4f2e8e5636cbbcc0504943` 為開工基準（Cloudflare check SUCCESS），核對前輪 SVG 使用相同小屋＋文件／寫 1 的硬幣，建議本輪改採握手和鈔票／領取箭頭，僅改 personal/subsidy，其餘 14 圖、背景、hover 和原功能維持。前輪實作規格與結果見 [固定 SHA](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/blob/6e6d7fe280b1e9d7cf4f2e8e5636cbbcc0504943/docs/NEXT_TASK.md) 與 [report](evidence/2026-11-16-icon-refinement/REPORT.md)。已更新 [NEXT_TASK](NEXT_TASK.md) 及現行 State，不修改 runtime，不聲稱新驗收。

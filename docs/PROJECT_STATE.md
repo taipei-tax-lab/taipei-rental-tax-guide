@@ -1,6 +1,6 @@
 # PROJECT_STATE — 現行狀態
 
-核對日期：2026-11-16（Asia/Taipei）。狀態：**四圖示、雙子按鈕 hover 與修整版背景已實作並推送，69/69 與測試站回歸通過；待使用者辨識度、背景觀感及實機確認**。
+核對日期：2026-11-16（Asia/Taipei）。狀態：**前輪四圖示、雙子按鈕 hover 與修整版背景已實作並通過技術驗證；使用者反映其中兩圖示仍不易理解，本輪待重設與人工確認**。
 
 ## 11/16 前一輪申請入口實作
 
@@ -62,12 +62,12 @@
 
 ## 11/16 四個圖示辨識優化需求（已實作）
 
-GPT 核對遠端 HEAD `4fc7521744bdcaecd27d4c6c159fb94eb8449a7e`，Cloudflare Pages check SUCCESS；實際 `scripts/icons.mjs` 有 16 個集中定義。使用者檢視新版後反映「我是屋主／我是房客」（依目前入口名稱理解重複輸入）、「個人租賃住宅包租代管」、「我要申請租金補貼」圖示難懂，要求重設。現行任務正式規格見 [NEXT_TASK](NEXT_TASK.md)，僅改四 key（owner/tenant/personal/subsidy），另限定調整第六卡的 hover：外框不變色，僅滑入的試算／申請子按鈕使用與其他主卡選中相同的深綠底白字。其餘十二個 icon、版面與功能保留；原背景 A 的構圖及配色保留，依追加需求換成局部修整版（見下節）。需求交接提交只有文件；前輪 68/68 及 HTTPS 證據只適用既有版本。此輪實作及新測試結果見下節，辨識度仍待使用者確認；BX015、實機、正式部署、真正 CX 與其他既有人工待辦不變。
+GPT 核對遠端 HEAD `4fc7521744bdcaecd27d4c6c159fb94eb8449a7e`，Cloudflare Pages check SUCCESS；實際 `scripts/icons.mjs` 有 16 個集中定義。使用者檢視新版後反映「我是屋主／我是房客」（依目前入口名稱理解重複輸入）、「個人租賃住宅包租代管」、「我要申請租金補貼」圖示難懂，要求重設。該輪正式規格見 [前輪 Task（固定 SHA）](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/blob/6e6d7fe280b1e9d7cf4f2e8e5636cbbcc0504943/docs/NEXT_TASK.md)，僅改四 key（owner/tenant/personal/subsidy），另限定調整第六卡的 hover：外框不變色，僅滑入的試算／申請子按鈕使用與其他主卡選中相同的深綠底白字。其餘十二個 icon、版面與功能保留；原背景 A 的構圖及配色保留，依追加需求換成局部修整版（見下節）。需求交接提交只有文件；前輪 68/68 及 HTTPS 證據只適用既有版本。此輪實作及新測試結果見下節，辨識度仍待使用者確認；BX015、實機、正式部署、真正 CX 與其他既有人工待辦不變。
 
 
 ## 11/16 背景修整追加需求（已接入）
 
-使用者指定保持目前 A 圖構圖，修除右數第二棟疑似鐵窗、外推棚架、頂樓加蓋等負面建物意象，並避免任何較負面的建物。GPT 已用原 A 圖進行局部圖像編修、目視檢查並將修整稿轉為 1672×941 WebP（135064 bytes，blob `81760c85cfdde844809a04f1ab6a5ba51c25d293`），交接素材 `assets/images/hero-taipei-a-refined.webp`；需求交接時 runtime 尚未替換。此輪已依 [NEXT_TASK](NEXT_TASK.md) 接入 WebP、PNG fallback、OG/快取版本並完成下列技術檢查；辨識度及背景觀感仍須使用者確認。舊 A 保存於 Git 歷史，不作現行 runtime fallback。
+使用者指定保持目前 A 圖構圖，修除右數第二棟疑似鐵窗、外推棚架、頂樓加蓋等負面建物意象，並避免任何較負面的建物。GPT 已用原 A 圖進行局部圖像編修、目視檢查並將修整稿轉為 1672×941 WebP（135064 bytes，blob `81760c85cfdde844809a04f1ab6a5ba51c25d293`），交接素材 `assets/images/hero-taipei-a-refined.webp`；需求交接時 runtime 尚未替換。該輪已依 [前輪 Task（固定 SHA）](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/blob/6e6d7fe280b1e9d7cf4f2e8e5636cbbcc0504943/docs/NEXT_TASK.md) 接入 WebP、PNG fallback、OG/快取版本並完成下列技術檢查；辨識度及背景觀感仍須使用者確認。舊 A 保存於 Git 歷史，不作現行 runtime fallback。
 
 
 ## 11/16 第三輪實作與驗證
@@ -75,3 +75,8 @@ GPT 核對遠端 HEAD `4fc7521744bdcaecd27d4c6c159fb94eb8449a7e`，Cloudflare Pa
 由乾淨遠端 `4c6ae97` 同步，僅重繪 owner / tenant / personal / subsidy，其他 12 個圖示以原版 SHA-256 固定基準確認不變。父框滑入保持白底；兩子連結僅精細滑鼠各自 hover 反色，鍵盤焦點與 44px 觸控不變、無觸控黏滯。修整版 WebP 原 bytes 接入根目錄 `hero-v2.webp`（135064 bytes，blob `81760c85cfdde844809a04f1ab6a5ba51c25d293`），同像素 PNG 1245328 bytes，版本 `81760c85cf`；沿用定位／漸層／OG／33 檔白名單，重複交接名已移除。沒有再次生成圖片。
 
 69/69 單元、build / --check / performance / Pages build / diff、五寬度×100/200% 字級、實際 pointer computed style／鍵盤／手機 tap、16 SVG 邊界、原服務網址／六項 mock 事件／導航與 GA4 隔離通過。六主卡 10 組位置／尺寸對照最大差異 0px。詳見 [本輪 report](evidence/2026-11-16-icon-refinement/REPORT.md)。實作 `2b9d2f1` 已推送，Cloudflare GitHub check / API deploy 均成功，測試站五寬度×兩字級、實際 hover / touch / focus／方案選中與返回、修整版背景全像素／MIME／版本及非 CX 回歸通過。Chromium 對 Pages 的憑證信任限制仍在，瀏覽器採明確診斷模式；另以 Node 正常 TLS 確認線上 HTML / CSS / 背景雙格式 / 原核心 JS 與本地產物 bytes 完全相同。後續僅補驗證文件，runtime 不變；使用者辨識／背景觀感及人工／實機驗收仍待確認。政策、內容、UI / analytics / Messenger JS、media、CX / R2 / GA4 與部署設定不變。
+
+
+## 11/16 第四輪圖示辨識需求（待實作）
+
+GPT 核對遠端 `6e6d7fe280b1e9d7cf4f2e8e5636cbbcc0504943`、Cloudflare Pages check SUCCESS、實際 icon 來源及前輪報告；`personal` 為小房屋＋折角文書，`subsidy` 為相同小房屋＋帶 1 的硬幣。使用者檢視後明確反映這兩圖仍不夠直覺，要求再規劃。建議改以握手（委託合作）與鈔票／領取箭頭（補助款）為主要圖形，細節由 Agent 在實際尺寸迭代。現行 [NEXT_TASK](NEXT_TASK.md) 僅授權這兩 key，其他 14 icon、原背景與 hover、所有 UX/政策/雲端設定維持。前輪技術結果保留，不推定視覺核定；此輪只更新文件、尚無新程式或新測試。其他既有人工待辦不變。
