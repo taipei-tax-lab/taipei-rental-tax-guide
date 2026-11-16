@@ -55,7 +55,7 @@ npm test 檢查建置可重現性、靜態連結、四方案資料、小幫手�
 node scripts/browser-check.cjs
 ```
 
-這是選用的瀏覽器整合驗證；Playwright 不屬網站執行相依。結果與截圖位於被 Git 忽略的 .preview/。
+這是選用的瀏覽器整合驗證；Playwright 不屬網站執行相依。結果與截圖位於被 Git 忽略的 .preview/；僅不含敏感資訊的文字驗證報告、JSON 與 log 可提交，截圖不提交 GitHub。
 
 詳見 [V2 開發與驗收紀錄](docs/v2-development.md)。首次使用者查找時間與理解程度仍須真人測試。
 
@@ -148,7 +148,7 @@ node scripts/extension-browser-check.cjs
 
 ## 已部署的 Pages 測試站與非 CX 驗收
 
-測試網址：https://rental-tax-guide-test.pages.dev/ 。此為測試站，不是機關正式發布。部署／驗收紀錄及截圖見 [PROJECT_STATE](docs/PROJECT_STATE.md) 及 [WORKLOG](docs/WORKLOG.md)；10/31 的完整非 CX HTTPS 驗收不代表 11/4 新版已完整回歸。
+測試網址：https://rental-tax-guide-test.pages.dev/ 。此為測試站，不是機關正式發布。部署／驗收文字紀錄見 [PROJECT_STATE](docs/PROJECT_STATE.md) 及 [WORKLOG](docs/WORKLOG.md)；10/31 的完整非 CX HTTPS 驗收不代表 11/4 新版已完整回歸。
 
 10/31 非 CX HTTPS 驗收明確排除 Messenger 開啟、訊息、預設問題及 CX API。針對實際 HTTPS 網址重跑非 CX 驗收（Playwright / Edge 已可用時）：
 

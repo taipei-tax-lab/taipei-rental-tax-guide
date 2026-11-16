@@ -45,12 +45,12 @@
 - [x] 開工讀 AGENTS、Workflow、State、Task、Worklog，核對實際分支、HEAD、遠端及工作樹；保留使用者變更。記錄現行 Cloudflare UI／原方案基準再改。
 - [x] 由 `site/template.html`、`site/content.json`、`scripts/build.mjs`、`assets/css/guide-v2.css`、`assets/js/guide-ui.js`、`assets/js/analytics.js` 等實際結構決定最小必要差異；生成物 `index.html` 以 build 更新，不手改。既有圖片資源不任意刪除。
 - [x] 修正前次已知建置失同步：`npm run build`，`node scripts/build.mjs --check` 必須 PASS；更新 `tests/ux2.test.mjs`、`scripts/ux2-browser-check.cjs` 及其他實際受影響測試（舊入口順序、整卡單連結／四方案入口斷言），保持原驗證強度，不單純移除斷言。執行 `npm test`、既有相關 browser check 及 Cloudflare test build，記錄指令和結果。
-- [x] 瀏覽器驗證桌機、768px、390px、320px；確認兩個子按鈕、三卡、五個精確 URL、正常前後導覽與回上一頁、focus／keyboard、無水平溢出及其他原有功能。附新舊主要畫面截圖／尺寸證據。以 mock gtag 驗證六項映射、只送一次、無額外敏感參數、未裝 gtag 仍可用，並確認 test build 不送 GA4。
+- [x] 瀏覽器驗證桌機、768px、390px、320px；確認兩個子按鈕、三卡、五個精確 URL、正常前後導覽與回上一頁、focus／keyboard、無水平溢出及其他原有功能。截圖只存 `.preview/`，Repo 僅保存尺寸量測等文字證據。以 mock gtag 驗證六項映射、只送一次、無額外敏感參數、未裝 gtag 仍可用，並確認 test build 不送 GA4。
 - [x] 五個外部網址均做唯讀檢查（不填表、不送件）。規劃時四個連結可讀；BX015 以網頁檢索取得 404，未證實正常瀏覽器也失效；請用實際瀏覽器複查、記錄最終 URL／畫面及可用性。若仍 404、權限／網路限制，保留使用者指定 URL，不擅自換址，列為發布前人工確認項目；不得假報 PASS。
 - [x] 所有既有未改動功能保留：方案、房客、比較、快速導引、CX、小幫手、R2 影片；不因本輪要求更改機關正式資料或實施額外重構。既有尚未取得實機、機關部署證據者仍列待確認。
-- [x] README 若功能描述過時，更新相關段落；更新 GA4 現行事件說明（與舊事件歷史文件區隔）、State／Task／Worklog，區分程式完成、自動測試、Cloudflare 真實驗證、人工驗收。檢查 diff、敏感資料、生成物及文件一致性後，將本輪變更 commit/push 至指定分支並核對 GitHub 遠端；現有 Cloudflare Git 整合若自動建置，記錄 check 與測試站驗證情況，不另外修改部署配置。不 merge main、不正式部署。交付 commit、測試結果、截圖／證據及剩餘限制供審查。
+- [x] README 若功能描述過時，更新相關段落；更新 GA4 現行事件說明（與舊事件歷史文件區隔）、State／Task／Worklog，區分程式完成、自動測試、Cloudflare 真實驗證、人工驗收。檢查 diff、敏感資料、生成物及文件一致性後，將本輪變更 commit/push 至指定分支並核對 GitHub 遠端；現有 Cloudflare Git 整合若自動建置，記錄 check 與測試站驗證情況，不另外修改部署配置。不 merge main、不正式部署。交付 commit、測試結果、文字證據及剩餘限制供審查。
 
 
 ## 本輪收尾
 
-程式版本 `f2d04d3108962ae7a6edbf7eb317afca051cc2c3` 已推送至指定分支，Cloudflare Pages check SUCCESS；原六卡 grid bounding box 與桌機可見框內縮均驗證，正式設定未變。完整證據、前後截圖及 HTTPS 結果見 [REPORT](evidence/2026-11-16-entry-redesign/REPORT.md)。其後僅補交接證據文件，不改 runtime。BX015 的 HTTP 404／可讀內容差異、實機、真人／完整輔助科技、正式站與真實 CX 仍依 report 列待確認。未有新核定需求前不開始下一項功能、不合併 main／正式發布。
+程式版本 `f2d04d3108962ae7a6edbf7eb317afca051cc2c3` 已推送至指定分支，Cloudflare Pages check SUCCESS；原六卡 grid bounding box 與桌機可見框內縮均驗證，正式設定未變。完整文字證據、前後量測及 HTTPS 結果見 [REPORT](evidence/2026-11-16-entry-redesign/REPORT.md)。其後僅補交接證據文件，不改 runtime。BX015 的 HTTP 404／可讀內容差異、實機、真人／完整輔助科技、正式站與真實 CX 仍依 report 列待確認。未有新核定需求前不開始下一項功能、不合併 main／正式發布。

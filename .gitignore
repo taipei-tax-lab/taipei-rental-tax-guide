@@ -1,3 +1,13 @@
 node_modules/
 .preview/
 dist-pages-test/
+
+# Verification captures are local only; never commit them as evidence.
+docs/evidence/**/*.png
+docs/evidence/**/*.jpg
+docs/evidence/**/*.jpeg
+docs/evidence/**/*.webp
+docs/evidence/**/*.gif
+docs/evidence/**/*.avif
+docs/evidence/**/*.mp4
+docs/evidence/**/*.webm
