@@ -1,0 +1,13 @@
+{
+  "sha": "2b9d2f1cc8c86ea3c5dfc03319c24df79c40c0b3",
+  "http": 200,
+  "checks": [
+    {
+      "name": "Cloudflare Pages",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "2b9d2f1cc8c86ea3c5dfc03319c24df79c40c0b3",
+      "details_url": "https://dash.cloudflare.com/?to=/b1e813caaa40e5a71174ede3e1d90a1a/pages/view/rental-tax-guide-test/eefe33b8-5bff-45c9-9e43-3a8caedf637a"
+    }
+  ]
+}

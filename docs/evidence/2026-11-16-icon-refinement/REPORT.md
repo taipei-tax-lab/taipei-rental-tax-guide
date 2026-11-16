@@ -44,6 +44,16 @@
 
 ## 部署與人工確認
 
-本地實作完成，待推送後填入精確 commit、Cloudflare check / deploy 與 HTTPS 實測。預計使用既有 https://rental-tax-guide-test.pages.dev/ ，不改雲端或管理端設定。
+實作 **`2b9d2f1cc8c86ea3c5dfc03319c24df79c40c0b3`** 已推送至原指定分支，工作樹乾淨。Cloudflare GitHub check completed / success；API 核對同 SHA、同分支、deploy stage success，部署 `eefe33b8-5bff-45c9-9e43-3a8caedf637a`。[部署紀錄](deployment.json)、[GitHub check](live/github-check.json)。實際測試主網址：https://rental-tax-guide-test.pages.dev/ ，不改雲端或管理端設定。
+
+- [HTTPS pointer / hover / touch / focus / 16 SVG / 個人方案選中返回](live/interaction.json) PASS；與本地同樣實際 mouse.move / tap / computed style，沒有僅靠 CSS 字串判斷。
+- [HTTPS 五寬度×兩字級／WebP 與 PNG 全像素／MIME](live/layout.json) PASS；CSS 使用新版本 WebP，明確改選 PNG fallback 後確認像素完全相同。線上首頁及房客卡片截圖已目視核對新圖示、修整街廓與留白／可讀性；沒有調整原定位或構圖。
+- [HTTPS 非 CX 回歸](live/non-cx.json) PASS；原四方案、房客 details、快速判斷、比較、申請連結、hash／歷史、33 assets MIME、私有路徑 404、零 GA4 請求。外部唯讀 BX015 404、其餘兩分處資訊 200，保留原待辦，不送件。
+- 以上瀏覽器使用明確 `BROWSER_IGNORE_HTTPS_ERRORS=1`，屬雲端憑證信任限制下的**診斷模式**，不聲稱正式 TLS 或實機驗收。
+- [正常 TLS 線上產物核對](live/runtime-match.json)：Node 使用原有 CA、未跳過 TLS，HTML、兩份 CSS、修整 WebP / PNG、原 analytics / guide-ui / operation-guide JS 均與本地 Pages build bytes 一致；WebP blob 精確為核定 `81760c85cfdde844809a04f1ab6a5ba51c25d293`。
+
+主要變更檔案：`scripts/icons.mjs`、`assets/css/guide-v2.css`（僅 hover / 背景版本）、`assets/css/site.css`（背景版本）、`hero-v2.webp/png`、`site/template.html`（OG 版本）及生成 `index.html`；針對性 browser checker、圖示 baseline fixture、既有資產驗證基準，以及 README / Task / State / Worklog / 文字證據。`scripts/build.mjs`、Pages 白名單、policy / UI / analytics / Messenger / media 來源與雲端設定無變更。修整交接名已移除，歷史素材可追溯。
+
+收尾提交只補本節及部署證據文件，runtime 不變；最後遠端 HEAD 與自動部署另於交付時核對。
 
 保留四圖示辨識度、背景街景觀感、實體 iOS / Android / LINE、真人／輔助科技及業務驗收待辦；BX015 的既有 HTTP 404 但可見申辦內容仍待人工確認，核定 URL 不變。

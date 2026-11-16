@@ -1,0 +1,79 @@
+{
+  "base": "https://rental-tax-guide-test.pages.dev/",
+  "commit": "2b9d2f1cc8c86ea3c5dfc03319c24df79c40c0b3",
+  "tlsVerificationBypass": false,
+  "results": [
+    {
+      "name": "index.html",
+      "status": 200,
+      "mime": "text/html; charset=utf-8",
+      "bytes": 60884,
+      "sha256": "979e711362bf82f868ae8b1ef57e02b3bafda509af2d165ddcd71ce12b124fb6",
+      "gitBlob": "d4ef8e010fee10b4edb5a3d8e52ec29276b093d4",
+      "matchesBuild": true
+    },
+    {
+      "name": "assets/css/guide-v2.css",
+      "status": 200,
+      "mime": "text/css; charset=utf-8",
+      "bytes": 36887,
+      "sha256": "db3dec932180df323d15def9d7fd87b01df5b439232fe9848f948b765263af79",
+      "gitBlob": "e29d91648cd9c13c8d417eb1052e0c6308fae92b",
+      "matchesBuild": true
+    },
+    {
+      "name": "assets/css/site.css",
+      "status": 200,
+      "mime": "text/css; charset=utf-8",
+      "bytes": 53226,
+      "sha256": "cf2af82c98a157dcf37e598660d80f9a0de87290baf66dcf282ac5a84a8d467b",
+      "gitBlob": "907c2756120ab68295e2629beb9096f65a78b3ac",
+      "matchesBuild": true
+    },
+    {
+      "name": "hero-v2.webp",
+      "status": 200,
+      "mime": "image/webp",
+      "bytes": 135064,
+      "sha256": "5a2e5681a6f64d224e3d339f483d5233ee74e97436d6cc8765179b82881456d8",
+      "gitBlob": "81760c85cfdde844809a04f1ab6a5ba51c25d293",
+      "matchesBuild": true
+    },
+    {
+      "name": "hero-v2.png",
+      "status": 200,
+      "mime": "image/png",
+      "bytes": 1245328,
+      "sha256": "d0ae6036473a2e9daf2ce2fbb97acbb5fb707e16acf7e0c0609ed1a6a3c2e31a",
+      "gitBlob": "dd86e79a795347aa95a5e085f1e2cdeb3cbc173a",
+      "matchesBuild": true
+    },
+    {
+      "name": "assets/js/analytics.js",
+      "status": 200,
+      "mime": "application/javascript",
+      "bytes": 2778,
+      "sha256": "ca3087a9b7c8ec9568faf1db811d2fd5ce4eef63263b7ad400006d82d38a0ef2",
+      "gitBlob": "82bf36d4b0d7f05ff996d57d5792f34d29d27b10",
+      "matchesBuild": true
+    },
+    {
+      "name": "assets/js/guide-ui.js",
+      "status": 200,
+      "mime": "application/javascript",
+      "bytes": 19682,
+      "sha256": "865bf6119551ef83c5daa5651e094658b9fba4b3e17a753f3ab35b08ecd34322",
+      "gitBlob": "863e8bf1298871f58d75ae28139ad1c083f58bde",
+      "matchesBuild": true
+    },
+    {
+      "name": "assets/js/operation-guide.js",
+      "status": 200,
+      "mime": "application/javascript",
+      "bytes": 1931,
+      "sha256": "79b33483957f576b5ddc3c8d5c7696e990eba417322f788f1cd0031ca4a5cdf0",
+      "gitBlob": "ce3aa0f6803c29ab792cbe760f8822a7860dbd0a",
+      "matchesBuild": true
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "eefe33b8-5bff-45c9-9e43-3a8caedf637a",
+  "url": "https://eefe33b8.rental-tax-guide-test.pages.dev",
+  "created_on": "2026-11-16T13:54:34.626744Z",
+  "latest_stage": {
+    "name": "deploy",
+    "started_on": "2026-11-16T13:54:43.171632Z",
+    "ended_on": "2026-11-16T13:54:49.016902Z",
+    "status": "success"
+  },
+  "deployment_trigger": {
+    "type": "github:push",
+    "metadata": {
+      "branch": "feat/direct-apply-operation-guide-20261031",
+      "commit_hash": "2b9d2f1cc8c86ea3c5dfc03319c24df79c40c0b3",
+      "commit_message": "feat: clarify four card icons and refine rent-standard hover and background",
+      "commit_dirty": false
+    }
+  }
+}

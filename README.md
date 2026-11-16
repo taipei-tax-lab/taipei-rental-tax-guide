@@ -190,4 +190,4 @@ node scripts/extension-browser-check.cjs
 
 ## 11/16 圖示辨識、租金標準 hover 與背景修整
 
-本輪只優化屋主／房客、個人代管及租金補貼四個 SVG，其餘 12 個保留；租金標準父框不隨滑鼠變色，試算／申請各自 hover 深青底白字，觸控避免黏滯反色。GPT 已提供的修整版背景直接接入既有根目錄 `hero-v2.webp/png`，不重生圖片；WebP 135064 bytes，兩格式像素一致、版面與 33 檔白名單保留。`node scripts/icon-refinement-browser-check.cjs` 實測滑鼠位置／computed style、鍵盤焦點及手機 tap；69/69 與本地回歸證據、部署及人工限制見 [本輪報告](docs/evidence/2026-11-16-icon-refinement/REPORT.md)。圖示辨識與背景觀感仍由使用者看測試站確認，截圖僅存 `.preview/`。
+本輪只優化屋主／房客、個人代管及租金補貼四個 SVG，其餘 12 個保留；租金標準父框不隨滑鼠變色，試算／申請各自 hover 深青底白字，觸控避免黏滯反色。GPT 已提供的修整版背景直接接入既有根目錄 `hero-v2.webp/png`，不重生圖片；WebP 135064 bytes，兩格式像素一致、版面與 33 檔白名單保留。`node scripts/icon-refinement-browser-check.cjs` 實測滑鼠位置／computed style、鍵盤焦點及手機 tap；69/69、本地及測試站 HTTPS 回歸通過，實作 `2b9d2f1` 的 Cloudflare check / deploy 成功；證據、憑證診斷模式及人工限制見 [本輪報告](docs/evidence/2026-11-16-icon-refinement/REPORT.md)。圖示辨識與背景觀感仍由使用者看測試站確認，截圖僅存 `.preview/`。

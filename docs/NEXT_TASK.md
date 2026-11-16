@@ -1,6 +1,6 @@
 # NEXT_TASK — 2026-11-16 四張卡片圖示、租金標準子按鈕 Hover 與背景建物修整
 
-狀態：**IMPLEMENTED_LOCAL_VERIFIED_PENDING_TEST_DEPLOYMENT**（2026-11-16，Asia/Taipei）。
+狀態：**IMPLEMENTED_TEST_DEPLOYED_PENDING_HUMAN_REVIEW**（2026-11-16，Asia/Taipei）。
 指定工作分支：`feat/direct-apply-operation-guide-20261031`。
 程式／證據基準：`4fc7521744bdcaecd27d4c6c159fb94eb8449a7e`；上一輪 Cloudflare check SUCCESS，68/68 單元及瀏覽器回歸已有紀錄。使用者檢視改版後反映部分 icon 語意不易理解，現要求針對該四張卡片重設圖示，並調整「出租房屋達租金標準」雙子按鈕 hover；使用者再指定維持背景 A 構圖但移除具負面觀感的建物特徵。前兩個重複輸入「我是房屋」依目前入口名稱理解為「我是屋主」「我是房客」，本輪不改標題。上一輪完整核定需求及完成紀錄見 [前輪 Task（固定 SHA）](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/blob/4fc7521744bdcaecd27d4c6c159fb94eb8449a7e/docs/NEXT_TASK.md)、[驗證報告](evidence/2026-11-16-visual-consistency/REPORT.md)。
 
@@ -43,11 +43,11 @@
 - [x] 新增可重現瀏覽器 hover 驗收（實際滑鼠移動／computed style）：父框標題、icon、留白、按鈕間隙均維持閒置顏色；hover 試算及申請各自只該按鈕為 `var(--teal)`、白字，另一顆與父框不變；移開還原。核對顏色與其他主卡已選狀態相同、鍵盤焦點可見、手機按鈕仍可獨立操作及無重疊。不得只檢查 CSS 文字而跳過實際瀏覽器效果；若環境阻擋明列 BLOCKED。
 - [x] 核對背景修整版實際顯示於本機與 Cloudflare 測試站（WebP、PNG fallback、OG、MIME、精確 bytes／hash、快取版本），桌機／手機的留白、裁切、文字可讀性無退化；確認右側第二棟及其他街廓已無明顯鐵窗籠、臨時頂樓棚架、突出雨棚等負面建物意象，且無新增負面建物。視覺問題由使用者最後確認；機器量測不可替代人工審查。
 - [x] 機器測試僅能驗證技術與視覺結構；辨識度須由使用者看實際網站確認，不能以測試通過替代人工核定。截圖可存在 Git 忽略的 `.preview/` 供當輪檢視，絕對不提交 GitHub；僅提交必要文字／JSON 測試證據，供後續在 Cloudflare 測試站人工確認。
-- [ ] 更新本 Task checklist、State、Worklog；commit/push 原指定分支，核對遠端 SHA、既有 Cloudflare 自動建置與實際線上版本（若無法讀回／實測，明列 BLOCKED，不冒稱完成）。回報四個圖示實際設計、雙按鈕 hover 實測、修整版背景資產及驗證、變更檔案、commit、測試與測試網址，保留既有實機／業務驗收待辦。未獲授權不 merge main、不正式部署、不改雲端或管理端設定。純 Repo 任務不掃描 Drive。
+- [x] 更新本 Task checklist、State、Worklog；commit/push 原指定分支，核對遠端 SHA、既有 Cloudflare 自動建置與實際線上版本（若無法讀回／實測，明列 BLOCKED，不冒稱完成）。回報四個圖示實際設計、雙按鈕 hover 實測、修整版背景資產及驗證、變更檔案、commit、測試與測試網址，保留既有實機／業務驗收待辦。未獲授權不 merge main、不正式部署、不改雲端或管理端設定。純 Repo 任務不掃描 Drive。
 
 
 ## 本輪執行狀態
 
 已完成四 key 重繪、雙按鈕獨立 hover 與修整版背景接入。本地 build / --check / 69 項單元 / performance / Pages 33 檔 / diff、五寬度×兩字級及針對性 hover／觸控／導航驗證通過；六主卡位置尺寸相對開工 10 組量測差異皆 0px。實際 runtime 位於根目錄 `hero-v2.*`，已依現況校正第 3 節路徑，不變更白名單。交接名於實際資產像素／MIME 驗證後移除，Git 歷史保留。
 
-待本輪 commit/push、Cloudflare 精確 SHA 與線上顯示核對。上方勾選指實作與實際執行的技術檢查，不能取代圖示辨識度／背景觀感及實機人工核定。完整命令、證據與限制見 [REPORT](evidence/2026-11-16-icon-refinement/REPORT.md)。
+實作 `2b9d2f1cc8c86ea3c5dfc03319c24df79c40c0b3` 已推送，Cloudflare check / deploy SUCCESS；真實測試站 hover / touch、五寬度×兩字級、WebP / PNG fallback / OG / MIME / 正常 TLS bytes 核對及非 CX 回歸通過。收尾只補部署與驗證文件，runtime 不變。上方勾選指實作與實際執行的技術檢查，不能取代圖示辨識度／背景觀感及實機人工核定。完整命令、證據與限制見 [REPORT](evidence/2026-11-16-icon-refinement/REPORT.md)。

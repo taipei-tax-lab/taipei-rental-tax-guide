@@ -1,6 +1,6 @@
 # PROJECT_STATE — 現行狀態
 
-核對日期：2026-11-16（Asia/Taipei）。狀態：**四圖示、雙子按鈕 hover 與修整版背景已實作，本地 69/69 及瀏覽器回歸通過；待本輪測試站部署與人工確認**。
+核對日期：2026-11-16（Asia/Taipei）。狀態：**四圖示、雙子按鈕 hover 與修整版背景已實作並推送，69/69 與測試站回歸通過；待使用者辨識度、背景觀感及實機確認**。
 
 ## 11/16 前一輪申請入口實作
 
@@ -22,7 +22,7 @@
 | 歷史文件整理前開發基準 | `51161daf856ab6ede91f69077b1ed2e2971f315d`（2026-11-04） |
 | main 最新已發布基準 | `28fd76aed2a212776fa5eade5eca18e02ff24701`（PR #18，2026-10-31） |
 | 分支關係（文件整理前） | feature 領先 main 26 commits、落後 0；未合併，沒有待合併 PR |
-| Cloudflare 測試（本輪實作） | [test site](https://rental-tax-guide-test.pages.dev/)，`346d24df57d8db4efca8376ebe717f71502289d0` 的 [Cloudflare Pages check](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/commit/346d24df57d8db4efca8376ebe717f71502289d0/checks) SUCCESS；部署 `8a04701f-9b6b-4ca5-96e8-e528e5cf1733`，使用既有 Git 整合 |
+| Cloudflare 測試（本輪實作） | [test site](https://rental-tax-guide-test.pages.dev/)，`2b9d2f1cc8c86ea3c5dfc03319c24df79c40c0b3` 的 [Cloudflare Pages check](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/commit/2b9d2f1cc8c86ea3c5dfc03319c24df79c40c0b3/checks) SUCCESS；部署 `eefe33b8-5bff-45c9-9e43-3a8caedf637a`，使用既有 Git 整合 |
 | GitHub Pages | [主線網站](https://taipei-tax-lab.github.io/taipei-rental-tax-guide/)，[10/31 部署成功](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/actions/runs/41170372607)（main `28fd76a`） |
 | 機關站 | [rentaltax](https://services.arpa.tpctax.dof.gov.taipei/rentaltax/)，獨立部署；未取得 10/28 診斷之後的修復／正式版本驗收證據 |
 
@@ -74,4 +74,4 @@ GPT 核對遠端 HEAD `4fc7521744bdcaecd27d4c6c159fb94eb8449a7e`，Cloudflare Pa
 
 由乾淨遠端 `4c6ae97` 同步，僅重繪 owner / tenant / personal / subsidy，其他 12 個圖示以原版 SHA-256 固定基準確認不變。父框滑入保持白底；兩子連結僅精細滑鼠各自 hover 反色，鍵盤焦點與 44px 觸控不變、無觸控黏滯。修整版 WebP 原 bytes 接入根目錄 `hero-v2.webp`（135064 bytes，blob `81760c85cfdde844809a04f1ab6a5ba51c25d293`），同像素 PNG 1245328 bytes，版本 `81760c85cf`；沿用定位／漸層／OG／33 檔白名單，重複交接名已移除。沒有再次生成圖片。
 
-69/69 單元、build / --check / performance / Pages build / diff、五寬度×100/200% 字級、實際 pointer computed style／鍵盤／手機 tap、16 SVG 邊界、原服務網址／六項 mock 事件／導航與 GA4 隔離通過。六主卡 10 組位置／尺寸對照最大差異 0px。詳見 [本輪 report](evidence/2026-11-16-icon-refinement/REPORT.md)。目前待推送與 Cloudflare 部署／HTTPS 複驗；Chromium 對 Pages 的憑證信任限制仍在，須分別記錄診斷模式、正常 TLS 讀回與人工／實機驗收。政策、內容、UI / analytics / Messenger JS、media、CX / R2 / GA4 與部署設定不變。
+69/69 單元、build / --check / performance / Pages build / diff、五寬度×100/200% 字級、實際 pointer computed style／鍵盤／手機 tap、16 SVG 邊界、原服務網址／六項 mock 事件／導航與 GA4 隔離通過。六主卡 10 組位置／尺寸對照最大差異 0px。詳見 [本輪 report](evidence/2026-11-16-icon-refinement/REPORT.md)。實作 `2b9d2f1` 已推送，Cloudflare GitHub check / API deploy 均成功，測試站五寬度×兩字級、實際 hover / touch / focus／方案選中與返回、修整版背景全像素／MIME／版本及非 CX 回歸通過。Chromium 對 Pages 的憑證信任限制仍在，瀏覽器採明確診斷模式；另以 Node 正常 TLS 確認線上 HTML / CSS / 背景雙格式 / 原核心 JS 與本地產物 bytes 完全相同。後續僅補驗證文件，runtime 不變；使用者辨識／背景觀感及人工／實機驗收仍待確認。政策、內容、UI / analytics / Messenger JS、media、CX / R2 / GA4 與部署設定不變。
