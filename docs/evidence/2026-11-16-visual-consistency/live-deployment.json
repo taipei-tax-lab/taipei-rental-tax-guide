@@ -1,0 +1,21 @@
+{
+  "id": "8a04701f-9b6b-4ca5-96e8-e528e5cf1733",
+  "url": "https://8a04701f.rental-tax-guide-test.pages.dev",
+  "created_on": "2026-11-16T13:20:20.756965Z",
+  "latest_stage": {
+    "name": "deploy",
+    "started_on": "2026-11-16T13:20:28.148935Z",
+    "ended_on": "2026-11-16T13:20:33.647506Z",
+    "status": "success"
+  },
+  "deployment_trigger": {
+    "type": "github:push",
+    "metadata": {
+      "branch": "feat/direct-apply-operation-guide-20261031",
+      "commit_hash": "346d24df57d8db4efca8376ebe717f71502289d0",
+      "commit_message": "fix: include visual card template source with generated page",
+      "commit_dirty": false
+    }
+  },
+  "environment": "production"
+}

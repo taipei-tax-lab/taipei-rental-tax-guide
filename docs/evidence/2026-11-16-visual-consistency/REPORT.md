@@ -34,11 +34,20 @@
 
 原前輪「可見框內縮／18px 圓角」及直接申請兩欄測試已依本輪核定規格改成共通可見框及三欄驗證；其餘事件、導航、功能斷言保留。選填 BASELINE_JSON 僅供同版量測比較，不拿上一輪已核定要改的框高當不變條件。
 
-可重現：先 `node scripts/build-pages-test.mjs`，以 `PORT=4175 node scripts/serve.mjs --pages-test` 啟動同 checkout；瀏覽器腳本設 `BROWSER_EXECUTABLE=/usr/bin/chromium PREVIEW_URL=http://127.0.0.1:4175/`。本地非 CX 加 `ALLOW_LOCAL_PREVIEW=1`。影片命令使用 `node --use-env-proxy scripts/extension-browser-check.cjs`。所有截圖保持在 `.preview/`；這份 evidence 只複製 JSON / log / 文字。
+可重現：先 `node scripts/build-pages-test.mjs`，以 `PORT=4175 node scripts/serve.mjs --pages-test` 啟動同 checkout；瀏覽器腳本設 `BROWSER_EXECUTABLE=/usr/bin/chromium PREVIEW_URL=http://127.0.0.1:4175/`。本地非 CX 加 `ALLOW_LOCAL_PREVIEW=1`。HTTPS 將 PREVIEW_URL 換成測試主網址，API request 可用 `BROWSER_PROXY` 指向既有環境代理（不輸出其值）；本環境 Chromium 另需明確 `BROWSER_IGNORE_HTTPS_ERRORS=1` 診斷選項。影片命令使用 `node --use-env-proxy scripts/extension-browser-check.cjs`。所有截圖保持在 `.preview/`；這份 evidence 只複製 JSON / log / 文字。
 
 ## 測試站部署與人工事項
 
-本地完成，待此程式 commit 推送後記錄 Cloudflare 精確 SHA、部署及 HTTPS 回歸。Cloudflare connector 僅做 GET，不更改專案設定。
+完整來源 commit **`346d24df57d8db4efca8376ebe717f71502289d0`** 已推送。首筆 `f584ed3` 漏入模板來源，已於 `346d24d` 補齊並重驗 --check；不把中間版當成驗收基準。Cloudflare GitHub check 為 completed / success；API 核對同 SHA、同指定分支、deploy stage success，部署 [8a04701f](https://8a04701f.rental-tax-guide-test.pages.dev/)，正式使用的測試主網址為 https://rental-tax-guide-test.pages.dev/ 。[部署](live-deployment.json)、[GitHub check](live/github-check.json)。Cloudflare connector 僅做 GET，不更改專案設定。
+
+HTTPS 複驗：
+
+- [五寬度×100/200% 字級與 A 像素/MIME](live/layout.json)、[實際入口／無 gtag mock](live/entry.json)、[UX2](live/ux2.json)、[六個 mock 事件／鍵盤／無 gtag 導覽](live/mock-events.json) PASS。
+- [非 CX 全站回歸](live/non-cx.json)、[Pages GA4 隔離／私有路徑 404](live/pages-test.json)、[影片播放與 Range](live/extension-diagnostic.json) PASS；瀏覽器使用 `BROWSER_IGNORE_HTTPS_ERRORS=1`，明確屬 TLS 診斷模式。API request 遵守環境代理 `BROWSER_PROXY`；新檢查器補此相容選項，網站 runtime 不變。
+- [線上產物比對](live/runtime-match.json) 以 Node、原有 CA、正常 TLS 驗證讀回 index、兩份 CSS、A WebP/PNG、analytics / guide-ui / operation-guide JS，與本地 Pages build 逐 bytes 相同，沒有關閉 TLS 驗證。
+- 外部申辦頁唯讀：BX015 404、分處與郵寄資訊 200；BX015 保留前輪人工確認待辦，不改 URL、不填表送件。
+
+收尾提交只更新上述證據文件與瀏覽器檢查器的代理／跨環境瀏覽器選擇，不變更已驗證 runtime。最後遠端 HEAD / Cloudflare check 另於交付時核對。
 
 標準 Chromium 對 Pages 也回報 `ERR_CERT_AUTHORITY_INVALID`；HTTPS 瀏覽器測試需明確區分診斷模式與正式 TLS 驗收。BX015 維持前輪「HTTP 404 但有申辦內容」待人工確認，網址未改、未填表或送件。實體 iPhone Safari / LINE、Android、真人及輔助科技／業務驗收仍待人工覆核。
 

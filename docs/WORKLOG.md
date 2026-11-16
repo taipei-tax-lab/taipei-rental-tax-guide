@@ -38,4 +38,4 @@
 
 ## 2026-11-16 視覺一致性實作與本地驗證
 
-由遠端 `bea4edb` 乾淨同步，在原指定分支實作核定十項需求：A 圖 WebP / PNG 與快取版本、六主卡共用外框及可見圖示、16 個集中自製 SVG、直接申請與房客三欄語言、四方案移除裝飾標號及精確比較片語修正。保留所有政策／服務資料、事件與 Messenger / media 行為；未修改雲端設定。原 65 項加 3 項單元共 68 PASS；五寬度×100/200% 字級、同框／圖示／44px 子連結、原鍵盤／事件／歷史與 36+12 捲動縮放回歸通過。R2 原 URL metadata / Range 與影片播放回歸採明確 TLS 診斷模式，環境憑證錯誤保留限制。截圖僅在 `.preview/`；文字與 JSON 見 [report](evidence/2026-11-16-visual-consistency/REPORT.md)。本地完成，待本輪推送與測試站精確部署回讀。
+由遠端 `bea4edb` 乾淨同步，在原指定分支實作核定十項需求：A 圖 WebP / PNG 與快取版本、六主卡共用外框及可見圖示、16 個集中自製 SVG、直接申請與房客三欄語言、四方案移除裝飾標號及精確比較片語修正。保留所有政策／服務資料、事件與 Messenger / media 行為；未修改雲端設定。原 65 項加 3 項單元共 68 PASS；五寬度×100/200% 字級、同框／圖示／44px 子連結、原鍵盤／事件／歷史與 36+12 捲動縮放回歸通過。R2 原 URL metadata / Range 與影片播放回歸採明確 TLS 診斷模式，環境憑證錯誤保留限制。截圖僅在 `.preview/`；文字與 JSON 見 [report](evidence/2026-11-16-visual-consistency/REPORT.md)。完整來源 `346d24d` 已推送，Cloudflare check / API deploy SUCCESS（部署 `8a04701f-9b6b-4ca5-96e8-e528e5cf1733`）。首筆 `f584ed3` 漏入模板，已在 `346d24d` 補齊並檢查建置一致，不以中間版作驗收。HTTPS 五寬度×兩字級／入口／UX2／六個 mock 事件／非 CX／GA4 隔離及 R2 影片回歸皆通過（Chromium TLS 診斷模式）；正常 TLS 的 Node 讀回確認線上 HTML / CSS / A pair / 主要 JS 與本地產物逐 bytes 相同。收尾補測試代理相容與證據文件，runtime 不變；待人工視覺與實機覆核。

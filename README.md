@@ -178,11 +178,11 @@ node scripts/extension-browser-check.cjs
 
 `node scripts/entry-redesign-browser-check.cjs` 針對 GA4 隔離產物驗證四種寬度、七個主要操作、焦點／鍵盤、五個精確網址、六個 mock 事件及無 gtag 導覽；可設 `BASELINE_JSON` 比對改版前卡片尺寸。`node scripts/entry-external-read-check.cjs` 僅唯讀瀏覽外部入口，不填表或送件。證據見 [11/16 report](docs/evidence/2026-11-16-entry-redesign/REPORT.md)。
 
-瀏覽器腳本預設 Edge，雲端可設 `BROWSER_EXECUTABLE=/usr/bin/chromium`；Playwright 仍為驗證工具，不是網站相依。HTTPS 腳本中的 API request 可設 `BROWSER_PROXY` 沿用環境代理（不輸出代理值）。`node scripts/entry-live-layout-check.cjs` 可在不裝 mock gtag 的情況複驗真實 Pages 四寬度與可見框內縮。Node 24 雲端需 `node --use-env-proxy scripts/extension-browser-check.cjs` 才沿用環境代理存取 R2。R2 影片已由外部在 11/8 更新，本輪只讀回 metadata 並校正過期測試快照，未上傳或改 URL。TLS 代理造成 Chromium 信任錯誤時，診斷性 `BROWSER_IGNORE_HTTPS_ERRORS=1` 的結果須明確標示，不能當正式 TLS 驗收。
+瀏覽器腳本預設 Edge，雲端可設 `BROWSER_EXECUTABLE=/usr/bin/chromium`；Playwright 仍為驗證工具，不是網站相依。HTTPS 腳本中的 API request 可設 `BROWSER_PROXY` 沿用環境代理（不輸出代理值）。`node scripts/entry-live-layout-check.cjs` 可在不裝 mock gtag 的情況複驗真實 Pages 四寬度與六卡共通可見框。Node 24 雲端需 `node --use-env-proxy scripts/extension-browser-check.cjs` 才沿用環境代理存取 R2。R2 影片已由外部在 11/8 更新，本輪只讀回 metadata 並校正過期測試快照，未上傳或改 URL。TLS 代理造成 Chromium 信任錯誤時，診斷性 `BROWSER_IGNORE_HTTPS_ERRORS=1` 的結果須明確標示，不能當正式 TLS 驗收。
 
 
 ## 11/16 視覺一致性改版
 
 核定 A 背景已接入 `hero-v2.webp` 及同畫面的 `hero-v2.png` fallback，CSS / OG 加上素材版本；交接檔舊名稱不重複保留。現有 Pages 白名單仍為 33 檔，WebP 177706 bytes，符合原 700KB budget。六主卡共用外框、圖示位置與閒置色彩；桌機三欄兩列、平板兩欄、手機依寬度兩欄／一欄，放大字級時自然增高。16 個卡片圖示由 `scripts/icons.mjs` 集中輸出，四方案保留色彩、取消裝飾數字；直接申請與房客共用三欄／窄版單欄格線。政策、服務網址與 GA4 / CX / Messenger 行為保留。
 
-`node scripts/visual-consistency-browser-check.cjs` 驗證五種寬度、100/200% 字級、六卡同框與圖示、申請／房客格線、44px 子連結及 A 的格式選用、fallback 像素與 MIME。68/68 單元與本地回歸通過；Cloud Chromium 的外部 TLS 信任限制及部署紀錄見 [視覺改版報告](docs/evidence/2026-11-16-visual-consistency/REPORT.md)。截圖只保留 `.preview/`，不提交 GitHub。人工及實體裝置驗收仍需另行確認。
+`node scripts/visual-consistency-browser-check.cjs` 驗證五種寬度、100/200% 字級、六卡同框與圖示、申請／房客格線、44px 子連結及 A 的格式選用、fallback 像素與 MIME。68/68 單元、本地及測試站 HTTPS 回歸通過，完整來源 `346d24d` 的 Cloudflare check / deploy SUCCESS；Cloud Chromium 的外部 TLS 信任限制及部署紀錄見 [視覺改版報告](docs/evidence/2026-11-16-visual-consistency/REPORT.md)。截圖只保留 `.preview/`，不提交 GitHub。人工及實體裝置驗收仍需另行確認。

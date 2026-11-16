@@ -8,8 +8,8 @@ assert.ok(folder.startsWith('.preview/'),'Screenshots must remain in .preview/')
 const near=(a,b,label)=>assert.ok(Math.abs(a-b)<1,`${label}: ${a} / ${b}`);
 (async()=>{
  fs.mkdirSync(folder,{recursive:true});
- const browser=await chromium.launch({executablePath:process.env.BROWSER_EXECUTABLE||'/usr/bin/chromium',headless:true});
- const page=await browser.newPage({ignoreHTTPSErrors:process.env.BROWSER_IGNORE_HTTPS_ERRORS==='1',reducedMotion:'reduce'});
+ const browser=await chromium.launch({...(process.env.BROWSER_EXECUTABLE?{executablePath:process.env.BROWSER_EXECUTABLE}:{channel:'msedge'}),headless:true});
+ const page=await browser.newPage({proxy:process.env.BROWSER_PROXY?{server:process.env.BROWSER_PROXY}:undefined,ignoreHTTPSErrors:process.env.BROWSER_IGNORE_HTTPS_ERRORS==='1',reducedMotion:'reduce'});
  const errors=[],gaRequests=[],rows=[];
  await page.route('**/*',r=>new URL(r.request().url()).origin===new URL(base).origin?r.continue():r.abort());
  page.on('pageerror',e=>errors.push(e.message));

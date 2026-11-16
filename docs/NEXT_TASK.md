@@ -1,6 +1,6 @@
 # NEXT_TASK — 2026-11-16 出租專區視覺一致性改版
 
-狀態：**IMPLEMENTED_LOCAL_VERIFIED_PENDING_TEST_DEPLOYMENT**（2026-11-16，Asia/Taipei）。使用者已核定十項前端視覺需求，延續 `feat/direct-apply-operation-guide-20261031` 的已驗證申請入口版本。此前功能基準 `f2d04d3`、審查／截圖清理 `7866755`。本輪實作與本地驗證已完成，推送／部署及人工狀態另見文件末尾。本次是視覺改版，非新功能或政策改版；下列 Checklist 為本輪唯一實作規格。前次任務完成紀錄見 [前輪 Task（固定 SHA）](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/blob/78667557e32602712ad0cd2344fa3d8bdcfff890/docs/NEXT_TASK.md) 與 [前輪報告](evidence/2026-11-16-entry-redesign/REPORT.md)。
+狀態：**IMPLEMENTED_TEST_DEPLOYED_PENDING_HUMAN_REVIEW**（2026-11-16，Asia/Taipei）。使用者已核定十項前端視覺需求，延續 `feat/direct-apply-operation-guide-20261031` 的已驗證申請入口版本。此前功能基準 `f2d04d3`、審查／截圖清理 `7866755`。本輪實作、本地與 HTTPS 回歸及測試站部署已完成，人工狀態另見文件末尾。本次是視覺改版，非新功能或政策改版；下列 Checklist 為本輪唯一實作規格。前次任務完成紀錄見 [前輪 Task（固定 SHA）](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/blob/78667557e32602712ad0cd2344fa3d8bdcfff890/docs/NEXT_TASK.md) 與 [前輪報告](evidence/2026-11-16-entry-redesign/REPORT.md)。
 
 ## A. 背景圖及六張主卡片
 
@@ -58,12 +58,12 @@
 - [x] 真實瀏覽器以 1440、1100、768、390、320px 及 200% 字級（依既有檢查能力）檢視首頁／屋主四方案、房客三卡、直接申請三卡、比較頁、操作說明；檢查主卡同列外框 bounding box、各圖示 alignment／一致尺寸、背景右側構圖與可讀性、無水平溢出、鍵盤焦點與 44px 子按鈕。直接申請與房客的欄數及對齊比較，桌機必須一列三卡，窄版順序正確。手機不要裁切字或讓圖示／雙按鈕重疊。回到上頁、hash 深層連結、resize、重新整理與 36+12 原有捲動／zoom 回歸通過；用 mock gtag 驗證原六項追蹤、保留其餘核心功能。
 - [x] 以既有 `scripts/entry-redesign-browser-check.cjs`、`scripts/entry-live-layout-check.cjs`、`scripts/ux2-browser-check.cjs`、`scripts/entry-scroll-check.cjs`、Pages 與 non-CX regression 工具作風險相稱的本地／HTTPS 驗證；不要使用會送正式 CX 問題或污染 GA4 的測試。瀏覽器受環境／網路限制時明確報告 PASS／BLOCKED 的實際層級，不能聲稱完成實機／業務驗收。
 - [x] 提交前檢查所有 runtime 輸出及 Cloudflare 白名單（必要時調整含新圖檔的精確清單與數量，而非整批複製資料夾），不帶 MP4、Repo docs、截圖或暫存。實際核定 A 是網站圖片資產可版控；**所有測試截圖只存 `.preview/`，絕對不提交 GitHub**。保留文字報告、尺寸／JSON/log、可重現指令。可視化結果以現有 Cloudflare 測試站供使用者人工確認。
-- [ ] 更新必要的 README、State、Task、Worklog；區分已實作、測試、部署與人工驗收。commit/push 至現行指定分支，遠端核對 SHA／Cloudflare check；自動測試站 build 屬既有整合，無需改設定。回報 commit、測試結果、差異及待人工事項；不 merge main、不正式部署、不變更 GA4/CX/R2/網域設定。
+- [x] 更新必要的 README、State、Task、Worklog；區分已實作、測試、部署與人工驗收。commit/push 至現行指定分支，遠端核對 SHA／Cloudflare check；自動測試站 build 屬既有整合，無需改設定。回報 commit、測試結果、差異及待人工事項；不 merge main、不正式部署、不變更 GA4/CX/R2/網域設定。
 
 
 ## 本輪執行狀態
 
 - 實作、本地 build / --check / 68 項單元 / performance / Pages 33 檔 / diff 檢查及風險相稱瀏覽器回歸已完成；上方勾選為已執行規格與檢查，遇環境限制的實際層級見 report，不表示人工／實機全部驗收。
 - A 交接檔原 bytes 已移至 `hero-v2.webp`、生成同像素 `hero-v2.png`；實際產物、格式、MIME 驗證後移除重複交接名稱。原 Git blob 及 Git 歷史保留。
-- 目前待 commit/push、核對 Cloudflare 精確 SHA 與 HTTPS 複驗；詳細 [REPORT](evidence/2026-11-16-visual-consistency/REPORT.md)。Chromium 外部 TLS 信任限制、實體裝置與人工事項分開記錄。
+- 完整來源 `346d24d` 已推送，Cloudflare check / deploy 成功，精確 SHA、線上 bytes 及 HTTPS 複驗均已核對；收尾僅補測試代理相容與證據文件，不變更 runtime。詳細 [REPORT](evidence/2026-11-16-visual-consistency/REPORT.md)。Chromium 外部 TLS 信任限制、實體裝置與人工事項分開記錄。
 - 本輪收尾後等待人工視覺審查及下一輪需求，不自行開始新功能或正式發布。

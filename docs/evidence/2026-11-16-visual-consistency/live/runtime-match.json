@@ -1,0 +1,71 @@
+{
+  "base": "https://rental-tax-guide-test.pages.dev/",
+  "commit": "346d24df57d8db4efca8376ebe717f71502289d0",
+  "tlsVerificationBypass": false,
+  "results": [
+    {
+      "name": "index.html",
+      "status": 200,
+      "mime": "text/html; charset=utf-8",
+      "bytes": 60830,
+      "sha256": "b092a6cb53522738bab1303fcc3bbbdc44c36fc590017527a7b37acf7fd5a825",
+      "matchesBuild": true
+    },
+    {
+      "name": "assets/css/guide-v2.css",
+      "status": 200,
+      "mime": "text/css; charset=utf-8",
+      "bytes": 36728,
+      "sha256": "6d8a9238977aa6dc94aa4c77bea8ad66bbeefb94c8b1b9ae81a8e479a38cf653",
+      "matchesBuild": true
+    },
+    {
+      "name": "assets/css/site.css",
+      "status": 200,
+      "mime": "text/css; charset=utf-8",
+      "bytes": 53226,
+      "sha256": "cf6bd1318a43aa48505ea7599c24d880cdedb9f6bb326482899c0cdf15ba44e8",
+      "matchesBuild": true
+    },
+    {
+      "name": "hero-v2.webp",
+      "status": 200,
+      "mime": "image/webp",
+      "bytes": 177706,
+      "sha256": "47e1d46c0a661dc4628b2733054981bdfb7d4ac2030cc8e9a0ec6feb012cc621",
+      "matchesBuild": true
+    },
+    {
+      "name": "hero-v2.png",
+      "status": 200,
+      "mime": "image/png",
+      "bytes": 1377431,
+      "sha256": "d111e7237078fe37364d5b8e6d3c848cbb6ee0694a6c8428b17d3ddba6802ccf",
+      "matchesBuild": true
+    },
+    {
+      "name": "assets/js/analytics.js",
+      "status": 200,
+      "mime": "application/javascript",
+      "bytes": 2778,
+      "sha256": "ca3087a9b7c8ec9568faf1db811d2fd5ce4eef63263b7ad400006d82d38a0ef2",
+      "matchesBuild": true
+    },
+    {
+      "name": "assets/js/guide-ui.js",
+      "status": 200,
+      "mime": "application/javascript",
+      "bytes": 19682,
+      "sha256": "865bf6119551ef83c5daa5651e094658b9fba4b3e17a753f3ab35b08ecd34322",
+      "matchesBuild": true
+    },
+    {
+      "name": "assets/js/operation-guide.js",
+      "status": 200,
+      "mime": "application/javascript",
+      "bytes": 1931,
+      "sha256": "79b33483957f576b5ddc3c8d5c7696e990eba417322f788f1cd0031ca4a5cdf0",
+      "matchesBuild": true
+    }
+  ]
+}
