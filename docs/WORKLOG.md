@@ -58,3 +58,5 @@
 ## 2026-11-16 第四輪圖示再設計需求
 
 使用者檢視既有測試站後反映個人租賃住宅包租代管、我要申請租金補貼兩張 icon 仍不直覺。以 `6e6d7fe280b1e9d7cf4f2e8e5636cbbcc0504943` 為開工基準（Cloudflare check SUCCESS），核對前輪 SVG 使用相同小屋＋文件／寫 1 的硬幣，建議本輪改採握手和鈔票／領取箭頭，僅改 personal/subsidy，其餘 14 圖、背景、hover 和原功能維持。前輪實作規格與結果見 [固定 SHA](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/blob/6e6d7fe280b1e9d7cf4f2e8e5636cbbcc0504943/docs/NEXT_TASK.md) 與 [report](evidence/2026-11-16-icon-refinement/REPORT.md)。已更新 [NEXT_TASK](NEXT_TASK.md) 及現行 State，不修改 runtime，不聲稱新驗收。
+
+使用者確認握手與鈔票＋領取箭頭兩個圖示概念 OK，追加直接申請／操作說明頁外層背景應與屋主／房客頁相同。核對 template 共用 `v2-inner-page v2-entry-content` 及 CSS `.v2-inner-page { background:#fffefbf5; }`，核定只取消兩入口外框底色，原固定住宅背景、三申請卡白底、影片播放器及其他詳情／比較頁原樣。與兩 icon 納入同一任務，僅提交文件、未改程式，待驗收。
