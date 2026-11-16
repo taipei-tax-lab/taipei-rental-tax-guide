@@ -46,3 +46,5 @@
 使用者檢視視覺改版後提出四個圖示難辨識，需單獨優化屋主／房客、個人租賃住宅包租代管及租金補貼。核對遠端 `4fc7521744bdcaecd27d4c6c159fb94eb8449a7e`（Cloudflare check SUCCESS）及 `scripts/icons.mjs` 現行十六個圖示，保留原設計系統，僅指定四個 key；前輪任務與驗收保存於 [固定 SHA](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/blob/4fc7521744bdcaecd27d4c6c159fb94eb8449a7e/docs/NEXT_TASK.md)。本次提交現行任務、狀態與決策，不改 runtime、不宣稱已實作或新驗收；下一步依 [NEXT_TASK](NEXT_TASK.md) 執行。
 
 使用者補充：出租房屋達租金標準的非互動外框不應觸發反色；試算／申請各自 hover 才使用其他主卡同款深綠底白字。已併入同一 NEXT_TASK，限定第六卡 CSS 狀態與對應測試，尚未實作。
+
+使用者再次補充：現行背景 A 右數第二棟有疑似鐵窗、頂樓加蓋等不佳建物意象，要求修整且不得呈現較負面的建物。以現行 A 為圖像編修來源，保留構圖、色系與留白；GPT 生成局部修整版並轉為 WebP `assets/images/hero-taipei-a-refined.webp`（1672×941／135064 bytes），整理交接規格與預期驗收，與先前 icon／hover 納入同一任務。本次僅交接素材及文件，尚未替換 runtime 或新增功能測試結果。

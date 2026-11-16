@@ -1,6 +1,6 @@
 # PROJECT_STATE — 現行狀態
 
-核對日期：2026-11-16（Asia/Taipei）。狀態：**前輪視覺一致性改版已實作並完成測試站回歸；使用者已提出四個圖示辨識問題，本輪待實作及人工確認（含租金標準雙子按鈕 hover）**。
+核對日期：2026-11-16（Asia/Taipei）。狀態：**前輪視覺一致性改版已實作並完成測試站回歸；使用者已提出四個圖示辨識問題，本輪待實作及人工確認（含租金標準雙子按鈕 hover、背景建物修整）**。
 
 ## 11/16 前一輪申請入口實作
 
@@ -62,4 +62,9 @@
 
 ## 11/16 四個圖示辨識優化（待實作）
 
-GPT 核對遠端 HEAD `4fc7521744bdcaecd27d4c6c159fb94eb8449a7e`，Cloudflare Pages check SUCCESS；實際 `scripts/icons.mjs` 有 16 個集中定義。使用者檢視新版後反映「我是屋主／我是房客」（依目前入口名稱理解重複輸入）、「個人租賃住宅包租代管」、「我要申請租金補貼」圖示難懂，要求重設。現行任務正式規格見 [NEXT_TASK](NEXT_TASK.md)，僅改四 key（owner/tenant/personal/subsidy），另限定調整第六卡的 hover：外框不變色，僅滑入的試算／申請子按鈕使用與其他主卡選中相同的深綠底白字。其餘十二個 icon、A 背景、版面與功能保留。這次文件提交沒有修改 runtime、沒有執行新版本功能測試；前輪的 68/68 及 HTTPS 證據只適用既有版本。本輪待 Coding Agent 實作、技術檢查、測試站更新及使用者確認辨識度；BX015、實機、正式部署、真正 CX 與其他既有人工待辦不變。
+GPT 核對遠端 HEAD `4fc7521744bdcaecd27d4c6c159fb94eb8449a7e`，Cloudflare Pages check SUCCESS；實際 `scripts/icons.mjs` 有 16 個集中定義。使用者檢視新版後反映「我是屋主／我是房客」（依目前入口名稱理解重複輸入）、「個人租賃住宅包租代管」、「我要申請租金補貼」圖示難懂，要求重設。現行任務正式規格見 [NEXT_TASK](NEXT_TASK.md)，僅改四 key（owner/tenant/personal/subsidy），另限定調整第六卡的 hover：外框不變色，僅滑入的試算／申請子按鈕使用與其他主卡選中相同的深綠底白字。其餘十二個 icon、版面與功能保留；原背景 A 的構圖及配色保留，依追加需求換成局部修整版（見下節）。這次文件提交沒有修改 runtime、沒有執行新版本功能測試；前輪的 68/68 及 HTTPS 證據只適用既有版本。本輪待 Coding Agent 實作、技術檢查、測試站更新及使用者確認辨識度；BX015、實機、正式部署、真正 CX 與其他既有人工待辦不變。
+
+
+## 11/16 背景修整追加需求（待接入）
+
+使用者指定保持目前 A 圖構圖，修除右數第二棟疑似鐵窗、外推棚架、頂樓加蓋等負面建物意象，並避免任何較負面的建物。GPT 已用原 A 圖進行局部圖像編修、目視檢查並將修整稿轉為 1672×941 WebP（135064 bytes，blob `81760c85cfdde844809a04f1ab6a5ba51c25d293`），交接素材 `assets/images/hero-taipei-a-refined.webp`；原 A 的實際 runtime 目前未變。待 Coding Agent 依 [NEXT_TASK](NEXT_TASK.md) 將新素材接入 WebP、PNG fallback、OG/快取版本並完成前述四 icon、hover 及整體回歸；生成圖片已供使用者檢視，但網站尚未更新、未有新版本驗收證據。舊 A 保存於 Git 歷史，不作現行 runtime fallback。
