@@ -1,6 +1,6 @@
 # PROJECT_STATE — 現行狀態
 
-核對日期：2026-11-16（Asia/Taipei）。狀態：**改版工作分支已選定；等待使用者提供本次需求**。
+核對日期：2026-11-16（Asia/Taipei）。狀態：**本次改版需求已確認；待 Coding Agent 實作**。
 
 ## 版本與環境
 
@@ -15,7 +15,7 @@
 | GitHub Pages | [主線網站](https://taipei-tax-lab.github.io/taipei-rental-tax-guide/)，[10/31 部署成功](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/actions/runs/41170372607)（main `28fd76a`） |
 | 機關站 | [rentaltax](https://services.arpa.tpctax.dof.gov.taipei/rentaltax/)，獨立部署；未取得 10/28 診斷之後的修復／正式版本驗收證據 |
 
-以上 SHA 為文件整理前核對的程式／發布基準，不將文件提交當成新的功能版本。每輪開工須再讀取實際 Git refs 及需要的部署證據。
+前次歷史文件校正已提交 `d18ae1d`；本次在其上提交需求文件。以上表格 SHA 為文件整理前核對的程式／發布基準，不將文件提交當成新的功能版本。每輪開工須再讀取實際 Git refs 及需要的部署證據。
 
 ## 已完成與剩餘驗證
 
@@ -39,4 +39,4 @@
 
 ## 目前下一步
 
-等待使用者提供本次改版需求；[NEXT_TASK.md](NEXT_TASK.md) 是唯一現行任務。[WORKLOG.md](WORKLOG.md) 索引歷史驗收與尚未處理事項。舊根目錄 State/Task 保留為歷史，不再反覆維護兩套現況。
+使用者已指定首頁租金標準改為文字＋試算／申請、直接申請頁改為三種管道，並授權本輪前端 GA4 事件設計。詳見 [NEXT_TASK.md](NEXT_TASK.md)（唯一現行任務及驗收條件）；上述需求尚未實作、測試或驗收。BX015 規劃時網頁檢索回傳 404，待實際瀏覽器查證；不得據此推定正式連結失效。[WORKLOG.md](WORKLOG.md) 索引歷史驗收與尚未處理事項。舊根目錄 State/Task 保留為歷史，不再反覆維護兩套現況。

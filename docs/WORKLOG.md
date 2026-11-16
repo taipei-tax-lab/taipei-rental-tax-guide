@@ -16,6 +16,8 @@
 | 11/04 | feature `c6d9cee` → `51161da`，七次首頁排版修整。五張卡與插圖卡視覺尺寸匹配、desktop 六入口兩列、compact／左對齊、操作說明與所得達租金標準交換；最終 Cloudflare check success。僅來源 CSS/template 更新，原有 `index.html` 沒有同步。尚未取得新的完整驗收證據。 |
 | 11/16 | 使用者指定延續現有 Cloudflare branch，先整理矛盾文件，不開始此次改版實作。校正既有發布狀態、測試證據邊界、PoC 與正式環境、11/4 最新來源與生成物差異；新增統一 Agent 入口與現行文件，保留原始紀錄。 |
 
+| 11/16（需求核定） | 使用者確認沿用既有 Cloudflare feature；要求租金標準卡維持尺寸並改文字／雙子按鈕、直接申請改三種管道、現行視覺一致及前端 GA4。任務規格與六個點擊訊號寫入 NEXT_TASK；沿用既有 GA4 維度及測試站隔離。前次文件校正 commit `d18ae1d`；本次僅更新正式作業文件，尚未實作。 |
+
 ## 已記錄的非阻擋維護 backlog
 
 9/27 [維護 Task](../TASK_2026-09-27_POST_RELEASE_MAINTENANCE.md) 曾列出索引式房客服務分類、build 中 FAQ 硬編碼、`resources.slice(3)` 依賴順序、小幫手初始圖片請求、Messenger shadow DOM workaround、政策版本／核對日期語義等。尚未重新排定；依業務效益與改版範圍決定，不順手重構。SEO／CSP 等廣泛 hardening 亦未核定；機關實際 CSP 故障另依 10/28 診斷處理。
