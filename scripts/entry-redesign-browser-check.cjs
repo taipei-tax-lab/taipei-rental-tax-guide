@@ -23,11 +23,11 @@ const actions=[...data.incomeStandardActions,...data.directApplyActions];
    await page.setViewportSize({width,height:1000});await page.goto(base);await page.locator('.v2-ready').waitFor();await page.evaluate(()=>document.fonts.ready);
    const boxes=await page.locator('.v2-audience > *').evaluateAll(es=>es.map(e=>e.getBoundingClientRect().toJSON()));
    assert.equal(boxes.length,6);
-   if(width>=1100){
-    const frame=await page.locator('.v2-income-standard-panel').boundingBox();
-    assert.ok(Math.abs(frame.width-boxes[4].width)<1&&Math.abs(frame.height-boxes[4].height)<1);
-    assert.ok(Math.abs(frame.y-boxes[4].y)<1,'visible artwork inset remains aligned with its row');
+   for (const box of boxes) {
+    assert.ok(Math.abs(box.width-boxes[0].width)<1 && Math.abs(box.height-boxes[0].height)<1, 'six common visible frames');
    }
+   const innerBorder=await page.locator('.v2-income-standard-panel').evaluate(e=>getComputedStyle(e).borderTopWidth);
+   assert.equal(innerBorder,'0px','sixth card has no nested visible frame');
 
    if(baseline)for(let i=0;i<6;i++)for(const key of ['x','y','width','height'])assert.ok(Math.abs(boxes[i][key]-baseline[width][i][key])<1,`${width} card ${i}: ${key}`);
    const controls=page.locator('.v2-audience a, .v2-audience button');assert.equal(await controls.count(),7);
@@ -72,6 +72,6 @@ const actions=[...data.incomeStandardActions,...data.directApplyActions];
   assert.deepEqual(errors,[]);assert.deepEqual(requests,[],'Use the GA4-isolated test build');
   assert.ok(events.filter(e=>e[1]==='direct_apply_open').every(e=>JSON.stringify(e[2])==='{}'));
   fs.writeFileSync(`${folder}/results.json`,JSON.stringify({base,at:new Date().toISOString(),browser:'Chromium emulation; not physical devices',widths,events,gaRequests:requests,errors,cx:'third-party requests blocked; no real queries'},null,2));
-  console.log('PASS: baseline geometry, seven keyboard controls, exact links, six event mappings, single activation, history/reload, no gtag navigation, GA4 isolation.');
+  console.log('PASS: common card geometry, seven keyboard controls, exact links, six event mappings, single activation, history/reload, no gtag navigation, GA4 isolation.');
  }finally{await browser.close();}
 })().catch(e=>{console.error(e);process.exitCode=1});

@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {contentHash, normalizeEol} from './text.mjs';
+import {cardIcon as icon} from './icons.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const read = name => normalizeEol(fs.readFileSync(path.join(root, name), 'utf8'));
@@ -10,17 +11,6 @@ const media = JSON.parse(read('site/media.json')).operationGuide;
 const esc = value => String(value).replace(/[&<>"']/g, char => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'}[char]));
 const link = (item, cls = '') => `<a class="${cls}" href="${esc(item.href)}" target="_blank" rel="noopener noreferrer">${esc(item.label)}<span class="sr-only">（另開新視窗）</span></a>`;
 const list = items => `<ul>${items.map(item => `<li>${esc(item)}</li>`).join('')}</ul>`;
-const icon = name => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${name === 'mail' ? '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/>' : name === 'online' ? '<rect x="3" y="3" width="18" height="14" rx="2"/><path d="M8 21h8m-4-4v4m-4-12 3 3 5-5"/>' : name === 'person' ? '<circle cx="12" cy="7" r="3"/><path d="M5 21v-3a7 7 0 0 1 14 0v3"/>' : name === 'building' ? '<path d="M4 21V3h10v18M14 9h6v12M7 7h3M7 11h3M7 15h3M17 13h1M17 17h1M9 21v-3h2v3"/>' : name === 'operator' ? '<path d="M3 21V7l9-4 9 4v17M7 10h3M14 10h3M7 14h3M14 14h3M10 21v-4h4v4"/>' : name === 'subsidy' ? '<path d="m3 10 9-7 9 7M5 9v12h14V9"/><path d="m8 15 3 3 5-6"/>' : '<path d="m3 10 9-7 9 7M5 9v12h14V9M9 21v-7h6v7"/>'}</svg>`;
-const planIcon = id => {
-  const house = '<path d="m2 9 6-6 6 5M4 10v11h4"/><path d="M7 13h2"/>';
-  const symbols = {
-    ordinary: '<circle cx="18" cy="13" r="3"/><path d="m15.9 15.1-5 5m2-2 1.5 1.5"/>',
-    public: '<path d="M16.5 21s-5.5-3.5-5.5-6.5a2.75 2.75 0 0 1 5.5-1 2.75 2.75 0 0 1 5.5 1c0 3-5.5 6.5-5.5 6.5Z"/>',
-    social: '<path d="m16.5 11 5.5 2v3c0 2.5-2.5 4.5-5.5 6-3-1.5-5.5-3.5-5.5-6v-3z"/><path d="m14 16 2 2 3-3"/>',
-    personal: '<rect x="12" y="11" width="10" height="11" rx="1"/><path d="M15 14h4m-4 3h4m-4 3h2"/>'
-  };
-  return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${house}${symbols[id]}</svg>`;
-};
 const keepUnits = value => esc(value).replace(/(\d[\d,.]*(?:%|‰|元|萬元|年期|戶))/g, '<span class="v2-unit">$1</span>');
 const tax = (item, type = 'detail') => {
   const noteText = type === 'card' ? (item.summary || item.note) : item.note;
@@ -48,8 +38,8 @@ const otherTaxes = plan => {
   return `<span>${esc(landTax.label)}：${keepUnits(landTax.cardSummary || landTax.value)}</span><span>${esc(incomeTax.label)}：${keepUnits(incomeTax.cardSummary || incomeTax.value)}</span>`;
 };
 
-const cards = plans.map((plan, i) => `<a class="v2-plan-card v2-${esc(plan.accent)}" href="#plan-${plan.id}" id="card-${plan.id}">
-  <div class="v2-card-top"><span class="v2-plan-icon">${planIcon(plan.id)}</span><span class="v2-card-number">0${i + 1}</span></div>
+const cards = plans.map(plan => `<a class="v2-plan-card v2-${esc(plan.accent)}" href="#plan-${plan.id}" id="card-${plan.id}">
+  <div class="v2-card-top"><span class="v2-plan-icon">${icon(plan.id)}</span></div>
   <h3>${esc(plan.situation)}</h3><p class="v2-plan-name">${esc(plan.cardEyebrow || plan.eyebrow)}</p>
   <p class="v2-card-description">${esc(plan.cardDescription || plan.suitable)}</p>
   <dl class="v2-card-tax">${tax(plan.taxes[plan.highlightTax], 'card')}</dl>
@@ -85,8 +75,8 @@ const planDetails = plans.map(plan => {
 
 const groups = [
   {title: '我要申請租金補貼', intro: '中央租金補貼、臺北幸福租與各類身分補貼。', ids: [0,1,2,3,4], icon: 'subsidy', label: '查看補貼入口'},
-  {title: '我要找包租代管房屋', intro: '查承租資格、合作業者與友善房源資訊。', ids: [5,6,7,8], icon: 'building', label: '查看房源與承租資訊'},
-  {title: '我有租屋／設籍問題', intro: '設籍、租約法律諮詢與消費爭議，請依問題找下列窗口。', ids: [9,10,11,12], icon: 'person', label: '查看對應服務窗口'}
+  {title: '我要找包租代管房屋', intro: '查承租資格、合作業者與友善房源資訊。', ids: [5,6,7,8], icon: 'search', label: '查看房源與承租資訊'},
+  {title: '我有租屋／設籍問題', intro: '設籍、租約法律諮詢與消費爭議，請依問題找下列窗口。', ids: [9,10,11,12], icon: 'questions', label: '查看對應服務窗口'}
 ];
 const tenantGroups = groups.map((group, i) => `<details class="v2-tenant-card" id="tenant-group-${i}"><summary><span class="v2-plan-icon">${icon(group.icon)}</span><h3>${esc(group.title)}</h3><p>${esc(group.intro)}</p><span class="v2-card-action">${esc(group.label)} <span class="v2-expand" aria-hidden="true">＋</span></span></summary><div class="v2-tenant-links">${group.ids.map(index => {const item = data.tenants[index]; return `<div>${link({label: item.title, href: item.href})}<p>${esc(item.source)}</p></div>`;}).join('')}<p class="v2-caption">請依各機關最新公告為準。</p></div></details>`).join('\n');
 
@@ -94,10 +84,10 @@ const tenantGroups = groups.map((group, i) => `<details class="v2-tenant-card" i
 const faqs = [
   [
     '房客申請租金補貼，房東可以有哪些租稅優惠？',
-    '可先了解公益出租人。也可查看四方案完整比較，了解社會住宅包租代管。',
+    '可先了解公益出租人。也可查看四種方案完整比較，了解社會住宅包租代管。',
     [
       {href:'#plan-public', label:'查看公益出租人的優惠與認定方式'},
-      {href:'#comparison', label:'查看四方案完整比較'}
+      {href:'#comparison', label:'查看四種方案完整比較'}
     ]
   ],
   [
@@ -140,7 +130,7 @@ const serviceLink = (item, cls, content) => {
   return `<a class="${cls}" data-service-entry="${esc(item.id)}" href="${esc(item.href)}" target="_blank" rel="noopener noreferrer">${content}<span class="sr-only">（另開新視窗）</span></a>`;
 };
 const incomeStandardActions = data.incomeStandardActions.map(item => serviceLink(item, 'v2-income-standard-action', esc(item.label))).join('');
-const directApply = data.directApplyActions.map(item => serviceLink(item, 'v2-application-item', `${icon(item.icon)}<span><strong>${esc(item.label)}</strong><small>${esc(item.note)}</small></span>`)).join('\n');
+const directApply = data.directApplyActions.map(item => serviceLink(item, 'v2-application-item', `<span class="v2-plan-icon">${icon(item.icon)}</span><h3>${esc(item.label)}</h3><p>${esc(item.note)}</p>`)).join('\n');
 const operationVideos = ['pc', 'mobile'].map(version => {
   const src = media[version].src;
   // HTTPS for remote media; explicit relative paths for a later same-origin deployment.
@@ -162,10 +152,10 @@ const replacements = {
   ANALYTICS_VERSION: hash('assets/js/analytics.js'),
   VIDEO_VERSION: hash('assets/js/operation-guide.js'),
   RULES_VERSION: hash('assets/js/guide-rules.js'), UI_VERSION: hash('assets/js/guide-ui.js'),
-  APPLY_ICON: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H5v18h14V10M14 3v7h5M8 14h8M8 17h5"/></svg>',
-  VIDEO_ICON: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m10 8 6 4-6 4z"/></svg>',
+  APPLY_ICON: icon('apply'), VIDEO_ICON: icon('tutorial'),
+  HELPER_ICON: icon('helper'), STANDARD_ICON: icon('standard'),
   INCOME_STANDARD_ACTIONS: incomeStandardActions, DIRECT_APPLY: directApply, OPERATION_VIDEOS: operationVideos,
-  HOUSE_ICON: icon('self'), PERSON_ICON: icon('person'), OFFICIAL: esc(data.meta.official),
+  HOUSE_ICON: icon('owner'), PERSON_ICON: icon('tenant'), OFFICIAL: esc(data.meta.official),
   PLAN_CARDS: cards, PLAN_DETAILS: planDetails, TENANT_GROUPS: tenantGroups, FAQ: faqHtml,
   COMPARE_CONTROLS: `<fieldset class="v2-compare-controls" hidden><legend>選擇兩個方案並列比較</legend><div>${[0,1].map((n) => `<label>方案${n + 1}<select data-compare-select="${n}">${plans.map((p,i) => `<option value="${p.id}"${i === n ? ' selected' : ''}>${esc(p.eyebrow)}</option>`).join('')}</select></label>`).join('')}</div><p class="v2-caption" role="status" id="compare-status"></p></fieldset>`,
   RESOURCES: resources, COMPARISON: comparison, CHECKED: data.meta.checked,

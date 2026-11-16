@@ -1,6 +1,6 @@
 # PROJECT_STATE — 現行狀態
 
-核對日期：2026-11-16（Asia/Taipei）。狀態：**申請入口改版已驗證；新一輪視覺一致性改版需求已核定，待 Coding Agent 實作**。
+核對日期：2026-11-16（Asia/Taipei）。狀態：**視覺一致性改版已實作、本地建置與回歸通過；待本輪 commit 推送及測試站部署確認**。
 
 ## 11/16 前一輪申請入口實作
 
@@ -51,3 +51,10 @@
 ## 前輪審查與本輪下一步
 
 指定分支推送與 Cloudflare 測試站複驗已完成；GPT 於 11/16 讀取實際差異、桌機／手機畫面、HTTPS 驗收紀錄與 Cloudflare check（`101f1a3` SUCCESS），獨立在同 SHA 重跑 build --check、65/65 單元測試、performance budget、Pages test build（33 檔／GA4 停用）皆 PASS。依使用者指示清除現行分支全部 49 張測試截圖（本輪 29、歷史 20），保留文字／JSON／log；未改 runtime。待人工審查；待確認項目及證據見本輪 report。未授權合併 main、正式發布或更改 CX／GA4 管理端／R2／部署設定。使用者現已核定十項視覺一致性改版（A 背景、主卡外框及圖示、直接申請三欄、四方案／房客圖示、標號與比較文案）。正式執行規格以 [NEXT_TASK.md](NEXT_TASK.md) 為準；A 圖核定素材已準備於 `assets/images/hero-taipei-a.webp`，尚未替換 runtime，程式與前輪測試結果不變。待本輪完成再驗收，前輪實機／正式站等限制仍保留。
+
+
+## 11/16 視覺一致性改版實作
+
+由乾淨遠端 `bea4edb` 同步。核定 A 已成為 runtime WebP / PNG（兩格式全像素一致，含 CSS / OG 快取版本），原交接檔重複名稱移除；16 個自製 SVG 集中於 `scripts/icons.mjs`，六主卡同框、左圖示均可見，直接申請沿用房客三欄／手機單欄，四方案取消裝飾數字並保留 accent／選中外框，指定比較片語已修正。未改政策、五個服務 href、前端事件及 Messenger / media / CX / R2 / GA4 設定。
+
+68/68 單元、建置一致性、WebP budget、33 檔隔離 Pages build、本地五寬度×100/200% 字級／同框與圖示／44px 按鈕、鍵盤／事件／history、36+12 捲動縮放及非 CX 前端回歸通過。標準 Chromium 對 R2 / Pages 的憑證信任遭環境阻擋；影片播放／seek／fullscreen 以明確 TLS 診斷模式通過，不等於正式 TLS 驗收。完整結果、限制、命令與本輪測試站狀態見 [視覺改版報告](evidence/2026-11-16-visual-consistency/REPORT.md)。待推送並讀回精確部署；截圖只存 `.preview/`。實機、真人、輔助科技、BX015 及正式業務驗收的原有待辦保留。

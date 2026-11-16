@@ -35,6 +35,7 @@ npm run dev
 | site/messenger.html | 小幫手正式來源片段，保留機關 CX 指向 |
 | site/media.json | 兩版操作影片來源（開發分支） |
 | scripts/build.mjs | 零相依建置，產生 index.html 與資產內容雜湊版本 |
+| scripts/icons.mjs | 主入口、四方案、房客及申請方式共用的 16 個自製 SVG |
 | assets/css/guide-v2.css | V2 版面與響應式樣式，限縮於 .v2-site |
 | assets/js/guide-rules.js | 最多三題的閱讀導引規則 |
 | assets/js/guide-ui.js | 身分切換、hash 導覽、返回、展開與列印 |
@@ -165,7 +166,7 @@ node scripts/extension-browser-check.cjs
 
 首頁、直接申請及操作說明共用同一份主視覺與六入口，下方切換內容；獨立方案詳情／比較仍維持原有導航。11/4 最新來源順序為屋主、房客、直接申請、操作說明、小幫手、所得達租金標準；桌機採較緊湊、左對齊的入口卡片列。10/31 的導覽定位行為保留：入口使用原生連結與 hash，程式在同頁入口切換時透過 history.pushState 避免原生錨點先捲動，內容完成 reflow 後依實際標題位置捲至視窗上緣約 28px（受頁底上限約束）並管理焦點；相同入口重複操作與斷點改變保留閱讀位置，上一頁／下一頁還原閱讀位置，深層連結與重新整理會校正標題位置。
 
-直接申請頁改為「線上申請、親自申請、郵寄/傳真」三張同層級管道卡片，桌機／平板兩欄、手機單欄。首頁第六卡改為 HTML 標題與對等試算／申請按鈕，保留原六入口格線及外框 bounding box。四方案詳情、比較與政策資料維持原樣。申請頁變短時沿用頁底定位上限；前後導覽在目的頁 reflow 後補還原閱讀位置。
+直接申請頁改為「線上申請、親自申請、郵寄/傳真」三張同層級管道卡片，本輪視覺更新後，桌機／平板沿用房客三欄格線、手機單欄。首頁第六卡使用共通可見外框、左側圖示及對等試算／申請按鈕，六張主卡同列等高。四方案詳情、比較與政策資料維持原樣。申請頁變短時沿用頁底定位上限；前後導覽在目的頁 reflow 後補還原閱讀位置。
 
 [GA4 現行事件](docs/GA4_EVENTS.md) 記錄六項本輪入口映射；僅前端意圖訊號，測試站不載入 GA4。
 新增 `node scripts/ux2-browser-check.cjs` 驗證共用入口、DOM／鍵盤順序、焦點、響應式申辦卡片及歷史。預設本機4175；正式驗收請以 PREVIEW_URL 指向現有 Pages 測試站。影片及 CX／Messenger 配置維持原樣，非 CX 驗收繼續隔離第三方請求。
@@ -178,3 +179,10 @@ node scripts/extension-browser-check.cjs
 `node scripts/entry-redesign-browser-check.cjs` 針對 GA4 隔離產物驗證四種寬度、七個主要操作、焦點／鍵盤、五個精確網址、六個 mock 事件及無 gtag 導覽；可設 `BASELINE_JSON` 比對改版前卡片尺寸。`node scripts/entry-external-read-check.cjs` 僅唯讀瀏覽外部入口，不填表或送件。證據見 [11/16 report](docs/evidence/2026-11-16-entry-redesign/REPORT.md)。
 
 瀏覽器腳本預設 Edge，雲端可設 `BROWSER_EXECUTABLE=/usr/bin/chromium`；Playwright 仍為驗證工具，不是網站相依。HTTPS 腳本中的 API request 可設 `BROWSER_PROXY` 沿用環境代理（不輸出代理值）。`node scripts/entry-live-layout-check.cjs` 可在不裝 mock gtag 的情況複驗真實 Pages 四寬度與可見框內縮。Node 24 雲端需 `node --use-env-proxy scripts/extension-browser-check.cjs` 才沿用環境代理存取 R2。R2 影片已由外部在 11/8 更新，本輪只讀回 metadata 並校正過期測試快照，未上傳或改 URL。TLS 代理造成 Chromium 信任錯誤時，診斷性 `BROWSER_IGNORE_HTTPS_ERRORS=1` 的結果須明確標示，不能當正式 TLS 驗收。
+
+
+## 11/16 視覺一致性改版
+
+核定 A 背景已接入 `hero-v2.webp` 及同畫面的 `hero-v2.png` fallback，CSS / OG 加上素材版本；交接檔舊名稱不重複保留。現有 Pages 白名單仍為 33 檔，WebP 177706 bytes，符合原 700KB budget。六主卡共用外框、圖示位置與閒置色彩；桌機三欄兩列、平板兩欄、手機依寬度兩欄／一欄，放大字級時自然增高。16 個卡片圖示由 `scripts/icons.mjs` 集中輸出，四方案保留色彩、取消裝飾數字；直接申請與房客共用三欄／窄版單欄格線。政策、服務網址與 GA4 / CX / Messenger 行為保留。
+
+`node scripts/visual-consistency-browser-check.cjs` 驗證五種寬度、100/200% 字級、六卡同框與圖示、申請／房客格線、44px 子連結及 A 的格式選用、fallback 像素與 MIME。68/68 單元與本地回歸通過；Cloud Chromium 的外部 TLS 信任限制及部署紀錄見 [視覺改版報告](docs/evidence/2026-11-16-visual-consistency/REPORT.md)。截圖只保留 `.preview/`，不提交 GitHub。人工及實體裝置驗收仍需另行確認。

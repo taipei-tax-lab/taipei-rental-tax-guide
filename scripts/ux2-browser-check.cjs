@@ -23,7 +23,7 @@ const folder='.preview/ux2';fs.mkdirSync(folder,{recursive:true});
    assert.equal(await page.locator('.v2-audience [data-audience][aria-current]').count(),0);
    const cards=await page.locator('.v2-application-item').evaluateAll(es=>es.map(e=>{const r=e.getBoundingClientRect(),css=getComputedStyle(e);return {x:r.x,y:r.y,width:r.width,height:r.height,color:css.getPropertyValue('--v2-accent').trim()};}));
    assert.equal(cards.length,3);assert.equal(new Set(cards.map(c=>c.color)).size,1);
-   if(width>700){assert.equal(cards[0].y,cards[1].y);assert.equal(cards[0].x,cards[2].x);assert.ok(cards[1].x>cards[0].x);}else assert.ok(cards.every(c=>c.x===cards[0].x));
+   if(width>700){assert.equal(cards[0].y,cards[1].y);assert.equal(cards[0].y,cards[2].y);assert.ok(cards[0].x<cards[1].x&&cards[1].x<cards[2].x);assert.ok(cards.every(c=>Math.abs(c.height-cards[0].height)<1));}else assert.ok(cards.every(c=>c.x===cards[0].x));
    assert.equal(await page.locator('a.v2-application-item').count(),3);
    assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
    if(width!==320)await page.screenshot({path:`${folder}/apply-${width}.png`,fullPage:true});
@@ -42,7 +42,7 @@ const folder='.preview/ux2';fs.mkdirSync(folder,{recursive:true});
    await page.locator('.v2-audience [data-audience="owner"]').click();await page.locator('#owners:visible').waitFor();
    await page.locator('.v2-audience [data-audience="tenant"]').click();await page.locator('#tenants:visible').waitFor();
    assert.ok(await page.locator('[data-entry-shell]').isVisible());
-   results.widths.push({width,sharedEntries:true,focus:true,applicationColumns:width>700?2:1,history:true,deepReload:true,noOverflow:true});
+   results.widths.push({width,sharedEntries:true,focus:true,applicationColumns:width>700?3:1,history:true,deepReload:true,noOverflow:true});
   }
   assert.deepEqual(errors,[]);results.errors=errors;
   results.checks=['six DOM/keyboard order','shared hero/entry visibility across entry contents','one selected entry','heading focus after keyboard entry','desktop no unnecessary scroll','three peer channel cards','one link per channel','history/deep-link/reload','video selection retention and paused return'];
