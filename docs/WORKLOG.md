@@ -33,9 +33,14 @@
 
 ## 2026-11-16 第二輪視覺一致性需求核定
 
-使用者選定 GPT 生成的候選 A「臺北住宅街廓」背景，提出十項視覺改版：沿用房客三欄配置直接申請、六主卡一致外框配色與圖示、屋主四方案圖示與取消數字、房客三卡圖示、比較片語調整，以及主／子卡整體圖示語言一致。基準為 `7866755`；本輪先提交核定任務文件及選定 A 的 WebP 網站素材（非截圖），不變更 runtime、政策、連結、GA4/CX 或正式部署。實作及驗收見 [NEXT_TASK](NEXT_TASK.md)。
+使用者選定 GPT 生成的候選 A「臺北住宅街廓」背景，提出十項視覺改版：沿用房客三欄配置直接申請、六主卡一致外框配色與圖示、屋主四方案圖示與取消數字、房客三卡圖示、比較片語調整，以及主／子卡整體圖示語言一致。基準為 `7866755`；本輪先提交核定任務文件及選定 A 的 WebP 網站素材（非截圖），不變更 runtime、政策、連結、GA4/CX 或正式部署。實作及驗收見 [該輪 Task（固定 SHA）](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/blob/4fc7521744bdcaecd27d4c6c159fb94eb8449a7e/docs/NEXT_TASK.md)。
 
 
 ## 2026-11-16 視覺一致性實作與本地驗證
 
 由遠端 `bea4edb` 乾淨同步，在原指定分支實作核定十項需求：A 圖 WebP / PNG 與快取版本、六主卡共用外框及可見圖示、16 個集中自製 SVG、直接申請與房客三欄語言、四方案移除裝飾標號及精確比較片語修正。保留所有政策／服務資料、事件與 Messenger / media 行為；未修改雲端設定。原 65 項加 3 項單元共 68 PASS；五寬度×100/200% 字級、同框／圖示／44px 子連結、原鍵盤／事件／歷史與 36+12 捲動縮放回歸通過。R2 原 URL metadata / Range 與影片播放回歸採明確 TLS 診斷模式，環境憑證錯誤保留限制。截圖僅在 `.preview/`；文字與 JSON 見 [report](evidence/2026-11-16-visual-consistency/REPORT.md)。完整來源 `346d24d` 已推送，Cloudflare check / API deploy SUCCESS（部署 `8a04701f-9b6b-4ca5-96e8-e528e5cf1733`）。首筆 `f584ed3` 漏入模板，已在 `346d24d` 補齊並檢查建置一致，不以中間版作驗收。HTTPS 五寬度×兩字級／入口／UX2／六個 mock 事件／非 CX／GA4 隔離及 R2 影片回歸皆通過（Chromium TLS 診斷模式）；正常 TLS 的 Node 讀回確認線上 HTML / CSS / A pair / 主要 JS 與本地產物逐 bytes 相同。收尾補測試代理相容與證據文件，runtime 不變；待人工視覺與實機覆核。
+
+
+## 2026-11-16 第三輪圖示辨識需求
+
+使用者檢視視覺改版後提出四個圖示難辨識，需單獨優化屋主／房客、個人租賃住宅包租代管及租金補貼。核對遠端 `4fc7521744bdcaecd27d4c6c159fb94eb8449a7e`（Cloudflare check SUCCESS）及 `scripts/icons.mjs` 現行十六個圖示，保留原設計系統，僅指定四個 key；前輪任務與驗收保存於 [固定 SHA](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/blob/4fc7521744bdcaecd27d4c6c159fb94eb8449a7e/docs/NEXT_TASK.md)。本次提交現行任務、狀態與決策，不改 runtime、不宣稱已實作或新驗收；下一步依 [NEXT_TASK](NEXT_TASK.md) 執行。
