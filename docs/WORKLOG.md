@@ -91,3 +91,6 @@ GPT 審查 `5ca8b42`（runtime `36afac1`），獨立 73/73、build --check、效
 ## 第六輪執行
 
 843534d乾淨同步，書表padding緊湊化（1440高度414.5625→358.5625，減13.51%）、格式按鈕共用既有service-action色彩／fine-hover、精確卡名更正及局部換行上限已實作。73/73與完整建置檢查通過；212組路由／寬度／字級及斷點橫向量測無橫溢出／可見容器裁切；原版未發現其他全站溢出缺陷，沒有擴大改版。原導航／事件／房客獨立／六R2公開與原生連結驗證PASS。小幫手只以vendor mock驗證本站geometry，不替真實CX／實機背書。待推送／測試站確認，詳 [第六輪報告](evidence/2026-11-17-rwd6/REPORT.md)；原業務、BX015、實機及輔助科技待辦保留。
+
+
+第六輪實作 b9b3e19e3f765b42d0691f8c7e27ce9c7197c751 已推送，Cloudflare部署 e633fc69-c45e-4321-bf75-5ef692178c99 與GitHub check成功。HTTPS再次212組RWD及六按鈕／觸控、非CX全站33資產／GA4隔離回歸PASS；影片play/seek/fullscreen/離頁暫停及phone/tablet defaults PASS。影片測試原先在click後立即斷言、目的section尚未完成切換時失敗，已補等待目的頁visible再保留全部原斷言，網站導航／影片JS未改。正常TLS線上HTML/CSS逐bytes同本地；瀏覽器外部CA診斷模式與mock小幫手不代替實機／真實CX驗收。收尾只補驗證工具與文件，runtime不變；截圖與原檔不入Git，交GPT／使用者審查。

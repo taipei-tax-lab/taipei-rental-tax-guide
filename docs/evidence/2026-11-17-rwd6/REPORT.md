@@ -29,4 +29,10 @@
 
 重現：先build-pages-test，PORT=4175 serve --pages-test。node scripts/rwd6-check.cjs（--baseline保存改前）、node scripts/rwd6-controls.cjs、node scripts/rwd6-chat-check.cjs；其他既有scripts依README設定Chromium。畫面全部只在.preview/rwd6，未提交。瀏覽器外部TLS需明列診斷模式，正常TLS另以Node讀回；不送CX或GA4、不送件。
 
-待本輪推送後補精確Cloudflare SHA及HTTPS複驗。BX015、實體手機／輔助科技、業務／機關驗收保留；交GPT／使用者審查，未合併main或製作正式部署。
+實作 **b9b3e19e3f765b42d0691f8c7e27ce9c7197c751** 已推送；Cloudflare deployment **e633fc69-c45e-4321-bf75-5ef692178c99** success，[GitHub check](check.json) completed/success。測試站 https://rental-tax-guide-test.pages.dev/ 。
+
+[HTTPS矩陣](matrix-live.json)212組與本地相同、[六格式按鈕](controls-live.json)、[非CX全站](non-cx-live.json)33 assets/MIME/私有路徑404/零GA4 PASS。正常TLS Node讀回HTML/CSS逐bytes與本地相同。已目視桌機書名旁按鈕、手機堆疊與新完整標題；未改桌機設計語言。HTTPS瀏覽器使用明確 BROWSER_IGNORE_HTTPS_ERRORS=1，屬CA診斷模式；正常TLS下載是另外執行的公開GET，不混為一談。
+
+[影片](video-live.json) 真實R2 read-only metadata/Range 206、播放/seek/原生fullscreen、16:9/9:16、切換／離頁暫停／返回／裝置預設與手機橫向PASS。首次測試立即在footer.click後檢查暫停或可見性，兩次遇到目的頁尚未render的時序；測試加入目的section :visible等待，再保留原paused/visible/selection斷言，沒有改網站JS或降低斷言。後續提交包含此測試同步修正與證據文件，runtime不變。
+
+最終文件提交的遠端SHA／自動部署另於交付時確認。BX015、實體手機／輔助科技、業務／機關驗收保留；交GPT／使用者審查，未合併main或製作正式部署。
