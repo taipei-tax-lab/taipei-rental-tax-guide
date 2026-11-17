@@ -103,3 +103,6 @@ AGY 審查指定分支 `05f096d7d4ba3088bf025ddb2af07ecc70f9c091`，獨立通過
 ## 2026-11-17 Final QA 實作
 
 安全同步指定分支至40fcd91後，獨立archive重現短窗關閉hit-test=false、透明面板、200%標題不變及701px狹欄。QA-01～06局部修正完成；原角色圖縮至實際hit region，閉合launcher動態避開必要操作，無安全位置暫藏／捲動恢復。75/75、建置、Pages33、212組RWD與新增實際vendor觸控／鍵盤／旋轉、27組可讀性、48組等效viewport及16組原生zoom、書表／影片／GA4 mock／非CX回歸通過。新增等待目的頁visible排除測試競態，原斷言保留。正常TLS／CA診斷分層；無真實CX發問。詳 [Final QA報告](evidence/2026-11-17-final-qa/REPORT.md)。待推送與部署核對；截圖／原檔不入Git，不改main／雲端設定／業務規則，原實機與正式交付待辦保留。
+
+
+Final QA 部署及收尾：runtime 80f0d4697f35ca3506a2a288d2fa1f255ef7b19a 已推送，Cloudflare 4fafc31a-1913-46ba-8c48-547ad66f1935／GitHub check SUCCESS。HTTPS重跑212組RWD、27組可讀性、真實vendor 29組／160次觸控、鍵盤循序關閉／焦點返回、書表／事件／影片與非CX33資產／零GA4全部PASS；正常TLS33檔bytes／MIME與build完全一致。影片初次Node連網未帶代理選項，補 --use-env-proxy 後通過；高於視窗的整張卡片改在可見交集區做hit-test與同點tap，保留原壓力場景。診斷瀏覽器畫面已檢視，截圖／原檔只在.preview。收尾僅測試強化／證據／文件，runtime不變，交GPT／使用者審查；原實機、CX、業務及正式交付限制保留。

@@ -1,0 +1,11 @@
+{
+  "sha": "80f0d4697f35ca3506a2a288d2fa1f255ef7b19a",
+  "checks": [
+    {
+      "name": "Cloudflare Pages",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/taipei-tax-lab/taipei-rental-tax-guide/runs/133923049332"
+    }
+  ]
+}

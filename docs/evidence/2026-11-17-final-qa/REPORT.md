@@ -15,7 +15,7 @@
 | QA-05 浮動遮擋 | 390px 真實 vendor 的角色圖 132×132 超出 72×72 容器，圖像右緣 406px 超出 viewport。該次選取的「申請」中心 hit-test=true，**沒有宣稱重現每一個 AGY 點擊失敗**。 | 保留同張角色圖，限制在 84／72px launcher 內；host 不攔截透明範圍，只有實際按鈕／聊天視窗接受 pointer。閉合 launcher 隨捲動／resize 避開可見連結、button、summary，右緣找不到安全位置時暫藏，下一次捲動／resize 有空間即恢復；首頁快捷開啟入口保留。五寬度×兩字級×首頁／書表，逐個必要入口在底端壓力位置做 elementFromPoint 與真實 tap，攔截導航，不送件。正常開合、角色提示保留。 |
 | QA-06 一致性 | 未定義 `--v2-ink`；空 textarea 仍沿用 vendor overflow。FAQ 名稱不一致。 | 條件列表使用 `--ink`；空 textarea overflow-y=hidden，有多行草稿時 auto，保留原文字及輸入事件。只改 FAQ 名稱為「出租房屋所得達租金標準」；政策來源、期限與 2026-09-08 實際核對日期保留，由來源重建 HTML。 |
 
-上述尺寸是本環境實測，不冒用 AGY 的另一組字型／環境量測值。修正前讀回見 [before-chat.json](before-chat.json)、[before-layout.json](before-layout.json)；新版見 after 與 live 檔案。可視對照 `.preview/finalqa/{before,after}-short.png`、`{before,after}-701.png` 不納入 Git。
+上述尺寸是本環境實測，不冒用 AGY 的另一組字型／環境量測值。修正前讀回見 [before-chat.json](before-chat.json)、[before-layout.json](before-layout.json)；新版見 [after-chat.json](after-chat.json)、[after-layout.json](after-layout.json)、[live-chat.json](live-chat.json)、[live-layout.json](live-layout.json)。可視對照 `.preview/finalqa/{before,after}-short.png`、`{before,after}-701.png` 不納入 Git。
 
 ## 測試與重現
 
@@ -24,7 +24,7 @@
 本機瀏覽器：
 
 - `node scripts/final-qa-layout.cjs`：320/390/700/701/720/768/900/1024/1440 × 100/150/200%，27 組標題與內文比例、書名／頁尾可讀欄寬、書表實際高度、長書名行數。原始窄欄能被新增欄寬斷言捕捉。
-- `node scripts/final-qa-chat.cjs`：載入真實 Google 靜態 vendor shell，只有本站與 www.gstatic.com 可讀，**全部 CX/API 請求封鎖**；不發問、不新增真實對話。不以直接 closeChat 取代新版使用者操作。7 組尺寸＋1 組旋轉＋20 組入口壓力情境；空輸入／多行草稿、opaque computed style、正尺寸與實際命中／tap／keyboard／焦點均有斷言。舊版僅為退出不可關閉的 baseline，才直接呼叫 closeChat。
+- `node scripts/final-qa-chat.cjs`：載入真實 Google 靜態 vendor shell，只有本站與 www.gstatic.com 可讀，**全部 CX/API 請求封鎖**；不發問、不新增真實對話。不以直接 closeChat 取代新版使用者操作。7 組尺寸＋1 組角色框量測＋1 組旋轉＋20 組入口壓力情境（共 29 組、160 次真實 tap）；空輸入／多行草稿、opaque computed style、正尺寸與實際命中／tap／keyboard／焦點均有斷言。舊版僅為退出不可關閉的 baseline，才直接呼叫 closeChat。
 - `node scripts/rwd6-check.cjs`：前輪完整 212 組 route／viewport／100/200% 守門保留；另有上述可讀與操作測試，不只量 scrollWidth。`node scripts/rwd6-chat-check.cjs` 補真正 close button click，mock 只證明本站 geometry adapter，不代表 CX。
 - `BROWSER_EXECUTABLE=/usr/bin/chromium PREVIEW_URL=http://127.0.0.1:4175/ node scripts/entry-scroll-check.cjs`：48 組 viewport 等效縮放、16 組 Chromium 原生 page zoom（含 200%）、5 組鍵盤／返回前進／閱讀位置驗證。
 - `scripts/forms-browser-check.cjs`：三寬度×兩字級、房客獨立展收、申請等高／背景／焦點；六入口原生啟動，兩 ODT 下載完成、四 PDF 新視窗 HTTP 200。`node --use-env-proxy scripts/forms-public-check.mjs` 正常 TLS 六檔匿名 GET、精確大小與 PDF／ODT 格式通過，未提交原檔。
@@ -36,7 +36,11 @@
 
 ## 部署核對
 
-本機通過後沿用既有分支 push，自動觸發現有 Cloudflare Pages 整合。精確 runtime SHA、deployment／GitHub check、HTTPS 重跑與正常 TLS 結果於收尾補入；不更動部署設定。
+本機通過後沿用既有分支 push，自動觸發現有 Cloudflare Pages 整合。程式 runtime：`80f0d4697f35ca3506a2a288d2fa1f255ef7b19a`。Cloudflare deployment `4fafc31a-1913-46ba-8c48-547ad66f1935`，deploy stage SUCCESS；[GitHub Cloudflare Pages check](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/runs/133923049332) completed/success。測試網址：[rental-tax-guide-test.pages.dev](https://rental-tax-guide-test.pages.dev/)。[部署唯讀結果](runtime-deployment.json)、[check](runtime-github-checks.json)。
+
+線上 HTTPS 再驗證 212 組全站 RWD、27 組字級／欄寬／行數、29 組真實 vendor／160 次觸控（含輸入框 Shift+Tab 循序抵達關閉鍵、Enter 關閉與焦點返回）、房客／六書表原生啟動、四寬度事件 mock／導航與歷史、兩支影片控制及非 CX 全站均 PASS；結果分別見 [live-rwd212](live-rwd212.json)、[live-layout](live-layout.json)、[live-chat](live-chat.json)、[live-forms](live-forms.json)、[live-events](live-events.json)、[live-video](live-video.json)、[live-noncx](live-noncx.json) 與同名 log。正常 TLS `node --use-env-proxy scripts/final-qa-live.mjs` 再下載全部 33 檔，SHA-256／逐 bytes 與當前 dist-pages-test 一致、MIME 正確且 GA4 關閉，見 [live-normal-tls.json](live-normal-tls.json)。瀏覽器診斷與正常 TLS 結果分開。
+
+影片線上測試第一次未帶 Node 代理選項而連線失敗，改以 `node --use-env-proxy` 重跑通過，未改網站／R2。新增較長整張卡片的命中斷言，改採與 viewport 相交的實際可見區域（卡片本身可高於視窗），真實 tap 使用同一座標；小按鈕仍保留接近底端的壓力位置。只修正測試的座標假設，未縮小文字或刪除操作守門。收尾提交僅新增測試強化／文字證據與狀態，runtime 不變；不更動部署設定。
 
 ## 剩餘限制與後續
 

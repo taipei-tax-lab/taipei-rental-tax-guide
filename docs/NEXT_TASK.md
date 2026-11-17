@@ -1,6 +1,6 @@
 # NEXT_TASK — 2026-11-17 上線前最終品質修正（Final QA）
 
-狀態：**IMPLEMENTED_LOCAL_QA_PASSED_PENDING_TEST_DEPLOYMENT_REVIEW**（2026-11-17，Asia/Taipei）。
+狀態：**IMPLEMENTED_TEST_DEPLOYMENT_VERIFIED_PENDING_GPT_REVIEW**（2026-11-17，Asia/Taipei）。
 指定工作分支：`feat/direct-apply-operation-guide-20261031`。
 審查基準：`05f096d7d4ba3088bf025ddb2af07ecc70f9c091`（runtime `b9b3e19e3f765b42d0691f8c7e27ce9c7197c751`）。[第六輪完整 Task 與驗收（固定 SHA）](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/blob/05f096d7d4ba3088bf025ddb2af07ecc70f9c091/docs/NEXT_TASK.md)、[證據](evidence/2026-11-17-rwd6/REPORT.md)。
 
@@ -25,12 +25,14 @@ AGY 獨立唯讀審查後，使用者核定本輪計畫文件交 Coding Agent �
 
 ## 4. 驗收與收尾
 
-- [ ] 依 AGENTS / Workflow 辨識環境，確認遠端分支最新 SHA、工作樹清潔及安全同步；純 Repo 工作不掃 Drive。保持主卡、三申請管道、房客獨立展收、六書表連結、兩影片、既有 GA4 事件及測試隔離、CX／政策不變（QA-06 指定文句除外）。程式之外不修改雲端設定。
-- [ ] 先重現可重現的 AGY 問題（在舊基準或獨立暫存），記錄 before/after、route、viewport／字級／操作與精確測試結果。補強既有測試且不刪減前輪有效守門。實作、單元與瀏覽器檢測、真實測試站及實機/人工/業務驗收分層；mock 只證明本站行為。有能力可讀取真實 vendor shell 不送真實 CX 問題；外部 CA/連網限制記錄為待驗，不偽造通過。
-- [ ] npm run build、node scripts/build.mjs --check、npm test、node scripts/performance-budget.mjs、node scripts/build-pages-test.mjs、git diff --check；保留 73 項及新增斷言，Pages runtime 白名單與 GA4 隔離。重跑第六輪全站 212 組或涵蓋相同範圍的增強矩陣，再加 QA-01～QA-06 上述針對性場景。地方／HTTPS 回歸含首頁與導覽/歷史/鍵盤、房客獨立、書表六連結與公開 GET（正常 TLS）/實際原生啟動、影片控制/切換/離頁、非 CX 33 資產、GA4 mock 及測試站零 GA4。實際瀏覽器量測、點擊及可讀性檢查，不以單元全過替代。
-- [ ] 更新 Task/State/Worklog，文字及不含敏感資料的 JSON/log 放 docs/evidence/，截圖／錄屏／下載原檔僅留 .preview/ 不提交。Commit/Push 既有授權分支，確認遠端 SHA、既有 Cloudflare 自動建置及實際測試站以精確 runtime 比對，正常 TLS 與診斷模式分開。未能執行真實設備或第三方功能須逐項列出限制；不以 Chromium 模擬證明真實 iOS/Android/LINE，不作完整無障礙認證。
-- [ ] 回報每項 QA-01～06 的修正、測試原失敗與修正後證據、未解問題、branch／commit／部署驗證，交 GPT 差異審查及使用者核定。禁止自行合併 main、製作正式交付包、正式部署或擴大功能；本輪完成後才決定是否進入下一階段。
+- [x] 依 AGENTS / Workflow 辨識環境，確認遠端分支最新 SHA、工作樹清潔及安全同步；純 Repo 工作不掃 Drive。保持主卡、三申請管道、房客獨立展收、六書表連結、兩影片、既有 GA4 事件及測試隔離、CX／政策不變（QA-06 指定文句除外）。程式之外不修改雲端設定。
+- [x] 先重現可重現的 AGY 問題（在舊基準或獨立暫存），記錄 before/after、route、viewport／字級／操作與精確測試結果。補強既有測試且不刪減前輪有效守門。實作、單元與瀏覽器檢測、真實測試站及實機/人工/業務驗收分層；mock 只證明本站行為。有能力可讀取真實 vendor shell 不送真實 CX 問題；外部 CA/連網限制記錄為待驗，不偽造通過。
+- [x] npm run build、node scripts/build.mjs --check、npm test、node scripts/performance-budget.mjs、node scripts/build-pages-test.mjs、git diff --check；保留 73 項及新增斷言，Pages runtime 白名單與 GA4 隔離。重跑第六輪全站 212 組或涵蓋相同範圍的增強矩陣，再加 QA-01～QA-06 上述針對性場景。地方／HTTPS 回歸含首頁與導覽/歷史/鍵盤、房客獨立、書表六連結與公開 GET（正常 TLS）/實際原生啟動、影片控制/切換/離頁、非 CX 33 資產、GA4 mock 及測試站零 GA4。實際瀏覽器量測、點擊及可讀性檢查，不以單元全過替代。
+- [x] 更新 Task/State/Worklog，文字及不含敏感資料的 JSON/log 放 docs/evidence/，截圖／錄屏／下載原檔僅留 .preview/ 不提交。Commit/Push 既有授權分支，確認遠端 SHA、既有 Cloudflare 自動建置及實際測試站以精確 runtime 比對，正常 TLS 與診斷模式分開。未能執行真實設備或第三方功能須逐項列出限制；不以 Chromium 模擬證明真實 iOS/Android/LINE，不作完整無障礙認證。
+- [x] 回報每項 QA-01～06 的修正、測試原失敗與修正後證據、未解問題、branch／commit／部署驗證，交 GPT 差異審查及使用者核定。禁止自行合併 main、製作正式交付包、正式部署或擴大功能；本輪完成後才決定是否進入下一階段。
 
 ## 5. 本輪執行證據
 
-QA-01～06 已實作；75 項單元、完整 212 組 RWD 與新增實際 vendor／可讀欄寬／原生 200% zoom／既有功能回歸通過，部署與收尾結果集中於 [Final QA 報告](evidence/2026-11-17-final-qa/REPORT.md)。新增斷言能捕捉原版短窗 hit-test=false、透明背景、固定標題及狹欄失敗；不把零橫溢出視為驗收。真實設備／CX／業務與正式交付待辦保留，未授權下一階段。
+QA-01～06 已實作；75 項單元、完整 212 組 RWD 與新增實際 vendor／可讀欄寬／原生 200% zoom／既有功能回歸通過，runtime `80f0d46` 已推送並通過 Cloudflare 部署；線上 212 組／27 組可讀性、29 組真實 vendor 情境／160 次觸控、完整功能回歸及正常 TLS 33 檔比對通過。部署與收尾結果集中於 [Final QA 報告](evidence/2026-11-17-final-qa/REPORT.md)。新增斷言能捕捉原版短窗 hit-test=false、透明背景、固定標題及狹欄失敗；不把零橫溢出視為驗收。真實設備／CX／業務與正式交付待辦保留，未授權下一階段。
+
+本輪已完成開發及測試站驗證，等待 GPT 差異審查與使用者核定；未開始正式包或下一階段。收尾提交只含測試證據／工具及文件，runtime 與 `80f0d46` 相同。

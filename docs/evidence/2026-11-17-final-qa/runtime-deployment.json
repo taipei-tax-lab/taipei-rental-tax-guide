@@ -1,0 +1,13 @@
+[
+  {
+    "id": "4fafc31a-1913-46ba-8c48-547ad66f1935",
+    "url": "https://4fafc31a.rental-tax-guide-test.pages.dev",
+    "stage": {
+      "name": "deploy",
+      "started_on": "2026-11-17T08:44:52.637864Z",
+      "ended_on": "2026-11-17T08:44:57.736109Z",
+      "status": "success"
+    },
+    "commit": "80f0d4697f35ca3506a2a288d2fa1f255ef7b19a"
+  }
+]
