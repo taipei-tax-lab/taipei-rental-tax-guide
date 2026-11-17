@@ -12,7 +12,7 @@ const folder='.preview/ux2';fs.mkdirSync(folder,{recursive:true});
   for(const width of [1440,768,390,320]){
    await page.setViewportSize({width,height:1000});await page.goto(base+'#top');await page.locator('.v2-ready').waitFor();
    const labels=await page.locator('.v2-audience > * strong').allTextContents();
-   assert.deepEqual(labels,['我是屋主','我是房客','直接申請','操作說明','直接問小幫手','出租房屋達租金標準']);
+   assert.deepEqual(labels,['我是屋主','我是房客','直接申請','操作說明','直接問小幫手','出租房屋所得達租金標準']);
    const positions=await page.locator('.v2-audience > *').evaluateAll(es=>es.map(e=>({x:e.getBoundingClientRect().x,y:e.getBoundingClientRect().y})));
    if(width>=1100){assert.equal(positions[0].y,positions[2].y);assert.ok(Math.abs(positions[3].y-positions[5].y)<12);assert.ok(positions[3].y>positions[0].y);}
    await page.locator('.v2-audience a[href="#direct-apply"]').focus();await page.keyboard.press('Enter');

@@ -115,3 +115,8 @@ GPT 核對遠端 `6e6d7fe280b1e9d7cf4f2e8e5636cbbcc0504943`、Cloudflare Pages c
 
 
 第五輪部署：36afac160d85bb2db4ecc0ed4591ea426a3e08db，Cloudflare deployment 4b059506-b5e7-4fa3-a3c8-188bde401ea5 SUCCESS。實際測試站六個公開書表連結原生啟動通過，兩ODT完成下載（failure=null），四PDF新視窗HTTP200；桌機／手機100及200%字級、房客獨立高度／open狀態、焦點、直接申請等高透明通過。HTTPS非CX全站回歸／33資產MIME／私有路徑404／零GA4通過；BX015仍404待人工確認。正常TLS線上HTML/CSS逐bytes等同本地。瀏覽器使用明確CA診斷模式，不作正式TLS／實機背書。`node --use-env-proxy scripts/forms-public-check.mjs` 可重現正常TLS匿名六下載、精確大小／簽章與ODT內部結構檢查，只保存JSON；不存原檔。收尾僅補測試工具與文字證據，網站runtime不變，交GPT審查。
+
+
+## 第六輪執行
+
+843534d乾淨同步，書表padding緊湊化（1440高度414.5625→358.5625，減13.51%）、格式按鈕共用既有service-action色彩／fine-hover、精確卡名更正及局部換行上限已實作。73/73與完整建置檢查通過；212組路由／寬度／字級及斷點橫向量測無橫溢出／可見容器裁切；原版未發現其他全站溢出缺陷，沒有擴大改版。原導航／事件／房客獨立／六R2公開與原生連結驗證PASS。小幫手只以vendor mock驗證本站geometry，不替真實CX／實機背書。待推送／測試站確認，詳 [第六輪報告](evidence/2026-11-17-rwd6/REPORT.md)；原業務、BX015、實機及輔助科技待辦保留。

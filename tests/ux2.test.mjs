@@ -8,7 +8,7 @@ test('one shared hero precedes all content pages and six entry DOM order matches
   const shell=html.slice(html.indexOf('data-entry-shell'),html.indexOf('<div data-page="home">'));
   assert.equal((html.match(/data-entry-shell/g)||[]).length,1);
   const labels=[...shell.matchAll(/<strong[^>]*>([\s\S]*?)<\/strong>/g)].map(m=>m[1].replace(/<[^>]+>/g,''));
-  assert.deepEqual(labels,['我是屋主','我是房客','直接申請','操作說明','直接問小幫手','出租房屋達租金標準']);
+  assert.deepEqual(labels,['我是屋主','我是房客','直接申請','操作說明','直接問小幫手','出租房屋所得達租金標準']);
   assert.equal((shell.match(/<(?:a|button)\b/g)||[]).length,7);
   assert.equal((html.match(/id="open-helper"/g)||[]).length,1);
   assert.equal((html.match(/id="top"/g)||[]).length,1);

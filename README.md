@@ -198,3 +198,6 @@ node scripts/extension-browser-check.cjs
 房客 details 各自依內容高度展收，可同時開啟多張；直接申請三卡等高保留。三卡下新增「書表下載」「填寫範例」，六連結單一來源為 `site/media.json` 的 `applicationForms`，由 build 產生，影片 operationGuide 不變。R2 僅為測試用途，不將書表原檔放進 Repo 或 Pages 33 檔產物。
 
 機關正式交付另案：在 staging 副本將六 URL 改成 `./assets/forms/<filename>`，將原書表及影片納入機關靜態包，重新建置並驗證 MIME、檔案與 CSP；ODT 建議 application/vnd.oasis.opendocument.text。本輪只在暫存副本證明相對路徑可生成，不製作正式包、不改 R2 metadata。現在 ODT 公開回應為 application/octet-stream，瀏覽器下載；PDF 可另開閱讀或儲存，跨域 download 屬性不保證強制儲存，因此使用原生 HTTPS 連結。
+
+
+第六輪書表區桌機高度減少13.5%，格式按鈕共用試算／申請色彩與fine-pointer hover，首頁更名「出租房屋所得達租金標準」。212組RWD量測及局部換行容納措施、mock小幫手界線見 [第六輪報告](docs/evidence/2026-11-17-rwd6/REPORT.md)。原書表設定／原檔管理方式不變。

@@ -449,11 +449,11 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
 .v2-audience-button small { margin-top: 4px; }
 .v2-income-standard-entry { cursor: default; }
 .v2-income-standard-panel { flex: 1; min-width: 0; }
-.v2-income-standard-entry strong span { display: inline-block; }
+.v2-income-standard-entry strong span { display: inline-block; max-width: 100%; }
 .v2-income-standard-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; margin-top: 6px; }
 .v2-income-standard-action { display: flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; padding: 4px; border: 1px solid #92b2ae; border-radius: 6px; background: #edf5ef; color: #103844; font-size: 1.125rem; line-height: 1.5; }
 @media (hover: hover) and (pointer: fine) {
-  .v2-income-standard-action:hover { background: var(--teal); color: #fff; border-color: var(--teal-dark); }
+  :is(.v2-income-standard-action, .v2-form-group a):hover { background: var(--teal); color: #fff; border-color: var(--teal-dark); }
 }
 @media (min-width: 1100px) {
   .v2-audience { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -505,15 +505,19 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
 
 /* Tenant details keep independent heights; application channels remain equal. */
 .v2-tenant-grid { align-items: start; }
-.v2-forms { margin-top: 32px; border: 1px solid var(--v2-border); border-radius: 12px; background: #fff; padding: 0 22px; }
-.v2-form-group { display: grid; grid-template-columns: 7em minmax(0,1fr); gap: 20px; padding: 22px 0; }
+.v2-forms { margin-top: 24px; border: 1px solid var(--v2-border); border-radius: 12px; background: #fff; padding: 0 22px; }
+.v2-form-group { display: grid; grid-template-columns: 7em minmax(0,1fr); gap: 20px; padding: 16px 0; }
 .v2-form-group + .v2-form-group { border-top: 1px solid var(--v2-border); }
 .v2-form-group h3 { color: var(--teal); margin: 0; }
 .v2-form-group ul { list-style: none; padding: 0; margin: 0; min-width: 0; }
-.v2-form-group li { display: flex; align-items: center; gap: 16px; padding: 12px 0; }
+.v2-form-group li { display: flex; align-items: center; gap: 16px; padding: 8px 0; }
 .v2-form-group li + li { border-top: 1px solid var(--v2-border); }
 .v2-form-group li > span { min-width: 0; overflow-wrap: anywhere; }
 .v2-form-group li > div { display: flex; gap: 8px; flex-shrink: 0; }
 .v2-form-group a { display: inline-flex; justify-content: center; align-items: center; min-width: 52px; min-height: 44px; padding: 6px 10px; border: 1px solid #92b2ae; border-radius: 6px; color: var(--teal); font-weight: 700; }
-.v2-form-group a:hover { background: #e9f2ef; }
+
 @media(max-width:700px) { .v2-form-group { grid-template-columns: minmax(0,1fr); gap: 8px; } .v2-form-group li { flex-direction: column; align-items: flex-start; } }
+
+/* Share the existing service-action palette, retaining each control's sizing. */
+.v2-income-standard-action, .v2-form-group a { background: #edf5ef; color: #103844; border-color: #92b2ae; border-radius: 6px; }
+.v2-form-group li > div { flex-wrap: wrap; max-width: 100%; }

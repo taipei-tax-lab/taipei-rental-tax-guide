@@ -179,7 +179,7 @@ test('income standard is an HTML group with two safe independent actions and ret
   for(const file of ['income-standard-card.png','income-standard-illustration.png']) assert.ok(fs.existsSync(path.join(root,'assets/images',file)));
   const entry=html.match(/<div class="v2-audience-button v2-income-standard-entry"[\s\S]*?\n              <\/div>/)[0];
   assert.match(entry,/role="group" aria-labelledby="income-standard-title"/);
-  assert.ok(entry.replace(/<[^>]+>/g,'').includes('出租房屋達租金標準'));
+  assert.ok(entry.replace(/<[^>]+>/g,'').includes('出租房屋所得達租金標準'));
   assert.equal((entry.match(/<a /g)||[]).length,2);
   assert.equal((entry.match(/target="_blank" rel="noopener noreferrer"/g)||[]).length,2);
   assert.equal((entry.match(/另開新視窗/g)||[]).length,2);

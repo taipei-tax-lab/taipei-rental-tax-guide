@@ -1,0 +1,34 @@
+{
+  "base": "http://127.0.0.1:4175/",
+  "idle": {
+    "bg": "rgb(237, 245, 239)",
+    "color": "rgb(16, 56, 68)",
+    "border": "rgb(146, 178, 174)",
+    "radius": "6px"
+  },
+  "allSixHover": true,
+  "focus": true,
+  "touchNonSticky": true,
+  "heights": [
+    {
+      "width": 1440,
+      "height": 358.5625
+    },
+    {
+      "width": 1024,
+      "height": 358.5625
+    },
+    {
+      "width": 768,
+      "height": 395.34375
+    },
+    {
+      "width": 390,
+      "height": 761.46875
+    },
+    {
+      "width": 320,
+      "height": 761.46875
+    }
+  ]
+}
