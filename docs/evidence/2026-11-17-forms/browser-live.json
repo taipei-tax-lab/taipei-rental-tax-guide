@@ -1,0 +1,96 @@
+{
+  "base": "https://rental-tax-guide-test.pages.dev/",
+  "rows": [
+    {
+      "width": 1440,
+      "font": 100,
+      "independentDetails": true,
+      "equalApplicationCards": true,
+      "keyboard": true,
+      "noOverflow": true
+    },
+    {
+      "width": 1440,
+      "font": 200,
+      "independentDetails": true,
+      "equalApplicationCards": true,
+      "keyboard": true,
+      "noOverflow": true
+    },
+    {
+      "width": 390,
+      "font": 100,
+      "independentDetails": true,
+      "equalApplicationCards": true,
+      "keyboard": true,
+      "noOverflow": true
+    },
+    {
+      "width": 390,
+      "font": 200,
+      "independentDetails": true,
+      "equalApplicationCards": true,
+      "keyboard": true,
+      "noOverflow": true
+    },
+    {
+      "width": 320,
+      "font": 100,
+      "independentDetails": true,
+      "equalApplicationCards": true,
+      "keyboard": true,
+      "noOverflow": true
+    },
+    {
+      "width": 320,
+      "font": 200,
+      "independentDetails": true,
+      "equalApplicationCards": true,
+      "keyboard": true,
+      "noOverflow": true
+    }
+  ],
+  "downloads": [
+    {
+      "url": "https://pub-76044a38a6644fc4b5c9d71e06f58b81.r2.dev/house-use-change.odt",
+      "status": 200,
+      "mime": "application/octet-stream"
+    },
+    {
+      "url": "https://pub-76044a38a6644fc4b5c9d71e06f58b81.r2.dev/house-use-change.odt",
+      "filename": "house-use-change.odt",
+      "failure": null
+    },
+    {
+      "url": "https://pub-76044a38a6644fc4b5c9d71e06f58b81.r2.dev/house-use-change.pdf",
+      "status": 200,
+      "mime": "application/pdf"
+    },
+    {
+      "url": "https://pub-76044a38a6644fc4b5c9d71e06f58b81.r2.dev/rental-tax-reduction.odt",
+      "status": 200,
+      "mime": "application/octet-stream"
+    },
+    {
+      "url": "https://pub-76044a38a6644fc4b5c9d71e06f58b81.r2.dev/rental-tax-reduction.odt",
+      "filename": "rental-tax-reduction.odt",
+      "failure": null
+    },
+    {
+      "url": "https://pub-76044a38a6644fc4b5c9d71e06f58b81.r2.dev/rental-tax-reduction.pdf",
+      "status": 200,
+      "mime": "application/pdf"
+    },
+    {
+      "url": "https://pub-76044a38a6644fc4b5c9d71e06f58b81.r2.dev/house-use-change-example.pdf",
+      "status": 200,
+      "mime": "application/pdf"
+    },
+    {
+      "url": "https://pub-76044a38a6644fc4b5c9d71e06f58b81.r2.dev/rental-tax-reduction-example.pdf",
+      "status": 200,
+      "mime": "application/pdf"
+    }
+  ],
+  "tlsDiagnostic": true
+}

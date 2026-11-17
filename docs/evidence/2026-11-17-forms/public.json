@@ -3,46 +3,54 @@
   "authenticated": false,
   "rows": [
     {
-      "file": "house-use-change.odt",
       "url": "https://pub-76044a38a6644fc4b5c9d71e06f58b81.r2.dev/house-use-change.odt",
       "status": 200,
       "bytes": 37559,
-      "mime": "application/octet-stream"
+      "mime": "application/octet-stream",
+      "sha256": "b2ff29cacad687754cd1009a9135e06dd181fa66e5228ab7e8ca539555b48a96",
+      "signature": true,
+      "odtStructure": true
     },
     {
-      "file": "house-use-change.pdf",
       "url": "https://pub-76044a38a6644fc4b5c9d71e06f58b81.r2.dev/house-use-change.pdf",
       "status": 200,
       "bytes": 157541,
-      "mime": "application/pdf"
+      "mime": "application/pdf",
+      "sha256": "c36501b81f6d91444dad9489c9715785b42e95c599db7797adee1fb4bcd704da",
+      "signature": true
     },
     {
-      "file": "rental-tax-reduction.odt",
       "url": "https://pub-76044a38a6644fc4b5c9d71e06f58b81.r2.dev/rental-tax-reduction.odt",
       "status": 200,
       "bytes": 45917,
-      "mime": "application/octet-stream"
+      "mime": "application/octet-stream",
+      "sha256": "bf5d06b4d66fb3126055bf8d9908f6b8bf5a2a41fe0a86bcdd0de7f4df0a5f7d",
+      "signature": true,
+      "odtStructure": true
     },
     {
-      "file": "rental-tax-reduction.pdf",
       "url": "https://pub-76044a38a6644fc4b5c9d71e06f58b81.r2.dev/rental-tax-reduction.pdf",
       "status": 200,
       "bytes": 234755,
-      "mime": "application/pdf"
+      "mime": "application/pdf",
+      "sha256": "652dea8195d181848db5f0a540923f456ebadacd283af92fd129c4465a29564a",
+      "signature": true
     },
     {
-      "file": "house-use-change-example.pdf",
       "url": "https://pub-76044a38a6644fc4b5c9d71e06f58b81.r2.dev/house-use-change-example.pdf",
       "status": 200,
       "bytes": 171460,
-      "mime": "application/pdf"
+      "mime": "application/pdf",
+      "sha256": "92c9de796d05a9694653397047e8d108d3b75069d58ef8f077e89ea6b80e5c39",
+      "signature": true
     },
     {
-      "file": "rental-tax-reduction-example.pdf",
       "url": "https://pub-76044a38a6644fc4b5c9d71e06f58b81.r2.dev/rental-tax-reduction-example.pdf",
       "status": 200,
       "bytes": 189913,
-      "mime": "application/pdf"
+      "mime": "application/pdf",
+      "sha256": "d081c0841284a7c1ac4394e51e0ca1c0229a0dc4c9ff32b38bac0d6b5acbe5b6",
+      "signature": true
     }
   ]
 }

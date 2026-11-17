@@ -1,6 +1,6 @@
 # NEXT_TASK — 2026-11-17 房客卡片獨立展收與直接申請書表下載
 
-狀態：**IMPLEMENTED_LOCAL_VERIFIED_PENDING_DEPLOYMENT**（2026-11-17，Asia/Taipei）。
+狀態：**IMPLEMENTED_TEST_DEPLOYED_PENDING_GPT_REVIEW**（2026-11-17，Asia/Taipei）。
 指定工作分支：`feat/direct-apply-operation-guide-20261031`。
 開工基準：`36b223204f43a5ce1d522e2b07ddfdb27009750d`。前輪 70/70 單元、建置／效能及測試站技術驗證完成；[前輪 Task（固定 SHA）](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/blob/36b223204f43a5ce1d522e2b07ddfdb27009750d/docs/NEXT_TASK.md)、[證據](evidence/2026-11-16-handshake/REPORT.md) 保留。GPT 獨立重跑 70/70、build --check、budget、Pages build（33 檔）成功；獨立 Chromium 重跑因執行環境 socket 權限未能完成。本輪係使用者實際查看後的新需求，不推定全部人工驗收完成。
 
@@ -49,3 +49,6 @@
 ## 11/17 實作回報
 
 4745bd7乾淨同步；房客獨立展收、直接申請書表兩組六連結已實作。73/73與建置、效能、33檔Pages、路徑正負驗證及瀏覽器回歸通過。六公開R2網址正常TLS無登入GET為200，bytes／PDF簽章／ODT內部mimetype與content.xml通過。書表原檔及所有截圖只存.preview，未提交；R2 metadata／物件與原影片未改。待本輪推送／測試站複驗、GPT審查；原業務與實機人工待辦保留。詳見 [報告](evidence/2026-11-17-forms/REPORT.md)。
+
+
+第五輪部署：36afac160d85bb2db4ecc0ed4591ea426a3e08db，Cloudflare deployment 4b059506-b5e7-4fa3-a3c8-188bde401ea5 SUCCESS。實際測試站六個公開書表連結原生啟動通過，兩ODT完成下載（failure=null），四PDF新視窗HTTP200；桌機／手機100及200%字級、房客獨立高度／open狀態、焦點、直接申請等高透明通過。HTTPS非CX全站回歸／33資產MIME／私有路徑404／零GA4通過；BX015仍404待人工確認。正常TLS線上HTML/CSS逐bytes等同本地。瀏覽器使用明確CA診斷模式，不作正式TLS／實機背書。`node --use-env-proxy scripts/forms-public-check.mjs` 可重現正常TLS匿名六下載、精確大小／簽章與ODT內部結構檢查，只保存JSON；不存原檔。收尾僅補測試工具與文字證據，網站runtime不變，交GPT審查。
