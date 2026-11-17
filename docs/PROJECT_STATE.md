@@ -1,6 +1,15 @@
 # PROJECT_STATE — 現行狀態
 
-核對日期：2026-11-17（Asia/Taipei）。狀態：**第六輪緊湊書表、統一按鈕與名稱修正已完成；全站RWD及測試站回歸通過，待GPT／使用者及實機審查**。
+核對日期：2026-11-17（Asia/Taipei）。狀態：**FINAL_QA_APPROVED_PENDING_IMPLEMENTATION — 第六輪已部署測試站；AGY 獨立審查發現缺陷，最終修正已核定、尚未實作。**
+
+## 最新現況（2026-11-17，Final QA 開工前）
+
+- 遠端實際核對：`feat/direct-apply-operation-guide-20261031` 為 `05f096d7d4ba3088bf025ddb2af07ecc70f9c091`，main 為 `28fd76aed2a212776fa5eade5eca18e02ff24701`。第六輪 runtime `b9b3e19e3f765b42d0691f8c7e27ce9c7197c751`，既有 Cloudflare 測試站部署 `e633fc69-c45e-4321-bf75-5ef692178c99`，完整結果見 [第六輪報告](evidence/2026-11-17-rwd6/REPORT.md)。
+- AGY 對相同基準獨立唯讀檢測：73/73、build/check/budget 通過，正常 TLS 33 件測試站白名單資產讀回與建置產物逐 bytes 相符。另以 Chromium 診斷發現短視窗小幫手無法關閉、面板背景色失效、字級放大不一致、中間寬度書表／頁尾過度擠壓、浮動 launcher 可能遮擋申請操作等問題。GPT 核對來源中的相關變數、短視窗 titlebar/launcher 規則、字級/格線、FAQ 文字及既有測試盲點；未另行重跑實機。此發現不推翻先前測試結果，但原測試不足以證明可讀與可點擊。
+- 使用者核定最終品質修正範圍，詳 [NEXT_TASK](NEXT_TASK.md) QA-01～06。包括上述六類、未定義 CSS token、空 textarea 與名稱一致性；修正／新增驗收尚未執行。此次只提交作業規劃文件，未更動 runtime、雲端設定或 main。
+- AGY 於既有機關站正常 TLS 驗證先前九個 WebP 均已 HTTP 200，舊 main 仍未換成 feature；CSP／快取／正式 GA4／OG、同站相對路徑六份書表與兩影片、MIME 及 Range 仍需在正式交付包及資訊室部署後獨立驗收。不得等同正式上線完成。BX015、BX004 與內政部租金資訊連結仍須實際瀏覽確認，不單以 404／逾時判定失效。原實機、輔助科技、業務及真實 CX 問答待確認事項保留；其他非阻擋維護列 NEXT_TASK 後續範圍。
+
+以下均為歷史紀錄（包括過去的「待實作」「最新現況」等標題），不作本輪指令；機關站舊 404 紀錄已由上述 AGY 新證據更新，但新版本未部署。
 
 ## 最新現況（2026-11-17，第六輪開工前）
 

@@ -94,3 +94,7 @@ GPT 審查 `5ca8b42`（runtime `36afac1`），獨立 73/73、build --check、效
 
 
 第六輪實作 b9b3e19e3f765b42d0691f8c7e27ce9c7197c751 已推送，Cloudflare部署 e633fc69-c45e-4321-bf75-5ef692178c99 與GitHub check成功。HTTPS再次212組RWD及六按鈕／觸控、非CX全站33資產／GA4隔離回歸PASS；影片play/seek/fullscreen/離頁暫停及phone/tablet defaults PASS。影片測試原先在click後立即斷言、目的section尚未完成切換時失敗，已補等待目的頁visible再保留全部原斷言，網站導航／影片JS未改。正常TLS線上HTML/CSS逐bytes同本地；瀏覽器外部CA診斷模式與mock小幫手不代替實機／真實CX驗收。收尾只補驗證工具與文件，runtime不變；截圖與原檔不入Git，交GPT／使用者審查。
+
+## 2026-11-17 AGY 獨立唯讀審查及 Final QA 規劃
+
+AGY 審查指定分支 `05f096d7d4ba3088bf025ddb2af07ecc70f9c091`，獨立通過 73/73、build/check/budget、正常 TLS 的 33 項測試站 runtime 比對，另用 Chromium 診斷發現短視窗關閉控制不可用、未定義背景 token、字級放大與 701px 大字級分欄可讀性、小幫手浮動遮擋等缺陷。GPT 核對來源和測試斷言，確認先前幾何檢查未確認真正可見／可點擊，無橫溢出也不足以捕捉逐字狹欄。使用者核定針對性收尾修正；在 NEXT_TASK 建立 QA-01～06 及具體 before/after、實際操作、分層驗收條件。第六輪 [Task（固定 SHA）](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/blob/05f096d7d4ba3088bf025ddb2af07ecc70f9c091/docs/NEXT_TASK.md) 與既有報告保留。機關正式交付及外部連結人工查閱另列待辦：AGY 已確認舊機關站九 WebP 200，並非新 feature 已部署。此次僅更新 Task/State/Worklog，未修改 runtime、不聲稱新測試成功、不合併 main、不製作正式包或改雲端設定；使用者核定本輪開發範圍，不等於合併或正式部署授權。
