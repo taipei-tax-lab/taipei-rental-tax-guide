@@ -1,6 +1,6 @@
 # NEXT_TASK — 2026-11-17 房客卡片獨立展收與直接申請書表下載
 
-狀態：**PLANNED / R2_OBJECTS_VERIFIED / PUBLIC_DOWNLOAD_PENDING**（2026-11-17，Asia/Taipei）。
+狀態：**PLANNED / R2_OBJECTS_VERIFIED / PUBLIC_DOWNLOAD_VERIFIED**（2026-11-17，Asia/Taipei）。
 指定工作分支：`feat/direct-apply-operation-guide-20261031`。
 開工基準：`36b223204f43a5ce1d522e2b07ddfdb27009750d`。前輪 70/70 單元、建置／效能及測試站技術驗證完成；[前輪 Task（固定 SHA）](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/blob/36b223204f43a5ce1d522e2b07ddfdb27009750d/docs/NEXT_TASK.md)、[證據](evidence/2026-11-16-handshake/REPORT.md) 保留。GPT 獨立重跑 70/70、build --check、budget、Pages build（33 檔）成功；獨立 Chromium 重跑因執行環境 socket 權限未能完成。本輪係使用者實際查看後的新需求，不推定全部人工驗收完成。
 
@@ -20,7 +20,7 @@
 
 ### 2.1 已核對的 R2 檔案（資料來源及預定連結）
 
-使用者手動建立獨立 bucket `forms`，六物件皆位於 bucket 根目錄（不是影片 bucket 的 forms/ 前綴）。Cloudflare API 已唯讀列出及取得全部六個物件，大小相符，PDF 四份有 %PDF 簽章、ODT 二份有 ZIP 簽章；尚非完整格式或業務內容驗收。管理網域為 `https://pub-76044a38a6644fc4b5c9d71e06f58b81.r2.dev/`，**目前 managed public access enabled=false，且無 custom domains。以下為啟用後預定的連結，不是已公開可下載證據。** 不得自行啟用公開存取、更新 metadata 或上傳／刪除物件；須由使用者另行核准或手動啟用，並確認書表皆可公開。先前從執行環境直接請求逾時，不據此推論物件不存在。
+使用者手動建立獨立 bucket `forms`，六物件皆位於 bucket 根目錄（不是影片 bucket 的 forms/ 前綴）。Cloudflare API 已唯讀列出及取得全部六個物件，大小相符，PDF 四份有 %PDF 簽章、ODT 二份有 ZIP 簽章；尚非完整格式或業務內容驗收。管理網域為 `https://pub-76044a38a6644fc4b5c9d71e06f58b81.r2.dev/`，**使用者於 2026-11-17 授權啟用 forms 的 managed public access；GPT 已啟用並讀回 enabled=true。六公開 HTTPS URL 正常 TLS、未使用登入／簽名，全數 HTTP 200，bytes 與下表一致，PDF／ZIP 檔頭吻合。** 不更動 R2 metadata、物件或其他 bucket；仍需實作後複驗實際瀏覽器下載、ODT mimetype 及書表內容適用性。r2.dev 僅作開發測試；正式機關站仍用相對路徑。
 
 | 分組 | 書表 | R2 object key（相對上述網域根目錄） | bytes | R2 contentType |
 | --- | --- | --- | ---: | --- |
