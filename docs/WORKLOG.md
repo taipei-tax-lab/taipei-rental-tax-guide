@@ -82,3 +82,7 @@
 
 
 第五輪部署：36afac160d85bb2db4ecc0ed4591ea426a3e08db，Cloudflare deployment 4b059506-b5e7-4fa3-a3c8-188bde401ea5 SUCCESS。實際測試站六個公開書表連結原生啟動通過，兩ODT完成下載（failure=null），四PDF新視窗HTTP200；桌機／手機100及200%字級、房客獨立高度／open狀態、焦點、直接申請等高透明通過。HTTPS非CX全站回歸／33資產MIME／私有路徑404／零GA4通過；BX015仍404待人工確認。正常TLS線上HTML/CSS逐bytes等同本地。瀏覽器使用明確CA診斷模式，不作正式TLS／實機背書。`node --use-env-proxy scripts/forms-public-check.mjs` 可重現正常TLS匿名六下載、精確大小／簽章與ODT內部結構檢查，只保存JSON；不存原檔。收尾僅補測試工具與文字證據，網站runtime不變，交GPT審查。
+
+## 11/17 第五輪審查及第六輪規劃
+
+GPT 審查 `5ca8b42`（runtime `36afac1`），獨立 73/73、build --check、效能、Pages 33 檔、diff check 通過；正常 TLS 測試站 HTML/CSS HTTP 200 且與本地基準逐 bytes 相同。瀏覽器結果引用前輪 [報告](evidence/2026-11-17-forms/REPORT.md)，不冒稱獨立實機驗收。使用者核定書表下載區垂直緊湊化、格式按鈕淺綠底仿試算／申請、標題更名「出租房屋所得達租金標準」，及全站 RWD 複檢、缺陷修正（含 320px、200% 字級與斷點）。已更新 NEXT_TASK／State，僅文件交接，未更改 runtime／R2、未合併或正式部署；既有人工／業務待辦保留。

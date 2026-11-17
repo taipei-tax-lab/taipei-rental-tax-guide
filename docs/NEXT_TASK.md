@@ -1,54 +1,31 @@
-# NEXT_TASK — 2026-11-17 房客卡片獨立展收與直接申請書表下載
+# NEXT_TASK — 2026-11-17 書表區緊湊化、租金標準名稱與全站 RWD 複檢
 
-狀態：**IMPLEMENTED_TEST_DEPLOYED_PENDING_GPT_REVIEW**（2026-11-17，Asia/Taipei）。
+狀態：**PLANNED**（2026-11-17，Asia/Taipei）。
 指定工作分支：`feat/direct-apply-operation-guide-20261031`。
-開工基準：`36b223204f43a5ce1d522e2b07ddfdb27009750d`。前輪 70/70 單元、建置／效能及測試站技術驗證完成；[前輪 Task（固定 SHA）](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/blob/36b223204f43a5ce1d522e2b07ddfdb27009750d/docs/NEXT_TASK.md)、[證據](evidence/2026-11-16-handshake/REPORT.md) 保留。GPT 獨立重跑 70/70、build --check、budget、Pages build（33 檔）成功；獨立 Chromium 重跑因執行環境 socket 權限未能完成。本輪係使用者實際查看後的新需求，不推定全部人工驗收完成。
+開工基準：`5ca8b42651555512548e195f6b5f46b7371712f0`。前輪房客獨立展收與六份書表已實作、測試站驗證；[前輪 Task（固定 SHA）](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/blob/5ca8b42651555512548e195f6b5f46b7371712f0/docs/NEXT_TASK.md)／[前輪報告](evidence/2026-11-17-forms/REPORT.md)。GPT 核對差異並獨立重跑 73/73、build --check、效能、Pages 33 檔與 diff check 成功。使用者檢視前輪畫面後核定以下三項修改及全站響應式複檢；本輪只交接需求，尚未實作。
 
-## 1. 房客卡片獨立展開與收合
+## 1. 書表下載區視覺微調（直接申請）
 
-- [x] 已確認原因：`assets/css/guide-v2.css` 前段 `.v2-tenant-grid` 設定 align-items:start，但後段 `.v2-tenant-grid, .v2-application-list` 共用 align-items:stretch 覆蓋它。僅修房客 grid 的對齊規則，使同列三張卡片各自依內容展收；直接申請三卡仍維持等高、三欄／手機單欄。
-- [x] 保留原生 details/summary，允許同時開展任意多張，點擊自己才變更自己的 open 狀態。另一張卡片展開或收合時，其餘卡片高度和內容區不得被拉長／壓縮；桌機頂端對齊，手機正常文流下方卡片可隨內容位移。維持現有外框／文字／圖示／連結／鍵盤操作；不可用固定高度造成放大字級裁切，也不導入新 JS 或套件。
-- [x] 增加瀏覽器斷言：量測初始各卡 bounding box，依序展開 A、B、收合 A、展開 C、收合其餘，核對非操作卡高度與 open 狀態保持、無不必要空白拉伸、原連結可用；桌機 1440px、手機 390/320px、100/200% 字級，無水平溢出；直接申請仍三卡等高（桌面）。
+- [ ] 依使用者提供畫面，維持現有兩組「書表下載」「填寫範例」、各兩列、六個按鈕，仍置於原三張申請管道卡片下方，不重排功能或新增卡片。
+- [ ] 適度縮短兩組及各列垂直高度；來源 `assets/css/guide-v2.css` 現行 .v2-form-group padding 22px 0，li padding 12px 0，.v2-forms margin-top 32px。優先調整 group padding 至約 14–16px、li padding 至約 6–8px（數值為實作起點非硬性定值），必要時稍縮 section 上方空隙；保留細分隔線、留白、現有文字大小及可閱讀性。不得透過固定高度、裁切或將按鈕縮小到難以操作達成。以相同 viewport／字級量測前後實際區塊高度，桌機目標約減少 10–20%（因內容換行而合理調整）；手機不要求同一比例，不犧牲可及性。
+- [ ] ODT/PDF 按鈕仿照首頁所得達租金標準卡的「試算」「申請」：現行 .v2-income-standard-action 背景 #edf5ef、邊框 #92b2ae、文字 #103844、圓角 6px、滑鼠 fine pointer hover 深綠 var(--teal) 白字、邊框 var(--teal-dark)。優先以共用樣式／token 或 scoped selector 共用顏色、邊框、hover 設定，保留兩類按鈕各自尺寸配置；不得改原試算／申請行為、外框、事件或 link。書表按鈕維持至少 44×44 CSS px、明確鍵盤焦點，ODT/PDF 可讀且不黏滯反色，手機 touch 正常，不新增圖示／裝飾。
+- [ ] 書名與格式按鈕依長度自然換行／堆疊（既有 700px breakpoint 可按結果調整）；ODT/PDF 可並排，極窄或放大時允許按鈕群換行，不能覆蓋書名或跑出卡框；桌機維持書名旁緊鄰格式按鈕設計。保留兩組語意、六 href、可及名稱、焦點次序與原生下載／新視窗，無新增 GA4 事件。保持 .v2-tenant-grid獨立展收及直接申請三卡等高、外層透明；禁止下載原檔入 Git／Pages。
 
-## 2. 書表下載與填寫範例
+## 2. 首頁第六卡名稱
 
-使用者核定：在 `#direct-apply` 的現行三張申請管道卡片（線上申請、親自申請、郵寄/傳真）之下，新增獨立、精簡的書表區塊，參考台北服務通的雙組書表列表，而非新增第四卡或改成複雜流程。用途是方便民眾親自申請、郵寄及傳真前下載／填寫。
+- [ ] 將「出租房屋達租金標準」精確更名為「出租房屋所得達租金標準」。現行 `site/template.html` 的 #income-standard-title 由兩 span 構成；從來源改，可採「出租房屋所得」／「達租金標準」自然換行，但極窄／放大時避免 inline-block 整段無法斷行或遮住左側 SVG。維持六卡統一外框、字級、圖示、DOM 順序與「試算」「申請」兩獨立連結、role=group／aria-labelledby、現有 hover。不要修改其他政策敘述或資料；已核定 exact title 的測試（tests/build.test.mjs、tests/ux2.test.mjs、scripts/ux2-browser-check.cjs 等）按新名稱更新，其他原斷言保留；重建 index.html。
 
-- [x] 區塊分兩組「書表下載」「填寫範例」，每組二列，順序一致：房屋使用情形變更申報書；臺北市個人租賃住宅委託包租代管減徵地價稅及房屋稅申請書（含終止或委託）。範例列加「－範例」或由分組明確標示，避免誤選；每份申請書有 ODT、PDF 兩個操作，範例只提供 PDF。總計六個連結。
-- [x] 桌面採左側組別標題及右側書名＋緊鄰格式按鈕的行列表（可適應長書名換行）；手機窄幅自然堆疊，格式按鈕不被裁切／擠到螢幕外，不需水平捲動。使用本站原有深綠配色、白／淺色容器、細分隔、適當留白與 44px 操作區；不照抄他站外觀，不另製大型卡片。保留目前直接申請頁透明外層及三卡白底、順序、原申辦說明、網址、GA4 service entry 映射。
-- [x] 真實語意分組及標題；每個按鈕具書名＋格式的可及名稱、清楚焦點、鍵盤可操作；避免在原本整卡 anchor 內嵌另一 anchor。可使用直接 HTTPS anchor（PDF 可另開以閱讀／儲存；ODT 可由瀏覽器下載），標明另開視窗（若適用）及格式。跨網域 download 屬性不保證強制下載；不要以 JS 跨域抓 blob 或新增 CORS／Worker 來規避。不自動修改 R2 metadata；實測瀏覽器行為並準確回報。填寫範例不得含真實個資，使用者提供的是正式公開書表，內容及適用性仍須業務確認，不自行修改原檔或額外推測適用條件。
+## 3. 全站響應式設計複檢及針對性修正
 
-### 2.1 已核對的 R2 檔案（資料來源及預定連結）
+使用者要求本輪一併檢查手機版等 RWD 並修正實際發現問題。不是重新設計全站或更改業務內容。以核定現行桌面設計為基準，測量真實 browser layout，不只縮放截圖。
 
-使用者手動建立獨立 bucket `forms`，六物件皆位於 bucket 根目錄（不是影片 bucket 的 forms/ 前綴）。Cloudflare API 已唯讀列出及取得全部六個物件，大小相符，PDF 四份有 %PDF 簽章、ODT 二份有 ZIP 簽章；尚非完整格式或業務內容驗收。管理網域為 `https://pub-76044a38a6644fc4b5c9d71e06f58b81.r2.dev/`，**使用者於 2026-11-17 授權啟用 forms 的 managed public access；GPT 已啟用並讀回 enabled=true。六公開 HTTPS URL 正常 TLS、未使用登入／簽名，全數 HTTP 200，bytes 與下表一致，PDF／ZIP 檔頭吻合。** 不更動 R2 metadata、物件或其他 bucket；仍需實作後複驗實際瀏覽器下載、ODT mimetype 及書表內容適用性。r2.dev 僅作開發測試；正式機關站仍用相對路徑。
+- [ ] 覆蓋至少 320、375/390、414、768、1024、1440px（含 380/381、700/701、1099/1100 等斷點邊界抽樣）及直向手機／平板橫向；標準 100% 與 200% 字級，並以瀏覽器 zoom／視窗 CSS viewport 變化模擬使用者放大（明確區分 emulation 與實機）。必要時用真實手機 viewport height（例如 667、844）確認可操作。避免只測 1440/390/320 三尺寸，特別檢查中間寬度；可採風險相稱矩陣，全面路由 6 個代表寬度×100/200%，斷點與橫向針對重點頁。
+- [ ] 逐路由／互動清單：首頁六入口（第六卡長名稱、兩連結、等框；窄時自然降欄）、屋主四方案及快速導引、房客三卡展收與連結、直接申請及書表列表、操作說明兩版本播放器／控制切換、四方案細節及比較（含並列比較控制）、FAQ／資源、頁首／頁尾／字級控制、浮動小幫手入口及現有開合／輸入框位置（以 mock／隔離第三方驗證，不送真實 CX 問題）。各頁檢查水平溢出、文字切斷或重疊、卡片／按鈕列與長書名、可點擊區、focus、返回／深連結／頁內切換是否合理；不能藉全域 overflow-x:hidden 掩飾溢出。
+- [ ] 若發現確切 RWD 缺陷，在同輪以局部 CSS／必要語意模板或前端布局修正；記錄問題的路由、寬度／字級／成因及修正前後量測。避免全域樣式重置或改既有桌機設計、縮減本文字級、禁用縮放、任意更動導航邏輯、CX／GA4、影片內容／R2、稅務規則；超出本輪的獨立重大功能或業務變更列待確認。保留六入口原樣式、獨立展收、白卡透明頁背景、核定 icon／背景圖、兩影片相對路徑方案與書表來源單一配置。
+- [ ] 自動驗證增加有針對性斷言（含六按鈕標準／hover computed style 比對試算與申請、focus-visible、touch 非黏滯、書表前後高度量測、新標題完整可見、所有代表寬度無 horizontal overflow/裁切、原六連結仍在）。既有 forms-browser-check、visual-consistency-browser-check、ux2-browser-check 等適用腳本更新必要預期，原 73 項功能與安全守門不得放寬。RWD 測試截圖僅留 .preview/，提交文字／JSON；不把 emulation 當 iOS/Safari/LINE/Android 實機驗證。
 
-| 分組 | 書表 | R2 object key（相對上述網域根目錄） | bytes | R2 contentType |
-| --- | --- | --- | ---: | --- |
-| 書表下載 | 房屋使用情形變更申報書 | house-use-change.odt | 37559 | application/octet-stream |
-| 書表下載 | 房屋使用情形變更申報書 | house-use-change.pdf | 157541 | application/pdf |
-| 書表下載 | 個人租賃住宅委託包租代管減徵地價稅及房屋稅申請書（含終止或委託） | rental-tax-reduction.odt | 45917 | application/octet-stream |
-| 書表下載 | 同上 | rental-tax-reduction.pdf | 234755 | application/pdf |
-| 填寫範例 | 房屋使用情形變更申報書 | house-use-change-example.pdf | 171460 | application/pdf |
-| 填寫範例 | 個人租賃住宅委託包租代管申請書 | rental-tax-reduction-example.pdf | 189913 | application/pdf |
+## 4. 收尾與驗收
 
-- [x] 開工重新核對公開 HTTPS 六 URL（正常 TLS、無登入、HTTP 200、實際 bytes／PDF 簽章或 ODT ZIP 中 mimetype／內容，不能是 HTML 錯誤頁）。如尚未啟用或連線受限，列明 BLOCKED，不把 API 私有讀取當成公共下載 PASS；在公開下載可用以前不得推送含失效下載入口的 runtime（該分支 Push 會自動發布測試站）。可先完成可安全執行的本地實作及靜態驗證，等公開存取確認後再正常收尾。不得以測試環境禁用 TLS 的結果替代正式 TLS 檢查。
-
-## 3. 來源與交付策略
-
-- [x] 書表名稱／兩組六連結的單一正式設定來源（建議擴充 `site/media.json` 新增 applicationForms，沿用 operationGuide 不變；如選獨立設定檔則同步說明 AGENTS/README 且不得重複配置）。使用 build 產生 `index.html`，不手改生成結果。建置驗證兩組、兩份表及格式數量、非空書名、明確 HTTPS 或安全的 `./assets/forms/<filename>` 相對路徑（禁止 traversal、外部非 HTTPS、javascript/data）；測試 URL 採上述 root object 路徑，勿誤用原影片 bucket 或多加 forms/。
-- [x] 如同影片，測試站只連 R2，不將六份 binary／MP4／截圖提交 GitHub，不在 Pages 測試產物放入文件，既有白名單及 GA4 隔離仍維持。README 記錄單一設定來源、測試與正式路徑切換方式；正式交付另案：在 staging 副本中把書表 URL 改成 `./assets/forms/<filename>`，將 6 份原始書表檔及影片放進機關靜態包、重新 build，驗證相對 URL／MIME（ODT 正式建議 application/vnd.oasis.opendocument.text）、資料完整及機關 CSP。不要把本輪測試站的 R2 連結切成不存在的相對檔案、實際製作正式交付包、修改正式站或上傳新物件；僅證明配置相對路徑可生成。
-
-## 4. 驗收與交接 Checklist
-
-- [x] 開工依 AGENTS／Workflow 安全同步指定分支、不另開分支／覆寫；確認最近的圖示／背景／三卡核定成果。只改必要 CSS、書表設定、模板/build、生成 HTML、受影響測試與文件；不更動政策、資格、既有服務連結或事件、CX/Messenger、影片 URL、背景／圖示、部署設定。純 Repo 工作不掃描 Drive。
-- [x] 加入生成產物及設定的正／負測試（兩組標題、四個表格格式鍵＋二個範例、六個唯一 href、精確書名／路徑、相對路徑可建置且非法路徑失敗）；保留現行 70 個回歸驗證，原三個服務 anchor 計數／原連結與六項事件的斷言不應被新書表混入。
-- [x] `npm run build`、`node scripts/build.mjs --check`、`npm test`、`node scripts/performance-budget.mjs`、`node scripts/build-pages-test.mjs`、`git diff --check`；針對房客展收及書表區做桌機／手機與 200% 字級真實瀏覽器測試，確認六連結及實際下載／PDF 開啟可用、無水平溢出、鍵盤順序、原三卡等高與外層透明、切換其他入口未回歸。保留現有測試站非 CX／GA4 隔離，不提交截圖（只留 .preview/）。
-- [x] 公開下載及實作驗證完成後，在指定分支 commit/push、確認遠端 SHA、Cloudflare 自動建置及實際測試站六 URL 與版面；更新 Task/State/Worklog 及必要文字/JSON 量測證據。驗證受限如實區分，不能將私有 API 讀取得到物件等同公開下載。原 BX015、實機／輔助科技、業務／正式站驗收待辦保留；不 merge main，不正式部署。
-
-
-## 11/17 實作回報
-
-4745bd7乾淨同步；房客獨立展收、直接申請書表兩組六連結已實作。73/73與建置、效能、33檔Pages、路徑正負驗證及瀏覽器回歸通過。六公開R2網址正常TLS無登入GET為200，bytes／PDF簽章／ODT內部mimetype與content.xml通過。書表原檔及所有截圖只存.preview，未提交；R2 metadata／物件與原影片未改。待本輪推送／測試站複驗、GPT審查；原業務與實機人工待辦保留。詳見 [報告](evidence/2026-11-17-forms/REPORT.md)。
-
-
-第五輪部署：36afac160d85bb2db4ecc0ed4591ea426a3e08db，Cloudflare deployment 4b059506-b5e7-4fa3-a3c8-188bde401ea5 SUCCESS。實際測試站六個公開書表連結原生啟動通過，兩ODT完成下載（failure=null），四PDF新視窗HTTP200；桌機／手機100及200%字級、房客獨立高度／open狀態、焦點、直接申請等高透明通過。HTTPS非CX全站回歸／33資產MIME／私有路徑404／零GA4通過；BX015仍404待人工確認。正常TLS線上HTML/CSS逐bytes等同本地。瀏覽器使用明確CA診斷模式，不作正式TLS／實機背書。`node --use-env-proxy scripts/forms-public-check.mjs` 可重現正常TLS匿名六下載、精確大小／簽章與ODT內部結構檢查，只保存JSON；不存原檔。收尾僅補測試工具與文字證據，網站runtime不變，交GPT審查。
+- [ ] 依 AGENTS／Workflow 核對環境／指定分支／HEAD，安全同步。只在授權分支開發。保留前輪六書表（`site/media.json` applicationForms、forms bucket root URL）、原影片、服務連結、既有六項事件與 GA4 測試隔離、背景及正式資料；純 Repo 工作不掃描 Drive。使用已核准 public R2，不修改 object、metadata、bucket 或 Cloudflare 設定。
+- [ ] npm run build、node scripts/build.mjs --check、npm test、node scripts/performance-budget.mjs、node scripts/build-pages-test.mjs、git diff --check；實際 browser 複驗第 3 節矩陣、六連結原生操作／公開正常 TLS 200、直接申請／房客行為正常、原入口／GA4／影片控制回歸。正常 TLS 與診斷模式分開，證據不足不宣稱通過。
+- [ ] Commit/Push、確認遠端 SHA、既有 Cloudflare 自動建置及測試站實際效果；更新 Task／State／Worklog，回報問題清單以及驗證與未解限制，交 GPT／使用者審查。不合併 main、不製作機關正式包或部署、不提交任何驗證截圖／書表原檔。BX015、實際手機／輔助科技、業務與機關驗收等既有人工項目保留。
