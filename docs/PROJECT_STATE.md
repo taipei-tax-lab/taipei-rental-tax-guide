@@ -1,6 +1,13 @@
 # PROJECT_STATE — 現行狀態
 
-核對日期：2026-11-17（Asia/Taipei）。狀態：**第五輪房客獨立展收及書表下載已實作、測試站驗證，待GPT審查與人工業務／實機確認**。
+核對日期：2026-11-17（Asia/Taipei）。狀態：**第五輪已實作、測試站驗證及 GPT 差異審查；第六輪 UI 微調與全站 RWD 複檢已規劃，尚未實作**。
+
+## 最新現況（2026-11-17，第六輪開工前）
+
+- 工作分支 `feat/direct-apply-operation-guide-20261031`；第五輪驗收基準 `5ca8b42651555512548e195f6b5f46b7371712f0`，runtime `36afac160d85bb2db4ecc0ed4591ea426a3e08db`。Codex 報告 Cloudflare deployment `4b059506-b5e7-4fa3-a3c8-188bde401ea5` SUCCESS；GPT 另以正常 TLS 讀取公開測試站 HTML/CSS，與基準逐 bytes 一致（HTTP 200）。
+- GPT 差異審查及獨立重跑：73/73、build --check、performance budget、Pages 33 資產（GA4 關閉）、git diff --check 全數通過。前輪瀏覽器獨立展收、六書表入口與正式格式檢查依 [報告](evidence/2026-11-17-forms/REPORT.md)；GPT 未另行重跑瀏覽器／實機。前輪報告之正常 TLS 公開書表下載及瀏覽器 CA 診斷區分保留。
+- 使用者檢視後核定：書表區縮減垂直留白、ODT/PDF 按鈕仿照試算／申請的淺綠底色、首頁名稱「出租房屋所得達租金標準」、全站各裝置 RWD 複檢及實際缺陷修正。具體規格與驗收見 [NEXT_TASK](NEXT_TASK.md)。本次只提交任務、狀態及歷史，未改 runtime／R2、未合併、未正式部署。
+- 既有六檔 R2 對應與正式部署相對路徑規劃不變。BX015、實機、輔助科技、業務／正式站與真實 CX 待驗證事項不因本輪自動測試而結案。以下舊段落均為歷史證據，不作現行指令。
 
 ## 本輪現況（2026-11-17）
 
