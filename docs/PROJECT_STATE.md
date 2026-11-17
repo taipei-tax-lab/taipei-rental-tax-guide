@@ -100,3 +100,8 @@ GPT 核對遠端 `6e6d7fe280b1e9d7cf4f2e8e5636cbbcc0504943`、Cloudflare Pages c
 
 
 第四輪部署完成：bcb857dd1930bba814a5a5e2cc43ad2fdc59baa8，Cloudflare deploy 3edcb6fb-4d5b-44c8-bcc0-d979613d711d SUCCESS。HTTPS computed style、1440/390/320×兩字級、原生影片控制／切換與導航回歸 PASS；兩入口透明 rgba(0,0,0,0)，詳情／比較維持 rgba(255,254,251,0.96)，卡片白底及播放器 rgb(16,56,68) 保留。實際畫面已檢視。瀏覽器為憑證診斷模式；Node 正常 TLS 逐 bytes 核對線上 HTML/CSS/背景與本地一致。其他14圖、背景資產、模板、JS、政策及雲端設定不變。收尾只補文件，runtime不變；辨識度及實機等原有人工待辦仍保留。
+
+
+## 11/17 實作回報
+
+4745bd7乾淨同步；房客獨立展收、直接申請書表兩組六連結已實作。73/73與建置、效能、33檔Pages、路徑正負驗證及瀏覽器回歸通過。六公開R2網址正常TLS無登入GET為200，bytes／PDF簽章／ODT內部mimetype與content.xml通過。書表原檔及所有截圖只存.preview，未提交；R2 metadata／物件與原影片未改。待本輪推送／測試站複驗、GPT審查；原業務與實機人工待辦保留。詳見 [報告](evidence/2026-11-17-forms/REPORT.md)。

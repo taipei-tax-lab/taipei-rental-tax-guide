@@ -191,3 +191,10 @@ node scripts/extension-browser-check.cjs
 ## 11/16 圖示辨識、租金標準 hover 與背景修整
 
 本輪只優化屋主／房客、個人代管及租金補貼四個 SVG，其餘 12 個保留；租金標準父框不隨滑鼠變色，試算／申請各自 hover 深青底白字，觸控避免黏滯反色。GPT 已提供的修整版背景直接接入既有根目錄 `hero-v2.webp/png`，不重生圖片；WebP 135064 bytes，兩格式像素一致、版面與 33 檔白名單保留。`node scripts/icon-refinement-browser-check.cjs` 實測滑鼠位置／computed style、鍵盤焦點及手機 tap；69/69、本地及測試站 HTTPS 回歸通過，實作 `2b9d2f1` 的 Cloudflare check / deploy 成功；證據、憑證診斷模式及人工限制見 [本輪報告](docs/evidence/2026-11-16-icon-refinement/REPORT.md)。圖示辨識與背景觀感仍由使用者看測試站確認，截圖僅存 `.preview/`。
+
+
+## 11/17 房客展收與書表
+
+房客 details 各自依內容高度展收，可同時開啟多張；直接申請三卡等高保留。三卡下新增「書表下載」「填寫範例」，六連結單一來源為 `site/media.json` 的 `applicationForms`，由 build 產生，影片 operationGuide 不變。R2 僅為測試用途，不將書表原檔放進 Repo 或 Pages 33 檔產物。
+
+機關正式交付另案：在 staging 副本將六 URL 改成 `./assets/forms/<filename>`，將原書表及影片納入機關靜態包，重新建置並驗證 MIME、檔案與 CSP；ODT 建議 application/vnd.oasis.opendocument.text。本輪只在暫存副本證明相對路徑可生成，不製作正式包、不改 R2 metadata。現在 ODT 公開回應為 application/octet-stream，瀏覽器下載；PDF 可另開閱讀或儲存，跨域 download 屬性不保證強制儲存，因此使用原生 HTTPS 連結。

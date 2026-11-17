@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import {validateForms} from './forms.mjs';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {contentHash, normalizeEol} from './text.mjs';
@@ -154,6 +155,7 @@ const replacements = {
   RULES_VERSION: hash('assets/js/guide-rules.js'), UI_VERSION: hash('assets/js/guide-ui.js'),
   APPLY_ICON: icon('apply'), VIDEO_ICON: icon('tutorial'),
   HELPER_ICON: icon('helper'), STANDARD_ICON: icon('standard'),
+  APPLICATION_FORMS: `<section class="v2-forms" aria-label="申請書表與填寫範例">${validateForms(JSON.parse(read('site/media.json')).applicationForms).map((g,i)=>`<section class="v2-form-group" aria-labelledby="forms-${i}"><h3 id="forms-${i}">${esc(g.title)}</h3><ul>${g.forms.map(f=>`<li><span>${esc(f.title)}</span><div>${f.files.map(file=>`<a href="${esc(file.href)}" target="_blank" rel="noopener noreferrer" aria-label="${esc(f.title)}${i?'－範例':''} ${file.format}（另開新視窗）">${file.format}<span class="sr-only">（另開新視窗）</span></a>`).join('')}</div></li>`).join('')}</ul></section>`).join('')}</section>`,
   INCOME_STANDARD_ACTIONS: incomeStandardActions, DIRECT_APPLY: directApply, OPERATION_VIDEOS: operationVideos,
   HOUSE_ICON: icon('owner'), PERSON_ICON: icon('tenant'), OFFICIAL: esc(data.meta.official),
   PLAN_CARDS: cards, PLAN_DETAILS: planDetails, TENANT_GROUPS: tenantGroups, FAQ: faqHtml,

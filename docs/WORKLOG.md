@@ -74,3 +74,8 @@
 使用者核定房客卡片個別展收、直接申請三卡下方依台北服務通形式提供兩份雙格式書表及兩個 PDF 填寫範例。原因核對：後段 CSS 共用 stretch 覆蓋房客原 start。基準 `36b2232`；前輪 70/70 與建置／效能／Pages 33 檔獨立複驗通過，Chromium 權限受限未重跑。使用者已手動建立獨立 `forms` bucket；API 唯讀核對六根目錄物件、GET bytes、PDF／ZIP 檔頭；其 managed r2.dev domain 尚未啟用且無 custom domain。未修改 R2、公用存取須另行核准或由使用者操作；公開下載未驗收。更新 [NEXT_TASK](NEXT_TASK.md) 規定現有測試 R2 連結、未來機關相對路徑、發布門檻與驗收，未開始功能開發；無新 runtime／正式部署／合併。歷史 [前輪 Task](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/blob/36b223204f43a5ce1d522e2b07ddfdb27009750d/docs/NEXT_TASK.md) 保存。
 
 2026-11-17 追加：使用者授權開啟 R2 forms bucket 公開存取；GPT 先核對只有指定六物件，僅啟用該 bucket 的 managed r2.dev domain 並讀回 enabled=true。未改影片 bucket、metadata、物件及網站部署。六個公開 URL 無登入 HTTPS GET 全數 HTTP 200、正常 TLS、大小與基本檔頭相符；實作後瀏覽器下載及正式業務／格式驗收仍待確認。任務文件解除公開存取阻礙，未開始功能開發。
+
+
+## 11/17 實作回報
+
+4745bd7乾淨同步；房客獨立展收、直接申請書表兩組六連結已實作。73/73與建置、效能、33檔Pages、路徑正負驗證及瀏覽器回歸通過。六公開R2網址正常TLS無登入GET為200，bytes／PDF簽章／ODT內部mimetype與content.xml通過。書表原檔及所有截圖只存.preview，未提交；R2 metadata／物件與原影片未改。待本輪推送／測試站複驗、GPT審查；原業務與實機人工待辦保留。詳見 [報告](evidence/2026-11-17-forms/REPORT.md)。

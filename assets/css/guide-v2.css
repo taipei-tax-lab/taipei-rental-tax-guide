@@ -502,3 +502,18 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
 
 /* Entry content shares the owners/tenants backdrop; detail pages keep their paper. */
 #direct-apply.v2-entry-content, #operation-guide.v2-entry-content { background: transparent; }
+
+/* Tenant details keep independent heights; application channels remain equal. */
+.v2-tenant-grid { align-items: start; }
+.v2-forms { margin-top: 32px; border: 1px solid var(--v2-border); border-radius: 12px; background: #fff; padding: 0 22px; }
+.v2-form-group { display: grid; grid-template-columns: 7em minmax(0,1fr); gap: 20px; padding: 22px 0; }
+.v2-form-group + .v2-form-group { border-top: 1px solid var(--v2-border); }
+.v2-form-group h3 { color: var(--teal); margin: 0; }
+.v2-form-group ul { list-style: none; padding: 0; margin: 0; min-width: 0; }
+.v2-form-group li { display: flex; align-items: center; gap: 16px; padding: 12px 0; }
+.v2-form-group li + li { border-top: 1px solid var(--v2-border); }
+.v2-form-group li > span { min-width: 0; overflow-wrap: anywhere; }
+.v2-form-group li > div { display: flex; gap: 8px; flex-shrink: 0; }
+.v2-form-group a { display: inline-flex; justify-content: center; align-items: center; min-width: 52px; min-height: 44px; padding: 6px 10px; border: 1px solid #92b2ae; border-radius: 6px; color: var(--teal); font-weight: 700; }
+.v2-form-group a:hover { background: #e9f2ef; }
+@media(max-width:700px) { .v2-form-group { grid-template-columns: minmax(0,1fr); gap: 8px; } .v2-form-group li { flex-direction: column; align-items: flex-start; } }

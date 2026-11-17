@@ -158,7 +158,7 @@ test('build accepts future relative video paths and rejects non-HTTPS remote sou
     for (const dir of ['site','scripts','assets/css','assets/js']) {
       fs.cpSync(new URL('../' + dir, import.meta.url), path.join(fixture,dir), {recursive:true});
     }
-    const media = {operationGuide:{pc:{src:'./assets/videos/pc.mp4'},mobile:{src:'./assets/videos/mobile.mp4'}}};
+    const media = {applicationForms:JSON.parse(read('site/media.json')).applicationForms,operationGuide:{pc:{src:'./assets/videos/pc.mp4'},mobile:{src:'./assets/videos/mobile.mp4'}}};
     const config = path.join(fixture,'site/media.json');
     fs.writeFileSync(config,JSON.stringify(media));
     execFileSync(process.execPath,['scripts/build.mjs'],{cwd:fixture});

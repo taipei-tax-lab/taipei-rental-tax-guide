@@ -6,5 +6,61 @@
     "mobile": {
       "src": "https://pub-20ae83e09e324873be7bff4d861f23b0.r2.dev/operation-guide-mobile.mp4?v=2"
     }
-  }
+  },
+  "applicationForms": [
+    {
+      "title": "書表下載",
+      "forms": [
+        {
+          "title": "房屋使用情形變更申報書",
+          "files": [
+            {
+              "format": "ODT",
+              "href": "https://pub-76044a38a6644fc4b5c9d71e06f58b81.r2.dev/house-use-change.odt"
+            },
+            {
+              "format": "PDF",
+              "href": "https://pub-76044a38a6644fc4b5c9d71e06f58b81.r2.dev/house-use-change.pdf"
+            }
+          ]
+        },
+        {
+          "title": "臺北市個人租賃住宅委託包租代管減徵地價稅及房屋稅申請書（含終止或委託）",
+          "files": [
+            {
+              "format": "ODT",
+              "href": "https://pub-76044a38a6644fc4b5c9d71e06f58b81.r2.dev/rental-tax-reduction.odt"
+            },
+            {
+              "format": "PDF",
+              "href": "https://pub-76044a38a6644fc4b5c9d71e06f58b81.r2.dev/rental-tax-reduction.pdf"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "填寫範例",
+      "forms": [
+        {
+          "title": "房屋使用情形變更申報書",
+          "files": [
+            {
+              "format": "PDF",
+              "href": "https://pub-76044a38a6644fc4b5c9d71e06f58b81.r2.dev/house-use-change-example.pdf"
+            }
+          ]
+        },
+        {
+          "title": "臺北市個人租賃住宅委託包租代管減徵地價稅及房屋稅申請書（含終止或委託）",
+          "files": [
+            {
+              "format": "PDF",
+              "href": "https://pub-76044a38a6644fc4b5c9d71e06f58b81.r2.dev/rental-tax-reduction-example.pdf"
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

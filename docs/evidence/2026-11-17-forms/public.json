@@ -1,0 +1,48 @@
+{
+  "normalTLS": true,
+  "authenticated": false,
+  "rows": [
+    {
+      "file": "house-use-change.odt",
+      "url": "https://pub-76044a38a6644fc4b5c9d71e06f58b81.r2.dev/house-use-change.odt",
+      "status": 200,
+      "bytes": 37559,
+      "mime": "application/octet-stream"
+    },
+    {
+      "file": "house-use-change.pdf",
+      "url": "https://pub-76044a38a6644fc4b5c9d71e06f58b81.r2.dev/house-use-change.pdf",
+      "status": 200,
+      "bytes": 157541,
+      "mime": "application/pdf"
+    },
+    {
+      "file": "rental-tax-reduction.odt",
+      "url": "https://pub-76044a38a6644fc4b5c9d71e06f58b81.r2.dev/rental-tax-reduction.odt",
+      "status": 200,
+      "bytes": 45917,
+      "mime": "application/octet-stream"
+    },
+    {
+      "file": "rental-tax-reduction.pdf",
+      "url": "https://pub-76044a38a6644fc4b5c9d71e06f58b81.r2.dev/rental-tax-reduction.pdf",
+      "status": 200,
+      "bytes": 234755,
+      "mime": "application/pdf"
+    },
+    {
+      "file": "house-use-change-example.pdf",
+      "url": "https://pub-76044a38a6644fc4b5c9d71e06f58b81.r2.dev/house-use-change-example.pdf",
+      "status": 200,
+      "bytes": 171460,
+      "mime": "application/pdf"
+    },
+    {
+      "file": "rental-tax-reduction-example.pdf",
+      "url": "https://pub-76044a38a6644fc4b5c9d71e06f58b81.r2.dev/rental-tax-reduction-example.pdf",
+      "status": 200,
+      "bytes": 189913,
+      "mime": "application/pdf"
+    }
+  ]
+}
