@@ -1,6 +1,14 @@
 # PROJECT_STATE — 現行狀態
 
-核對日期：2026-11-17（Asia/Taipei）。狀態：**FINAL_QA_APPROVED_PENDING_IMPLEMENTATION — 第六輪已部署測試站；AGY 獨立審查發現缺陷，最終修正已核定、尚未實作。**
+核對日期：2026-11-17（Asia/Taipei）。狀態：**FINAL_QA_IMPLEMENTED_LOCAL_QA_PASSED — QA-01～06 已修正，待本輪測試站核對與 GPT／使用者審查。**
+
+## 最新現況（2026-11-17，Final QA）
+
+- 安全同步至任務文件 `40fcd91`；沿用指定分支。短窗原生關閉／焦點、面板不透明背景、rem 字級、書表／頁尾可讀換欄、浮動按鈕實際 hit region／避擋、空輸入與 FAQ 名稱均已修正，業務內容／日期保留。
+- 原 73 項＋2 項＝75/75，build/check/budget/Pages 33 檔、212 組全站 RWD、27 組可讀性量測、真實 vendor shell 實際觸控／鍵盤、48 組等效 viewport＋16 組原生 zoom、書表／事件／影片回歸通過。證據與分層限制見 [Final QA 報告](evidence/2026-11-17-final-qa/REPORT.md)。正常 TLS 與瀏覽器 CA 診斷分開，不發真實 CX 問題。
+- 尚待此輪 commit/push、測試站部署及 HTTPS 核對；不合併 main、不作正式包／部署、不改雲端設定。真實設備／輔助科技／業務、官方申辦 URL 人工查閱與機關正式交付保留。
+
+以下為歷史紀錄；其「待實作」不代表本輪現況。
 
 ## 最新現況（2026-11-17，Final QA 開工前）
 

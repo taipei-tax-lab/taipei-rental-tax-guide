@@ -201,3 +201,5 @@ node scripts/extension-browser-check.cjs
 
 
 第六輪書表區桌機高度減少13.5%，格式按鈕共用試算／申請色彩與fine-pointer hover，首頁更名「出租房屋所得達租金標準」。212組RWD量測及局部換行容納措施、mock小幫手界線見 [第六輪報告](docs/evidence/2026-11-17-rwd6/REPORT.md)。原書表設定／原檔管理方式不變。
+
+Final QA（2026-11-17）：短視窗小幫手、文字放大、書表與頁尾可讀排版及浮動元件操作範圍已修正；新增實際 vendor shell／觸控／鍵盤／原生 200% zoom 驗證。現行結果與重現方式見 [Final QA 報告](docs/evidence/2026-11-17-final-qa/REPORT.md)，實機、CX 與正式交付另案驗收。

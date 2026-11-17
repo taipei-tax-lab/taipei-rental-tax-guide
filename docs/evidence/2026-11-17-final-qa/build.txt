@@ -1,0 +1,5 @@
+
+> taipei-rental-tax-guide@2.0.0 build
+> node scripts/build.mjs
+
+Built index.html: home, four plan views, comparison; existing Messenger preserved.

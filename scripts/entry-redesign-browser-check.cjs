@@ -49,8 +49,8 @@ const actions=[...data.incomeStandardActions,...data.directApplyActions];
    assert.deepEqual(await page.locator('a.v2-application-item').evaluateAll(es=>es.map(e=>e.href)),data.directApplyActions.map(a=>a.href));
    await page.screenshot({path:`${folder}/after-apply-${width}.png`,fullPage:true});
    assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
-   await page.locator('.v2-audience [data-entry-page="operation-guide"]').click();await page.goBack();await page.locator('#direct-apply:visible').waitFor();
-   await page.goForward();await page.locator('#operation-guide:visible').waitFor();await page.goto(base+'#direct-apply');await page.reload();await page.locator('#direct-apply:visible').waitFor();
+   await page.locator('.v2-audience [data-entry-page="operation-guide"]').click();await page.locator('#operation-guide:visible').waitFor();await page.goBack();await page.locator('#direct-apply:visible').waitFor();
+   await page.goForward();await page.locator('#operation-guide:visible').waitFor();await page.goto(base+'#direct-apply');await page.locator('#direct-apply:visible').waitFor();await page.reload();await page.locator('#direct-apply:visible').waitFor();
    assert.equal(events.filter(e=>e[1]==='direct_apply_open').length,prior+1);
    for(const [i,action] of actions.entries()){
     const link=page.locator(`[data-service-entry="${action.id}"]`);

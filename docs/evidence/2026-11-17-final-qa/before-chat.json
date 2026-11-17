@@ -1,0 +1,101 @@
+{
+  "vendor": "real static shell; all CX/API requests blocked",
+  "tlsDiagnostic": true,
+  "blocked": 4,
+  "rows": [
+    {
+      "w": 844,
+      "h": 390,
+      "close": {
+        "width": 84,
+        "height": 84,
+        "hit": false
+      },
+      "panel": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "w": 667,
+      "h": 375,
+      "close": {
+        "width": 84,
+        "height": 84,
+        "hit": false
+      },
+      "panel": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "w": 844,
+      "h": 399,
+      "close": {
+        "width": 84,
+        "height": 84,
+        "hit": false
+      },
+      "panel": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "w": 844,
+      "h": 400,
+      "close": {
+        "width": 84,
+        "height": 84,
+        "hit": true
+      },
+      "panel": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "w": 844,
+      "h": 401,
+      "close": {
+        "width": 84,
+        "height": 84,
+        "hit": true
+      },
+      "panel": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "w": 390,
+      "h": 844,
+      "close": {
+        "width": 72,
+        "height": 72,
+        "hit": true
+      },
+      "panel": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "w": 1440,
+      "h": 900,
+      "close": {
+        "width": 84,
+        "height": 84,
+        "hit": true
+      },
+      "panel": "rgba(0, 0, 0, 0)"
+    },
+    {
+      "qa05": true,
+      "container": {
+        "x": 304,
+        "y": 543.40625,
+        "width": 72,
+        "height": 72,
+        "top": 543.40625,
+        "right": 376,
+        "bottom": 615.40625,
+        "left": 304
+      },
+      "image": {
+        "x": 274,
+        "y": 513.40625,
+        "width": 132,
+        "height": 132,
+        "top": 513.40625,
+        "right": 406,
+        "bottom": 645.40625,
+        "left": 274
+      },
+      "hit": true
+    }
+  ]
+}

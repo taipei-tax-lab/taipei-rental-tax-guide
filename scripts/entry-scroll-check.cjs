@@ -9,7 +9,7 @@ const folder='.preview/entry-scroll';fs.mkdirSync(folder,{recursive:true});
 const entries=[['owners','owner-title'],['tenants','tenant-title'],['direct-apply','direct-apply-title'],['operation-guide','operation-guide-title']];
 (async()=>{const browser=await chromium.launch({...(process.env.BROWSER_EXECUTABLE ? {executablePath:process.env.BROWSER_EXECUTABLE} : {channel:'msedge'}),headless:true});const rows=[];
 try{
- if(!navigationOnly)for(const [device,width,height] of [['desktop',1440,900],['tablet',768,1024],['phone',390,844]])for(const zoom of [1,1.25,1.5]){
+ if(!navigationOnly)for(const [device,width,height] of [['desktop',1440,900],['tablet',768,1024],['phone',390,844]])for(const zoom of [1,1.25,1.5,2]){
   const page=await browser.newPage({ignoreHTTPSErrors:process.env.BROWSER_IGNORE_HTTPS_ERRORS==='1',viewport:{width:Math.round(width/zoom),height:Math.round(height/zoom)},deviceScaleFactor:zoom});
   await page.route('**/*',r=>new URL(r.request().url()).origin===new URL(base).origin?r.continue():r.abort());
   for(const [hash,id] of entries){
@@ -61,7 +61,7 @@ try{
   assert.ok(bottom.top>32);assert.ok(Math.abs(bottom.y-bottom.maxY)<=1,'short content clamps at page bottom');
   navigation.push({keyboard:true,historyRestoresReadingPosition:true,bottomClamp:bottom});await page.close();
   // Chromium native page-zoom preference in disposable, isolated profiles; no user browser/profile input.
-  if(!navigationOnly)for(const factor of [1,1.25,1.5]){
+  if(!navigationOnly)for(const factor of [1,1.25,1.5,2]){
    const profile=fs.mkdtempSync(path.resolve(folder,'native-profile-'));fs.mkdirSync(path.join(profile,'Default'));
    fs.writeFileSync(path.join(profile,'Default/Preferences'),JSON.stringify({partition:{default_zoom_level:{x:Math.log(factor)/Math.log(1.2)}}}));
    const context=await chromium.launchPersistentContext(profile,{...(process.env.BROWSER_EXECUTABLE ? {executablePath:process.env.BROWSER_EXECUTABLE} : {channel:'msedge'}),headless:true,viewport:null,args:['--window-size=1440,900']});

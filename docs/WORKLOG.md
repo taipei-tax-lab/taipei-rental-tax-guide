@@ -98,3 +98,8 @@ GPT 審查 `5ca8b42`（runtime `36afac1`），獨立 73/73、build --check、效
 ## 2026-11-17 AGY 獨立唯讀審查及 Final QA 規劃
 
 AGY 審查指定分支 `05f096d7d4ba3088bf025ddb2af07ecc70f9c091`，獨立通過 73/73、build/check/budget、正常 TLS 的 33 項測試站 runtime 比對，另用 Chromium 診斷發現短視窗關閉控制不可用、未定義背景 token、字級放大與 701px 大字級分欄可讀性、小幫手浮動遮擋等缺陷。GPT 核對來源和測試斷言，確認先前幾何檢查未確認真正可見／可點擊，無橫溢出也不足以捕捉逐字狹欄。使用者核定針對性收尾修正；在 NEXT_TASK 建立 QA-01～06 及具體 before/after、實際操作、分層驗收條件。第六輪 [Task（固定 SHA）](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/blob/05f096d7d4ba3088bf025ddb2af07ecc70f9c091/docs/NEXT_TASK.md) 與既有報告保留。機關正式交付及外部連結人工查閱另列待辦：AGY 已確認舊機關站九 WebP 200，並非新 feature 已部署。此次僅更新 Task/State/Worklog，未修改 runtime、不聲稱新測試成功、不合併 main、不製作正式包或改雲端設定；使用者核定本輪開發範圍，不等於合併或正式部署授權。
+
+
+## 2026-11-17 Final QA 實作
+
+安全同步指定分支至40fcd91後，獨立archive重現短窗關閉hit-test=false、透明面板、200%標題不變及701px狹欄。QA-01～06局部修正完成；原角色圖縮至實際hit region，閉合launcher動態避開必要操作，無安全位置暫藏／捲動恢復。75/75、建置、Pages33、212組RWD與新增實際vendor觸控／鍵盤／旋轉、27組可讀性、48組等效viewport及16組原生zoom、書表／影片／GA4 mock／非CX回歸通過。新增等待目的頁visible排除測試競態，原斷言保留。正常TLS／CA診斷分層；無真實CX發問。詳 [Final QA報告](evidence/2026-11-17-final-qa/REPORT.md)。待推送與部署核對；截圖／原檔不入Git，不改main／雲端設定／業務規則，原實機與正式交付待辦保留。

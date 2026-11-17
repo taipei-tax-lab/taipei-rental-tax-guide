@@ -161,7 +161,7 @@
       var style = document.createElement("style");
       style.id = "assistant-panel-styles";
       style.textContent = [
-        ".assistant-panel{position:fixed;z-index:9998;display:flex;flex-direction:column;box-sizing:border-box;width:280px;overflow:hidden;border:1px solid rgba(17,73,79,.16);border-right:0;border-radius:22px 0 0 22px;background:var(--cream);color:var(--ink);box-shadow:-14px 18px 50px rgba(13,57,63,.18);visibility:hidden}",
+        ".assistant-panel{position:fixed;z-index:9998;display:flex;flex-direction:column;box-sizing:border-box;width:280px;overflow:hidden;border:1px solid rgba(17,73,79,.16);border-right:0;border-radius:22px 0 0 22px;background:var(--paper);color:var(--ink);box-shadow:-14px 18px 50px rgba(13,57,63,.18);visibility:hidden}",
         ".assistant-panel.is-visible{visibility:visible}",
         ".assistant-panel[hidden]{display:none}",
         ".assistant-panel__character{flex:1 1 auto;min-height:0;padding:18px 24px 0;overflow:hidden;background:radial-gradient(circle at 50% 42%,rgba(255,255,255,.92),transparent 54%),linear-gradient(160deg,rgba(239,247,243,.94),rgba(238,226,202,.75))}",
@@ -614,6 +614,47 @@
     setAssistantState("thinking");
   }
 
+  function installShortClose(bubble) {
+    var root = bubble && bubble.shadowRoot;
+    var chat = root && root.querySelector('.chat-wrapper');
+    if (!chat || chat.querySelector('.rental-chat-controls')) return;
+    var controls = document.createElement('div');
+    controls.className = 'rental-chat-controls';
+    controls.innerHTML = '<button type="button" class="rental-chat-close" aria-label="關閉小幫手">關閉小幫手 ×</button>';
+    var style = document.createElement('style');
+    style.textContent = '.bubble,.chat-wrapper{pointer-events:auto}.rental-chat-controls{display:none}:host-context([data-short-chat]) .rental-chat-controls{display:flex;justify-content:flex-end;flex:0 0 44px;background:var(--paper,#f8f5ee)}:host-context([data-short-chat]) .chat-wrapper.expanded{display:flex!important;flex-direction:column!important}:host-context([data-short-chat]) df-messenger-chat{flex:1;min-height:0;height:auto!important}.rental-chat-close{min-width:44px;min-height:44px;border:0;background:#0c686d;color:#fff;font:inherit;cursor:pointer}.rental-chat-close:focus-visible{outline:3px solid #a64d16;outline-offset:-3px}.bubble .icon img{pointer-events:none;max-width:100%;max-height:100%;object-fit:contain}';
+    root.appendChild(style);
+    chat.prepend(controls);
+    controls.querySelector('button').addEventListener('click', function () {
+      bubble.closeChat();
+      requestAnimationFrame(function () { var launcher = root.querySelector('.bubble'); if (launcher) launcher.focus(); });
+    });
+  }
+
+  // Keep the closed launcher out of real action hit regions, including while scrolling.
+  function avoidLauncherActions() {
+    var elements = getMessengerElements();
+    var button = elements.bubble && elements.bubble.shadowRoot && elements.bubble.shadowRoot.querySelector('.bubble');
+    if (!button) return;
+    ['position','top','left','right','bottom','visibility'].forEach(function (key) { button.style.removeProperty(key); });
+    if (chatIsOpen) return;
+    var viewport = getViewportSize();
+    var size = button.getBoundingClientRect().width;
+    if (!size) return;
+    var x = viewport.left + viewport.width - 14 - size;
+    var actions = Array.from(document.querySelectorAll('.v2-site a,.v2-site button,.v2-site summary')).map(function(e){return e.getBoundingClientRect();}).filter(function(r){return r.width && r.height;});
+    var y;
+    for (y = viewport.top + viewport.height - 14 - size; y >= viewport.top + 14; y -= 12) {
+      if (!actions.some(function(r){return r.left < x+size && r.right > x && r.top < y+size && r.bottom > y;})) break;
+    }
+    if (y < viewport.top + 14) { button.style.setProperty('visibility','hidden','important'); return; }
+    button.style.setProperty('position','fixed','important');
+    button.style.setProperty('left',x+'px','important');
+    button.style.setProperty('top',y+'px','important');
+    button.style.setProperty('right','auto','important');
+    button.style.setProperty('bottom','auto','important');
+  }
+
   function resizeMessenger() {
     var elements = getMessengerElements();
     if (!elements.messenger || !elements.bubble) return;
@@ -631,6 +672,7 @@
     elements.messenger.style.setProperty('--rental-chat-top', chatTop + 'px');
     elements.messenger.style.setProperty('--rental-chat-left', (viewport.left + viewport.width - margin - chatWidth) + 'px');
     elements.messenger.toggleAttribute('data-compact-chat', chatHeight < 420);
+    installShortClose(elements.bubble);
     var root = elements.bubble.shadowRoot;
     if (root && !root.querySelector('[data-rental-chat-geometry]')) {
       var geometry = document.createElement('style');
@@ -644,7 +686,7 @@
     elements.messenger.style.setProperty("--df-messenger-chat-window-height", heightValue + "px");
     if (elements.bubble.getAttribute("chat-width") !== widthValue) elements.bubble.setAttribute("chat-width", widthValue);
     if (elements.bubble.getAttribute("chat-height") !== heightValue) elements.bubble.setAttribute("chat-height", heightValue);
-    window.requestAnimationFrame(updateAssistantPanel);
+    window.requestAnimationFrame(function () { updateAssistantPanel(); avoidLauncherActions(); });
   }
 
   function canShowAssistantPanel(viewport, chatWidth, right) {
@@ -839,6 +881,14 @@
     var root = chat && chat.shadowRoot;
     var input = root && root.querySelector('df-messenger-user-input');
     if (!input) return;
+    var inputRoot = input.shadowRoot;
+    var textarea = inputRoot && inputRoot.querySelector('textarea');
+    if (textarea && !textarea.dataset.rentalOverflowBound) {
+      function updateInputOverflow() { textarea.style.overflowY = textarea.value ? 'auto' : 'hidden'; textarea.style.boxSizing = 'border-box'; }
+      textarea.addEventListener('input', updateInputOverflow);
+      textarea.dataset.rentalOverflowBound = 'true';
+      updateInputOverflow();
+    }
     var existing = root.querySelector('.rental-input-extras');
     if (existing) { updateInputExtras(existing); return; }
     var extras = document.createElement('div');
@@ -901,6 +951,13 @@
       elements.assistantPanel.dataset.topicsBound = 'true';
     }
     bindMessengerResize();
+    if (!elements.bubble.dataset.actionAvoidanceBound) {
+      var pendingAvoidance = false;
+      function scheduleAvoidance() { if (!pendingAvoidance) { pendingAvoidance = true; requestAnimationFrame(function(){pendingAvoidance=false;avoidLauncherActions();}); } }
+      window.addEventListener('scroll', scheduleAvoidance, {passive:true});
+      new ResizeObserver(scheduleAvoidance).observe(document.querySelector('.v2-site') || document.body);
+      elements.bubble.dataset.actionAvoidanceBound = 'true';
+    }
     armDirectEntry(elements.messenger);
     var chatWindow = elements.bubble.shadowRoot && elements.bubble.shadowRoot.querySelector('.chat-wrapper');
     if (chatWindow && !elements.bubble.dataset.geometryBound) {

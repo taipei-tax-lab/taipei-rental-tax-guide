@@ -131,7 +131,7 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
 .v2-conditions { margin-bottom: 24px; }
 .v2-conditions h2 { font-size: 1.25rem; margin-bottom: 10px; }
 .v2-conditions ol { margin: 0; padding-left: 24px; }
-.v2-conditions li { font-size: 1.125rem; line-height: 1.75; margin-bottom: 8px; color: var(--v2-ink); }
+.v2-conditions li { font-size: 1.125rem; line-height: 1.75; margin-bottom: 8px; color: var(--ink); }
 .v2-conditions li:last-child { margin-bottom: 0; }
 .v2-tax-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; margin: 0; }
 .v2-tax-grid > .v2-tax { border-top: 3px solid var(--v2-accent); padding: 16px; background: #fff; border-radius: 8px; box-shadow: 0 0 0 1px #d7e0dd; }
@@ -344,17 +344,17 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
 .v2-plan-card .v2-plan-icon { width:54px; height:54px; }
 .v2-plan-card .v2-plan-icon svg { width:36px; height:36px; }
 .v2-guide-progress { display:flex; list-style:none; padding:0; gap:10px; margin:0 0 24px; }
-.v2-guide-progress li { flex:1; border-bottom:4px solid #cbd9d6; padding:10px 0; color:#49646a; font-size:16px; }
+.v2-guide-progress li { flex:1; border-bottom:4px solid #cbd9d6; padding:10px 0; color:#49646a; font-size:1rem; }
 .v2-guide-progress .is-complete { border-color:#0c686d; color:#103844; font-weight:700; }
 .v2-guide-progress [aria-current] { background:#e7f2ed; }
 .v2-guide-body { background:#fffefb; border-radius:0 0 12px 12px; }
 .v2-question { max-width:780px; margin-inline:auto; }
 .v2-options { display:grid; grid-template-columns:1fr; gap:12px; }
-.v2-option { text-align:left; min-height:60px; border:2px solid #a1c1bb; padding:16px 20px; font-size:18px; }
+.v2-option { text-align:left; min-height:60px; border:2px solid #a1c1bb; padding:16px 20px; font-size:1.125rem; }
 .v2-option::after { content:'→'; float:right; margin-left:12px; }
 .v2-option:hover { border-color:#0c686d; background:#e7f2ed; }
 .v2-guide-result-list .v2-card-tax .v2-tax { min-height:0; }
-@media(max-width:700px) { .v2-guide-progress { gap:6px; } .v2-guide-progress li { font-size:16px; } }
+@media(max-width:700px) { .v2-guide-progress { gap:6px; } .v2-guide-progress li { font-size:1rem; } }
 
 /* Natural wrapping for headings, controls and plan names; keep paragraphs readable at all widths. */
 .v2-site :is(h1,h2,h3,button,summary,.v2-button,.v2-audience-button strong,.v2-plan-name) { text-wrap:wrap; word-break:normal; overflow-wrap:break-word; }
@@ -363,7 +363,7 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
 @media(min-width:701px) { .v2-plan-grid, .v2-compare-grid { column-gap:20px; } }
 /* Refined reading flow: summaries first, guidance second. */
 .v2-hero { min-height:0; padding-top:22px; padding-bottom:22px; }
-.v2-hero h1 { font-size:28px; margin-bottom:10px; }
+.v2-hero h1 { font-size:1.75rem; margin-bottom:10px; }
 .v2-hero h1 em { display:inline-block; }
 .v2-hero-copy > p:not(.v2-kicker) { max-width:42em; margin-bottom:12px; }
 .v2-hero-copy > .v2-entry-label { margin:12px 0 8px; }
@@ -371,14 +371,14 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
 .v2-audience { grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: 1fr; gap: 12px; width: min(100%, 1160px); }
 .v2-audience-button { position:relative; min-height:84px; padding:12px 16px; }
 .v2-audience-button[aria-current] { padding-bottom:32px; }
-.v2-audience-selected { position:absolute; bottom:5px; right:12px; font-size:16px; font-weight:700; }
+.v2-audience-selected { position:absolute; bottom:5px; right:12px; font-size:1rem; font-weight:700; }
 .v2-owner-section { padding-top:18px; }
 .v2-plan-card { background:#fff; }
 .v2-plan-card .v2-card-top { margin-bottom:6px; }
-.v2-site .v2-card-description { flex:none; margin-bottom:12px; font-size:18px; }
+.v2-site .v2-card-description { flex:none; margin-bottom:12px; font-size:1.125rem; }
 .v2-card-tax { margin:0; background:#f7faf8; padding:12px; }
 .v2-card-tax .v2-tax { min-height:0; }
-.v2-other-taxes { font-size:16px; line-height:1.75; margin:10px 0; color:var(--v2-muted); }
+.v2-other-taxes { font-size:1rem; line-height:1.75; margin:10px 0; color:var(--v2-muted); }
 .v2-other-taxes > span { display:block; }
 .v2-card-action { margin-top:auto; border-top:1px solid var(--v2-border); min-height:56px; }
 .v2-guide { margin:24px 0 0; border:1px solid #91b7aa; }
@@ -386,7 +386,7 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
 .v2-comparison-entry p { margin:0; }
 .v2-answer-summary { background:#f0f6f2; border-left:3px solid #537e6d; padding:14px 18px; margin-bottom:20px; }
 .v2-answer-summary ol { margin:8px 0 0; }
-.v2-answer-summary li { font-size:16px; margin-bottom:4px; }
+.v2-answer-summary li { font-size:1rem; margin-bottom:4px; }
 .v2-guide-result-list { grid-template-columns:minmax(0,1.3fr) minmax(0,1fr); align-items:start; }
 .v2-guide-result-list:has(> a:only-child) { grid-template-columns:1fr; max-width:48em; }
 .v2-guide-result-list .v2-recommendation-primary { border:2px solid #397d68; }
@@ -400,7 +400,7 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
 .v2-inner-page { background:#fffefbf5; }
 .v2-compare-controls { margin-top:20px; padding:16px; border:1px solid #a8bfb3; border-radius:10px; background:#f1f7f3; }
 .v2-compare-controls > div { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-.v2-compare-controls label { min-width:0; font-size:16px; }
+.v2-compare-controls label { min-width:0; font-size:1rem; }
 .v2-compare-controls select { display:block; width:100%; min-height:48px; font:inherit; color:#103844; background:white; border:1px solid #92b2ae; border-radius:6px; padding:8px 4px; }
 .v2-compare-controls select:focus-visible { outline:3px solid #a64d16; outline-offset:3px; }
 .v2-comparison-grid { grid-template-rows:repeat(9,auto); }
@@ -414,17 +414,17 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
 }
 @media(max-width:700px) {
  .v2-hero { padding-top:16px; padding-bottom:18px; }
- .v2-hero h1 { font-size:28px; }
+ .v2-hero h1 { font-size:1.75rem; }
  .v2-audience { grid-template-columns:1fr 1fr; }
  .v2-audience-button { padding:10px; min-height:92px; gap:6px; }
 
- .v2-site .v2-section-heading h2 { font-size:26px; }
+ .v2-site .v2-section-heading h2 { font-size:1.625rem; }
  .v2-guide-result-list { grid-template-columns:1fr; }
  .v2-comparison-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
  .v2-compare-card { padding:10px; }
- .v2-site .v2-compare-card h2 { font-size:22px; }
- .v2-site .v2-compare-card dd { font-size:18px; }
- .v2-compare-card .v2-tax dd strong { font-size:18px; }
+ .v2-site .v2-compare-card h2 { font-size:1.375rem; }
+ .v2-site .v2-compare-card dd { font-size:1.125rem; }
+ .v2-compare-card .v2-tax dd strong { font-size:1.125rem; }
 }
 @media (max-width: 380px) {
   .v2-audience { grid-template-columns: 1fr; }
@@ -434,9 +434,9 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
 .v2-hero h1 > span { display:inline-block; }
 .v2-unit { white-space:nowrap; display:inline; }
 .v2-guide-result-list .v2-unit { color:inherit; font:inherit; display:inline; }
-.v2-inner-page > h1 { font-size:28px; }
+.v2-inner-page > h1 { font-size:1.75rem; }
 .v2-guide-shortcut { display:inline-block; margin-top:8px; font-size:1rem; font-weight:600; }
-.v2-site .v2-compare-card h2 { font-size:22px; }
+.v2-site .v2-compare-card h2 { font-size:1.375rem; }
 
 /* One visible frame and icon position for all six entry points. Natural grid
    rows grow together when text wraps or the user's font size increases. */
@@ -468,7 +468,7 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
 @media (max-width: 380px) {
   .v2-audience { grid-template-columns: 1fr; }
 }
-.v2-entry-content > h2 { font-size: 28px; }
+.v2-entry-content > h2 { font-size:1.75rem; }
 /* Native application links share the tenant cards' grid and reading hierarchy. */
 .v2-tenant-grid, .v2-application-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: stretch; gap: 18px; }
 .v2-application-list { margin-top: 28px; }
@@ -521,3 +521,9 @@ body.v2-body::before { content: ''; position: fixed; inset: 0; z-index: -1; poin
 /* Share the existing service-action palette, retaining each control's sizing. */
 .v2-income-standard-action, .v2-form-group a { background: #edf5ef; color: #103844; border-color: #92b2ae; border-radius: 6px; }
 .v2-form-group li > div { flex-wrap: wrap; max-width: 100%; }
+
+/* Readable columns follow content size, including enlarged root text. */
+.v2-forms { container-type: inline-size; }
+@container (max-width: 40em) { .v2-form-group { grid-template-columns: minmax(0,1fr); gap: 8px; } .v2-form-group li { flex-direction: column; align-items: flex-start; } }
+.v2-footer { grid-template-columns: minmax(min(100%,16rem),1fr) minmax(0,auto); }
+@media(max-width:1100px) { .v2-footer { grid-template-columns: minmax(0,1fr); } }

@@ -1,0 +1,118 @@
+[
+  {
+    w: 844,
+    h: 390,
+    close: { width: 105.3125, height: 44, hit: true },
+    panel: 'rgb(243, 240, 233)'
+  },
+  {
+    w: 667,
+    h: 375,
+    close: { width: 105.3125, height: 44, hit: true },
+    panel: 'rgb(243, 240, 233)'
+  },
+  {
+    w: 844,
+    h: 399,
+    close: { width: 105.3125, height: 44, hit: true },
+    panel: 'rgb(243, 240, 233)'
+  },
+  {
+    w: 844,
+    h: 400,
+    close: { width: 84, height: 84, hit: true },
+    panel: 'rgb(243, 240, 233)'
+  },
+  {
+    w: 844,
+    h: 401,
+    close: { width: 84, height: 84, hit: true },
+    panel: 'rgb(243, 240, 233)'
+  },
+  {
+    w: 390,
+    h: 844,
+    close: { width: 72, height: 72, hit: true },
+    panel: 'rgb(243, 240, 233)'
+  },
+  {
+    w: 1440,
+    h: 900,
+    close: { width: 84, height: 84, hit: true },
+    panel: 'rgb(243, 240, 233)'
+  },
+  {
+    openRotation: '390x844 to 844x390; touch close then return',
+    passed: true
+  },
+  { width: 320, font: 100, route: 'top', realActionHitTests: true },
+  {
+    width: 320,
+    font: 100,
+    route: 'direct-apply',
+    realActionHitTests: true
+  },
+  { width: 320, font: 200, route: 'top', realActionHitTests: true },
+  {
+    width: 320,
+    font: 200,
+    route: 'direct-apply',
+    realActionHitTests: true
+  },
+  { width: 375, font: 100, route: 'top', realActionHitTests: true },
+  {
+    width: 375,
+    font: 100,
+    route: 'direct-apply',
+    realActionHitTests: true
+  },
+  { width: 375, font: 200, route: 'top', realActionHitTests: true },
+  {
+    width: 375,
+    font: 200,
+    route: 'direct-apply',
+    realActionHitTests: true
+  },
+  { width: 390, font: 100, route: 'top', realActionHitTests: true },
+  {
+    width: 390,
+    font: 100,
+    route: 'direct-apply',
+    realActionHitTests: true
+  },
+  { width: 390, font: 200, route: 'top', realActionHitTests: true },
+  {
+    width: 390,
+    font: 200,
+    route: 'direct-apply',
+    realActionHitTests: true
+  },
+  { width: 414, font: 100, route: 'top', realActionHitTests: true },
+  {
+    width: 414,
+    font: 100,
+    route: 'direct-apply',
+    realActionHitTests: true
+  },
+  { width: 414, font: 200, route: 'top', realActionHitTests: true },
+  {
+    width: 414,
+    font: 200,
+    route: 'direct-apply',
+    realActionHitTests: true
+  },
+  { width: 844, font: 100, route: 'top', realActionHitTests: true },
+  {
+    width: 844,
+    font: 100,
+    route: 'direct-apply',
+    realActionHitTests: true
+  },
+  { width: 844, font: 200, route: 'top', realActionHitTests: true },
+  {
+    width: 844,
+    font: 200,
+    route: 'direct-apply',
+    realActionHitTests: true
+  }
+]
