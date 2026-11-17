@@ -1,42 +1,46 @@
-# NEXT_TASK — 2026-11-16 兩個服務圖示再優化與兩入口頁背景一致性
+# NEXT_TASK — 2026-11-17 房客卡片獨立展收與直接申請書表下載
 
-狀態：**IMPLEMENTED_TEST_DEPLOYED_PENDING_HUMAN_REVIEW**（2026-11-16，Asia/Taipei）。
+狀態：**PLANNED / R2_OBJECTS_VERIFIED / PUBLIC_DOWNLOAD_PENDING**（2026-11-17，Asia/Taipei）。
 指定工作分支：`feat/direct-apply-operation-guide-20261031`。
-開工基準：`6e6d7fe280b1e9d7cf4f2e8e5636cbbcc0504943`（本次核對 Cloudflare Pages check SUCCESS）。前輪實作 `2b9d2f1`，69/69 單元及技術驗證已有紀錄；使用者檢視後明確反映「個人租賃住宅包租代管」和「我要申請租金補貼」兩個 icon 仍不夠直覺易懂，要求再設計。使用者已確認本輪兩張圖示構想 OK，並追加「直接申請」「操作說明」外層背景與屋主／房客頁一致。兩項合併執行，尚未實作。本輪不是重做前輪；[前輪完整 Task（固定 SHA）](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/blob/6e6d7fe280b1e9d7cf4f2e8e5636cbbcc0504943/docs/NEXT_TASK.md)、[前輪 report](evidence/2026-11-16-icon-refinement/REPORT.md) 保留。
+開工基準：`36b223204f43a5ce1d522e2b07ddfdb27009750d`。前輪 70/70 單元、建置／效能及測試站技術驗證完成；[前輪 Task（固定 SHA）](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/blob/36b223204f43a5ce1d522e2b07ddfdb27009750d/docs/NEXT_TASK.md)、[證據](evidence/2026-11-16-handshake/REPORT.md) 保留。GPT 獨立重跑 70/70、build --check、budget、Pages build（33 檔）成功；獨立 Chromium 重跑因執行環境 socket 權限未能完成。本輪係使用者實際查看後的新需求，不推定全部人工驗收完成。
 
-## 1. 核定目標／設計方向
+## 1. 房客卡片獨立展開與收合
 
-改換視覺隱喻，非微調現有房屋＋文件／硬幣構圖。前輪 `personal` 與 `subsidy` 的房屋 path 完全相同，後者用寫有 1 的小圓圈，文字線條在小尺寸易被誤認；前者小房屋與折角文書未直接表達委託管理。此為程式圖形觀察與設計推論；使用者核定的目標是更直覺、易懂。兩圖主體必須明顯不同，毋須每張圖都加入房屋。
+- [ ] 已確認原因：`assets/css/guide-v2.css` 前段 `.v2-tenant-grid` 設定 align-items:start，但後段 `.v2-tenant-grid, .v2-application-list` 共用 align-items:stretch 覆蓋它。僅修房客 grid 的對齊規則，使同列三張卡片各自依內容展收；直接申請三卡仍維持等高、三欄／手機單欄。
+- [ ] 保留原生 details/summary，允許同時開展任意多張，點擊自己才變更自己的 open 狀態。另一張卡片展開或收合時，其餘卡片高度和內容區不得被拉長／壓縮；桌機頂端對齊，手機正常文流下方卡片可隨內容位移。維持現有外框／文字／圖示／連結／鍵盤操作；不可用固定高度造成放大字級裁切，也不導入新 JS 或套件。
+- [ ] 增加瀏覽器斷言：量測初始各卡 bounding box，依序展開 A、B、收合 A、展開 C、收合其餘，核對非操作卡高度與 open 狀態保持、無不必要空白拉伸、原連結可用；桌機 1440px、手機 390/320px、100/200% 字級，無水平溢出；直接申請仍三卡等高（桌面）。
 
-| 卡片 | key | 本輪建議構圖及辨識重點 |
-| --- | --- | --- |
-| 個人租賃住宅包租代管 | `personal` | **握手／合作委託**。以兩人握手為單一主體、兩端袖口與中央交握輪廓清楚，傳達屋主與專業代管方的委託合作。避免把手畫成不明多邊形或繁複手指；不再使用房屋＋文件、不加鑰匙或盾牌等小裝飾。以通用握手 pictogram 概念自繪符合現行線條風格。 |
-| 我要申請租金補貼 | `subsidy` | **領取補助款**。以大而完整的矩形鈔票（中央簡潔貨幣符號或圓形票面、少量票面記號）和明確的向下領取箭頭／接收構圖表達收到款項，而非支付、計算或退費。兩元素清楚且無密集線條；優先採清楚的鈔票＋向下箭頭，不再用小房屋＋寫 1 的硬幣或難辨識的托手。不要呈現實際金額或暗示已核定／保證獲補助。 |
+## 2. 書表下載與填寫範例
 
-以上握手及鈔票＋向下箭頭的構圖方向已獲使用者確認（概念示意，不是已部署的 SVG 驗收）；細部 path 由 Agent 依示意在實際尺寸適度調整，不另換其他隱喻，不將另一張卡片意義混入。必要時以簡短文字說明設計取捨。圖示是輔助導覽，不能單獨承載精確業務資格；沿用卡片標題。
+使用者核定：在 `#direct-apply` 的現行三張申請管道卡片（線上申請、親自申請、郵寄/傳真）之下，新增獨立、精簡的書表區塊，參考台北服務通的雙組書表列表，而非新增第四卡或改成複雜流程。用途是方便民眾親自申請、郵寄及傳真前下載／填寫。
 
-## 2. 直接申請／操作說明頁外層背景一致性（追加）
+- [ ] 區塊分兩組「書表下載」「填寫範例」，每組二列，順序一致：房屋使用情形變更申報書；臺北市個人租賃住宅委託包租代管減徵地價稅及房屋稅申請書（含終止或委託）。範例列加「－範例」或由分組明確標示，避免誤選；每份申請書有 ODT、PDF 兩個操作，範例只提供 PDF。總計六個連結。
+- [ ] 桌面採左側組別標題及右側書名＋緊鄰格式按鈕的行列表（可適應長書名換行）；手機窄幅自然堆疊，格式按鈕不被裁切／擠到螢幕外，不需水平捲動。使用本站原有深綠配色、白／淺色容器、細分隔、適當留白與 44px 操作區；不照抄他站外觀，不另製大型卡片。保留目前直接申請頁透明外層及三卡白底、順序、原申辦說明、網址、GA4 service entry 映射。
+- [ ] 真實語意分組及標題；每個按鈕具書名＋格式的可及名稱、清楚焦點、鍵盤可操作；避免在原本整卡 anchor 內嵌另一 anchor。可使用直接 HTTPS anchor（PDF 可另開以閱讀／儲存；ODT 可由瀏覽器下載），標明另開視窗（若適用）及格式。跨網域 download 屬性不保證強制下載；不要以 JS 跨域抓 blob 或新增 CORS／Worker 來規避。不自動修改 R2 metadata；實測瀏覽器行為並準確回報。填寫範例不得含真實個資，使用者提供的是正式公開書表，內容及適用性仍須業務確認，不自行修改原檔或額外推測適用條件。
 
-- [x] 使用者提供實際畫面：點「直接申請」「操作說明」後，頁面內容區出現近乎白色遮罩，與點「我是屋主」「我是房客」後能透視住宅背景圖的效果不一致。已核對來源：`site/template.html` 兩入口 section `#direct-apply`、`#operation-guide` 都有 `v2-inner-page v2-entry-content`，而 `assets/css/guide-v2.css` 的通用 `.v2-inner-page { background:#fffefbf5; }`（alpha 約 96%）遮蔽全站 `body.v2-body::before` 的背景層。屋主／房客區不套用該底色。
-- [x] **只取消這兩個入口頁的外層 section 底色**（例如在通用規則後增加對 `.v2-inner-page.v2-entry-content` 的精確 `background: transparent` 規則；確認該 class 僅兩頁使用，或以兩頁 ID／data-page 限定）。使內容區標題、說明、卡片間距、影片周圍露出原有固定背景，與屋主／房客相同的可見程度。不要使用整容器 opacity、另疊圖、重建背景或調整背景圖片、漸層、定位、快取版本與其他頁的遮罩。
-- [x] 保持直接申請三卡白底、框線、文字及 hover，操作說明的版本切換器、影片封面／播放器底色、控制列、對比、尺寸及全螢幕不變；不變更標題、間距、格線、入口選中、捲動定位、原導航、可及焦點、申辦連結或影片來源。原房客／屋主、方案詳細頁與比較頁原有背景保持不變，不修改通用 `.v2-inner-page` 使所有頁透明。列印仍不顯示背景圖。
-- [x] 實際瀏覽器驗證四入口切換、直接深連結、返回／重新整理，桌機及手機（至少 1440、390、320px，100/200% 字級）對照屋主／房客。以 computed style 驗證僅兩入口外層背景透明、body 原背景層不變、申請三卡白色、影片及切換器原底色不變、比較及詳情原背景不變；目視確認右側背景圖可辨識、沒有整塊白遮罩或新色差、文字可讀且無溢出。檢查影片切換及播放控制未受 CSS 影響（不必重新上傳或耗時重播全部影片）；截圖僅存 `.preview/`。在既有 Cloudflare 測試站驗證實際部署效果。
+### 2.1 已核對的 R2 檔案（資料來源及預定連結）
 
-## 3. Checklist／限制
+使用者手動建立獨立 bucket `forms`，六物件皆位於 bucket 根目錄（不是影片 bucket 的 forms/ 前綴）。Cloudflare API 已唯讀列出及取得全部六個物件，大小相符，PDF 四份有 %PDF 簽章、ODT 二份有 ZIP 簽章；尚非完整格式或業務內容驗收。管理網域為 `https://pub-76044a38a6644fc4b5c9d71e06f58b81.r2.dev/`，**目前 managed public access enabled=false，且無 custom domains。以下為啟用後預定的連結，不是已公開可下載證據。** 不得自行啟用公開存取、更新 metadata 或上傳／刪除物件；須由使用者另行核准或手動啟用，並確認書表皆可公開。先前從執行環境直接請求逾時，不據此推論物件不存在。
 
-- [x] 依 AGENTS／Workflow 核對 Repo、Remote、Branch、HEAD、工作樹，安全同步；不另開分支、不覆寫其他變更。
-- [x] 圖示部分只修改 `scripts/icons.mjs` 內 `personal` 與 `subsidy` 的 SVG artwork；維持 16 個 key、`cardIcon()`、24×24 viewBox、1.8 stroke、round cap/join、currentColor、無填色、aria-hidden / focusable=false、原有尺寸與 accent。採原生 SVG，不載入新套件、字型、圖檔、CDN。無小字、無裝飾性微小細節；留白、光學重心與對比與其他圖示一致。
-- [x] 在實際卡片顯示尺寸（非僅放大預覽）設計與比較候選，檢查握手與其他三個屋主方案、補助款與其他兩個房客服務及租金標準計算機的區別；灰階及現行 accent 也能辨識。必要時迭代手形／票面／箭頭輪廓，避免兩形體重疊或裁切。截圖與草案只存在 Git 忽略的 `.preview/`（不入 Git）。
-- [x] 其他 14 個 artwork 必須 byte-for-byte 不變（包含上輪屋主／房客）；背景 WebP/PNG、OG/快取、第六卡獨立 hover、模板、卡片尺寸／配色／排列／文案、連結、導航、政策、GA4、Messenger、CX、R2、部署設定全部保留。CSS 僅容許第 2 節的限定外層背景透明修正。從來源生成 `index.html`，只容許必要的圖示及兩入口背景變更、相關測試、文件；不得手改產物。
-- [x] 保留 `tests/fixtures/card-icons-4fc7521.json` 及原四圖示差異守門測試；新增開工基準 `6e6d7fe` 的 16 artwork SHA-256 fixture／對應斷言（從該 SHA 的實際來源生成，不從完工圖示反推），確認本輪變更恰為 `personal`、`subsidy`；其他 14 個完全一致。保留原 SVG library 結構、背景 bytes/版本、四方案編號、GA4 與功能測試，不放寬舊斷言。
-- [x] 執行 `npm run build`、`node scripts/build.mjs --check`、`npm test`（前輪 69 項）、`node scripts/performance-budget.mjs`、`node scripts/build-pages-test.mjs`、`git diff --check`；以現有 `scripts/visual-consistency-browser-check.cjs`、`scripts/icon-refinement-browser-check.cjs` 或等效的針對性檢查，至少確認桌機 1440、手機 390/320px 以及 200% 字級下實際屋主方案／房客服務圖示與選中狀態無裁切、重疊、溢出；原導航、focus、獨立 hover 無回歸，並執行第 2 節兩入口背景及影片控制檢查。不得向真實 CX 送題或污染 GA4，不替實機背書。
-- [x] Commit/Push 原指定分支，確認遠端 SHA、現有 Cloudflare 自動建置及測試站實際 HTML 中兩個新 SVG 及 CSS 背景規則與本地吻合（環境受限明列 BLOCKED／TLS 診斷模式）。回報具體圖示、兩入口背景 computed style／目視驗證、改動範圍、測試、部署及 [測試網址](https://rental-tax-guide-test.pages.dev/)，更新 State／Task／Worklog 及必要文字／JSON 證據，不提交截圖。
-- [x] 完成狀態最後區分技術通過與使用者辨識度確認；自動測試不能證明民眾一定看懂，人工驗收仍待使用者檢視實際測試站。其他既有 BX015、實機／輔助科技、業務驗收待辦維持；不 merge main、不正式部署或改雲端設定，純 Repo 任務不掃描 Drive。
+| 分組 | 書表 | R2 object key（相對上述網域根目錄） | bytes | R2 contentType |
+| --- | --- | --- | ---: | --- |
+| 書表下載 | 房屋使用情形變更申報書 | house-use-change.odt | 37559 | application/octet-stream |
+| 書表下載 | 房屋使用情形變更申報書 | house-use-change.pdf | 157541 | application/pdf |
+| 書表下載 | 個人租賃住宅委託包租代管減徵地價稅及房屋稅申請書（含終止或委託） | rental-tax-reduction.odt | 45917 | application/octet-stream |
+| 書表下載 | 同上 | rental-tax-reduction.pdf | 234755 | application/pdf |
+| 填寫範例 | 房屋使用情形變更申報書 | house-use-change-example.pdf | 171460 | application/pdf |
+| 填寫範例 | 個人租賃住宅委託包租代管申請書 | rental-tax-reduction-example.pdf | 189913 | application/pdf |
 
+- [ ] 開工重新核對公開 HTTPS 六 URL（正常 TLS、無登入、HTTP 200、實際 bytes／PDF 簽章或 ODT ZIP 中 mimetype／內容，不能是 HTML 錯誤頁）。如尚未啟用或連線受限，列明 BLOCKED，不把 API 私有讀取當成公共下載 PASS；在公開下載可用以前不得推送含失效下載入口的 runtime（該分支 Push 會自動發布測試站）。可先完成可安全執行的本地實作及靜態驗證，等公開存取確認後再正常收尾。不得以測試環境禁用 TLS 的結果替代正式 TLS 檢查。
 
-## 第四輪執行紀錄
+## 3. 來源與交付策略
 
-由乾淨遠端 d2cf8d5 同步；personal 改握手合作、subsidy 改鈔票與向下領取箭頭。只對 #direct-apply / #operation-guide.v2-entry-content 設透明背景，其他底色、背景資產、模板、JS 與業務資料保留。從 6e6d7fe 真實來源產生 SHA-256 fixture，確認僅兩圖改變、其他 14 圖不變；舊 fixture 及四圖差異守門仍保留。70/70 單元、建置一致性、budget、Pages 33 檔、五寬度×兩字級與 hover/touch 回歸通過。截圖僅 .preview/；待推送與 HTTPS 複驗，辨識度及實機人工確認仍保留。證據見 [報告](evidence/2026-11-16-handshake/REPORT.md)。
+- [ ] 書表名稱／兩組六連結的單一正式設定來源（建議擴充 `site/media.json` 新增 applicationForms，沿用 operationGuide 不變；如選獨立設定檔則同步說明 AGENTS/README 且不得重複配置）。使用 build 產生 `index.html`，不手改生成結果。建置驗證兩組、兩份表及格式數量、非空書名、明確 HTTPS 或安全的 `./assets/forms/<filename>` 相對路徑（禁止 traversal、外部非 HTTPS、javascript/data）；測試 URL 採上述 root object 路徑，勿誤用原影片 bucket 或多加 forms/。
+- [ ] 如同影片，測試站只連 R2，不將六份 binary／MP4／截圖提交 GitHub，不在 Pages 測試產物放入文件，既有白名單及 GA4 隔離仍維持。README 記錄單一設定來源、測試與正式路徑切換方式；正式交付另案：在 staging 副本中把書表 URL 改成 `./assets/forms/<filename>`，將 6 份原始書表檔及影片放進機關靜態包、重新 build，驗證相對 URL／MIME（ODT 正式建議 application/vnd.oasis.opendocument.text）、資料完整及機關 CSP。不要把本輪測試站的 R2 連結切成不存在的相對檔案、實際製作正式交付包、修改正式站或上傳新物件；僅證明配置相對路徑可生成。
 
+## 4. 驗收與交接 Checklist
 
-第四輪部署完成：bcb857dd1930bba814a5a5e2cc43ad2fdc59baa8，Cloudflare deploy 3edcb6fb-4d5b-44c8-bcc0-d979613d711d SUCCESS。HTTPS computed style、1440/390/320×兩字級、原生影片控制／切換與導航回歸 PASS；兩入口透明 rgba(0,0,0,0)，詳情／比較維持 rgba(255,254,251,0.96)，卡片白底及播放器 rgb(16,56,68) 保留。實際畫面已檢視。瀏覽器為憑證診斷模式；Node 正常 TLS 逐 bytes 核對線上 HTML/CSS/背景與本地一致。其他14圖、背景資產、模板、JS、政策及雲端設定不變。收尾只補文件，runtime不變；辨識度及實機等原有人工待辦仍保留。
+- [ ] 開工依 AGENTS／Workflow 安全同步指定分支、不另開分支／覆寫；確認最近的圖示／背景／三卡核定成果。只改必要 CSS、書表設定、模板/build、生成 HTML、受影響測試與文件；不更動政策、資格、既有服務連結或事件、CX/Messenger、影片 URL、背景／圖示、部署設定。純 Repo 工作不掃描 Drive。
+- [ ] 加入生成產物及設定的正／負測試（兩組標題、四個表格格式鍵＋二個範例、六個唯一 href、精確書名／路徑、相對路徑可建置且非法路徑失敗）；保留現行 70 個回歸驗證，原三個服務 anchor 計數／原連結與六項事件的斷言不應被新書表混入。
+- [ ] `npm run build`、`node scripts/build.mjs --check`、`npm test`、`node scripts/performance-budget.mjs`、`node scripts/build-pages-test.mjs`、`git diff --check`；針對房客展收及書表區做桌機／手機與 200% 字級真實瀏覽器測試，確認六連結及實際下載／PDF 開啟可用、無水平溢出、鍵盤順序、原三卡等高與外層透明、切換其他入口未回歸。保留現有測試站非 CX／GA4 隔離，不提交截圖（只留 .preview/）。
+- [ ] 公開下載及實作驗證完成後，在指定分支 commit/push、確認遠端 SHA、Cloudflare 自動建置及實際測試站六 URL 與版面；更新 Task/State/Worklog 及必要文字/JSON 量測證據。驗證受限如實區分，不能將私有 API 讀取得到物件等同公開下載。原 BX015、實機／輔助科技、業務／正式站驗收待辦保留；不 merge main，不正式部署。

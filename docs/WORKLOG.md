@@ -68,3 +68,7 @@
 
 
 第四輪部署完成：bcb857dd1930bba814a5a5e2cc43ad2fdc59baa8，Cloudflare deploy 3edcb6fb-4d5b-44c8-bcc0-d979613d711d SUCCESS。HTTPS computed style、1440/390/320×兩字級、原生影片控制／切換與導航回歸 PASS；兩入口透明 rgba(0,0,0,0)，詳情／比較維持 rgba(255,254,251,0.96)，卡片白底及播放器 rgb(16,56,68) 保留。實際畫面已檢視。瀏覽器為憑證診斷模式；Node 正常 TLS 逐 bytes 核對線上 HTML/CSS/背景與本地一致。其他14圖、背景資產、模板、JS、政策及雲端設定不變。收尾只補文件，runtime不變；辨識度及實機等原有人工待辦仍保留。
+
+## 2026-11-17 第五輪房客展收與書表下載需求
+
+使用者核定房客卡片個別展收、直接申請三卡下方依台北服務通形式提供兩份雙格式書表及兩個 PDF 填寫範例。原因核對：後段 CSS 共用 stretch 覆蓋房客原 start。基準 `36b2232`；前輪 70/70 與建置／效能／Pages 33 檔獨立複驗通過，Chromium 權限受限未重跑。使用者已手動建立獨立 `forms` bucket；API 唯讀核對六根目錄物件、GET bytes、PDF／ZIP 檔頭；其 managed r2.dev domain 尚未啟用且無 custom domain。未修改 R2、公用存取須另行核准或由使用者操作；公開下載未驗收。更新 [NEXT_TASK](NEXT_TASK.md) 規定現有測試 R2 連結、未來機關相對路徑、發布門檻與驗收，未開始功能開發；無新 runtime／正式部署／合併。歷史 [前輪 Task](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/blob/36b223204f43a5ce1d522e2b07ddfdb27009750d/docs/NEXT_TASK.md) 保存。
