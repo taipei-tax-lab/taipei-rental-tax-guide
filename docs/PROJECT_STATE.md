@@ -1,6 +1,16 @@
 # PROJECT_STATE — 現行狀態
 
-核對日期：2026-11-17（Asia/Taipei）。狀態：**FINAL_QA_TEST_DEPLOYMENT_VERIFIED_PENDING_GPT_REVIEW — QA-01～06 已修正並通過測試站驗證，待 GPT／使用者審查。**
+核對日期：2026-11-18（Asia/Taipei）。狀態：**CLAUDE_CLOSEOUT_APPROVED_PENDING_IMPLEMENTATION — 前輪 QA 已驗證，使用者核定小幅收尾，尚未實作。**
+
+## 最新現況（2026-11-18，Claude 複審後）
+
+- 遠端確認指定功能分支 `2f353736c6307db4a634d3a3af2219c9f14806db`，main `28fd76aed2a212776fa5eade5eca18e02ff24701`；前輪 runtime `80f0d4697f35ca3506a2a288d2fa1f255ef7b19a` 不變。GPT 已差異審查、獨立重跑 75/75、build/check/budget/Pages 33 檔及正常 TLS 線上 runtime 比對；瀏覽器獨立重跑有執行環境限制，真實 vendor shell 操作證據引用前輪 Codex，不宣稱獨立實機驗收。
+- Claude 唯讀審查同一 SHA，獨立 Chromium/建置/75 項單元/版面字級鍵盤等測試通過；未發現 P0/P1，五項 P2 無直接上線阻擋。其真實 vendor、線上站／實機未驗證；launcher 隱藏率原百分比與分母不符。GPT 核對無條件預載及隱藏面板圖片 src/srcset 路徑，確認手機浪費下載可修；前輪避擋策略的穩定性需實際量測再決定局部修正。
+- 使用者核定在原功能分支依 [NEXT_TASK](NEXT_TASK.md) 做 CQA-01 手機隱藏側面板圖片請求優化、CQA-02 launcher 穩定性量測及可安全的局部改善；其餘 CI/無障礙/P3 延後。此次只有規劃文件更新，沒有新程式或新驗收結果。
+- 使用者決定暫不改 GitHub Pages 設定，接受現階段公開文件風險（GPT 實測根目錄 PROJECT_STATE.md、README.md、package.json 為 200）；未來將 Repo 私有化、託管交 Cloudflare，另案核定。現有三環境不變，禁止提交機密、未授權合併 main、調整平台設定或正式部署。
+- 機關正式交付包、正式 GA4/OG/CSP/MIME/MP4 Range/快取、相對路徑六書表兩影片、正式 CX、人員業務／連結／實機／輔助科技驗收保留；收尾審查後再核定整合及交付。
+
+以下為歷史紀錄，不作本輪任務指令。
 
 ## 最新現況（2026-11-17，Final QA）
 

@@ -1,38 +1,33 @@
-# NEXT_TASK — 2026-11-17 上線前最終品質修正（Final QA）
+# NEXT_TASK — 2026-11-18 上線前收斂修正（Claude 複審）
 
-狀態：**IMPLEMENTED_TEST_DEPLOYMENT_VERIFIED_PENDING_GPT_REVIEW**（2026-11-17，Asia/Taipei）。
+狀態：**PLANNED_APPROVED_PENDING_IMPLEMENTATION**（2026-11-18，Asia/Taipei）。
 指定工作分支：`feat/direct-apply-operation-guide-20261031`。
-審查基準：`05f096d7d4ba3088bf025ddb2af07ecc70f9c091`（runtime `b9b3e19e3f765b42d0691f8c7e27ce9c7197c751`）。[第六輪完整 Task 與驗收（固定 SHA）](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/blob/05f096d7d4ba3088bf025ddb2af07ecc70f9c091/docs/NEXT_TASK.md)、[證據](evidence/2026-11-17-rwd6/REPORT.md)。
+審查基準：`2f353736c6307db4a634d3a3af2219c9f14806db`（runtime `80f0d4697f35ca3506a2a288d2fa1f255ef7b19a`）。
+前輪完整任務見 [固定 SHA](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/blob/2f353736c6307db4a634d3a3af2219c9f14806db/docs/NEXT_TASK.md)；已有 [Final QA 報告](evidence/2026-11-17-final-qa/REPORT.md)。
 
-## 1. 目的與證據
+## 1. 目標與已核定界線
 
-AGY 獨立唯讀審查後，使用者核定本輪計畫文件交 Coding Agent 實作。這是既有改版的最後針對性品質修正，不是重新設計、正式交付包或正式發布。以現有已核定視覺、功能、資料及前輪 73 項單元／212 組 RWD 測試為基準；原先無橫溢出不代表可讀、可操作。AGY 報告以 Chromium 診斷與正常 TLS 讀回分層記錄，GPT 另核對現行程式原因；未宣稱真實 iOS／LINE／CX 問答或人工驗收。
+AGY、Codex、GPT 及 Claude 交叉審查後，現行版本未發現 P0/P1 上線阻擋問題。使用者授權沿用功能分支做小幅收尾，不重新設計網站。Claude 以同 SHA 本地 Chromium 獨立重建、75/75 單元與 RWD/字級/鍵盤等測試通過；其 vendor 為 mock，線上站及真實 CX/實機未驗證。GPT 核對程式與前輪證據，確認下述載入問題；浮動策略則是前輪已揭露的避擋取捨。Claude 隱藏比例與分母不符（21/48、11/30），不可直接採用其百分比。
 
-## 2. 本輪必修
+使用者明確決定本輪**不改 GitHub Pages 設定**；日後計畫將 Repo 私有化並將網站託管交 Cloudflare，屆時另行核定切換與驗收。目前維持現有 main／機關站／Cloudflare 測試站及發布界線。不能據此自行變更 Repo visibility、Pages、Cloudflare、DNS 或其他平台設定；也不以網站公開範圍取代 Repo 存取權限管理。現有 GitHub Pages 文件公開風險暫接受，敏感資料仍禁止提交。
 
-- [x] **QA-01 短視窗小幫手可關閉（AGY P1-3）**：`assets/js/messenger-ui.js` 的 shortViewport（height < 400）會隱藏展開時的 launcher，而 hideChatTitlebar 隱藏 vendor titlebar；AGY 在 844×390 觀察到兩者皆不可用。提供實際可見、可觸控、鍵盤可達、有明確可及名稱及焦點的關閉控制。可選適當的本站控制或確實可用的原生控制，避免重複控制、遮擋輸入或回覆；保留正常直向／桌面開合、縮放與 resize、鍵盤返回焦點、聊天狀態與既有 session 行為，不新增對話或發問。既有 chat-viewport-check 不能只比對零尺寸元素的座標，rwd6-chat-check 不得以直接呼叫 closeChat 代替使用者操作：新增真正 pointer/touch/鍵盤關閉、正尺寸、可見、hit-test 及閉合後 launcher 恢復斷言。覆蓋 844×390、667×375、390px 直向、399/400/401 高度邊界、desktop，開合後 resize／旋轉，避免只測 mock 的內部函式。
-- [x] **QA-02 小幫手背景（P1-4）**：`messenger-ui.js` 的 .assistant-panel 使用未定義的 --cream，造成可能透明及下層文字重疊；改用現行確實定義且符合既有風格的不透明色彩 token（例如 --paper，依實際 computed style 確認），保留原外框、內容與功能。驗證面板展開時 computed background 不透明且文字不與頁面重疊，不能只檢查 CSS 字串。
-- [x] **QA-03 文字放大（P1-5）**：核對實際標題與關鍵 UI 的 font-size，修正須隨本站字級調整的固定 px 規則（如 h1/h2），以相等預設字體尺寸的 rem 或現有字級 token 實作。保持預設排版層級、可讀性及操作，不全域機械改單位、不縮小本文或禁用縮放。分別測試本站字級控制/根字級 100–200%（含中間等級）與瀏覽器 200% zoom／等效 CSS viewport（明示實際或模擬），不能把兩者混為同一項。量測標題及內文實際字級的比例、裁切與換行。
-- [x] **QA-04 中間寬度與大字級排版（P1-6）**：AGY 於 701px × 200% 字級發現 .v2-form-group 的書名可用欄寬約 74.8px、書表區異常高度約 1166px；頁尾文字欄寬約 36.5px、高度約 1094px，中文被擠成近單字一行。定位書表 grid/flex、固定欄與頁尾 grid，使用內容可讀性導向的彈性換欄／堆疊，不硬保留兩欄，不以 overflow hidden 或縮字遮掩。桌機 100% 維持第六輪核定的緊湊書表與淺綠按鈕設計；留存前後量測及截圖（僅 .preview/）。測 320、390、700、701、720、768、900、1024、1440px × 100/200%，重點頁加中間字級；驗證長書名、頁尾、按鈕群實際可用寬度／行數及閱讀順序，無非必要逐字換行、遮擋或異常拉長。斷言須能捕捉原始失敗，不僅是 scrollWidth。
-- [x] **QA-05 浮動小幫手遮擋（P2-1）**：AGY 在 390px 發現 launcher 圖像實際框約 132px、容器約 72px，與首頁「申請」按鈕區重疊。核對實際視覺框、點擊框與 pointer-events，保留既有角色、提示及辨識度，局部調整尺寸／位置／安全留白與 hit region。至少在 320、375/390、414px、手機橫向及大字級時確認首頁「試算」「申請」、其他卡片與書表可達；使用 elementFromPoint 及真實點擊/觸控驗證，攔截外部導航以免送件，不能只比對元件框或要求民眾額外繞操作。允許浮動元件在捲動過程與純內容視覺重疊，但不得阻斷必要操作；不重新設計角色。
-- [x] **QA-06 低風險一致性（P2-3／P2-4）**：`guide-v2.css` .v2-conditions li 使用未定義 --v2-ink，改用實際定義等效 token；核對小幫手空 textarea 不應有不必要的捲動/溢出（若可局部修正，亦保留多行內容、鍵盤、輸入可讀性與原功能）。`scripts/build.mjs` 指定 FAQ 的「出租達租金標準」統一成「出租房屋所得達租金標準」，與已核定首頁名稱一致；只改名稱，不改申請規則、期限、政策來源或 2026-09-08 實際業務核對日期。由來源重建 index.html，保留其餘已核定內容。
+## 2. 本輪實作與驗收
 
-## 3. 不納入實作／後續交付
+- [ ] **CQA-01：僅在角色側面板實際可顯示時請求其圖片（Claude P2-2，必修）。** `assets/js/messenger-ui.js` 的 `preloadAssistantStates` 於 chat open 無條件載入圖片；`setAssistantState`、`resetAssistantState` 及初始面板模板亦可觸發隱藏面板的圖片請求。沿用 `canShowAssistantPanel` 及實際 geometry/visibility 這個單一判斷，避免另造相互矛盾的 viewport 條件。隱藏時只維護必要狀態，不設定會請求角色大圖的 src/srcset（包含初始 idle、預載、狀態切換／reset 的延遲 callback）；顯示時依當前狀態正常載入且不重複預載。不得影響浮動 launcher 自身圖像、聊天開關、熱門問題、焦點、文字／狀態、GA4 或 CX；開啟中跨越面板顯示斷點／旋轉後須恢復正確圖像與狀態，不留舊狀態、破圖、競態或重複請求。可採等效的最小實作，不重構整個 Messenger。
+  - 先記錄原版與修正版在乾淨瀏覽器 context 的實際 request URL、狀態、傳輸大小（可得時）與原因。使用 320×640、390×844（含大字級）、844×390 橫向、面板門檻前後及 1440×900 桌機；包含初載、開關／重開、模擬狀態轉換、窄→寬→窄／開啟中 resize。面板不可見時不得發出側面板專屬 idle/welcome/thinking/responding/guiding/error 大圖的任何新請求（不含小幫手入口本身資產）；已有快取不能當作未請求證據。寬屏首次顯示時圖片確實成功載入、熱門問題及角色狀態正常。以相同環境比較基準，不僅加字串測試，不送真實 CX 問題。
+- [ ] **CQA-02：重核手機 launcher 穩定性（Claude P2-1，證據導向修正）。** 前輪 QA-05 的避讓與無安全位置暫藏不得退化。先用真實 vendor shell（攔截 CX 發問；若外部封鎖則明示 mock 限制），在首頁及非首頁必要操作密集區，以連續捲動／正反向、字級 100/150/200% 及 320/390/414、橫向、桌機量測每個樣本位置的 launcher rect、可見狀態、確切分子分母、最大位移／跳動及恢復。判斷是否有實際大幅跳動、長時間消失、焦點丟失或操作入口不可達；不得以 Claude 矛盾百分比擅自判定。
+  - 若重現有實際 UX 問題且能局部降低跳動／提高穩定性，採最小安全修正（如保留安全位置的有限位移／穩定位置及必要留白）；優先維持可直接按到所有申請、試算、書表、導航等既有操作，仍保留無安全位置的暫藏保底、可恢復／現有首頁直接問入口。不以取消避擋、強制覆蓋其他按鈕、增加整頁固定留白、全面改版或永久隱藏換取穩定性。隱藏時不可留不可見的 hit region／焦點陷阱；短窗關閉與正常開合、焦點返回不退化。比較 before/after 位移與隱藏、實際 elementFromPoint／touch／keyboard；如不能同時改善且維持必要操作，保留原策略並回報具體取捨供使用者決定，不自行擴大範圍。未重現則保留原程式並據實回報。
 
-- AGY P1-1 正式機關部署與測試站差異，非本輪 rwd runtime 缺陷。後續另案製作正式靜態包：六份書表（四正式格式、兩 PDF 範例）及兩支影片使用同站相對路徑、納入必要資產與白名單，保留正式 GA4、正確正式 OG、CX domain；資訊室驗收正確 MIME（ODT/PDF/MP4/WebP）、MP4 206 Range、必要 CSP（Google Fonts/CX/必要資料圖示，最小權限，不放寬至任意來源）、HTML 更新快取、真實正式站問答。AGY 於舊機關站確認九 WebP 已由 404 改為 200，但仍是舊 main，不能以此視為本輪部署完成。這些事項保留在 State；本輪不改正式包、R2 URL／object／metadata 或 Cloudflare、GA4、CX 設定。
-- AGY P1-2：BX015、BX004 HTTP 404 可能為臺北服務通 SPA 行為；內政部租金資訊逾時。保留現行已核定網址，待臺灣一般瀏覽器實際查閱頁面標題和申辦內容，不填表／送件；未確認前不改網址，不以 HTTP status 單獨判斷失效。
-- P2-2 radio 已有 label 點擊區等，不全面改所有 inline 連結大小；P2-5 非必要的視覺／裝置辨識微調、P2-6 CI 與 GitHub Pages 文件公開範圍評估、P3 歷史 CSS／結構清理留後續核定；不順手重構。若重點修正帶來其他實際回歸可在範圍內排除，其他新問題列證據與待確認。
+## 3. 明確延後項目
 
-## 4. 驗收與收尾
+- P2-3 全面 CI/瀏覽器測試整合留後續維護；本輪須新增可重現行為測試，但不為此重建 CI。P2-4 獨立文字連結尺寸屬後續無障礙改善，P3 重複資產、vendor 結構依賴及歷史檔案整理一律不順手處理。
+- P2-5 GitHub Pages 發布設定不改；GPT 已確認既有主線網站根目錄 PROJECT_STATE.md、README.md、package.json 為 200，AGENTS.md 與 docs/PROJECT_STATE.md 為 404。未來私有化與 Cloudflare 承接需另案核定並驗證連線、網域、環境隔離、回復與舊 Pages 退場；不在此輪實作。
+- 原機關正式交付仍另案：六書表與兩影片改同站相對路徑、正式 GA4/OG、CSP/MIME/MP4 206 Range/快取、正式 CX 網域及真實問答；BX015、BX004、內政部租金資訊人工瀏覽確認；真實 iOS/Android/LINE、輔助科技、人員業務驗收待辦保留。此次不製作正式包、不改業務內容、不改 R2／CX／GA4／部署設定，不合併 main。
 
-- [x] 依 AGENTS / Workflow 辨識環境，確認遠端分支最新 SHA、工作樹清潔及安全同步；純 Repo 工作不掃 Drive。保持主卡、三申請管道、房客獨立展收、六書表連結、兩影片、既有 GA4 事件及測試隔離、CX／政策不變（QA-06 指定文句除外）。程式之外不修改雲端設定。
-- [x] 先重現可重現的 AGY 問題（在舊基準或獨立暫存），記錄 before/after、route、viewport／字級／操作與精確測試結果。補強既有測試且不刪減前輪有效守門。實作、單元與瀏覽器檢測、真實測試站及實機/人工/業務驗收分層；mock 只證明本站行為。有能力可讀取真實 vendor shell 不送真實 CX 問題；外部 CA/連網限制記錄為待驗，不偽造通過。
-- [x] npm run build、node scripts/build.mjs --check、npm test、node scripts/performance-budget.mjs、node scripts/build-pages-test.mjs、git diff --check；保留 73 項及新增斷言，Pages runtime 白名單與 GA4 隔離。重跑第六輪全站 212 組或涵蓋相同範圍的增強矩陣，再加 QA-01～QA-06 上述針對性場景。地方／HTTPS 回歸含首頁與導覽/歷史/鍵盤、房客獨立、書表六連結與公開 GET（正常 TLS）/實際原生啟動、影片控制/切換/離頁、非 CX 33 資產、GA4 mock 及測試站零 GA4。實際瀏覽器量測、點擊及可讀性檢查，不以單元全過替代。
-- [x] 更新 Task/State/Worklog，文字及不含敏感資料的 JSON/log 放 docs/evidence/，截圖／錄屏／下載原檔僅留 .preview/ 不提交。Commit/Push 既有授權分支，確認遠端 SHA、既有 Cloudflare 自動建置及實際測試站以精確 runtime 比對，正常 TLS 與診斷模式分開。未能執行真實設備或第三方功能須逐項列出限制；不以 Chromium 模擬證明真實 iOS/Android/LINE，不作完整無障礙認證。
-- [x] 回報每項 QA-01～06 的修正、測試原失敗與修正後證據、未解問題、branch／commit／部署驗證，交 GPT 差異審查及使用者核定。禁止自行合併 main、製作正式交付包、正式部署或擴大功能；本輪完成後才決定是否進入下一階段。
+## 4. 通過條件及收尾
 
-## 5. 本輪執行證據
-
-QA-01～06 已實作；75 項單元、完整 212 組 RWD 與新增實際 vendor／可讀欄寬／原生 200% zoom／既有功能回歸通過，runtime `80f0d46` 已推送並通過 Cloudflare 部署；線上 212 組／27 組可讀性、29 組真實 vendor 情境／160 次觸控、完整功能回歸及正常 TLS 33 檔比對通過。部署與收尾結果集中於 [Final QA 報告](evidence/2026-11-17-final-qa/REPORT.md)。新增斷言能捕捉原版短窗 hit-test=false、透明背景、固定標題及狹欄失敗；不把零橫溢出視為驗收。真實設備／CX／業務與正式交付待辦保留，未授權下一階段。
-
-本輪已完成開發及測試站驗證，等待 GPT 差異審查與使用者核定；未開始正式包或下一階段。收尾提交只含測試證據／工具及文件，runtime 與 `80f0d46` 相同。
+- [ ] 依 AGENTS/Workflow 安全同步最新指定遠端分支（本輪文件提交包含在內），確認乾淨狀態；純 Repo 作業不掃 Drive。只改必要來源、對應測試與文件，保留前輪已核定視覺、政策、六書表、兩影片、導航和 GA4 隔離。需要 build 時從來源生成，不直接手改產物。
+- [ ] 執行 npm run build、node scripts/build.mjs --check、npm test（保留全部既有 75 項有效斷言）、node scripts/performance-budget.mjs、node scripts/build-pages-test.mjs、git diff --check。追加 CQA-01 request 行為與 CQA-02 實際操作驗證，必要時重跑既有 final-qa-chat/viewport/短窗/鍵盤/避擋、主要 RWD 及非 CX 回歸。若 layout 或 launcher 變更，涵蓋前輪相關 212 組矩陣與實際必要操作；無需重跑與純文件無關的全套測試。不能刪除既有有效守門、以全過單元替代瀏覽器、以 mock/仿真替代真實 vendor 或實機。
+- [ ] 將 before/after、可重現命令、測試結果與限制保存在 `docs/evidence/2026-11-18-claude-closeout/` 文字/JSON/log；所有截圖、錄屏及下載原件僅在 .preview/，不提交。更新 Task/State/Worklog。
+- [ ] 於原工作分支 Commit/Push，核對遠端 SHA、原 Cloudflare 自動測試站建置；正常 TLS 讀回白名單 33 檔 bytes/MIME 與產物一致，實際 HTTPS 有關瀏覽器回歸（受限則逐項如實列出），維持測試站零 GA4、不送真實 CX 問題。診斷模式與正常 TLS 分開。
+- [ ] 回報兩項結果、實作／測試／線上／實機分層、branch/commit/diff、before/after 與未完成事項，交 GPT 審查及使用者核定合併。無可安全改進時不製造無關修改；不得自行合併、正式發布、私有化或調整平台設定。

@@ -106,3 +106,9 @@ AGY 審查指定分支 `05f096d7d4ba3088bf025ddb2af07ecc70f9c091`，獨立通過
 
 
 Final QA 部署及收尾：runtime 80f0d4697f35ca3506a2a288d2fa1f255ef7b19a 已推送，Cloudflare 4fafc31a-1913-46ba-8c48-547ad66f1935／GitHub check SUCCESS。HTTPS重跑212組RWD、27組可讀性、真實vendor 29組／160次觸控、鍵盤循序關閉／焦點返回、書表／事件／影片與非CX33資產／零GA4全部PASS；正常TLS33檔bytes／MIME與build完全一致。影片初次Node連網未帶代理選項，補 --use-env-proxy 後通過；高於視窗的整張卡片改在可見交集區做hit-test與同點tap，保留原壓力場景。診斷瀏覽器畫面已檢視，截圖／原檔只在.preview。收尾僅測試強化／證據／文件，runtime不變，交GPT／使用者審查；原實機、CX、業務及正式交付限制保留。
+
+## 2026-11-18 Claude 獨立唯讀複審與收斂規劃
+
+Claude 以 `2f353736c6307db4a634d3a3af2219c9f14806db` 審查，未發現 P0/P1；本地重建、75/75、11 視窗×6路由×3字級、版面/鍵盤/導覽等通過。其環境封鎖真實 vendor／測試站，故小幫手行為為 mock，不代表實機。五項 P2：浮動 launcher 跳動與暫藏（報告百分比與數量不符，待量測）、隱藏側面板預載約 1.2 MB、行為測試未納入 npm test、獨立文字連結觸控尺寸、GitHub Pages 可能公開內部文件；另有 P3 維護項。GPT 核對程式、前輪證據及主站 GET，確認根目錄 PROJECT_STATE.md/README.md/package.json 回 200；未證實全部內部檔公開或有機密洩漏。
+
+使用者決定暫不改 GitHub Pages，未來 Repo 私有化、Cloudflare 託管另案核定；維持現有公開站，禁止敏感資料提交。其餘授權交 Coding Agent 針對性收尾：CQA-01 必修隱藏角色面板不必要的圖片請求（包含非預載路徑），CQA-02 實測 launcher 穩定性，有安全局部改進才修，保留必要操作可達。CI、無障礙與其他 P3 延後。以 [前輪 Task（固定 SHA）](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/blob/2f353736c6307db4a634d3a3af2219c9f14806db/docs/NEXT_TASK.md) 保留完整歷史，現行規格見 NEXT_TASK。此次僅更新規劃文件，未開始開發、未改主線、未調整平台或正式部署；正式交付及原實機業務待辦保留。
