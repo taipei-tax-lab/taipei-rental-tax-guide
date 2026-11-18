@@ -142,8 +142,8 @@
     panel.innerHTML = [
       '<div class="assistant-panel__character">',
       '  <picture>',
-      '    <source data-assistant-source srcset="./assets/images/assistant/assistant-idle.webp" type="image/webp">',
-      '    <img data-assistant-image src="./assets/images/assistant/assistant-idle.png" alt="租稅小幫手角色" width="400" height="656">',
+      '    <source data-assistant-source type="image/webp">',
+      '    <img data-assistant-image alt="租稅小幫手角色" width="400" height="656">',
       '  </picture>',
       '</div>',
       '<div class="assistant-panel__content">',
@@ -510,14 +510,15 @@
     return "./assets/images/assistant/" + ASSISTANT_STATES[state] + "." + extension;
   }
 
-  var assistantStatesPreloaded = false;
-  function preloadAssistantStates() {
-    if (assistantStatesPreloaded) return;
-    assistantStatesPreloaded = true;
-    Object.keys(ASSISTANT_STATES).forEach(function (state) {
-      var image = new Image();
-      image.src = assistantAssetPath(state, "webp");
-    });
+  function renderAssistantImage(panel) {
+    var state = panel.dataset.state;
+    var source = panel.querySelector("[data-assistant-source]");
+    var image = panel.querySelector("[data-assistant-image]");
+    if (image.dataset.renderedState === state) return;
+
+    source.srcset = assistantAssetPath(state, "webp");
+    image.src = assistantAssetPath(state, "png");
+    image.dataset.renderedState = state;
   }
 
   function updateAssistantCopy(panel, state) {
@@ -550,17 +551,14 @@
     clearAssistantStateTimer();
     assistantSwapToken += 1;
     var token = assistantSwapToken;
-    var source = panel.querySelector("[data-assistant-source]");
-    var image = panel.querySelector("[data-assistant-image]");
-
     panel.dataset.state = state;
-    panel.classList.add("is-changing");
+    if (panel.hidden) return;
 
+    panel.classList.add("is-changing");
     window.setTimeout(function () {
       if (token !== assistantSwapToken) return;
-      if (source) source.srcset = assistantAssetPath(state, "webp");
-      if (image) image.src = assistantAssetPath(state, "png");
       panel.classList.remove("is-changing");
+      updateAssistantPanel();
     }, ASSISTANT_TIMING.imageSwap);
   }
 
@@ -572,13 +570,9 @@
     var panel = document.querySelector(".assistant-panel");
     if (!panel) return;
 
-    var source = panel.querySelector("[data-assistant-source]");
-    var image = panel.querySelector("[data-assistant-image]");
     panel.dataset.state = "idle";
     panel.classList.remove("is-changing");
     updateAssistantCopy(panel, "idle");
-    if (source) source.srcset = assistantAssetPath("idle", "webp");
-    if (image) image.src = assistantAssetPath("idle", "png");
   }
 
   function scheduleAssistantIdle(delay) {
@@ -721,27 +715,30 @@
     var messengerStyle = getComputedStyle(elements.messenger);
     var right = parseFloat(messengerStyle.right) || 14;
     var chatWidth = getCssPixels(elements.messenger, "--df-messenger-chat-window-width", MESSENGER_LIMITS.maxWidth);
-    var isVisible = chatIsOpen && canShowAssistantPanel(viewport, chatWidth, right);
-    // Use the actual chat rectangle; the vendor applies its own window offset.
+    var panel = elements.assistantPanel;
     var chat = elements.bubble && elements.bubble.shadowRoot && elements.bubble.shadowRoot.querySelector(".chat-wrapper");
-    if (isVisible && chat) {
-      var rect = chat.getBoundingClientRect();
-      if (rect.width > 50 && rect.height > 50) {
-        var panelWidth = elements.assistantPanel.getBoundingClientRect().width || MESSENGER_LIMITS.assistantPanelWidth;
-        elements.assistantPanel.style.left = (rect.left - panelWidth + MESSENGER_LIMITS.assistantPanelOverlap) + "px";
-        elements.assistantPanel.style.right = "auto";
-        elements.assistantPanel.style.top = rect.top + "px";
-        elements.assistantPanel.style.bottom = "auto";
-        elements.assistantPanel.style.height = rect.height + "px";
-      }
+    // The vendor window can still be unmeasurable while it opens.
+    var canShow = chatIsOpen && canShowAssistantPanel(viewport, chatWidth, right);
+    var rect = canShow && chat && chat.getBoundingClientRect();
+    var panelLeft = rect && rect.left - MESSENGER_LIMITS.assistantPanelWidth + MESSENGER_LIMITS.assistantPanelOverlap;
+    var isVisible = Boolean(rect && rect.width > 50 && rect.height > 50 &&
+      panelLeft >= viewport.left + MESSENGER_LIMITS.assistantPanelLeftMargin);
+    if (isVisible) {
+      panel.style.left = panelLeft + "px";
+      panel.style.right = "auto";
+      panel.style.top = rect.top + "px";
+      panel.style.bottom = "auto";
+      panel.style.height = rect.height + "px";
     } else {
-      elements.assistantPanel.style.left = "";
-      elements.assistantPanel.style.right = "";
-      elements.assistantPanel.style.top = "";
-      elements.assistantPanel.style.bottom = "";
-      elements.assistantPanel.style.height = "";
+      panel.style.left = "";
+      panel.style.right = "";
+      panel.style.top = "";
+      panel.style.bottom = "";
+      panel.style.height = "";
+      panel.classList.remove("is-changing");
     }
     setAssistantPanelVisible(elements, isVisible);
+    if (isVisible && !panel.classList.contains("is-changing")) renderAssistantImage(panel);
   }
 
   function bindAssistantEvents(elements) {
@@ -749,6 +746,8 @@
     document.addEventListener("df-chat-open-changed", function (event) {
       var detail = event.detail || {};
       handleChatOpenChange(detail.isOpen);
+      if (chatIsOpen) showTemporaryAssistantState("welcome", ASSISTANT_TIMING.welcome);
+      else resetAssistantState();
       resizeMessenger();
       updateAssistantPanel();
       installInputExtras();
@@ -759,13 +758,10 @@
       window.setTimeout(updateAssistantPanel, 150);
       window.setTimeout(updateAssistantPanel, 350);
       if (chatIsOpen) {
-        preloadAssistantStates();
         hideChatTitlebar();
         window.setTimeout(hideChatTitlebar, 120);
         window.setTimeout(hideChatTitlebar, 320);
-        showTemporaryAssistantState("welcome", ASSISTANT_TIMING.welcome);
       }
-      else resetAssistantState();
     });
     document.addEventListener("df-user-input-entered", handleUserInputEntered);
     document.addEventListener("df-citation-clicked", function (event) {
