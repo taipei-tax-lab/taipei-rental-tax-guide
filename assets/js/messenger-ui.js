@@ -472,7 +472,12 @@
         ".bubble[aria-expanded=\"true\"]{background:var(--df-messenger-primary-color,#0c686d)!important}",
         ".bubble[aria-expanded=\"true\"]{bottom:-39px}",
         ".bubble[aria-expanded=\"false\"]{background:transparent!important}",
-        ".bubble[aria-expanded=\"false\"]{bottom:0}"
+        ".bubble[aria-expanded=\"false\"]{bottom:0}",
+        ".bubble .icon,.bubble .icon img{pointer-events:none}",
+        ".bubble[aria-expanded=\"false\"] .icon{position:relative}",
+        "[data-assistant-art-hit]{display:none}",
+        // Nontransparent bounds of the unchanged 360px PNG: x=4..322, full height.
+        ".bubble[aria-expanded=\"false\"] [data-assistant-art-hit]{display:block;position:absolute;inset:0 10.555555% 0 1.111111%;pointer-events:auto}"
       ].join("");
       bubble.shadowRoot.appendChild(style);
     }
@@ -487,7 +492,10 @@
       image.setAttribute("data-assistant-chat-bubble-icon", "true");
       image.setAttribute("alt", "");
       image.setAttribute("aria-hidden", "true");
-      icon.appendChild(image);
+      var artHit = document.createElement("span");
+      artHit.setAttribute("data-assistant-art-hit", "");
+      artHit.setAttribute("aria-hidden", "true");
+      icon.append(image, artHit);
     }
 
     if (image.getAttribute("src") !== ASSISTANT_CHAT_BUBBLE_ICON) {
@@ -608,6 +616,19 @@
     setAssistantState("thinking");
   }
 
+  function focusClosedLauncher(root) {
+    var launcher = root.querySelector(".bubble");
+    if (!launcher) return;
+    if (getComputedStyle(launcher).visibility === "visible") {
+      launcher.focus({preventScroll: true});
+      return;
+    }
+    // The full artwork may need to stay hidden at the current scroll position.
+    var shortcut = document.getElementById("open-helper");
+    var fallback = shortcut && shortcut.getClientRects().length ? shortcut : document.getElementById("content");
+    if (fallback) fallback.focus({preventScroll: true});
+  }
+
   function installShortClose(bubble) {
     var root = bubble && bubble.shadowRoot;
     var chat = root && root.querySelector('.chat-wrapper');
@@ -616,12 +637,11 @@
     controls.className = 'rental-chat-controls';
     controls.innerHTML = '<button type="button" class="rental-chat-close" aria-label="關閉小幫手">關閉小幫手 ×</button>';
     var style = document.createElement('style');
-    style.textContent = '.bubble,.chat-wrapper{pointer-events:auto}.rental-chat-controls{display:none}:host-context([data-short-chat]) .rental-chat-controls{display:flex;justify-content:flex-end;flex:0 0 44px;background:var(--paper,#f8f5ee)}:host-context([data-short-chat]) .chat-wrapper.expanded{display:flex!important;flex-direction:column!important}:host-context([data-short-chat]) df-messenger-chat{flex:1;min-height:0;height:auto!important}.rental-chat-close{min-width:44px;min-height:44px;border:0;background:#0c686d;color:#fff;font:inherit;cursor:pointer}.rental-chat-close:focus-visible{outline:3px solid #a64d16;outline-offset:-3px}.bubble .icon img{pointer-events:none;max-width:100%;max-height:100%;object-fit:contain}';
+    style.textContent = '.bubble,.chat-wrapper{pointer-events:auto}.rental-chat-controls{display:none}:host-context([data-short-chat]) .rental-chat-controls{display:flex;justify-content:flex-end;flex:0 0 44px;background:var(--paper,#f8f5ee)}:host-context([data-short-chat]) .chat-wrapper.expanded{display:flex!important;flex-direction:column!important}:host-context([data-short-chat]) df-messenger-chat{flex:1;min-height:0;height:auto!important}.rental-chat-close{min-width:44px;min-height:44px;border:0;background:#0c686d;color:#fff;font:inherit;cursor:pointer}.rental-chat-close:focus-visible{outline:3px solid #a64d16;outline-offset:-3px}';
     root.appendChild(style);
     chat.prepend(controls);
     controls.querySelector('button').addEventListener('click', function () {
       bubble.closeChat();
-      requestAnimationFrame(function () { var launcher = root.querySelector('.bubble'); if (launcher) launcher.focus(); });
     });
   }
 
@@ -633,15 +653,44 @@
     ['position','top','left','right','bottom','visibility'].forEach(function (key) { button.style.removeProperty(key); });
     if (chatIsOpen) return;
     var viewport = getViewportSize();
-    var size = button.getBoundingClientRect().width;
-    if (!size) return;
-    var x = viewport.left + viewport.width - 14 - size;
-    var actions = Array.from(document.querySelectorAll('.v2-site a,.v2-site button,.v2-site summary')).map(function(e){return e.getBoundingClientRect();}).filter(function(r){return r.width && r.height;});
-    var y;
-    for (y = viewport.top + viewport.height - 14 - size; y >= viewport.top + 14; y -= 12) {
-      if (!actions.some(function(r){return r.left < x+size && r.right > x && r.top < y+size && r.bottom > y;})) break;
+    var margin = 14;
+    var rect = button.getBoundingClientRect();
+    if (!rect.width) return;
+    var artwork = button.querySelector("[data-assistant-art-hit]");
+    var regions = [rect];
+    if (artwork) regions.push(artwork.getBoundingClientRect());
+
+    var farRight = Math.max.apply(null, regions.map(function (region) { return region.right; }));
+    var offsetX = viewport.left + viewport.width - margin - farRight;
+    var x = rect.left + offsetX;
+    var top = viewport.top + margin;
+    var bottom = viewport.top + viewport.height - margin;
+    var minY = top + rect.top - Math.min.apply(null, regions.map(function (region) { return region.top; }));
+    var maxY = bottom + rect.top - Math.max.apply(null, regions.map(function (region) { return region.bottom; }));
+    var actions = document.querySelectorAll(".v2-site a,.v2-site button,.v2-site summary");
+
+    // Each horizontal overlap excludes a vertical interval for the button's top.
+    var blocked = [];
+    actions.forEach(function (action) {
+      var target = action.getBoundingClientRect();
+      if (!target.width || !target.height || target.bottom <= top || target.top >= bottom) return;
+      regions.forEach(function (region) {
+        if (region.right + offsetX > target.left && region.left + offsetX < target.right) {
+          blocked.push([target.top - (region.bottom - rect.top), target.bottom - (region.top - rect.top)]);
+        }
+      });
+    });
+    blocked.sort(function (a, b) { return b[1] - a[1]; });
+    var y = Math.floor(maxY);
+    blocked.forEach(function (interval) {
+      if (y > interval[0] && y < interval[1]) y = Math.floor(interval[0] - 0.5);
+    });
+
+    var farLeft = Math.min.apply(null, regions.map(function (region) { return region.left; })) + offsetX;
+    if (y < minY || farLeft < viewport.left + margin) {
+      button.style.setProperty('visibility','hidden','important');
+      return;
     }
-    if (y < viewport.top + 14) { button.style.setProperty('visibility','hidden','important'); return; }
     button.style.setProperty('position','fixed','important');
     button.style.setProperty('left',x+'px','important');
     button.style.setProperty('top',y+'px','important');
@@ -745,6 +794,9 @@
     if (!elements.assistantPanel || elements.assistantPanel.dataset.eventsBound === "true") return;
     document.addEventListener("df-chat-open-changed", function (event) {
       var detail = event.detail || {};
+      var bubbleRoot = elements.bubble.shadowRoot;
+      var returnFocus = chatIsOpen && detail.isOpen === false && bubbleRoot &&
+        (bubbleRoot.activeElement || elements.messenger.hasAttribute("data-short-chat"));
       handleChatOpenChange(detail.isOpen);
       if (chatIsOpen) showTemporaryAssistantState("welcome", ASSISTANT_TIMING.welcome);
       else resetAssistantState();
@@ -752,6 +804,7 @@
       updateAssistantPanel();
       installInputExtras();
       window.requestAnimationFrame(function () {
+        if (returnFocus) focusClosedLauncher(bubbleRoot);
         updateAssistantPanel();
         window.requestAnimationFrame(updateAssistantPanel);
       });

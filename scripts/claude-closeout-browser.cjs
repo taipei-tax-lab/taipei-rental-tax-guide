@@ -184,33 +184,44 @@ async function launcherPositions(browser) {
   for (const [width, height] of [[320,640], [390,844], [414,896], [844,390], [1440,900]]) {
     for (const font of [100,150,200]) {
       for (const route of ['top', 'direct-apply']) {
-        const samples = [];
+        let samples;
         const blockedHosts = await withPage(browser, {width,height}, async page => {
           await load(page, route, font);
           await page.evaluate(() => document.fonts.ready);
-          // Use the same absolute scroll offsets in both directions and both builds.
-          const max = await page.evaluate(() => document.documentElement.scrollHeight - innerHeight);
-          const offsets = [...Array.from({length: Math.ceil(max / 32)}, (_, i) => i * 32), max];
-          for (const [direction, points] of [['down', offsets], ['up', offsets.slice().reverse()]]) {
-            for (const offset of points) {
-              await page.evaluate(y => scrollTo(0,y), offset);
-              await settle(page);
-              samples.push(await page.evaluate(direction => {
-                const root = document.querySelector('df-messenger-chat-bubble').shadowRoot;
-                const button = root.querySelector('.bubble');
+          samples = await page.evaluate(async () => {
+            const root = document.querySelector('df-messenger-chat-bubble').shadowRoot;
+            const button = root.querySelector('.bubble');
+            const art = root.querySelector('[data-assistant-art-hit]');
+            const actions = [...document.querySelectorAll('.v2-site a,.v2-site button,.v2-site summary')];
+            const max = document.documentElement.scrollHeight - innerHeight;
+            const offsets = [...Array.from({length: Math.ceil(max / 32)}, (_, i) => i * 32), max];
+            const rows = [];
+            for (const [direction, points] of [['down', offsets], ['up', offsets.slice().reverse()]]) {
+              for (const offset of points) {
+                scrollTo(0,offset);
+                // Sample after this frame's actual scroll listeners and animation callbacks.
+                await new Promise(resolve => requestAnimationFrame(() => setTimeout(resolve,0)));
                 const r = button.getBoundingClientRect();
+                const a = art?.getBoundingClientRect();
+                const regions = a ? [r,a] : [r];
                 const visible = getComputedStyle(button).visibility === 'visible';
-                const overlap = visible && [...document.querySelectorAll('.v2-site a,.v2-site button,.v2-site summary')]
-                  .some(action => {
-                    const a = action.getBoundingClientRect();
-                    return a.width > 0 && a.height > 0 && a.left < r.right && a.right > r.left &&
-                      a.top < r.bottom && a.bottom > r.top;
-                  });
-                const hit = root.elementFromPoint(r.x+r.width/2,r.y+r.height/2)?.closest('button') === button;
-                return [direction,scrollY,r.x,r.y,r.width,r.height,visible,Boolean(overlap),hit];
-              }, direction));
+                const overlap = visible && actions.some(action => {
+                  const t = action.getBoundingClientRect();
+                  return t.width > 0 && t.height > 0 && regions.some(region =>
+                    t.left < region.right && t.right > region.left && t.top < region.bottom && t.bottom > region.top);
+                });
+                const hitsButton = (x,y) => root.elementFromPoint(x,y)?.closest('button') === button;
+                const hit = hitsButton(r.x+r.width/2,r.y+r.height/2);
+                const artHit = a ? hitsButton(a.x+a.width/2,a.top+3) : null;
+                const fits = regions.every(region =>
+                  region.left >= -0.01 && region.top >= -0.01 &&
+                  region.right <= innerWidth+0.01 && region.bottom <= innerHeight+0.01);
+                rows.push([direction,scrollY,r.x,r.y,r.width,r.height,visible,Boolean(overlap),hit,
+                  a ? [a.x,a.y,a.width,a.height] : null,artHit,fits]);
+              }
             }
-          }
+            return rows;
+          });
         });
         const hidden = samples.filter(sample => !sample[6]).length;
         let maxJump = 0, moves = 0, hiddenRun = 0, maxHiddenSpan = 0, recoveries = 0;
@@ -230,7 +241,8 @@ async function launcherPositions(browser) {
             maxJump = Math.max(maxJump, jump);
             if (jump) moves++;
           }
-          assert.ok(!current[7] && current[6] === current[8],
+          assert.ok(!current[7] && current[6] === current[8] &&
+            (!current[9] || (current[6] === current[10] && (!current[6] || current[11]))),
             `Launcher hit mismatch: ${width}×${height} ${font}% ${route} ${JSON.stringify(current)}`);
         }
         assert.ok(samples.at(-1)[6], 'Launcher must recover at the starting position');
@@ -315,6 +327,96 @@ async function launcherControls(browser) {
   return results;
 }
 
+async function launcherScale(browser) {
+  const rows = [];
+  const original = process.argv.includes('--original');
+  for (const [width,height,font] of [
+    [1440,900,100],[1892,873,100],[320,640,100],[320,640,200],[390,844,150],
+    [414,896,200],[844,390,100],[844,390,200],[560,800,100],[561,800,100]
+  ]) {
+    await withPage(browser, {width,height}, async page => {
+      await load(page, 'top', font);
+      await page.evaluate(() => scrollTo(0,0));
+      await settle(page);
+      const row = await page.evaluate(() => {
+        const root = document.querySelector('df-messenger-chat-bubble').shadowRoot;
+        const button = root.querySelector('.bubble');
+        const image = root.querySelector('[data-assistant-chat-bubble-icon]');
+        const art = root.querySelector('[data-assistant-art-hit]');
+        const b = button.getBoundingClientRect();
+        const r = image.getBoundingClientRect();
+        const canvas = document.createElement('canvas');
+        canvas.width = image.naturalWidth;
+        canvas.height = image.naturalHeight;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(image,0,0);
+        const data = ctx.getImageData(0,0,canvas.width,canvas.height).data;
+        const left = canvas.width, top = canvas.height;
+        const alpha = [left,top,0,0];
+        let prompt, character;
+        const hitsButton = (x,y) => root.elementFromPoint(x,y)?.closest('button') === button;
+        for (let y=0; y<canvas.height; y++) {
+          for (let x=0; x<canvas.width; x++) {
+            const opacity = data[(y*canvas.width+x)*4+3];
+            if (!opacity) continue;
+            alpha[0] = Math.min(alpha[0],x);
+            alpha[1] = Math.min(alpha[1],y);
+            alpha[2] = Math.max(alpha[2],x+1);
+            alpha[3] = Math.max(alpha[3],y+1);
+            if (opacity < 250) continue;
+            const px = r.left + (x+0.5)*r.width/canvas.width;
+            const py = r.top + (y+0.5)*r.height/canvas.height;
+            if (px < 0 || px >= innerWidth || py < 0 || py >= innerHeight) continue;
+            if (!prompt && py < b.top-4 && y>24) prompt = [px,py,hitsButton(px,py)];
+            if (!character && py > b.bottom+4 && y>315) character = [px,py,hitsButton(px,py)];
+          }
+        }
+        const artwork = [r.left+alpha[0]*r.width/canvas.width,r.top+alpha[1]*r.height/canvas.height,
+          r.left+alpha[2]*r.width/canvas.width,r.top+alpha[3]*r.height/canvas.height];
+        const transparentX = r.left+r.width*0.94;
+        const transparentY = r.top+7;
+        return {button:b.toJSON(),image:r.toJSON(),alpha,artwork,artHit:art?.getBoundingClientRect().toJSON(),
+          visible:getComputedStyle(button).visibility === 'visible',character,prompt,
+          transparentHit:hitsButton(transparentX,transparentY),
+          transparentInViewport:transparentX < innerWidth && transparentY >= 0 && transparentY < innerHeight};
+      });
+      const size = width <= 560 ? 72 : 84;
+      const scale = width <= 560 ? 132 : 150;
+      const expected = baseline ? size : scale;
+      assert.deepEqual([row.button.width,row.button.height],[size,size]);
+      assert.deepEqual([row.image.width,row.image.height],[expected,expected]);
+      if (!baseline && !original) {
+        assert.ok(row.visible, `${width}×${height} ${font}% top should leave room for the launcher`);
+        assert.deepEqual(row.alpha,[4,0,322,360]);
+        assert.ok(row.artwork[0]>=0 && row.artwork[1]>=0 && row.artwork[2]<=width && row.artwork[3]<=height);
+        const hit = row.artHit;
+        for (const [actual,wanted] of [[hit.left,row.artwork[0]],[hit.top,row.artwork[1]],
+          [hit.right,row.artwork[2]],[hit.bottom,row.artwork[3]]]) assert.ok(Math.abs(actual-wanted)<0.03);
+        assert.ok(row.transparentInViewport && !row.transparentHit);
+        assert.ok(row.character?.[2] && row.prompt?.[2]);
+      }
+      await page.screenshot({path:path.join(output,`scale-${width}x${height}-${font}.png`)});
+      if (!baseline && !original) {
+        const bubble = page.locator(launcher);
+        const point = width <= 560 ? row.character : row.prompt;
+        await page.touchscreen.tap(point[0],point[1]);
+        await page.waitForFunction(() => document.querySelector('df-messenger-chat-bubble').shadowRoot
+          .querySelector('.bubble').getAttribute('aria-expanded') === 'true');
+        const close = height < 400 ? page.locator('.rental-chat-close:visible') : bubble;
+        await close.focus();
+        await page.keyboard.press('Enter');
+        await page.waitForFunction(() => document.querySelector('df-messenger-chat-bubble').shadowRoot
+          .querySelector('.bubble').getAttribute('aria-expanded') === 'false');
+        await settle(page);
+        assert.ok(await bubble.evaluate(e => e.getRootNode().activeElement === e));
+        row.touchOpened = row.keyboardClosedWithFocus = true;
+      }
+      rows.push({width,height,font,...row});
+    });
+  }
+  return rows;
+}
+
 async function main() {
   fs.mkdirSync(output, {recursive: true});
   const browser = await chromium.launch({
@@ -323,6 +425,12 @@ async function main() {
   });
   try {
     const scope = {base: base.origin, baseline, tlsDiagnostic, vendor: 'Google static shell; CX API blocked'};
+    if (process.argv.includes('--scale-only')) {
+      const rows = await launcherScale(browser);
+      fs.writeFileSync(path.join(output, 'scale.json'), JSON.stringify({...scope, rows},null,2));
+      console.log(`Launcher scale: ${rows.length} viewport and font combinations checked`);
+      return;
+    }
     if (process.argv.includes('--controls-only')) {
       const controls = await launcherControls(browser);
       fs.writeFileSync(path.join(output, 'controls.json'), JSON.stringify({...scope, controls}, null, 2));
@@ -336,7 +444,7 @@ async function main() {
     }
     if (!process.argv.includes('--images-only')) {
       const runs = await launcherPositions(browser);
-      const sampleFields = ['direction','scrollY','x','y','width','height','visible','actionOverlap','launcherHit'];
+      const sampleFields = ['direction','scrollY','x','y','width','height','visible','actionOverlap','launcherHit','artRect','artHit','regionsFitViewport'];
       fs.writeFileSync(path.join(output, 'launcher.json'), JSON.stringify({...scope,sampleFields,runs}));
       console.log(`CQA-02 PASS: ${runs.length} scroll runs, ${runs.reduce((n,r) => n+r.total,0)} samples`);
     }
