@@ -1,0 +1,1451 @@
+{
+  "base": "http://127.0.0.1:4175",
+  "baseline": false,
+  "tlsDiagnostic": true,
+  "vendor": "Google static shell; CX API blocked",
+  "rows": [
+    {
+      "width": 320,
+      "height": 640,
+      "font": 100,
+      "phases": [
+        {
+          "name": "initial",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "idle",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        },
+        {
+          "name": "open",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "welcome",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        },
+        {
+          "name": "thinking",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "thinking",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        },
+        {
+          "name": "responding",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "responding",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        },
+        {
+          "name": "error",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "error",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        },
+        {
+          "name": "idle-after-timeout",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "idle",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        },
+        {
+          "name": "close",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "idle",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        },
+        {
+          "name": "reopen",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "welcome",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        },
+        {
+          "name": "close-again",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "idle",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        }
+      ],
+      "requests": [],
+      "topicCalls": 0,
+      "blockedHosts": [
+        "fonts.googleapis.com"
+      ]
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "font": 100,
+      "phases": [
+        {
+          "name": "initial",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "idle",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        },
+        {
+          "name": "open",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "welcome",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        },
+        {
+          "name": "thinking",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "thinking",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        },
+        {
+          "name": "responding",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "responding",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        },
+        {
+          "name": "error",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "error",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        },
+        {
+          "name": "idle-after-timeout",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "idle",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        },
+        {
+          "name": "close",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "idle",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        },
+        {
+          "name": "reopen",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "welcome",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        },
+        {
+          "name": "close-again",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "idle",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        }
+      ],
+      "requests": [],
+      "topicCalls": 0,
+      "blockedHosts": [
+        "fonts.googleapis.com"
+      ]
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "font": 200,
+      "phases": [
+        {
+          "name": "initial",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "idle",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        },
+        {
+          "name": "open",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "welcome",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        },
+        {
+          "name": "thinking",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "thinking",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        },
+        {
+          "name": "responding",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "responding",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        },
+        {
+          "name": "error",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "error",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        },
+        {
+          "name": "resize-wide",
+          "gap": -1,
+          "topDifference": 0,
+          "visible": true,
+          "state": "error",
+          "image": "http://127.0.0.1:4175/assets/images/assistant/assistant-error.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-error.png",
+            "./assets/images/assistant/assistant-error.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "resize-narrow-during-swap",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "thinking",
+          "image": "http://127.0.0.1:4175/assets/images/assistant/assistant-error.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-error.png",
+            "./assets/images/assistant/assistant-error.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "resize-wide-latest",
+          "gap": -1,
+          "topDifference": 0,
+          "visible": true,
+          "state": "thinking",
+          "image": "http://127.0.0.1:4175/assets/images/assistant/assistant-thinking.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-thinking.png",
+            "./assets/images/assistant/assistant-thinking.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "resize-short",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "thinking",
+          "image": "http://127.0.0.1:4175/assets/images/assistant/assistant-thinking.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-thinking.png",
+            "./assets/images/assistant/assistant-thinking.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "rotate-narrow",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "thinking",
+          "image": "http://127.0.0.1:4175/assets/images/assistant/assistant-thinking.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-thinking.png",
+            "./assets/images/assistant/assistant-thinking.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "resize-original",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "thinking",
+          "image": "http://127.0.0.1:4175/assets/images/assistant/assistant-thinking.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-thinking.png",
+            "./assets/images/assistant/assistant-thinking.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "idle-after-timeout",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "idle",
+          "image": "http://127.0.0.1:4175/assets/images/assistant/assistant-thinking.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-thinking.png",
+            "./assets/images/assistant/assistant-thinking.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "close",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "idle",
+          "image": "http://127.0.0.1:4175/assets/images/assistant/assistant-thinking.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-thinking.png",
+            "./assets/images/assistant/assistant-thinking.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "reopen",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "welcome",
+          "image": "http://127.0.0.1:4175/assets/images/assistant/assistant-thinking.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-thinking.png",
+            "./assets/images/assistant/assistant-thinking.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "close-again",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "idle",
+          "image": "http://127.0.0.1:4175/assets/images/assistant/assistant-thinking.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-thinking.png",
+            "./assets/images/assistant/assistant-thinking.webp"
+          ],
+          "ready": true
+        }
+      ],
+      "requests": [
+        {
+          "phase": "resize-wide",
+          "url": "http://127.0.0.1:4175/assets/images/assistant/assistant-error.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 199969
+        },
+        {
+          "phase": "resize-wide-latest",
+          "url": "http://127.0.0.1:4175/assets/images/assistant/assistant-thinking.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 207146
+        }
+      ],
+      "topicCalls": 0,
+      "blockedHosts": [
+        "fonts.googleapis.com"
+      ]
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "font": 100,
+      "phases": [
+        {
+          "name": "initial",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "idle",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        },
+        {
+          "name": "open",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "welcome",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        },
+        {
+          "name": "thinking",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "thinking",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        },
+        {
+          "name": "responding",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "responding",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        },
+        {
+          "name": "error",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "error",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        },
+        {
+          "name": "idle-after-timeout",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "idle",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        },
+        {
+          "name": "close",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "idle",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        },
+        {
+          "name": "reopen",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "welcome",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        },
+        {
+          "name": "close-again",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "idle",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        }
+      ],
+      "requests": [],
+      "topicCalls": 0,
+      "blockedHosts": [
+        "fonts.googleapis.com"
+      ]
+    },
+    {
+      "width": 899,
+      "height": 900,
+      "font": 100,
+      "phases": [
+        {
+          "name": "initial",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "idle",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        },
+        {
+          "name": "open",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "welcome",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        },
+        {
+          "name": "thinking",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "thinking",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        },
+        {
+          "name": "responding",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "responding",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        },
+        {
+          "name": "error",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "error",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        },
+        {
+          "name": "idle-after-timeout",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "idle",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        },
+        {
+          "name": "close",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "idle",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        },
+        {
+          "name": "reopen",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "welcome",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        },
+        {
+          "name": "close-again",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "idle",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        }
+      ],
+      "requests": [],
+      "topicCalls": 0,
+      "blockedHosts": [
+        "fonts.googleapis.com"
+      ]
+    },
+    {
+      "width": 900,
+      "height": 519,
+      "font": 100,
+      "phases": [
+        {
+          "name": "initial",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "idle",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        },
+        {
+          "name": "open",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "welcome",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        },
+        {
+          "name": "thinking",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "thinking",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        },
+        {
+          "name": "responding",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "responding",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        },
+        {
+          "name": "error",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "error",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        },
+        {
+          "name": "idle-after-timeout",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "idle",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        },
+        {
+          "name": "close",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "idle",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        },
+        {
+          "name": "reopen",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "welcome",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        },
+        {
+          "name": "close-again",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "idle",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        }
+      ],
+      "requests": [],
+      "topicCalls": 0,
+      "blockedHosts": [
+        "fonts.googleapis.com"
+      ]
+    },
+    {
+      "width": 900,
+      "height": 520,
+      "font": 100,
+      "phases": [
+        {
+          "name": "initial",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "idle",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        },
+        {
+          "name": "open",
+          "gap": -1,
+          "topDifference": 0,
+          "visible": true,
+          "state": "welcome",
+          "image": "http://127.0.0.1:4175/assets/images/assistant/assistant-welcome.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-welcome.png",
+            "./assets/images/assistant/assistant-welcome.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "popular-topic",
+          "gap": -1,
+          "topDifference": 0,
+          "visible": true,
+          "state": "guiding",
+          "image": "http://127.0.0.1:4175/assets/images/assistant/assistant-guiding.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-guiding.png",
+            "./assets/images/assistant/assistant-guiding.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "thinking",
+          "gap": -1,
+          "topDifference": 0,
+          "visible": true,
+          "state": "thinking",
+          "image": "http://127.0.0.1:4175/assets/images/assistant/assistant-thinking.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-thinking.png",
+            "./assets/images/assistant/assistant-thinking.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "responding",
+          "gap": -1,
+          "topDifference": 0,
+          "visible": true,
+          "state": "responding",
+          "image": "http://127.0.0.1:4175/assets/images/assistant/assistant-responding.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-responding.png",
+            "./assets/images/assistant/assistant-responding.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "error",
+          "gap": -1,
+          "topDifference": 0,
+          "visible": true,
+          "state": "error",
+          "image": "http://127.0.0.1:4175/assets/images/assistant/assistant-error.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-error.png",
+            "./assets/images/assistant/assistant-error.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "idle-after-timeout",
+          "gap": -1,
+          "topDifference": 0,
+          "visible": true,
+          "state": "idle",
+          "image": "http://127.0.0.1:4175/assets/images/assistant/assistant-idle.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-idle.png",
+            "./assets/images/assistant/assistant-idle.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "close",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "idle",
+          "image": "http://127.0.0.1:4175/assets/images/assistant/assistant-idle.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-idle.png",
+            "./assets/images/assistant/assistant-idle.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "reopen",
+          "gap": -1,
+          "topDifference": 0,
+          "visible": true,
+          "state": "welcome",
+          "image": "http://127.0.0.1:4175/assets/images/assistant/assistant-welcome.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-welcome.png",
+            "./assets/images/assistant/assistant-welcome.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "close-again",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "idle",
+          "image": "http://127.0.0.1:4175/assets/images/assistant/assistant-welcome.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-welcome.png",
+            "./assets/images/assistant/assistant-welcome.webp"
+          ],
+          "ready": true
+        }
+      ],
+      "requests": [
+        {
+          "phase": "open",
+          "url": "http://127.0.0.1:4175/assets/images/assistant/assistant-welcome.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 320847
+        },
+        {
+          "phase": "popular-topic",
+          "url": "http://127.0.0.1:4175/assets/images/assistant/assistant-guiding.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 197297
+        },
+        {
+          "phase": "thinking",
+          "url": "http://127.0.0.1:4175/assets/images/assistant/assistant-thinking.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 207146
+        },
+        {
+          "phase": "responding",
+          "url": "http://127.0.0.1:4175/assets/images/assistant/assistant-responding.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 320847
+        },
+        {
+          "phase": "error",
+          "url": "http://127.0.0.1:4175/assets/images/assistant/assistant-error.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 199969
+        },
+        {
+          "phase": "idle-after-timeout",
+          "url": "http://127.0.0.1:4175/assets/images/assistant/assistant-idle.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 252550
+        },
+        {
+          "phase": "reopen",
+          "url": "http://127.0.0.1:4175/assets/images/assistant/assistant-welcome.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 320847
+        }
+      ],
+      "topicCalls": 1,
+      "blockedHosts": [
+        "fonts.googleapis.com"
+      ]
+    },
+    {
+      "width": 900,
+      "height": 900,
+      "font": 100,
+      "phases": [
+        {
+          "name": "initial",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "idle",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        },
+        {
+          "name": "open",
+          "gap": -1,
+          "topDifference": 0,
+          "visible": true,
+          "state": "welcome",
+          "image": "http://127.0.0.1:4175/assets/images/assistant/assistant-welcome.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-welcome.png",
+            "./assets/images/assistant/assistant-welcome.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "popular-topic",
+          "gap": -1,
+          "topDifference": 0,
+          "visible": true,
+          "state": "guiding",
+          "image": "http://127.0.0.1:4175/assets/images/assistant/assistant-guiding.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-guiding.png",
+            "./assets/images/assistant/assistant-guiding.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "thinking",
+          "gap": -1,
+          "topDifference": 0,
+          "visible": true,
+          "state": "thinking",
+          "image": "http://127.0.0.1:4175/assets/images/assistant/assistant-thinking.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-thinking.png",
+            "./assets/images/assistant/assistant-thinking.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "responding",
+          "gap": -1,
+          "topDifference": 0,
+          "visible": true,
+          "state": "responding",
+          "image": "http://127.0.0.1:4175/assets/images/assistant/assistant-responding.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-responding.png",
+            "./assets/images/assistant/assistant-responding.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "error",
+          "gap": -1,
+          "topDifference": 0,
+          "visible": true,
+          "state": "error",
+          "image": "http://127.0.0.1:4175/assets/images/assistant/assistant-error.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-error.png",
+            "./assets/images/assistant/assistant-error.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "idle-after-timeout",
+          "gap": -1,
+          "topDifference": 0,
+          "visible": true,
+          "state": "idle",
+          "image": "http://127.0.0.1:4175/assets/images/assistant/assistant-idle.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-idle.png",
+            "./assets/images/assistant/assistant-idle.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "close",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "idle",
+          "image": "http://127.0.0.1:4175/assets/images/assistant/assistant-idle.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-idle.png",
+            "./assets/images/assistant/assistant-idle.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "reopen",
+          "gap": -1,
+          "topDifference": 0,
+          "visible": true,
+          "state": "welcome",
+          "image": "http://127.0.0.1:4175/assets/images/assistant/assistant-welcome.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-welcome.png",
+            "./assets/images/assistant/assistant-welcome.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "close-again",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "idle",
+          "image": "http://127.0.0.1:4175/assets/images/assistant/assistant-welcome.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-welcome.png",
+            "./assets/images/assistant/assistant-welcome.webp"
+          ],
+          "ready": true
+        }
+      ],
+      "requests": [
+        {
+          "phase": "open",
+          "url": "http://127.0.0.1:4175/assets/images/assistant/assistant-welcome.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 320847
+        },
+        {
+          "phase": "popular-topic",
+          "url": "http://127.0.0.1:4175/assets/images/assistant/assistant-guiding.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 197297
+        },
+        {
+          "phase": "thinking",
+          "url": "http://127.0.0.1:4175/assets/images/assistant/assistant-thinking.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 207146
+        },
+        {
+          "phase": "responding",
+          "url": "http://127.0.0.1:4175/assets/images/assistant/assistant-responding.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 320847
+        },
+        {
+          "phase": "error",
+          "url": "http://127.0.0.1:4175/assets/images/assistant/assistant-error.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 199969
+        },
+        {
+          "phase": "idle-after-timeout",
+          "url": "http://127.0.0.1:4175/assets/images/assistant/assistant-idle.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 252550
+        },
+        {
+          "phase": "reopen",
+          "url": "http://127.0.0.1:4175/assets/images/assistant/assistant-welcome.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 320847
+        }
+      ],
+      "topicCalls": 1,
+      "blockedHosts": [
+        "fonts.googleapis.com"
+      ]
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "font": 100,
+      "phases": [
+        {
+          "name": "initial",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "idle",
+          "image": null,
+          "imageAttributes": [
+            null,
+            null
+          ],
+          "ready": false
+        },
+        {
+          "name": "open",
+          "gap": -1,
+          "topDifference": 0,
+          "visible": true,
+          "state": "welcome",
+          "image": "http://127.0.0.1:4175/assets/images/assistant/assistant-welcome.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-welcome.png",
+            "./assets/images/assistant/assistant-welcome.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "popular-topic",
+          "gap": -1,
+          "topDifference": 0,
+          "visible": true,
+          "state": "guiding",
+          "image": "http://127.0.0.1:4175/assets/images/assistant/assistant-guiding.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-guiding.png",
+            "./assets/images/assistant/assistant-guiding.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "thinking",
+          "gap": -1,
+          "topDifference": 0,
+          "visible": true,
+          "state": "thinking",
+          "image": "http://127.0.0.1:4175/assets/images/assistant/assistant-thinking.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-thinking.png",
+            "./assets/images/assistant/assistant-thinking.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "responding",
+          "gap": -1,
+          "topDifference": 0,
+          "visible": true,
+          "state": "responding",
+          "image": "http://127.0.0.1:4175/assets/images/assistant/assistant-responding.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-responding.png",
+            "./assets/images/assistant/assistant-responding.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "error",
+          "gap": -1,
+          "topDifference": 0,
+          "visible": true,
+          "state": "error",
+          "image": "http://127.0.0.1:4175/assets/images/assistant/assistant-error.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-error.png",
+            "./assets/images/assistant/assistant-error.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "idle-after-timeout",
+          "gap": -1,
+          "topDifference": 0,
+          "visible": true,
+          "state": "idle",
+          "image": "http://127.0.0.1:4175/assets/images/assistant/assistant-idle.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-idle.png",
+            "./assets/images/assistant/assistant-idle.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "close",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "idle",
+          "image": "http://127.0.0.1:4175/assets/images/assistant/assistant-idle.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-idle.png",
+            "./assets/images/assistant/assistant-idle.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "reopen",
+          "gap": -1,
+          "topDifference": 0,
+          "visible": true,
+          "state": "welcome",
+          "image": "http://127.0.0.1:4175/assets/images/assistant/assistant-welcome.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-welcome.png",
+            "./assets/images/assistant/assistant-welcome.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "close-again",
+          "gap": null,
+          "topDifference": null,
+          "visible": false,
+          "state": "idle",
+          "image": "http://127.0.0.1:4175/assets/images/assistant/assistant-welcome.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-welcome.png",
+            "./assets/images/assistant/assistant-welcome.webp"
+          ],
+          "ready": true
+        }
+      ],
+      "requests": [
+        {
+          "phase": "open",
+          "url": "http://127.0.0.1:4175/assets/images/assistant/assistant-welcome.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 320847
+        },
+        {
+          "phase": "popular-topic",
+          "url": "http://127.0.0.1:4175/assets/images/assistant/assistant-guiding.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 197297
+        },
+        {
+          "phase": "thinking",
+          "url": "http://127.0.0.1:4175/assets/images/assistant/assistant-thinking.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 207146
+        },
+        {
+          "phase": "responding",
+          "url": "http://127.0.0.1:4175/assets/images/assistant/assistant-responding.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 320847
+        },
+        {
+          "phase": "error",
+          "url": "http://127.0.0.1:4175/assets/images/assistant/assistant-error.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 199969
+        },
+        {
+          "phase": "idle-after-timeout",
+          "url": "http://127.0.0.1:4175/assets/images/assistant/assistant-idle.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 252550
+        },
+        {
+          "phase": "reopen",
+          "url": "http://127.0.0.1:4175/assets/images/assistant/assistant-welcome.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 320847
+        }
+      ],
+      "topicCalls": 1,
+      "blockedHosts": [
+        "fonts.googleapis.com"
+      ]
+    }
+  ]
+}

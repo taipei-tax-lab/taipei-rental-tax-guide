@@ -158,7 +158,8 @@ test('messenger ui rules ensure notice is never moved into details and panel ali
   assert.doesNotMatch(messengerUi, /max-height:\s*35%/);
   assert.doesNotMatch(messengerUi, /details\.querySelector\('summary'\)\.after\(notice\)/, 'Notice must never be moved into details');
   assert.match(messengerUi, /box-sizing:border-box/, 'assistant panel must declare box-sizing: border-box');
-  assert.match(messengerUi, /elements\.assistantPanel\.style\.left\s*=\s*\(rect\.left - panelWidth/, 'assistant panel must align with chat left');
+  assert.match(messengerUi, /panelLeft\s*=\s*rect && rect\.left - MESSENGER_LIMITS\.assistantPanelWidth \+ MESSENGER_LIMITS\.assistantPanelOverlap/, 'assistant panel offset must track the chat left and panel width');
+  assert.match(messengerUi, /panel\.style\.left\s*=\s*panelLeft\s*\+\s*"px"/, 'apply the calculated assistant panel offset');
 });
 
 test('income-standard-launcher floating shortcut is completely removed', () => {

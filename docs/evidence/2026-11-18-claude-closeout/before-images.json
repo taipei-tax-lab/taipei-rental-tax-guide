@@ -1,0 +1,1493 @@
+{
+  "base": "http://127.0.0.1:4176",
+  "baseline": true,
+  "tlsDiagnostic": true,
+  "vendor": "Google static shell; CX API blocked",
+  "rows": [
+    {
+      "width": 320,
+      "height": 640,
+      "font": 100,
+      "phases": [
+        {
+          "name": "initial",
+          "visible": false,
+          "state": "idle",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-idle.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-idle.png",
+            "./assets/images/assistant/assistant-idle.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "open",
+          "visible": false,
+          "state": "welcome",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-welcome.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-welcome.png",
+            "./assets/images/assistant/assistant-welcome.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "thinking",
+          "visible": false,
+          "state": "thinking",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-thinking.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-thinking.png",
+            "./assets/images/assistant/assistant-thinking.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "responding",
+          "visible": false,
+          "state": "responding",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-responding.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-responding.png",
+            "./assets/images/assistant/assistant-responding.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "error",
+          "visible": false,
+          "state": "error",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-error.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-error.png",
+            "./assets/images/assistant/assistant-error.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "idle-after-timeout",
+          "visible": false,
+          "state": "idle",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-idle.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-idle.png",
+            "./assets/images/assistant/assistant-idle.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "close",
+          "visible": false,
+          "state": "idle",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-idle.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-idle.png",
+            "./assets/images/assistant/assistant-idle.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "reopen",
+          "visible": false,
+          "state": "welcome",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-welcome.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-welcome.png",
+            "./assets/images/assistant/assistant-welcome.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "close-again",
+          "visible": false,
+          "state": "idle",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-idle.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-idle.png",
+            "./assets/images/assistant/assistant-idle.webp"
+          ],
+          "ready": true
+        }
+      ],
+      "requests": [
+        {
+          "phase": "initial",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-idle.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 252550
+        },
+        {
+          "phase": "open",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-welcome.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 320847
+        },
+        {
+          "phase": "open",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-thinking.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 207146
+        },
+        {
+          "phase": "open",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-responding.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 320847
+        },
+        {
+          "phase": "open",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-guiding.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 197297
+        },
+        {
+          "phase": "open",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-error.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 199969
+        }
+      ],
+      "topicCalls": 0,
+      "blockedHosts": [
+        "fonts.googleapis.com"
+      ]
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "font": 100,
+      "phases": [
+        {
+          "name": "initial",
+          "visible": false,
+          "state": "idle",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-idle.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-idle.png",
+            "./assets/images/assistant/assistant-idle.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "open",
+          "visible": false,
+          "state": "welcome",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-welcome.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-welcome.png",
+            "./assets/images/assistant/assistant-welcome.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "thinking",
+          "visible": false,
+          "state": "thinking",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-thinking.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-thinking.png",
+            "./assets/images/assistant/assistant-thinking.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "responding",
+          "visible": false,
+          "state": "responding",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-responding.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-responding.png",
+            "./assets/images/assistant/assistant-responding.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "error",
+          "visible": false,
+          "state": "error",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-error.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-error.png",
+            "./assets/images/assistant/assistant-error.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "idle-after-timeout",
+          "visible": false,
+          "state": "idle",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-idle.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-idle.png",
+            "./assets/images/assistant/assistant-idle.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "close",
+          "visible": false,
+          "state": "idle",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-idle.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-idle.png",
+            "./assets/images/assistant/assistant-idle.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "reopen",
+          "visible": false,
+          "state": "welcome",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-welcome.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-welcome.png",
+            "./assets/images/assistant/assistant-welcome.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "close-again",
+          "visible": false,
+          "state": "idle",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-idle.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-idle.png",
+            "./assets/images/assistant/assistant-idle.webp"
+          ],
+          "ready": true
+        }
+      ],
+      "requests": [
+        {
+          "phase": "initial",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-idle.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 252550
+        },
+        {
+          "phase": "open",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-welcome.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 320847
+        },
+        {
+          "phase": "open",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-thinking.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 207146
+        },
+        {
+          "phase": "open",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-responding.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 320847
+        },
+        {
+          "phase": "open",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-guiding.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 197297
+        },
+        {
+          "phase": "open",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-error.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 199969
+        }
+      ],
+      "topicCalls": 0,
+      "blockedHosts": [
+        "fonts.googleapis.com"
+      ]
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "font": 200,
+      "phases": [
+        {
+          "name": "initial",
+          "visible": false,
+          "state": "idle",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-idle.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-idle.png",
+            "./assets/images/assistant/assistant-idle.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "open",
+          "visible": false,
+          "state": "welcome",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-welcome.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-welcome.png",
+            "./assets/images/assistant/assistant-welcome.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "thinking",
+          "visible": false,
+          "state": "thinking",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-thinking.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-thinking.png",
+            "./assets/images/assistant/assistant-thinking.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "responding",
+          "visible": false,
+          "state": "responding",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-responding.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-responding.png",
+            "./assets/images/assistant/assistant-responding.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "error",
+          "visible": false,
+          "state": "error",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-error.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-error.png",
+            "./assets/images/assistant/assistant-error.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "resize-wide",
+          "visible": true,
+          "state": "error",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-error.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-error.png",
+            "./assets/images/assistant/assistant-error.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "resize-narrow-during-swap",
+          "visible": false,
+          "state": "thinking",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-thinking.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-thinking.png",
+            "./assets/images/assistant/assistant-thinking.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "resize-wide-latest",
+          "visible": true,
+          "state": "thinking",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-thinking.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-thinking.png",
+            "./assets/images/assistant/assistant-thinking.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "resize-short",
+          "visible": false,
+          "state": "thinking",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-thinking.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-thinking.png",
+            "./assets/images/assistant/assistant-thinking.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "rotate-narrow",
+          "visible": false,
+          "state": "thinking",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-thinking.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-thinking.png",
+            "./assets/images/assistant/assistant-thinking.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "resize-original",
+          "visible": false,
+          "state": "thinking",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-thinking.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-thinking.png",
+            "./assets/images/assistant/assistant-thinking.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "idle-after-timeout",
+          "visible": false,
+          "state": "idle",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-idle.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-idle.png",
+            "./assets/images/assistant/assistant-idle.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "close",
+          "visible": false,
+          "state": "idle",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-idle.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-idle.png",
+            "./assets/images/assistant/assistant-idle.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "reopen",
+          "visible": false,
+          "state": "welcome",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-welcome.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-welcome.png",
+            "./assets/images/assistant/assistant-welcome.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "close-again",
+          "visible": false,
+          "state": "idle",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-idle.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-idle.png",
+            "./assets/images/assistant/assistant-idle.webp"
+          ],
+          "ready": true
+        }
+      ],
+      "requests": [
+        {
+          "phase": "initial",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-idle.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 252550
+        },
+        {
+          "phase": "open",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-welcome.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 320847
+        },
+        {
+          "phase": "open",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-thinking.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 207146
+        },
+        {
+          "phase": "open",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-responding.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 320847
+        },
+        {
+          "phase": "open",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-guiding.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 197297
+        },
+        {
+          "phase": "open",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-error.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 199969
+        }
+      ],
+      "topicCalls": 0,
+      "blockedHosts": [
+        "fonts.googleapis.com"
+      ]
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "font": 100,
+      "phases": [
+        {
+          "name": "initial",
+          "visible": false,
+          "state": "idle",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-idle.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-idle.png",
+            "./assets/images/assistant/assistant-idle.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "open",
+          "visible": false,
+          "state": "welcome",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-welcome.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-welcome.png",
+            "./assets/images/assistant/assistant-welcome.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "thinking",
+          "visible": false,
+          "state": "thinking",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-thinking.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-thinking.png",
+            "./assets/images/assistant/assistant-thinking.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "responding",
+          "visible": false,
+          "state": "responding",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-responding.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-responding.png",
+            "./assets/images/assistant/assistant-responding.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "error",
+          "visible": false,
+          "state": "error",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-error.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-error.png",
+            "./assets/images/assistant/assistant-error.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "idle-after-timeout",
+          "visible": false,
+          "state": "idle",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-idle.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-idle.png",
+            "./assets/images/assistant/assistant-idle.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "close",
+          "visible": false,
+          "state": "idle",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-idle.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-idle.png",
+            "./assets/images/assistant/assistant-idle.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "reopen",
+          "visible": false,
+          "state": "welcome",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-welcome.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-welcome.png",
+            "./assets/images/assistant/assistant-welcome.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "close-again",
+          "visible": false,
+          "state": "idle",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-idle.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-idle.png",
+            "./assets/images/assistant/assistant-idle.webp"
+          ],
+          "ready": true
+        }
+      ],
+      "requests": [
+        {
+          "phase": "initial",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-idle.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 252550
+        },
+        {
+          "phase": "open",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-welcome.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 320847
+        },
+        {
+          "phase": "open",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-thinking.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 207146
+        },
+        {
+          "phase": "open",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-responding.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 320847
+        },
+        {
+          "phase": "open",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-guiding.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 197297
+        },
+        {
+          "phase": "open",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-error.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 199969
+        }
+      ],
+      "topicCalls": 0,
+      "blockedHosts": [
+        "fonts.googleapis.com"
+      ]
+    },
+    {
+      "width": 899,
+      "height": 900,
+      "font": 100,
+      "phases": [
+        {
+          "name": "initial",
+          "visible": false,
+          "state": "idle",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-idle.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-idle.png",
+            "./assets/images/assistant/assistant-idle.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "open",
+          "visible": false,
+          "state": "welcome",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-welcome.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-welcome.png",
+            "./assets/images/assistant/assistant-welcome.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "thinking",
+          "visible": false,
+          "state": "thinking",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-thinking.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-thinking.png",
+            "./assets/images/assistant/assistant-thinking.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "responding",
+          "visible": false,
+          "state": "responding",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-responding.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-responding.png",
+            "./assets/images/assistant/assistant-responding.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "error",
+          "visible": false,
+          "state": "error",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-error.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-error.png",
+            "./assets/images/assistant/assistant-error.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "idle-after-timeout",
+          "visible": false,
+          "state": "idle",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-idle.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-idle.png",
+            "./assets/images/assistant/assistant-idle.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "close",
+          "visible": false,
+          "state": "idle",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-idle.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-idle.png",
+            "./assets/images/assistant/assistant-idle.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "reopen",
+          "visible": false,
+          "state": "welcome",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-welcome.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-welcome.png",
+            "./assets/images/assistant/assistant-welcome.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "close-again",
+          "visible": false,
+          "state": "idle",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-idle.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-idle.png",
+            "./assets/images/assistant/assistant-idle.webp"
+          ],
+          "ready": true
+        }
+      ],
+      "requests": [
+        {
+          "phase": "initial",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-idle.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 252550
+        },
+        {
+          "phase": "open",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-welcome.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 320847
+        },
+        {
+          "phase": "open",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-thinking.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 207146
+        },
+        {
+          "phase": "open",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-responding.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 320847
+        },
+        {
+          "phase": "open",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-guiding.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 197297
+        },
+        {
+          "phase": "open",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-error.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 199969
+        }
+      ],
+      "topicCalls": 0,
+      "blockedHosts": [
+        "fonts.googleapis.com"
+      ]
+    },
+    {
+      "width": 900,
+      "height": 519,
+      "font": 100,
+      "phases": [
+        {
+          "name": "initial",
+          "visible": false,
+          "state": "idle",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-idle.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-idle.png",
+            "./assets/images/assistant/assistant-idle.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "open",
+          "visible": false,
+          "state": "welcome",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-welcome.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-welcome.png",
+            "./assets/images/assistant/assistant-welcome.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "thinking",
+          "visible": false,
+          "state": "thinking",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-thinking.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-thinking.png",
+            "./assets/images/assistant/assistant-thinking.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "responding",
+          "visible": false,
+          "state": "responding",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-responding.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-responding.png",
+            "./assets/images/assistant/assistant-responding.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "error",
+          "visible": false,
+          "state": "error",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-error.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-error.png",
+            "./assets/images/assistant/assistant-error.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "idle-after-timeout",
+          "visible": false,
+          "state": "idle",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-idle.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-idle.png",
+            "./assets/images/assistant/assistant-idle.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "close",
+          "visible": false,
+          "state": "idle",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-idle.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-idle.png",
+            "./assets/images/assistant/assistant-idle.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "reopen",
+          "visible": false,
+          "state": "welcome",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-welcome.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-welcome.png",
+            "./assets/images/assistant/assistant-welcome.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "close-again",
+          "visible": false,
+          "state": "idle",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-idle.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-idle.png",
+            "./assets/images/assistant/assistant-idle.webp"
+          ],
+          "ready": true
+        }
+      ],
+      "requests": [
+        {
+          "phase": "initial",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-idle.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 252550
+        },
+        {
+          "phase": "open",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-welcome.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 320847
+        },
+        {
+          "phase": "open",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-thinking.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 207146
+        },
+        {
+          "phase": "open",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-responding.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 320847
+        },
+        {
+          "phase": "open",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-guiding.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 197297
+        },
+        {
+          "phase": "open",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-error.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 199969
+        }
+      ],
+      "topicCalls": 0,
+      "blockedHosts": [
+        "fonts.googleapis.com"
+      ]
+    },
+    {
+      "width": 900,
+      "height": 520,
+      "font": 100,
+      "phases": [
+        {
+          "name": "initial",
+          "visible": false,
+          "state": "idle",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-idle.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-idle.png",
+            "./assets/images/assistant/assistant-idle.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "open",
+          "visible": true,
+          "state": "welcome",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-welcome.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-welcome.png",
+            "./assets/images/assistant/assistant-welcome.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "popular-topic",
+          "visible": true,
+          "state": "guiding",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-guiding.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-guiding.png",
+            "./assets/images/assistant/assistant-guiding.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "thinking",
+          "visible": true,
+          "state": "thinking",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-thinking.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-thinking.png",
+            "./assets/images/assistant/assistant-thinking.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "responding",
+          "visible": true,
+          "state": "responding",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-responding.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-responding.png",
+            "./assets/images/assistant/assistant-responding.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "error",
+          "visible": true,
+          "state": "error",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-error.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-error.png",
+            "./assets/images/assistant/assistant-error.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "idle-after-timeout",
+          "visible": true,
+          "state": "idle",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-idle.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-idle.png",
+            "./assets/images/assistant/assistant-idle.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "close",
+          "visible": false,
+          "state": "idle",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-idle.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-idle.png",
+            "./assets/images/assistant/assistant-idle.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "reopen",
+          "visible": true,
+          "state": "welcome",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-welcome.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-welcome.png",
+            "./assets/images/assistant/assistant-welcome.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "close-again",
+          "visible": false,
+          "state": "idle",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-idle.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-idle.png",
+            "./assets/images/assistant/assistant-idle.webp"
+          ],
+          "ready": true
+        }
+      ],
+      "requests": [
+        {
+          "phase": "initial",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-idle.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 252550
+        },
+        {
+          "phase": "open",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-welcome.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 320847
+        },
+        {
+          "phase": "open",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-thinking.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 207146
+        },
+        {
+          "phase": "open",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-responding.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 320847
+        },
+        {
+          "phase": "open",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-guiding.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 197297
+        },
+        {
+          "phase": "open",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-error.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 199969
+        }
+      ],
+      "topicCalls": 1,
+      "blockedHosts": [
+        "fonts.googleapis.com"
+      ]
+    },
+    {
+      "width": 900,
+      "height": 900,
+      "font": 100,
+      "phases": [
+        {
+          "name": "initial",
+          "visible": false,
+          "state": "idle",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-idle.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-idle.png",
+            "./assets/images/assistant/assistant-idle.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "open",
+          "visible": true,
+          "state": "welcome",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-welcome.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-welcome.png",
+            "./assets/images/assistant/assistant-welcome.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "popular-topic",
+          "visible": true,
+          "state": "guiding",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-guiding.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-guiding.png",
+            "./assets/images/assistant/assistant-guiding.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "thinking",
+          "visible": true,
+          "state": "thinking",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-thinking.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-thinking.png",
+            "./assets/images/assistant/assistant-thinking.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "responding",
+          "visible": true,
+          "state": "responding",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-responding.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-responding.png",
+            "./assets/images/assistant/assistant-responding.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "error",
+          "visible": true,
+          "state": "error",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-error.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-error.png",
+            "./assets/images/assistant/assistant-error.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "idle-after-timeout",
+          "visible": true,
+          "state": "idle",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-idle.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-idle.png",
+            "./assets/images/assistant/assistant-idle.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "close",
+          "visible": false,
+          "state": "idle",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-idle.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-idle.png",
+            "./assets/images/assistant/assistant-idle.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "reopen",
+          "visible": true,
+          "state": "welcome",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-welcome.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-welcome.png",
+            "./assets/images/assistant/assistant-welcome.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "close-again",
+          "visible": false,
+          "state": "idle",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-idle.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-idle.png",
+            "./assets/images/assistant/assistant-idle.webp"
+          ],
+          "ready": true
+        }
+      ],
+      "requests": [
+        {
+          "phase": "initial",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-idle.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 252550
+        },
+        {
+          "phase": "open",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-welcome.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 320847
+        },
+        {
+          "phase": "open",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-thinking.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 207146
+        },
+        {
+          "phase": "open",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-responding.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 320847
+        },
+        {
+          "phase": "open",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-guiding.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 197297
+        },
+        {
+          "phase": "open",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-error.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 199969
+        }
+      ],
+      "topicCalls": 1,
+      "blockedHosts": [
+        "fonts.googleapis.com"
+      ]
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "font": 100,
+      "phases": [
+        {
+          "name": "initial",
+          "visible": false,
+          "state": "idle",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-idle.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-idle.png",
+            "./assets/images/assistant/assistant-idle.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "open",
+          "visible": true,
+          "state": "welcome",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-welcome.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-welcome.png",
+            "./assets/images/assistant/assistant-welcome.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "popular-topic",
+          "visible": true,
+          "state": "guiding",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-guiding.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-guiding.png",
+            "./assets/images/assistant/assistant-guiding.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "thinking",
+          "visible": true,
+          "state": "thinking",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-thinking.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-thinking.png",
+            "./assets/images/assistant/assistant-thinking.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "responding",
+          "visible": true,
+          "state": "responding",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-responding.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-responding.png",
+            "./assets/images/assistant/assistant-responding.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "error",
+          "visible": true,
+          "state": "error",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-error.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-error.png",
+            "./assets/images/assistant/assistant-error.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "idle-after-timeout",
+          "visible": true,
+          "state": "idle",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-idle.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-idle.png",
+            "./assets/images/assistant/assistant-idle.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "close",
+          "visible": false,
+          "state": "idle",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-idle.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-idle.png",
+            "./assets/images/assistant/assistant-idle.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "reopen",
+          "visible": true,
+          "state": "welcome",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-welcome.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-welcome.png",
+            "./assets/images/assistant/assistant-welcome.webp"
+          ],
+          "ready": true
+        },
+        {
+          "name": "close-again",
+          "visible": false,
+          "state": "idle",
+          "image": "http://127.0.0.1:4176/assets/images/assistant/assistant-idle.webp",
+          "imageAttributes": [
+            "./assets/images/assistant/assistant-idle.png",
+            "./assets/images/assistant/assistant-idle.webp"
+          ],
+          "ready": true
+        }
+      ],
+      "requests": [
+        {
+          "phase": "initial",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-idle.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 252550
+        },
+        {
+          "phase": "open",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-welcome.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 320847
+        },
+        {
+          "phase": "open",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-thinking.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 207146
+        },
+        {
+          "phase": "open",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-responding.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 320847
+        },
+        {
+          "phase": "open",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-guiding.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 197297
+        },
+        {
+          "phase": "open",
+          "url": "http://127.0.0.1:4176/assets/images/assistant/assistant-error.webp",
+          "initiator": "other",
+          "status": 200,
+          "transferBytes": 199969
+        }
+      ],
+      "topicCalls": 1,
+      "blockedHosts": [
+        "fonts.googleapis.com"
+      ]
+    }
+  ]
+}

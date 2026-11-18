@@ -1,0 +1,553 @@
+{
+  "base": "http://127.0.0.1:4175",
+  "baseline": false,
+  "tlsDiagnostic": true,
+  "vendor": "Google static shell; CX API blocked",
+  "controls": [
+    {
+      "width": 320,
+      "height": 640,
+      "font": 200,
+      "route": "top",
+      "taps": 7,
+      "enters": 7,
+      "focusAtStart": true,
+      "focusAfterScroll": false,
+      "focusTrace": [
+        {
+          "scrollY": 391,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 605,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 819,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 1033,
+          "visible": false,
+          "focused": false
+        },
+        {
+          "scrollY": 1247,
+          "visible": false,
+          "focused": false
+        },
+        {
+          "scrollY": 1576,
+          "visible": true,
+          "focused": false
+        },
+        {
+          "scrollY": 1576,
+          "visible": true,
+          "focused": false
+        }
+      ]
+    },
+    {
+      "width": 320,
+      "height": 640,
+      "font": 200,
+      "route": "direct-apply",
+      "taps": 10,
+      "enters": 10,
+      "focusAtStart": true,
+      "focusAfterScroll": false,
+      "focusTrace": [
+        {
+          "scrollY": 2084,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 2430,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 2776,
+          "visible": false,
+          "focused": false
+        },
+        {
+          "scrollY": 3376,
+          "visible": true,
+          "focused": false
+        },
+        {
+          "scrollY": 3376,
+          "visible": true,
+          "focused": false
+        },
+        {
+          "scrollY": 3887,
+          "visible": true,
+          "focused": false
+        },
+        {
+          "scrollY": 3887,
+          "visible": true,
+          "focused": false
+        },
+        {
+          "scrollY": 4242,
+          "visible": true,
+          "focused": false
+        },
+        {
+          "scrollY": 4752,
+          "visible": true,
+          "focused": false
+        },
+        {
+          "scrollY": 5488,
+          "visible": true,
+          "focused": false
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "font": 150,
+      "route": "top",
+      "taps": 7,
+      "enters": 7,
+      "focusAtStart": true,
+      "focusAfterScroll": true,
+      "focusTrace": [
+        {
+          "scrollY": 0,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 0,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 54,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 222,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 390,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 637,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 637,
+          "visible": true,
+          "focused": true
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "font": 150,
+      "route": "direct-apply",
+      "taps": 10,
+      "enters": 10,
+      "focusAtStart": true,
+      "focusAfterScroll": true,
+      "focusTrace": [
+        {
+          "scrollY": 1001,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 1234,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 1467,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 1898,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 1898,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 2198,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 2198,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 2440,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 2740,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 3072,
+          "visible": true,
+          "focused": true
+        }
+      ]
+    },
+    {
+      "width": 414,
+      "height": 896,
+      "font": 100,
+      "route": "top",
+      "taps": 7,
+      "enters": 7,
+      "focusAtStart": true,
+      "focusAfterScroll": true,
+      "focusTrace": [
+        {
+          "scrollY": 0,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 0,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 0,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 0,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 0,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 0,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 0,
+          "visible": true,
+          "focused": true
+        }
+      ]
+    },
+    {
+      "width": 414,
+      "height": 896,
+      "font": 100,
+      "route": "direct-apply",
+      "taps": 10,
+      "enters": 10,
+      "focusAtStart": true,
+      "focusAfterScroll": true,
+      "focusTrace": [
+        {
+          "scrollY": 56,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 249,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 443,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 745,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 745,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 899,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 899,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 1093,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 1247,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 1519,
+          "visible": true,
+          "focused": true
+        }
+      ]
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "font": 200,
+      "route": "top",
+      "taps": 7,
+      "enters": 7,
+      "focusAtStart": true,
+      "focusAfterScroll": false,
+      "focusTrace": [
+        {
+          "scrollY": 111,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 111,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 333,
+          "visible": false,
+          "focused": false
+        },
+        {
+          "scrollY": 333,
+          "visible": false,
+          "focused": false
+        },
+        {
+          "scrollY": 555,
+          "visible": false,
+          "focused": false
+        },
+        {
+          "scrollY": 679,
+          "visible": true,
+          "focused": false
+        },
+        {
+          "scrollY": 679,
+          "visible": true,
+          "focused": false
+        }
+      ]
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "font": 200,
+      "route": "direct-apply",
+      "taps": 10,
+      "enters": 10,
+      "focusAtStart": true,
+      "focusAfterScroll": true,
+      "focusTrace": [
+        {
+          "scrollY": 1067,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 1067,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 1067,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 1675,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 1675,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 1927,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 1927,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 2217,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 2468,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 2791,
+          "visible": true,
+          "focused": true
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "font": 100,
+      "route": "top",
+      "taps": 7,
+      "enters": 7,
+      "focusAtStart": true,
+      "focusAfterScroll": true,
+      "focusTrace": [
+        {
+          "scrollY": 0,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 0,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 0,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 0,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 0,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 0,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 0,
+          "visible": true,
+          "focused": true
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "font": 100,
+      "route": "direct-apply",
+      "taps": 10,
+      "enters": 10,
+      "focusAtStart": true,
+      "focusAfterScroll": true,
+      "focusTrace": [
+        {
+          "scrollY": 0,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 0,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 0,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 27,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 27,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 101,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 101,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 206,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 279,
+          "visible": true,
+          "focused": true
+        },
+        {
+          "scrollY": 439,
+          "visible": true,
+          "focused": true
+        }
+      ]
+    }
+  ]
+}

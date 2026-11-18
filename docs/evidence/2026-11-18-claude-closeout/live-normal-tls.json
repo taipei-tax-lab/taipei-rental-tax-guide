@@ -1,0 +1,240 @@
+{
+  "base": "https://rental-tax-guide-test.pages.dev/",
+  "testedAt": "2026-11-18T01:42:09.212Z",
+  "tls": "normal certificate validation; no TLS bypass",
+  "matched": 33,
+  "ga4Disabled": true,
+  "results": [
+    {
+      "file": "404.html",
+      "status": 200,
+      "mime": "text/html; charset=utf-8",
+      "bytes": 166,
+      "sha256": "4557e2dd59b12b1da3380adf57a4cbf8e35750c56f64adc9d0a6ed7882c2c944"
+    },
+    {
+      "file": "assets/css/guide-v2.css",
+      "status": 200,
+      "mime": "text/css; charset=utf-8",
+      "bytes": 39114,
+      "sha256": "e45406017544f7bec9928cb698ed0b65bf4a5c60c844e04d241c1fabf5cf744b"
+    },
+    {
+      "file": "assets/css/messenger.css",
+      "status": 200,
+      "mime": "text/css; charset=utf-8",
+      "bytes": 10017,
+      "sha256": "408ab5b6fb05fc3d9f16f4f84c78fbb31bf599ffbb6c6f2dfa36827a1e58d6de"
+    },
+    {
+      "file": "assets/css/site.css",
+      "status": 200,
+      "mime": "text/css; charset=utf-8",
+      "bytes": 53226,
+      "sha256": "cf2af82c98a157dcf37e598660d80f9a0de87290baf66dcf282ac5a84a8d467b"
+    },
+    {
+      "file": "assets/images/assistant/assistant-chat-bubble.png",
+      "status": 200,
+      "mime": "image/png",
+      "bytes": 117537,
+      "sha256": "61ab3a6b9aa7252b15dcbcdefee839a7be0514f2ae6eee36c4b78181c8385e2e"
+    },
+    {
+      "file": "assets/images/assistant/assistant-error.png",
+      "status": 200,
+      "mime": "image/png",
+      "bytes": 289001,
+      "sha256": "a650a64f6c0672f14466409c28dc776d834f9cc2a63fb7cd7e6c69cb02c493ae"
+    },
+    {
+      "file": "assets/images/assistant/assistant-error.webp",
+      "status": 200,
+      "mime": "image/webp",
+      "bytes": 199748,
+      "sha256": "ae10a90394656db4d020e0ee1eed9017df4581ccd54bdd854695ef7a2a682354"
+    },
+    {
+      "file": "assets/images/assistant/assistant-guiding.png",
+      "status": 200,
+      "mime": "image/png",
+      "bytes": 286650,
+      "sha256": "73a89dfc13456756f7d8b14c1e0b7a70a5cf03dcf84b2eb0d2d16e817df14356"
+    },
+    {
+      "file": "assets/images/assistant/assistant-guiding.webp",
+      "status": 200,
+      "mime": "image/webp",
+      "bytes": 197076,
+      "sha256": "ce269cdc7577c3680387d95c6aab005aa4975fcb6c90cfa299ba0344e64ce42e"
+    },
+    {
+      "file": "assets/images/assistant/assistant-idle.png",
+      "status": 200,
+      "mime": "image/png",
+      "bytes": 302114,
+      "sha256": "559994a04786512545babe0ec4d61f3afa2beb9a2f6e2212cd4379604f3ad789"
+    },
+    {
+      "file": "assets/images/assistant/assistant-idle.webp",
+      "status": 200,
+      "mime": "image/webp",
+      "bytes": 252328,
+      "sha256": "aafa0679a39a913cfc2b6dc58ee7af8ecd7adfd8d3cce92f890f55c8c177db5f"
+    },
+    {
+      "file": "assets/images/assistant/assistant-responding.png",
+      "status": 200,
+      "mime": "image/png",
+      "bytes": 310627,
+      "sha256": "2580ae0592fa7cdd768b8c6ff1c6900849d3c34559449dda1deeb8ab14764473"
+    },
+    {
+      "file": "assets/images/assistant/assistant-responding.webp",
+      "status": 200,
+      "mime": "image/webp",
+      "bytes": 320616,
+      "sha256": "b34da392c893d293916a822e5d9888953aed8c5d2c0aeac908e6fccddebcf7f2"
+    },
+    {
+      "file": "assets/images/assistant/assistant-thinking.png",
+      "status": 200,
+      "mime": "image/png",
+      "bytes": 300602,
+      "sha256": "81e91674223f9f532cd9c09ab829bd6205ebcf011e0e20b55a9ff505d3b80fc4"
+    },
+    {
+      "file": "assets/images/assistant/assistant-thinking.webp",
+      "status": 200,
+      "mime": "image/webp",
+      "bytes": 206924,
+      "sha256": "04b28df68087527ec427dc2134cc50ee6af9fc33d12328fd5c9bc1af54160794"
+    },
+    {
+      "file": "assets/images/assistant/assistant-welcome.png",
+      "status": 200,
+      "mime": "image/png",
+      "bytes": 328404,
+      "sha256": "048cf07cb47e750a2f355a1ef98d27a213687c4d07a26e9fd6e534aa02932dfe"
+    },
+    {
+      "file": "assets/images/assistant/assistant-welcome.webp",
+      "status": 200,
+      "mime": "image/webp",
+      "bytes": 320616,
+      "sha256": "b34da392c893d293916a822e5d9888953aed8c5d2c0aeac908e6fccddebcf7f2"
+    },
+    {
+      "file": "assets/images/income-standard-card.png",
+      "status": 200,
+      "mime": "image/png",
+      "bytes": 463340,
+      "sha256": "1382e6fbd1c16b8e197629e1b0bbc59f842cfc68d4aa134411bcda55dbbd7915"
+    },
+    {
+      "file": "assets/images/income-standard-card.webp",
+      "status": 200,
+      "mime": "image/webp",
+      "bytes": 359782,
+      "sha256": "b69513ef4320641c5c815facf2ff13027bdd05e59f1fcf7a252eb8fad727e19a"
+    },
+    {
+      "file": "assets/images/income-standard-illustration.png",
+      "status": 200,
+      "mime": "image/png",
+      "bytes": 123715,
+      "sha256": "a098f44c3674fcd1200d7c969f852ffec6c87e75f88f7c2a995ad85c22c97792"
+    },
+    {
+      "file": "assets/images/income-standard-illustration.webp",
+      "status": 200,
+      "mime": "image/webp",
+      "bytes": 92282,
+      "sha256": "0c1aacf499022ff9136e680167aa532d6842bfdfd3b7626cdd05628765b9450e"
+    },
+    {
+      "file": "assets/images/operation-guide-poster-mobile.svg",
+      "status": 200,
+      "mime": "image/svg+xml",
+      "bytes": 705,
+      "sha256": "fa1edbd29a3acd72f0aa52118fc2bdccaa814f3a24cedda9543fc1beb0f3e05f"
+    },
+    {
+      "file": "assets/images/operation-guide-poster.svg",
+      "status": 200,
+      "mime": "image/svg+xml",
+      "bytes": 699,
+      "sha256": "9e05721f558483fb6c16523a63c13d2473febfced5d89a537aa58719197b0de2"
+    },
+    {
+      "file": "assets/images/tpctax-logo.png",
+      "status": 200,
+      "mime": "image/png",
+      "bytes": 46195,
+      "sha256": "a29a14aaa5d99bf73597d367853bae8b101a2ee1f3cfe8e50a3e85de285914c5"
+    },
+    {
+      "file": "assets/images/tpctax-mark.png",
+      "status": 200,
+      "mime": "image/png",
+      "bytes": 19775,
+      "sha256": "f9a9bb323235c10c6cf1933a495bfca29de5d5975e50820dc9dc6448168f6134"
+    },
+    {
+      "file": "assets/js/analytics.js",
+      "status": 200,
+      "mime": "application/javascript",
+      "bytes": 2778,
+      "sha256": "ca3087a9b7c8ec9568faf1db811d2fd5ce4eef63263b7ad400006d82d38a0ef2"
+    },
+    {
+      "file": "assets/js/guide-rules.js",
+      "status": 200,
+      "mime": "application/javascript",
+      "bytes": 5260,
+      "sha256": "41c1a336def08a0e03b9c8ea8cc3cdd17f28a7c4fd631350d54747f7ef6902bb"
+    },
+    {
+      "file": "assets/js/guide-ui.js",
+      "status": 200,
+      "mime": "application/javascript",
+      "bytes": 19682,
+      "sha256": "865bf6119551ef83c5daa5651e094658b9fba4b3e17a753f3ab35b08ecd34322"
+    },
+    {
+      "file": "assets/js/messenger-ui.js",
+      "status": 200,
+      "mime": "application/javascript",
+      "bytes": 44704,
+      "sha256": "b18eaf53acc3f2055c6f7713460619aedcf97f493434b269490d7b807c6158ae"
+    },
+    {
+      "file": "assets/js/operation-guide.js",
+      "status": 200,
+      "mime": "application/javascript",
+      "bytes": 1931,
+      "sha256": "79b33483957f576b5ddc3c8d5c7696e990eba417322f788f1cd0031ca4a5cdf0"
+    },
+    {
+      "file": "hero-v2.png",
+      "status": 200,
+      "mime": "image/png",
+      "bytes": 1245328,
+      "sha256": "d0ae6036473a2e9daf2ce2fbb97acbb5fb707e16acf7e0c0609ed1a6a3c2e31a"
+    },
+    {
+      "file": "hero-v2.webp",
+      "status": 200,
+      "mime": "image/webp",
+      "bytes": 135064,
+      "sha256": "5a2e5681a6f64d224e3d339f483d5233ee74e97436d6cc8765179b82881456d8"
+    },
+    {
+      "file": "index.html",
+      "status": 200,
+      "mime": "text/html; charset=utf-8",
+      "bytes": 63431,
+      "sha256": "54ba95357ff771645e108a44cf692104d7934e559275757d56baf4ad0b59d3e5"
+    }
+  ]
+}

@@ -1,8 +1,16 @@
 # PROJECT_STATE — 現行狀態
 
-核對日期：2026-11-18（Asia/Taipei）。狀態：**CLAUDE_CLOSEOUT_APPROVED_PENDING_IMPLEMENTATION — 前輪 QA 已驗證，使用者核定小幅收尾，尚未實作。**
+核對日期：2026-11-18（Asia/Taipei）。狀態：**CLAUDE_CLOSEOUT_COMPLETE_PENDING_GPT_REVIEW — 收斂修正及測試站驗收完成，待 GPT 審查。**
 
-## 最新現況（2026-11-18，Claude 複審後）
+
+## 最新現況（2026-11-18，收斂修正驗收）
+
+- 已安全同步指定功能分支至 `de600f52d17c9b07105938ac41abc002b008a31c`。實作 `25c41223419e2c30929e3d9337f6e1b04a5b404d` 在 `feat/direct-apply-operation-guide-20261031`，Cloudflare 自動建置 `29f3d1d9-e241-456a-b063-1a083c7b8737` 成功。正常 TLS 讀回測試站 33 檔，bytes／MIME 與本地一致，GA4 隔離通過。
+- CQA-01 側面板只有可見時載入當前狀態圖。在原版隱藏面板有六次請求及 1,498,656 bytes 的情境，修正版隱藏階段為零。以真實 Google 靜態元件覆蓋開關、門檻、旋轉、熱門問題與合成狀態事件。
+- CQA-02 30 組本地前後量測 8,702 筆一致，隱藏 2,748 筆，最大跳動為 756px，無可見遮擋。保留優先保護申請與導航等必要操作的策略。未採用的有限位移試驗、暫藏時鍵盤焦點限制與恢復行為，見[本輪報告](evidence/2026-11-18-claude-closeout/REPORT.md)。
+- 75/75 單元、建置與預算、212 組 RWD、27 組可讀性、真實靜態元件觸控／鍵盤、書表／影片／導覽及非 CX 測試站回歸通過。原有 BX015、BX004、內政部租金資訊、iOS／Android／LINE、輔助科技、真人業務及真實 CX 驗收待人工確認。機關正式交付與未來託管遷移各自另案。
+
+## 開工前規劃紀錄（2026-11-18，Claude 複審後）
 
 - 遠端確認指定功能分支 `2f353736c6307db4a634d3a3af2219c9f14806db`，main `28fd76aed2a212776fa5eade5eca18e02ff24701`；前輪 runtime `80f0d4697f35ca3506a2a288d2fa1f255ef7b19a` 不變。GPT 已差異審查、獨立重跑 75/75、build/check/budget/Pages 33 檔及正常 TLS 線上 runtime 比對；瀏覽器獨立重跑有執行環境限制，真實 vendor shell 操作證據引用前輪 Codex，不宣稱獨立實機驗收。
 - Claude 唯讀審查同一 SHA，獨立 Chromium/建置/75 項單元/版面字級鍵盤等測試通過；未發現 P0/P1，五項 P2 無直接上線阻擋。其真實 vendor、線上站／實機未驗證；launcher 隱藏率原百分比與分母不符。GPT 核對無條件預載及隱藏面板圖片 src/srcset 路徑，確認手機浪費下載可修；前輪避擋策略的穩定性需實際量測再決定局部修正。

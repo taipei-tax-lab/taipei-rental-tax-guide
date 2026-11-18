@@ -96,13 +96,23 @@ async function assistantImages(browser) {
           await page.waitForFunction(state => {
             const panel = document.querySelector('.assistant-panel');
             const image = panel.querySelector('img');
+            const chat = document.querySelector('df-messenger-chat-bubble').shadowRoot.querySelector('.chat-wrapper');
+            const panelRect = panel.getBoundingClientRect();
+            const chatRect = chat.getBoundingClientRect();
+            // Allow the vendor's opening transition and geometry observer to settle.
             return panel.dataset.state === state && image.complete && image.naturalWidth > 0 &&
-              image.currentSrc.endsWith('/assistant-' + state + '.webp');
+              image.currentSrc.endsWith('/assistant-' + state + '.webp') &&
+              Math.abs(chatRect.left - panelRect.right + 1) <= 1 && Math.abs(chatRect.top - panelRect.top) <= 1;
           }, expectedState, {timeout: 1000});
         }
         const observed = await panel.evaluate(element => {
           const picture = element.querySelector('img');
+          const chat = document.querySelector('df-messenger-chat-bubble').shadowRoot.querySelector('.chat-wrapper');
+          const panelRect = element.getBoundingClientRect();
+          const chatRect = chat.getBoundingClientRect();
           return {
+            gap: element.hidden ? null : chatRect.left - panelRect.right,
+            topDifference: element.hidden ? null : chatRect.top - panelRect.top,
             visible: !element.hidden && getComputedStyle(element).visibility === 'visible',
             state: element.dataset.state, image: picture.currentSrc || null,
             imageAttributes: [picture.getAttribute('src'), element.querySelector('source').getAttribute('srcset')],
@@ -112,6 +122,8 @@ async function assistantImages(browser) {
         assert.equal(observed.visible, visible, `${width}×${height} ${name} visibility`);
         if (visible && !baseline) {
           assert.equal(observed.state, expectedState, name);
+          assert.ok(Math.abs(observed.gap + 1) <= 1 && Math.abs(observed.topDifference) <= 1,
+            `${name} panel alignment: ${JSON.stringify(observed)}`);
           assert.ok(observed.ready && observed.image.endsWith(`assistant-${expectedState}.webp`),
             `${name} rendered state: ${JSON.stringify(observed)}`);
         }

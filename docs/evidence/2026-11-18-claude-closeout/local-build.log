@@ -1,0 +1,104 @@
+
+> taipei-rental-tax-guide@2.0.0 build
+> node scripts/build.mjs
+
+Built index.html: home, four plan views, comparison; existing Messenger preserved.
+Generated page matches source.
+
+> taipei-rental-tax-guide@2.0.0 test
+> node --test tests/*.test.mjs
+
+✔ analytics helper fails safely without gtag and rejects unknown events/enums (9.528595ms)
+✔ analytics helper emits only schema-approved parameters and never free text (2.168504ms)
+✔ source tracking reduces valid URLs to hostname and error tracking drops messages/objects (2.031368ms)
+✔ gtag exceptions are contained (1.112584ms)
+✔ entry redesign events accept only the six mappings and preserve historical service id (2.837702ms)
+✔ text hashing treats CRLF and LF as the same source content (1.432857ms)
+✔ checked-in GitHub Pages output is reproducible (64.736319ms)
+✔ GA4 loader/config and the frozen V1 event contract are present without GTM (1.796354ms)
+✔ approved owner-guide hierarchy stays clear and the source-check date appears only in the footer (0.874016ms)
+✔ static anchors are unique and every internal link resolves (0.4315ms)
+✔ external links omit decorative arrows and preserve new-window accessibility (0.608466ms)
+✔ all plans expose complete tax information and official next steps without client-side rendering (0.513022ms)
+✔ generated Messenger preserves its source fragment and CX configuration (1.270994ms)
+✔ all plans provide a full condition hook for the guide UI (0.614224ms)
+✔ typography rules prevent forced line breaks and keep tokens inline (0.817421ms)
+✔ public landlord includes official flow PDF with https www-ws.gov.taipei source link (0.283847ms)
+✔ build script validates all plan sourceLinks require HTTPS (0.323787ms)
+✔ favicon uses official Taipei Revenue Service mark and preserves header logo (0.341744ms)
+✔ messenger ui rules ensure notice is never moved into details and panel aligns gapless (0.363517ms)
+✔ income-standard-launcher floating shortcut is completely removed (0.222134ms)
+✔ income standard is an HTML group with two safe independent actions and retained assets (0.33882ms)
+✔ FAQ uses approved name without changing policy date or period rules (1.852148ms)
+✔ local messenger close has native semantics and defined panel color (0.535627ms)
+✔ two groups have six exact unique form links and accessible generated labels (3.165556ms)
+✔ safe relative staging configuration generates and unsafe paths fail (0.895027ms)
+✔ relative forms produce a real staging build without changing live config (101.754108ms)
+✔ every guidance path terminates within three questions and refers to existing plans (1.807511ms)
+✔ known subsidy leads to public landlord; uncertainty retains alternatives (2.663349ms)
+✔ private service does not recommend the personal-owner benefit after owner condition is denied (0.222084ms)
+✔ previous answer can be changed without retaining an obsolete branch (0.671701ms)
+✔ quick-topic de-duplication matches only the predefined input and never forwards text (3.688733ms)
+✔ CX open attribution consumes only a real hero closed-to-open transition (0.288475ms)
+✔ Rental site explicitly configures its initial Playbook and generated output preserves it (0.216906ms)
+✔ shared Messenger UI has no Rental Playbook resource fallback (0.1393ms)
+✔ configured initial Playbook is sent on the first request with unchanged runtime context (2.204028ms)
+✔ first request disarms currentPlaybook while retaining runtime context (0.295685ms)
+✔ new session, session expiration/end, and storage reset re-arm the configured initial Playbook (0.561655ms)
+✔ missing or blank site config sends runtime context without guessing a Playbook (0.506853ms)
+✔ hash changes update page section without changing initial-Playbook policy (0.284348ms)
+✔ house-tax current period follows the July boundary and Taipei runtime date injection (0.211579ms)
+✔ explicit date parser accepts only the supported full-date forms and normalizes ROC dates (1.30225ms)
+✔ explicit date parser rejects a date preceded by an embedded digit (0.261433ms)
+✔ explicit date parser rejects a date followed by an embedded digit (0.191599ms)
+✔ adjacent Chinese full dates are ambiguous (0.46512ms)
+✔ calendar validity rejects impossible dates and detects multiple dates (0.660665ms)
+✔ invalid or ambiguous outgoing dates clear normalized date and period values (0.514464ms)
+✔ adjacent Chinese full dates clear outgoing explicit date and period (0.140301ms)
+✔ each outgoing Messenger request refreshes context and clears stale explicit dates (0.682608ms)
+✔ Messenger title, placeholder, assistant copy, and rental hot topics remain present (0.155995ms)
+✔ six entries preserve existing destinations and expose both new hash pages (1.699408ms)
+✔ application channels retain exact configured links and independent policy details (0.421435ms)
+✔ both video sources come from switchable config and retain native player affordances (2.485102ms)
+✔ iOS, LINE, embedded WebViews and unknown engines install no custom video click listener (7.922376ms)
+✔ Chromium surface click toggles once without autoplay or separate touch handlers (2.386462ms)
+✔ native-handled, descendant and fullscreen clicks do not invoke custom playback (1.446157ms)
+✔ a rejected surface play request is contained and can be retried (7.617198ms)
+✔ initial version follows browser mobile device hint, with phone UA fallback (9.336856ms)
+✔ phone manual PC selection survives route pauses without autoplay or progress loss (2.579453ms)
+✔ switching and navigation pause both players without resetting selection or progress (1.923416ms)
+✔ backgrounding the browser or leaving the document pauses playback (1.408671ms)
+✔ build accepts future relative video paths and rejects non-HTTPS remote sources (186.347977ms)
+✔ Pages test artifact disables GA4 without changing normal generated HTML or analytics helper (1.358985ms)
+✔ publication excludes repo metadata, source documents, snapshots, arbitrary assets and MP4; removes stale output (101.945346ms)
+✔ all relative HTML/CSS runtime assets resolve inside published output and R2 sources stay unchanged (1.617936ms)
+✔ critical assets stay within the static performance budget (47.855495ms)
+✔ income standard text controls request no artwork at any viewport (0.615767ms)
+✔ one shared hero precedes all content pages and six entry DOM order matches requested keyboard order (1.951217ms)
+✔ application page has three equal channel links while four policy records remain (0.565311ms)
+✔ retired shared note and its empty paragraphs are absent from generated pages (0.65125ms)
+✔ approved five destinations keep every query parameter exactly (0.138589ms)
+✔ approved refined A is the deployed WebP, with versioned PNG fallback and OG (3.465017ms)
+✔ only the four approved icon definitions change from the verified 4fc7521 baseline (1.636814ms)
+✔ all 16 distinct card semantics use one accessible original SVG library (1.290793ms)
+✔ numbering is removed at source while selected-plan emphasis and comparison routing remain (1.013255ms)
+✔ only personal and subsidy change from the actual 6e6d7fe artwork (0.66482ms)
+ℹ tests 75
+ℹ suites 0
+ℹ pass 75
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1529.984981
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.2.3
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.3
+npm notice To update run: npm install -g npm@12.2.3
+npm notice
+hero-v2.webp: 135,064 / 700,000 bytes PASS
+assets/images/income-standard-card.webp: 359,782 / 500,000 bytes PASS
+assets/images/income-standard-illustration.webp: 92,282 / 200,000 bytes PASS
+Static performance guards PASS (/workspace/work/taipei-rental-tax-guide/)
+Built index.html: home, four plan views, comparison; existing Messenger preserved.
+Pages test: 33 static files in dist-pages-test; GA4 disabled; no repository documents or MP4.

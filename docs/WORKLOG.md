@@ -112,3 +112,10 @@ Final QA 部署及收尾：runtime 80f0d4697f35ca3506a2a288d2fa1f255ef7b19a 已�
 Claude 以 `2f353736c6307db4a634d3a3af2219c9f14806db` 審查，未發現 P0/P1；本地重建、75/75、11 視窗×6路由×3字級、版面/鍵盤/導覽等通過。其環境封鎖真實 vendor／測試站，故小幫手行為為 mock，不代表實機。五項 P2：浮動 launcher 跳動與暫藏（報告百分比與數量不符，待量測）、隱藏側面板預載約 1.2 MB、行為測試未納入 npm test、獨立文字連結觸控尺寸、GitHub Pages 可能公開內部文件；另有 P3 維護項。GPT 核對程式、前輪證據及主站 GET，確認根目錄 PROJECT_STATE.md/README.md/package.json 回 200；未證實全部內部檔公開或有機密洩漏。
 
 使用者決定暫不改 GitHub Pages，未來 Repo 私有化、Cloudflare 託管另案核定；維持現有公開站，禁止敏感資料提交。其餘授權交 Coding Agent 針對性收尾：CQA-01 必修隱藏角色面板不必要的圖片請求（包含非預載路徑），CQA-02 實測 launcher 穩定性，有安全局部改進才修，保留必要操作可達。CI、無障礙與其他 P3 延後。以 [前輪 Task（固定 SHA）](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/blob/2f353736c6307db4a634d3a3af2219c9f14806db/docs/NEXT_TASK.md) 保留完整歷史，現行規格見 NEXT_TASK。此次僅更新規劃文件，未開始開發、未改主線、未調整平台或正式部署；正式交付及原實機業務待辦保留。
+
+
+## 2026-11-18 收斂實作及測試站驗收
+
+遠端 `de600f5` 乾淨同步。CQA-01 移除隱藏側面板的初始 URL 與整批預載，狀態換圖和 resize 改走共用可見幾何判斷。以原版與修正版比較，六種隱藏情境各六個請求、1,498,656 bytes 降至零，涵蓋門檻、開關重開、熱門問題與狀態。CQA-02 30 組本機雙向捲動 8,702 個樣本完全一致，2,748 個隱藏、最大移動 756px。有限位移試驗減少移動次數，但至少 60px 的跳動由 64 次增至 286 次，保留原策略。必要操作實際觸控／Enter 與短窗正常開合、關閉焦點返回通過。
+
+實作 `25c4122` 的 Cloudflare 自動建置 `29f3d1d9-e241-456a-b063-1a083c7b8737` 成功。75/75、建置與預算、正常 TLS 33 檔逐 bytes／MIME、測試站瀏覽器及零 GA4 通過。本輪以 Google 靜態 vendor 元件與合成狀態測試，沒有真實 CX 發問。待 GPT 審查，機關交付、URL、實機及業務待辦保留。[報告與量測](evidence/2026-11-18-claude-closeout/REPORT.md)
