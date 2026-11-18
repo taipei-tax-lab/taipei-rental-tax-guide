@@ -119,3 +119,7 @@ Claude 以 `2f353736c6307db4a634d3a3af2219c9f14806db` 審查，未發現 P0/P1�
 遠端 `de600f5` 乾淨同步。CQA-01 移除隱藏側面板的初始 URL 與整批預載，狀態換圖和 resize 改走共用可見幾何判斷。以原版與修正版比較，六種隱藏情境各六個請求、1,498,656 bytes 降至零，涵蓋門檻、開關重開、熱門問題與狀態。CQA-02 30 組本機雙向捲動 8,702 個樣本完全一致，2,748 個隱藏、最大移動 756px。有限位移試驗減少移動次數，但至少 60px 的跳動由 64 次增至 286 次，保留原策略。必要操作實際觸控／Enter 與短窗正常開合、關閉焦點返回通過。
 
 實作 `25c4122` 的 Cloudflare 自動建置 `29f3d1d9-e241-456a-b063-1a083c7b8737` 成功。75/75、建置與預算、正常 TLS 33 檔逐 bytes／MIME、測試站瀏覽器及零 GA4 通過。本輪以 Google 靜態 vendor 元件與合成狀態測試，沒有真實 CX 發問。待 GPT 審查，機關交付、URL、實機及業務待辦保留。[報告與量測](evidence/2026-11-18-claude-closeout/REPORT.md)
+
+## 2026-11-18 追加：恢復浮動小幫手原視覺比例
+
+使用者檢視新版實際截圖，認為「點我問！」與角色圖太小，要求恢復。GPT 在 `ced60bd` 基準核對 `05f096d`→`80f0d46` diff：桌機 icon-size 150→84px、手機 132→72px；既有 bubble-size 84/72px 不變，新增 Shadow DOM max-width/height 約束。核定只恢復原比例及必要的安全定位，保留真實 hit-test、防遮擋、短窗關閉與 CQA-01 隱藏側面板零圖片請求。前輪 [Task（固定 SHA）](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/blob/ced60bd7c08073feb5bfaaf6c46e5d7f784728fe/docs/NEXT_TASK.md) 與驗收證據保留。此次只更新規劃文件，未開始實作，未授權合併或正式部署；平台及業務待辦不變。

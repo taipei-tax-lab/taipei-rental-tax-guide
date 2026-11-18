@@ -1,6 +1,13 @@
 # PROJECT_STATE — 現行狀態
 
-核對日期：2026-11-18（Asia/Taipei）。狀態：**CLAUDE_CLOSEOUT_COMPLETE_PENDING_GPT_REVIEW — 收斂修正及測試站驗收完成，待 GPT 審查。**
+核對日期：2026-11-18（Asia/Taipei）。狀態：**LAUNCHER_SCALE_RESTORE_APPROVED_PENDING_IMPLEMENTATION — 使用者核定恢復右下角圖示原比例，尚未實作。**
+
+## 最新現況（2026-11-18，追加視覺修正）
+
+- 已核對遠端功能分支 `ced60bd7c08073feb5bfaaf6c46e5d7f784728fe`，main `28fd76a`；runtime `25c4122`。前輪收斂結果見下節及 [報告](evidence/2026-11-18-claude-closeout/REPORT.md)，沒有將此次文件更新當成新驗收。
+- 使用者實際檢視截圖，要求恢復右下角「點我問！」與角色圖原比例。GPT 核對縮小前 `05f096d` 與 `80f0d46`，確認原圖尺寸 token 桌機 150→84px、手機 132→72px，並加入 Shadow DOM max-width/height 約束；按鈕尺寸 84/72px 未變。新輪只恢復角色圖原比例、保留防遮擋和短窗關閉，與 CQA-01 側面板載入優化不混為一談。具體驗收見 [NEXT_TASK](NEXT_TASK.md)。未修改 runtime、main 或平台設定。
+
+以下前輪結果為歷史紀錄，本輪以 NEXT_TASK 為準。
 
 
 ## 最新現況（2026-11-18，收斂修正驗收）
