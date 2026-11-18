@@ -1,0 +1,629 @@
+{
+  "base": "https://rental-tax-guide-test.pages.dev",
+  "baseline": false,
+  "tlsDiagnostic": true,
+  "vendor": "Google static shell; CX API blocked",
+  "rows": [
+    {
+      "width": 1440,
+      "height": 900,
+      "font": 100,
+      "button": {
+        "x": 1324.828125,
+        "y": 518,
+        "width": 84,
+        "height": 84,
+        "top": 518,
+        "right": 1408.828125,
+        "bottom": 602,
+        "left": 1324.828125
+      },
+      "image": {
+        "x": 1291.828125,
+        "y": 485,
+        "width": 150,
+        "height": 150,
+        "top": 485,
+        "right": 1441.828125,
+        "bottom": 635,
+        "left": 1291.828125
+      },
+      "alpha": [
+        4,
+        0,
+        322,
+        360
+      ],
+      "artwork": [
+        1293.4947916666667,
+        485,
+        1425.9947916666667,
+        635
+      ],
+      "artHit": {
+        "x": 1293.484375,
+        "y": 485,
+        "width": 132.515625,
+        "height": 150,
+        "top": 485,
+        "right": 1426,
+        "bottom": 635,
+        "left": 1293.484375
+      },
+      "visible": true,
+      "character": [
+        1315.3697916666667,
+        616.875,
+        true
+      ],
+      "prompt": [
+        1338.703125,
+        495.625,
+        true
+      ],
+      "transparentHit": false,
+      "transparentInViewport": true,
+      "keyboardClosedWithFocus": true,
+      "touchOpened": true
+    },
+    {
+      "width": 1892,
+      "height": 873,
+      "font": 100,
+      "button": {
+        "x": 1776.828125,
+        "y": 742,
+        "width": 84,
+        "height": 84,
+        "top": 742,
+        "right": 1860.828125,
+        "bottom": 826,
+        "left": 1776.828125
+      },
+      "image": {
+        "x": 1743.828125,
+        "y": 709,
+        "width": 150,
+        "height": 150,
+        "top": 709,
+        "right": 1893.828125,
+        "bottom": 859,
+        "left": 1743.828125
+      },
+      "alpha": [
+        4,
+        0,
+        322,
+        360
+      ],
+      "artwork": [
+        1745.4947916666667,
+        709,
+        1877.9947916666667,
+        859
+      ],
+      "artHit": {
+        "x": 1745.484375,
+        "y": 709,
+        "width": 132.515625,
+        "height": 150,
+        "top": 709,
+        "right": 1878,
+        "bottom": 859,
+        "left": 1745.484375
+      },
+      "visible": true,
+      "character": [
+        1767.3697916666667,
+        840.875,
+        true
+      ],
+      "prompt": [
+        1790.703125,
+        719.625,
+        true
+      ],
+      "transparentHit": false,
+      "transparentInViewport": true,
+      "keyboardClosedWithFocus": true,
+      "touchOpened": true
+    },
+    {
+      "width": 320,
+      "height": 640,
+      "font": 100,
+      "button": {
+        "x": 217.921875,
+        "y": 227,
+        "width": 72,
+        "height": 72,
+        "top": 227,
+        "right": 289.921875,
+        "bottom": 299,
+        "left": 217.921875
+      },
+      "image": {
+        "x": 187.921875,
+        "y": 197,
+        "width": 132,
+        "height": 132,
+        "top": 197,
+        "right": 319.921875,
+        "bottom": 329,
+        "left": 187.921875
+      },
+      "alpha": [
+        4,
+        0,
+        322,
+        360
+      ],
+      "artwork": [
+        189.38854166666667,
+        197,
+        305.98854166666666,
+        329
+      ],
+      "artHit": {
+        "x": 189.375,
+        "y": 197,
+        "width": 116.625,
+        "height": 132,
+        "top": 197,
+        "right": 306,
+        "bottom": 329,
+        "left": 189.375
+      },
+      "visible": true,
+      "character": [
+        208.63854166666667,
+        313.05,
+        true
+      ],
+      "prompt": [
+        229.171875,
+        206.35,
+        true
+      ],
+      "transparentHit": false,
+      "transparentInViewport": true,
+      "keyboardClosedWithFocus": true,
+      "touchOpened": true
+    },
+    {
+      "width": 320,
+      "height": 640,
+      "font": 200,
+      "button": {
+        "x": 217.921875,
+        "y": 524,
+        "width": 72,
+        "height": 72,
+        "top": 524,
+        "right": 289.921875,
+        "bottom": 596,
+        "left": 217.921875
+      },
+      "image": {
+        "x": 187.921875,
+        "y": 494,
+        "width": 132,
+        "height": 132,
+        "top": 494,
+        "right": 319.921875,
+        "bottom": 626,
+        "left": 187.921875
+      },
+      "alpha": [
+        4,
+        0,
+        322,
+        360
+      ],
+      "artwork": [
+        189.38854166666667,
+        494,
+        305.98854166666666,
+        626
+      ],
+      "artHit": {
+        "x": 189.375,
+        "y": 494,
+        "width": 116.625,
+        "height": 132,
+        "top": 494,
+        "right": 306,
+        "bottom": 626,
+        "left": 189.375
+      },
+      "visible": true,
+      "character": [
+        208.63854166666667,
+        610.05,
+        true
+      ],
+      "prompt": [
+        229.171875,
+        503.35,
+        true
+      ],
+      "transparentHit": false,
+      "transparentInViewport": true,
+      "keyboardClosedWithFocus": true,
+      "touchOpened": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "font": 150,
+      "button": {
+        "x": 287.921875,
+        "y": 379,
+        "width": 72,
+        "height": 72,
+        "top": 379,
+        "right": 359.921875,
+        "bottom": 451,
+        "left": 287.921875
+      },
+      "image": {
+        "x": 257.921875,
+        "y": 349,
+        "width": 132,
+        "height": 132,
+        "top": 349,
+        "right": 389.921875,
+        "bottom": 481,
+        "left": 257.921875
+      },
+      "alpha": [
+        4,
+        0,
+        322,
+        360
+      ],
+      "artwork": [
+        259.38854166666664,
+        349,
+        375.98854166666666,
+        481
+      ],
+      "artHit": {
+        "x": 259.375,
+        "y": 349,
+        "width": 116.625,
+        "height": 132,
+        "top": 349,
+        "right": 376,
+        "bottom": 481,
+        "left": 259.375
+      },
+      "visible": true,
+      "character": [
+        278.63854166666664,
+        465.05,
+        true
+      ],
+      "prompt": [
+        299.171875,
+        358.35,
+        true
+      ],
+      "transparentHit": false,
+      "transparentInViewport": true,
+      "keyboardClosedWithFocus": true,
+      "touchOpened": true
+    },
+    {
+      "width": 414,
+      "height": 896,
+      "font": 200,
+      "button": {
+        "x": 311.921875,
+        "y": 645,
+        "width": 72,
+        "height": 72,
+        "top": 645,
+        "right": 383.921875,
+        "bottom": 717,
+        "left": 311.921875
+      },
+      "image": {
+        "x": 281.921875,
+        "y": 615,
+        "width": 132,
+        "height": 132,
+        "top": 615,
+        "right": 413.921875,
+        "bottom": 747,
+        "left": 281.921875
+      },
+      "alpha": [
+        4,
+        0,
+        322,
+        360
+      ],
+      "artwork": [
+        283.38854166666664,
+        615,
+        399.98854166666666,
+        747
+      ],
+      "artHit": {
+        "x": 283.375,
+        "y": 615,
+        "width": 116.625,
+        "height": 132,
+        "top": 615,
+        "right": 400,
+        "bottom": 747,
+        "left": 283.375
+      },
+      "visible": true,
+      "character": [
+        302.63854166666664,
+        731.05,
+        true
+      ],
+      "prompt": [
+        323.171875,
+        624.35,
+        true
+      ],
+      "transparentHit": false,
+      "transparentInViewport": true,
+      "keyboardClosedWithFocus": true,
+      "touchOpened": true
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "font": 100,
+      "button": {
+        "x": 728.828125,
+        "y": 119,
+        "width": 84,
+        "height": 84,
+        "top": 119,
+        "right": 812.828125,
+        "bottom": 203,
+        "left": 728.828125
+      },
+      "image": {
+        "x": 695.828125,
+        "y": 86,
+        "width": 150,
+        "height": 150,
+        "top": 86,
+        "right": 845.828125,
+        "bottom": 236,
+        "left": 695.828125
+      },
+      "alpha": [
+        4,
+        0,
+        322,
+        360
+      ],
+      "artwork": [
+        697.4947916666666,
+        86,
+        829.9947916666666,
+        236
+      ],
+      "artHit": {
+        "x": 697.484375,
+        "y": 86,
+        "width": 132.515625,
+        "height": 150,
+        "top": 86,
+        "right": 830,
+        "bottom": 236,
+        "left": 697.484375
+      },
+      "visible": true,
+      "character": [
+        719.3697916666666,
+        217.875,
+        true
+      ],
+      "prompt": [
+        742.703125,
+        96.625,
+        true
+      ],
+      "transparentHit": false,
+      "transparentInViewport": true,
+      "keyboardClosedWithFocus": true,
+      "touchOpened": true
+    },
+    {
+      "width": 844,
+      "height": 390,
+      "font": 200,
+      "button": {
+        "x": 728.828125,
+        "y": 259,
+        "width": 84,
+        "height": 84,
+        "top": 259,
+        "right": 812.828125,
+        "bottom": 343,
+        "left": 728.828125
+      },
+      "image": {
+        "x": 695.828125,
+        "y": 226,
+        "width": 150,
+        "height": 150,
+        "top": 226,
+        "right": 845.828125,
+        "bottom": 376,
+        "left": 695.828125
+      },
+      "alpha": [
+        4,
+        0,
+        322,
+        360
+      ],
+      "artwork": [
+        697.4947916666666,
+        226,
+        829.9947916666666,
+        376
+      ],
+      "artHit": {
+        "x": 697.484375,
+        "y": 226,
+        "width": 132.515625,
+        "height": 150,
+        "top": 226,
+        "right": 830,
+        "bottom": 376,
+        "left": 697.484375
+      },
+      "visible": true,
+      "character": [
+        719.3697916666666,
+        357.875,
+        true
+      ],
+      "prompt": [
+        742.703125,
+        236.625,
+        true
+      ],
+      "transparentHit": false,
+      "transparentInViewport": true,
+      "keyboardClosedWithFocus": true,
+      "touchOpened": true,
+      "hiddenOnCloseFocusedShortcutAndRecovered": true
+    },
+    {
+      "width": 560,
+      "height": 800,
+      "font": 100,
+      "button": {
+        "x": 457.921875,
+        "y": 574,
+        "width": 72,
+        "height": 72,
+        "top": 574,
+        "right": 529.921875,
+        "bottom": 646,
+        "left": 457.921875
+      },
+      "image": {
+        "x": 427.921875,
+        "y": 544,
+        "width": 132,
+        "height": 132,
+        "top": 544,
+        "right": 559.921875,
+        "bottom": 676,
+        "left": 427.921875
+      },
+      "alpha": [
+        4,
+        0,
+        322,
+        360
+      ],
+      "artwork": [
+        429.38854166666664,
+        544,
+        545.9885416666666,
+        676
+      ],
+      "artHit": {
+        "x": 429.375,
+        "y": 544,
+        "width": 116.625,
+        "height": 132,
+        "top": 544,
+        "right": 546,
+        "bottom": 676,
+        "left": 429.375
+      },
+      "visible": true,
+      "character": [
+        448.63854166666664,
+        660.05,
+        true
+      ],
+      "prompt": [
+        469.171875,
+        553.35,
+        true
+      ],
+      "transparentHit": false,
+      "transparentInViewport": true,
+      "keyboardClosedWithFocus": true,
+      "touchOpened": true
+    },
+    {
+      "width": 561,
+      "height": 800,
+      "font": 100,
+      "button": {
+        "x": 445.828125,
+        "y": 559,
+        "width": 84,
+        "height": 84,
+        "top": 559,
+        "right": 529.828125,
+        "bottom": 643,
+        "left": 445.828125
+      },
+      "image": {
+        "x": 412.828125,
+        "y": 526,
+        "width": 150,
+        "height": 150,
+        "top": 526,
+        "right": 562.828125,
+        "bottom": 676,
+        "left": 412.828125
+      },
+      "alpha": [
+        4,
+        0,
+        322,
+        360
+      ],
+      "artwork": [
+        414.4947916666667,
+        526,
+        546.9947916666666,
+        676
+      ],
+      "artHit": {
+        "x": 414.484375,
+        "y": 526,
+        "width": 132.515625,
+        "height": 150,
+        "top": 526,
+        "right": 547,
+        "bottom": 676,
+        "left": 414.484375
+      },
+      "visible": true,
+      "character": [
+        436.3697916666667,
+        657.875,
+        true
+      ],
+      "prompt": [
+        459.703125,
+        536.625,
+        true
+      ],
+      "transparentHit": false,
+      "transparentInViewport": true,
+      "keyboardClosedWithFocus": true,
+      "touchOpened": true
+    }
+  ]
+}

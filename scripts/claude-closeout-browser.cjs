@@ -410,6 +410,20 @@ async function launcherScale(browser) {
         await settle(page);
         assert.ok(await bubble.evaluate(e => e.getRootNode().activeElement === e));
         row.touchOpened = row.keyboardClosedWithFocus = true;
+        if (width === 844 && height === 390 && font === 200) {
+          // This scroll offset leaves no full-size safe position in the right edge.
+          await page.keyboard.press('Enter');
+          await close.waitFor({state:'visible'});
+          await page.evaluate(() => scrollTo(0,512));
+          await close.focus();
+          await page.keyboard.press('Enter');
+          await page.waitForFunction(() => document.activeElement?.id === 'open-helper');
+          assert.ok(!(await bubble.isVisible()));
+          assert.equal(await page.evaluate(() => scrollY),512);
+          await page.evaluate(() => scrollTo(0,0));
+          await bubble.waitFor({state:'visible'});
+          row.hiddenOnCloseFocusedShortcutAndRecovered = true;
+        }
       }
       rows.push({width,height,font,...row});
     });

@@ -123,3 +123,8 @@ Claude 以 `2f353736c6307db4a634d3a3af2219c9f14806db` 審查，未發現 P0/P1�
 ## 2026-11-18 追加：恢復浮動小幫手原視覺比例
 
 使用者檢視新版實際截圖，認為「點我問！」與角色圖太小，要求恢復。GPT 在 `ced60bd` 基準核對 `05f096d`→`80f0d46` diff：桌機 icon-size 150→84px、手機 132→72px；既有 bubble-size 84/72px 不變，新增 Shadow DOM max-width/height 約束。核定只恢復原比例及必要的安全定位，保留真實 hit-test、防遮擋、短窗關閉與 CQA-01 隱藏側面板零圖片請求。前輪 [Task（固定 SHA）](https://github.com/taipei-tax-lab/taipei-rental-tax-guide/blob/ced60bd7c08073feb5bfaaf6c46e5d7f784728fe/docs/NEXT_TASK.md) 與驗收證據保留。此次只更新規劃文件，未開始實作，未授權合併或正式部署；平台及業務待辦不變。
+
+
+## 2026-11-18 恢復小幫手比例與驗收
+
+快轉至 `42acfba` 後實作 `ad19c1e`。恢復 150／132px 原 PNG 尺寸，保留 84／72px 按鈕及短窗關閉。圖案可點區與原按鈕一起避讓，空間不足時暫藏並在安全位置恢復。關閉時若入口暫藏，焦點回到頁面的同功能按鈕。8,702 筆捲動樣本中，暫藏由 2,748 增為 3,654，最大跳動由 756 降為 683px。75/75、212 組 RWD、本機與測試站針對性回歸通過。Cloudflare 自動部署成功，33 檔正常 TLS bytes／MIME 與本地一致，GA4 隔離。待使用者確認視覺及 GPT 審查。[完整驗收](evidence/2026-11-18-launcher-scale/REPORT.md)

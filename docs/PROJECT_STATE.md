@@ -1,14 +1,14 @@
 # PROJECT_STATE — 現行狀態
 
-核對日期：2026-11-18（Asia/Taipei）。狀態：**LAUNCHER_SCALE_RESTORE_APPROVED_PENDING_IMPLEMENTATION — 使用者核定恢復右下角圖示原比例，尚未實作。**
+核對日期：2026-11-18（Asia/Taipei）。狀態：**LAUNCHER_SCALE_RESTORED_PENDING_VISUAL_REVIEW — 已部署測試站，待使用者確認及 GPT 審查。**
 
-## 最新現況（2026-11-18，追加視覺修正）
+## 最新現況（2026-11-18，小幫手原比例恢復）
 
-- 已核對遠端功能分支 `ced60bd7c08073feb5bfaaf6c46e5d7f784728fe`，main `28fd76a`；runtime `25c4122`。前輪收斂結果見下節及 [報告](evidence/2026-11-18-claude-closeout/REPORT.md)，沒有將此次文件更新當成新驗收。
-- 使用者實際檢視截圖，要求恢復右下角「點我問！」與角色圖原比例。GPT 核對縮小前 `05f096d` 與 `80f0d46`，確認原圖尺寸 token 桌機 150→84px、手機 132→72px，並加入 Shadow DOM max-width/height 約束；按鈕尺寸 84/72px 未變。新輪只恢復角色圖原比例、保留防遮擋和短窗關閉，與 CQA-01 側面板載入優化不混為一談。具體驗收見 [NEXT_TASK](NEXT_TASK.md)。未修改 runtime、main 或平台設定。
+- 指定分支快轉至 `42acfba` 後實作 `ad19c1e`。原 PNG 桌機／手機恢復 150／132px，按鈕保留 84／72px。右下角依圖案與按鈕幾何避擋，無安全位置時暫藏並在安全位置恢復。關閉後入口暫藏時，焦點回到「直接問小幫手」。
+- 8,702 筆捲動樣本中，暫藏 2,748→3,654，最大跳動 756→683px。75/75、212 組 RWD、真實靜態元件比例、短窗、旋轉、觸控、鍵盤、側面板零專屬圖請求皆通過。Cloudflare 測試站自動建置成功，正常 TLS 33 檔 bytes／MIME 符合本地產物，GA4 隔離通過。[資料及重現指令](evidence/2026-11-18-launcher-scale/REPORT.md)
+- 待使用者確認測試站視覺與 GPT 審查。實機、真實 CX、人工業務和機關正式交付維持既有待辦。
 
-以下前輪結果為歷史紀錄，本輪以 NEXT_TASK 為準。
-
+以下為歷史紀錄。
 
 ## 最新現況（2026-11-18，收斂修正驗收）
 
